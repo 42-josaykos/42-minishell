@@ -1,0 +1,6 @@
+srcs/*.o
+libft/*.o
+libft/*/*.o
+minishell
+LICENSE
+tags
