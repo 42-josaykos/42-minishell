@@ -1,5 +1,6 @@
 srcs/*.o
 libft/*.o
+libft/*.a
 libft/*/*.o
 minishell
 LICENSE
