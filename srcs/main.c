@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/11/30 11:57:02 by jonny            ###   ########.fr       */
+/*   Updated: 2020/11/30 12:52:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,28 @@
 #include <stdlib.h>
 #include "../libft/libft.h"
 
-int main(int argc, char **argv)
+void msh_loop(void)
 {
-	int		ret;
-	char	*line;
-	int 	fd;
+	char *line;
 
 	line = NULL;
-
-	if (argc >= 2)
-		fd = open(argv[1], O_RDONLY);
-	else
-		fd = 0;
-
-	while ((ret = get_next_line(fd, &line)) > 0)
+	ft_printf("Welcome to minishell (msh)!\nCtrl-C or \"exit\" to quit msh.\n");
+	while (1)
 	{
+		ft_printf("$ ");
+		get_next_line(0, &line);
+		if (ft_strncmp(line, "exit", 4) == 0)
+			break ;
 		ft_printf("%s\n", line);
 		free(line);
 		line = NULL;
 	}
-	if (fd != 0)
-		close(fd);
-	return (0);
+}
+
+int main(int argc, char **argv)
+{
+	(void)argv;
+	if (argc < 2)
+		msh_loop();
+	return EXIT_SUCCESS;
 }
