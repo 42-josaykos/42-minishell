@@ -6,18 +6,18 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/02 14:44:22 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/02 14:57:39 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-void init_msh(void)
+void	init_msh(void)
 {
 	ft_printf("Welcome to minishell (msh)!\nCtrl-C or \"exit\" to quit msh.\n");
 }
 
-int get_input(char *input)
+int		get_input(char *input)
 {
 	char *line;
 
@@ -29,11 +29,11 @@ int get_input(char *input)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	(void)argv;
 	char input[MAXCHAR];
 
+	(void)argv;
 	if (argc < 2)
 	{
 		init_msh();
@@ -47,5 +47,5 @@ int main(int argc, char **argv)
 	}
 	else
 		printf("Usage: just ./minishell with no arguments.\n");
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
