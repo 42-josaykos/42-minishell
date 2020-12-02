@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2020/11/30 11:58:27 by jonny            ###   ########.fr        #
+#    Updated: 2020/12/02 16:05:27 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ all:	$(NAME)
 $(NAME): $(OBJ)
 	make -C libft/ 1>/dev/null
 	@echo "$(GREEN)$(LIBFT) done...$(END)"
+	$(CC) srcs/pwd.c $(INCLUDES) $(LIBFT) -o pwd
+	@echo "$(GREEN)pwd builtin command done...$(END)"
 	$(CC) $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) binary is ready !$(END)"
 
@@ -43,9 +45,11 @@ $(NAME): $(OBJ)
 
 clean:
 	$(RM) $(OBJ)
+	make clean -C libft/ 1>/dev/null
 
 fclean:		clean
 	$(RM) $(NAME)
+	$(RM) pwd
 	make fclean -C libft/ 1>/dev/null
 	@echo "$(RED)$(LIBFT) removed$(END)"
 	@echo "$(RED)$(NAME) removed$(END)"
