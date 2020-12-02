@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/02 16:04:17 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/02 17:37:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int		get_input(char *input)
 
 void	exec_cmd(void)
 {
-	char *args[2];
-	pid_t p1;
+	char	*args[2];
+	pid_t	p1;
 
 	args[0] = "./pwd";
 	args[1] = NULL;
@@ -43,6 +43,12 @@ void	exec_cmd(void)
 		execve("./pwd", args, NULL);
 	wait(NULL);
 }
+
+/*
+** Infinite loop that call get_input, a function printing a command prompt and
+** waiting for an input.
+** TODO: Need to call functions for parsing the input string
+*/
 
 int		main(int argc, char **argv)
 {
