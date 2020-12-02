@@ -6,16 +6,11 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/02 14:27:21 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/02 14:44:22 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "../libft/libft.h"
-
-#define MAXCHAR 50
+#include "msh.h"
 
 void init_msh(void)
 {
