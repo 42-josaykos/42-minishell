@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2020/12/02 16:05:27 by jonny            ###   ########.fr        #
+#    Updated: 2020/12/09 15:28:32 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ LIBFT 		= libft/libft.a
 INCLUDES 	= -Iincludes -Ilibft
 
 SRC_NAME	=	main.c \
+						parse_cmdline.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
