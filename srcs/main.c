@@ -6,11 +6,16 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/03 20:04:01 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/09 14:20:55 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+/*
+** Prints a welcome message.
+** TODO: Initialize envirnment variables here (PATH).
+*/
 
 void	init_msh(void)
 {
@@ -29,6 +34,11 @@ int		get_input(char *input)
 	return (0);
 }
 
+/*
+** Create a child process and execute the command in it. Parent process waits
+** the child process to finish.
+*/
+
 void	exec_cmd(void)
 {
 	char	*args[2];
@@ -37,10 +47,14 @@ void	exec_cmd(void)
 	args[0] = "./pwd";
 	args[1] = NULL;
 	p1 = fork();
+	sleep(1);
 	if (p1 < 0)
 		ft_printf("Cannot execute child process.\n");
 	if (p1 == 0)
-		execve("./pwd", args, NULL);
+	{
+		execve(args[0], args, NULL);
+		exit(0);
+	}
 	wait(NULL);
 }
 
