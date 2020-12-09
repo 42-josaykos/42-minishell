@@ -1,4 +1,5 @@
 # 42-minishell
+
 42 cursus project: Write a simple shell like bash. Learning about process and file descriptors
 
 ## TODO:
@@ -25,6 +26,5 @@ to be continued...
 
 ## Notes:
 
-- A function to execute commands: the function should look in the PATH and 
-execute the right executable.
->>>>>>> main
+- A function to execute commands: the function should look in the PATH and
+  execute the right executable.

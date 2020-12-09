@@ -6,11 +6,16 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/03 20:04:01 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/09 16:23:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+/*
+** Prints a welcome message.
+** TODO: Initialize environment variables here (PATH).
+*/
 
 void	init_msh(void)
 {
@@ -29,18 +34,31 @@ int		get_input(char *input)
 	return (0);
 }
 
-void	exec_cmd(void)
+/*
+** Create a child process and execute the command in it. Parent process waits
+** the child process to finish.
+*/
+
+void	exec_cmd(char *str)
 {
 	char	*args[2];
+	char 	buf[1000];
 	pid_t	p1;
 
-	args[0] = "./pwd";
+	ft_strlcpy(buf, "./", 3);
+	args[0] = ft_strcat(buf, str);
 	args[1] = NULL;
 	p1 = fork();
 	if (p1 < 0)
+	{
 		ft_printf("Cannot execute child process.\n");
+		exit(-1);
+	}
 	if (p1 == 0)
-		execve("./pwd", args, NULL);
+	{
+		execve(args[0], args, NULL);
+		exit(0);
+	}
 	wait(NULL);
 }
 
@@ -53,20 +71,21 @@ void	exec_cmd(void)
 int		main(int argc, char **argv)
 {
 	char input[MAXCHAR];
+	int ret;
 
 	(void)argv;
+	ft_memset(input, '0', sizeof(input));
 	if (argc < 2)
 	{
 		init_msh();
 		while (1)
 		{
 			get_input(input);
-			if (ft_strncmp(input, "exit", 4) == 0)
+			ret = parse_cmdline(input);
+			if (ret == 1)
 				break ;
-			else if (ft_strncmp(input, "pwd", 3) == 0)
-				exec_cmd();
-			else
-				ft_printf("msh: %s: command not found\n", input);
+			else if (ret == 2)
+				exec_cmd(input);
 		}
 	}
 	else
