@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 11:46:26 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 13:31:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # define MAXCHAR 50
 
 typedef struct	s_envp {
-	char *key;
-	char *value;
+	char key[100];
+	char value[100];
+	struct s_envp *next;
 } 				t_envp;
 
 int parse_cmdline(char *input);
