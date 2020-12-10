@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmdline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 10:28:14 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 15:10:19 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 ** don't print the message if input is an empty string.
 */
 
-int parse_cmdline(char *input)
+int		parse_cmdline(char *input)
 {
-	int i;
-	char *cmds_list[5];
+	int		i;
+	char	*cmds_list[5];
 
 	i = 0;
 	cmds_list[0] = "pwd";
@@ -31,6 +31,8 @@ int parse_cmdline(char *input)
 	cmds_list[2] = NULL;
 	if (ft_strncmp(input, "exit", 4) == 0)
 		return (1);
+	else if (ft_strncmp(input, "export", 4) == 0)
+		return (3);
 	else if (ft_strlen(input) != 0)
 	{
 		while (cmds_list[i])
