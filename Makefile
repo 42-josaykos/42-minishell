@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
+#    By: jonny <jonny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2020/12/09 15:28:32 by jonny            ###   ########.fr        #
+#    Updated: 2020/12/10 11:10:59 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ INCLUDES 	= -Iincludes -Ilibft
 
 SRC_NAME	=	main.c \
 						parse_cmdline.c \
+						init_path.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs

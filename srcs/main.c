@@ -6,11 +6,12 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/09 16:23:00 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 11:20:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+#include <fcntl.h>
 
 /*
 ** Prints a welcome message.
@@ -19,7 +20,13 @@
 
 void	init_msh(void)
 {
+	int fd;
+
 	ft_printf("Welcome to minishell (msh)!\nCtrl-C or \"exit\" to quit msh.\n");
+
+	fd = open(".mshrc", O_RDWR);
+	init_path(fd);
+	close(fd);
 }
 
 int		get_input(char *input)

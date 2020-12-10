@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/09 15:26:35 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 11:46:26 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 
 # define MAXCHAR 50
 
-typedef struct s_envp {
+typedef struct	s_envp {
 	char *key;
 	char *value;
 } 				t_envp;
 
 int parse_cmdline(char *input);
+void	init_path(int fd);
 
 #endif

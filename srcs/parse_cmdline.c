@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_cmdline.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
+/*   Updated: 2020/12/10 10:28:14 by jonny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
+
+/*
+** Check the input.
+** Returns 2 if this a valid command.
+** Returns 1 if "exit".
+** Prints "command not found" message and  returns 0 if invalid command, but
+** don't print the message if input is an empty string.
+*/
 
 int parse_cmdline(char *input)
 {
