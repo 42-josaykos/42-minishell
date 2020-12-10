@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:02:22 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/02 17:37:03 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 16:20:03 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Print current directory.
 */
 
-void	print_cwd(void)
+static void	print_cwd(void)
 {
 	char buf[1024];
 
@@ -24,7 +24,7 @@ void	print_cwd(void)
 	ft_printf("%s\n", buf);
 }
 
-int		main(void)
+int			main(void)
 {
 	print_cwd();
 	return (EXIT_SUCCESS);

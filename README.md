@@ -6,7 +6,7 @@
 
 - [ ] PATH variable. Buitlin commands should be execute through the PATH
 
-- [ ] builtin command `echo`, with -n option
+- [ ] builtin command `ech6`20wi6h -n option
 - [ ] builtin command `cd`, only with absolute or relative path
 - [x] builtin command `pwd`, with no options
 - [ ] builtin command `export`, with nooptions
@@ -26,5 +26,5 @@ to be continued...
 
 ## Notes:
 
-- A function to execute commands: the function should look in the PATH and
-  execute the right executable.
+- A function to execute commands: the function should look in the PATH and 
+execute the right executable.
