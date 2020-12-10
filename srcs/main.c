@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 15:33:41 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 16:12:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@
 void	init_msh(t_env **env_lst)
 {
 	int		fd;
-	t_env	*node;
 
-	node = malloc(sizeof(t_env));
-	node->next = NULL;
 	ft_printf("Welcome to minishell (msh)!\nCtrl-C or \"exit\" to quit msh.\n");
 	fd = open(".mshrc", O_RDWR);
-	init_path(fd, node);
+	init_path(fd, env_lst);
 	close(fd);
-	*env_lst = node;
 }
 
 int		get_input(char *input)

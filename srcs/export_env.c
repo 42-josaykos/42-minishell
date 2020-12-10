@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 15:31:26 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 16:02:26 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,18 @@ static void	env_lst_add(t_env **env_lst, t_env *new_env)
 {
 	t_env *tmp;
 
-	tmp = *env_lst;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new_env;
+	if (env_lst != NULL)
+	{
+		if (*env_lst == NULL)
+			*env_lst = new_env;
+		else
+		{
+			tmp = *env_lst;
+			while (tmp->next != NULL)
+				tmp = tmp->next;
+			tmp->next = new_env;
+		}
+	}
 }
 
 /*

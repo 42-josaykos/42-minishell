@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:30:32 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 15:28:04 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 16:16:19 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ int		parse_envp(char *str)
 ** Create a new env (key=value) in the env list.
 */
 
-void	assign_envp(char *str, t_env *env_lst)
+void	assign_envp(char *str, t_env **env_lst)
 {
 	char	**sub_strs;
 	int		i;
 
 	i = 0;
 	sub_strs = ft_split(str, '=');
-	ft_strlcpy(env_lst->key, *(sub_strs), ft_strlen(*(sub_strs)) + 1);
-	ft_strlcpy(env_lst->value, *(sub_strs + 1), ft_strlen(*(sub_strs + 1)) + 1);
+	export_env(env_lst, *(sub_strs), *(sub_strs + 1));
 	while (sub_strs[i] != NULL)
 		free(sub_strs[i++]);
 	free(sub_strs);
@@ -46,7 +45,7 @@ void	assign_envp(char *str, t_env *env_lst)
 ** is present, create a new env (key=value) in the list.
 */
 
-void	init_path(int fd, t_env *env_lst)
+void	init_path(int fd, t_env **env_lst)
 {
 	int		ret;
 	char	*line;

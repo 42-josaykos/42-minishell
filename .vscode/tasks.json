@@ -9,6 +9,7 @@
         "srcs/main.c",
         "srcs/parse_cmdline.c",
         "srcs/init_path.c",
+        "srcs/export_env.c",
         "libft/libft.a",
         "-g",
         "-Ilibft"
