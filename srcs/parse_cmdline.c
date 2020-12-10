@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 15:10:19 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 15:30:23 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*
 ** Check the input.
+** Returns 3 if "export" command (debug test).
 ** Returns 2 if this a valid command.
 ** Returns 1 if "exit".
 ** Prints "command not found" message and  returns 0 if invalid command, but

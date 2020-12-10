@@ -6,11 +6,16 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 15:11:59 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 15:31:26 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+/*
+** Add a new env variable (key=value) at the end of the env list.
+** Should be call in export_env function below.
+*/
 
 static void	env_lst_add(t_env **env_lst, t_env *new_env)
 {
@@ -21,6 +26,10 @@ static void	env_lst_add(t_env **env_lst, t_env *new_env)
 		tmp = tmp->next;
 	tmp->next = new_env;
 }
+
+/*
+** Create a new env variable (key=value) and add it to the env list.
+*/
 
 void		export_env(t_env **env_lst, char *key, char *value)
 {

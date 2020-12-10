@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 15:08:45 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 15:33:41 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 /*
 ** Prints a welcome message.
 ** Create a list of env variables.
+** TODO: Need to handle mutliple variables in the config file (.mshrc)
 */
 
 void	init_msh(t_env **env_lst)
@@ -99,7 +100,10 @@ int		main(int argc, char **argv)
 			else if (ret == 2)
 				exec_cmd(input);
 			else if (ret == 3)
+			{
 				export_env(&env_lst, "testkey", "testvalue");
+				ft_printf("env var testkey=testvalue added to the env list.\n");
+			}
 		}
 	}
 	else

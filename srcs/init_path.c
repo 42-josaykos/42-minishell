@@ -6,14 +6,14 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:30:32 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 15:09:58 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/10 15:28:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
 /*
-** Check for export variable in config file
+** Check for "export" command in the line. Returns 1 if "export" is present.
 */
 
 int		parse_envp(char *str)
@@ -22,6 +22,10 @@ int		parse_envp(char *str)
 		return (1);
 	return (0);
 }
+
+/*
+** Create a new env (key=value) in the env list.
+*/
 
 void	assign_envp(char *str, t_env *env_lst)
 {
@@ -36,6 +40,11 @@ void	assign_envp(char *str, t_env *env_lst)
 		free(sub_strs[i++]);
 	free(sub_strs);
 }
+
+/*
+** Read the config file opened in a fd and check each line. If "export" command
+** is present, create a new env (key=value) in the list.
+*/
 
 void	init_path(int fd, t_env *env_lst)
 {
@@ -66,7 +75,7 @@ void	init_path(int fd, t_env *env_lst)
 }
 
 /*
-** Delete et free le env list. Should be call in main function before return.
+** Delete and free the env list. Should be call in main function before return.
 */
 
 void	free_env_lst(t_env **env_lst)
