@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
+#    By: jonny <jonny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2020/12/02 16:05:27 by jonny            ###   ########.fr        #
+#    Updated: 2020/12/15 20:22:20 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,11 @@ LIBFT 		= libft/libft.a
 INCLUDES 	= -Iincludes -Ilibft
 
 SRC_NAME	=	main.c \
+						parse_cmdline.c \
+						init_path.c \
+						export_env.c \
+						file_status.c \
+						cd.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
@@ -48,8 +53,7 @@ clean:
 	make clean -C libft/ 1>/dev/null
 
 fclean:		clean
-	$(RM) $(NAME)
-	$(RM) pwd
+	$(RM) $(NAME) pwd a.out vgcore.*
 	make fclean -C libft/ 1>/dev/null
 	@echo "$(RED)$(LIBFT) removed$(END)"
 	@echo "$(RED)$(NAME) removed$(END)"

@@ -1,0 +1,5 @@
+# vi: ft=sh
+# ~/.mshrc
+#
+
+export PATH=/home/jonny/42cursus/42-minishell
