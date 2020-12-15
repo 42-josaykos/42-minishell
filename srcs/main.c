@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 10:30:50 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/15 12:43:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,21 @@ int		get_input(char *input)
 
 /*
 ** Create a child process and execute the command in it. Parent process waits
-** the child process to finish.
+** the child process to finish. read_path() reads the PATH and put it in the
+** filepath[MAXCHAR] buffer. We add the filename to the path with ft_strcat()
 */
 
-void	exec_cmd(char *str)
+void	exec_cmd(t_env **env_lst, char *filename)
 {
 	char	*args[2];
-	char	buf[MAXCHAR];
+	char	filepath[MAXCHAR];
 	pid_t	p1;
 
-	ft_strlcpy(buf, "./", 3);
-	args[0] = ft_strcat(buf, str);
+	read_path(env_lst, filepath);
+	args[0] = ft_strcat(filepath, filename);
 	args[1] = NULL;
+	if (file_exists(args[0]) != 0)
+		ft_printf("Command doesn't exist in PATH.\n");
 	p1 = fork();
 	if (p1 < 0)
 	{
@@ -94,7 +97,7 @@ int		main(int argc, char **argv)
 			if (ret == 1)
 				break ;
 			else if (ret == 2)
-				exec_cmd(input);
+				exec_cmd(&env_lst, input);
 			else if (ret == 3)
 			{
 				export_env(&env_lst, "testkey", "testvalue");

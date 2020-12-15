@@ -26,5 +26,5 @@ to be continued...
 
 ## Notes:
 
-- A function to execute commands: the function should look in the PATH and
-  execute the right executable.
+- A function to execute commands: the function should look in the PATH and 
+execute the right executable.

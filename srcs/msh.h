@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 10:36:37 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/15 12:44:16 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
+# include <stdbool.h>
 # include "../libft/libft.h"
 
 # define MAXCHAR 100
@@ -33,6 +35,7 @@ int					parse_cmdline(char *input);
 void				init_path(int fd, t_env **env_lst);
 void				export_env(t_env **env_lst, char *key, char *value);
 void				free_env_lst(t_env **env_lst);
-void				export_env(t_env **env_lst, char *key, char *value);
+int					file_exists(char *filename);
+void				read_path(t_env **env_lst, char *filepath);
 
 #endif
