@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 15:30:23 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/15 10:37:16 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
 int		parse_cmdline(char *input)
 {
 	int		i;
-	char	*cmds_list[5];
+	char	*cmds_list[4];
 
 	i = 0;
 	cmds_list[0] = "pwd";
 	cmds_list[1] = "echo";
-	cmds_list[2] = NULL;
+	cmds_list[2] = "cd";
+	cmds_list[3] = NULL;
 	if (ft_strncmp(input, "exit", 4) == 0)
 		return (1);
 	else if (ft_strncmp(input, "export", 4) == 0)
