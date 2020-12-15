@@ -58,6 +58,18 @@ void	exec_cmd(t_env *env_lst, char *filename)
 	args[1] = NULL;
 	if (file_exists(args[0]) != 0)
 		ft_printf("Command doesn't exist in PATH.\n");
+
+    if (filename[0] == 'c')
+    {
+        char *str = "libft";
+		char *arg[2];
+
+		arg[0] = str;
+		arg[1] = NULL;
+		execve("./cd", arg, NULL);
+		return;
+    }
+
 	p1 = fork();
 	if (p1 < 0)
 	{
