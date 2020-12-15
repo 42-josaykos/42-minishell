@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 15:22:04 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/15 20:31:54 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int		main(int argc, char **argv)
 				export_env(&env_lst, "testkey", "testvalue");
 				ft_printf("env var testkey=testvalue added to the env list.\n");
 			}
+			else if (ret == 4)
+				cd("libft");
 		}
 	}
 	else
