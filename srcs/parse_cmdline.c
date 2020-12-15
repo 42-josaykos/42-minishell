@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 15:19:22 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/15 20:24:32 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int		parse_cmdline(t_env *env_lst, char *input)
 		return (2);
 	else if (ft_strncmp(input, "exit", 4) == 0)
 		return (1);
-	else if (ft_strncmp(input, "export", 4) == 0)
+	else if (ft_strncmp(input, "export", 6) == 0)
 		return (3);
+	else if (ft_strncmp(input, "cd", 2) == 0)
+		return (4);
 	ft_printf("msh: %s: command not found\n", input);
 	return (0);
 }

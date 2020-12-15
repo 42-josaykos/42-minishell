@@ -6,7 +6,7 @@
 #    By: jonny <jonny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2020/12/15 12:44:04 by jonny            ###   ########.fr        #
+#    Updated: 2020/12/15 20:22:20 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_NAME	=	main.c \
 						init_path.c \
 						export_env.c \
 						file_status.c \
+						cd.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
@@ -39,7 +40,6 @@ $(NAME): $(OBJ)
 	make -C libft/ 1>/dev/null
 	@echo "$(GREEN)$(LIBFT) done...$(END)"
 	$(CC) srcs/pwd.c $(INCLUDES) $(LIBFT) -o pwd
-	$(CC) srcs/cd.c $(INCLUDES) $(LIBFT) -o cd
 	@echo "$(GREEN)pwd builtin command done...$(END)"
 	$(CC) $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) binary is ready !$(END)"
@@ -53,7 +53,7 @@ clean:
 	make clean -C libft/ 1>/dev/null
 
 fclean:		clean
-	$(RM) $(NAME) pwd cd a.out vgcore.*
+	$(RM) $(NAME) pwd a.out vgcore.*
 	make fclean -C libft/ 1>/dev/null
 	@echo "$(RED)$(LIBFT) removed$(END)"
 	@echo "$(RED)$(NAME) removed$(END)"

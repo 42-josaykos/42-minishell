@@ -28,3 +28,4 @@ to be continued...
 
 - A function to execute commands: the function should look in the PATH and 
 execute the right executable.
+- Check valgrind, some invalid read errors in function cd();
