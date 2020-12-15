@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 12:44:16 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/15 15:24:52 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,20 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-int					parse_cmdline(char *input);
+/*
+** Cmd parsing
+*/
+
+int					parse_cmdline(t_env *env_lst, char *input);
+int					file_exists(char *filename);
+void				read_path(t_env *env_lst, char *filepath);
+
+/*
+**  Path initialization, export env and free memory
+*/
+
 void				init_path(int fd, t_env **env_lst);
 void				export_env(t_env **env_lst, char *key, char *value);
 void				free_env_lst(t_env **env_lst);
-int					file_exists(char *filename);
-void				read_path(t_env **env_lst, char *filepath);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 12:43:50 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/15 15:22:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		get_input(char *input)
 ** filepath[MAXCHAR] buffer. We add the filename to the path with ft_strcat()
 */
 
-void	exec_cmd(t_env **env_lst, char *filename)
+void	exec_cmd(t_env *env_lst, char *filename)
 {
 	char	*args[2];
 	char	filepath[MAXCHAR];
@@ -93,11 +93,11 @@ int		main(int argc, char **argv)
 		while (1)
 		{
 			get_input(input);
-			ret = parse_cmdline(input);
+			ret = parse_cmdline(env_lst, input);
 			if (ret == 1)
 				break ;
 			else if (ret == 2)
-				exec_cmd(&env_lst, input);
+				exec_cmd(env_lst, input);
 			else if (ret == 3)
 			{
 				export_env(&env_lst, "testkey", "testvalue");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 11:31:49 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 12:40:09 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/15 15:25:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int		file_exists(char *filename)
 ** the filepath with the filename later on)
 */
 
-void	read_path(t_env **env_lst, char *filepath)
+void	read_path(t_env *env_lst, char *filepath)
 {
-	char	*path_value;
+	char	path_value[MAXCHAR];
 	int		len;
 
-	path_value = env_lst[0]->value;
+	ft_strlcpy(path_value, env_lst[0].value, ft_strlen(env_lst[0].value) + 1);
 	len = ft_strlen(path_value);
 	if (path_value[len - 1] != '/')
 	{
