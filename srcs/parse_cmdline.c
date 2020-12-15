@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 10:29:51 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/15 15:19:22 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,20 @@
 ** don't print the message if input is an empty string.
 */
 
-int		parse_cmdline(char *input)
+int		parse_cmdline(t_env *env_lst, char *input)
 {
 	int		i;
-	char	*cmds_list[4];
+	char	filepath[MAXCHAR];
 
 	i = 0;
-	cmds_list[0] = "pwd";
-	cmds_list[1] = "echo";
-	cmds_list[2] = "cd";
-	cmds_list[3] = NULL;
-	if (ft_strncmp(input, "exit", 4) == 0)
+	read_path(env_lst, filepath);
+	ft_strcat(filepath, input);
+	if (file_exists(filepath) == 0)
+		return (2);
+	else if (ft_strncmp(input, "exit", 4) == 0)
 		return (1);
 	else if (ft_strncmp(input, "export", 4) == 0)
 		return (3);
-	else if (ft_strlen(input) != 0)
-	{
-		while (cmds_list[i])
-		{
-			if (ft_strncmp(input, cmds_list[i], ft_strlen(cmds_list[i])) == 0)
-				return (2);
-			i++;
-		}
-		ft_printf("msh: %s: command not found\n", input);
-	}
+	ft_printf("msh: %s: command not found\n", input);
 	return (0);
 }
