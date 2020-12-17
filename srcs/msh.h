@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 13:31:05 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 15:28:44 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void        parse_path(t_env *env_lst);
 ** Commands executions  
 */
 
-void        exec_cmd(t_env *env_lst, char *filename);
+void        exec_cmd(char *filepath);
 void        exec_syscmd(char *input);
 
 #endif

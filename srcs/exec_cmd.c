@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 13:50:33 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 15:28:46 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@
 ** filepath[MAXCHAR] buffer. We add the filename to the path with ft_strcat()
 */
 
-void	exec_cmd(t_env *env_lst, char *filename)
+void	exec_cmd(char *filepath)
 {
 	char	*args[2];
-	char	filepath[MAXCHAR];
 	pid_t	p1;
 
-	read_path(env_lst, filepath);
-	args[0] = ft_strcat(filepath, filename);
+	args[0] = filepath;
 	args[1] = NULL;
 	if (file_exists(args[0]) != 0)
 		ft_printf("Command doesn't exist in PATH.\n");

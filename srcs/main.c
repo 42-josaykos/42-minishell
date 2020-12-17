@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 12:37:05 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 15:33:18 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,12 @@ int		main(int argc, char **argv)
 			if (ret == EXIT)
 				break ;
 			else if (ret == 2)
-				exec_cmd(env_lst, input);
-			else if (ret == 3)
 			{
 				export_env(&env_lst, "testkey", "testvalue");
 				ft_printf("env var testkey=testvalue added to the env list.\n");
 			}
-			else if (ret == 4)
+			else if (ret == 3)
 				cd("libft");
-			else
-				exec_syscmd(input);
 		}
 	}
 	else
