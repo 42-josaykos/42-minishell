@@ -12,6 +12,8 @@
         "srcs/export_env.c",
         "srcs/file_status.c",
         "srcs/cd.c",
+        "srcs/exec_cmd.c",
+        "srcs/parse_path.c",
         "libft/libft.a",
         "-g",
         "-Ilibft"

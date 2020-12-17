@@ -1,4 +1,5 @@
 # 42-minishell
+
 42 cursus project: Write a simple shell like bash. Learning about process and file descriptors
 
 ## TODO:
@@ -25,6 +26,7 @@ to be continued...
 
 ## Notes:
 
-- A function to execute commands: the function should look in the PATH and 
-execute the right executable.
+- A function to execute commands: the function should look in the PATH and
+  execute the right executable.
 - Check valgrind, some invalid read errors in function cd();
+- Need to trim whitespaces in command line. e.g: `$<space> ls <space> -l` is a valid command

@@ -6,7 +6,7 @@
 #    By: jonny <jonny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2020/12/15 20:22:20 by jonny            ###   ########.fr        #
+#    Updated: 2020/12/17 13:02:16 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRC_NAME	=	main.c \
 						export_env.c \
 						file_status.c \
 						cd.c \
+						exec_cmd.c \
+						parse_path.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs

@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 20:26:32 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 13:31:05 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -23,6 +24,7 @@
 # include "../libft/libft.h"
 
 # define MAXCHAR 100
+# define EXIT 1
 
 typedef struct		s_env
 {
@@ -46,6 +48,14 @@ void				read_path(t_env *env_lst, char *filepath);
 void				init_path(int fd, t_env **env_lst);
 void				export_env(t_env **env_lst, char *key, char *value);
 void				free_env_lst(t_env **env_lst);
-int cd(char *pth);
+int         cd(char *arg);
+void        parse_path(t_env *env_lst);
+
+/*
+** Commands executions  
+*/
+
+void        exec_cmd(t_env *env_lst, char *filename);
+void        exec_syscmd(char *input);
 
 #endif
