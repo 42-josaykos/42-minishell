@@ -4,7 +4,7 @@
 
 ## TODO:
 
-- [x] PATH variable. Buitlin commands should be execute through the PATH
+- [x] PATH variable. Non-buitlin commands should be execute through the PATH
 
 - [ ] builtin command `echo`, with -n option
 - [ ] builtin command `cd`, only with absolute or relative path
