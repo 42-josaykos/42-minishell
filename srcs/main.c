@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 20:31:54 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 16:10:26 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,49 +42,6 @@ int		get_input(char *input)
 }
 
 /*
-** Create a child process and execute the command in it. Parent process waits
-** the child process to finish. read_path() reads the PATH and put it in the
-** filepath[MAXCHAR] buffer. We add the filename to the path with ft_strcat()
-*/
-
-void	exec_cmd(t_env *env_lst, char *filename)
-{
-	char	*args[2];
-	char	filepath[MAXCHAR];
-	pid_t	p1;
-
-	read_path(env_lst, filepath);
-	args[0] = ft_strcat(filepath, filename);
-	args[1] = NULL;
-	if (file_exists(args[0]) != 0)
-		ft_printf("Command doesn't exist in PATH.\n");
-
-    if (filename[0] == 'c')
-    {
-        char *str = "libft";
-		char *arg[2];
-
-		arg[0] = str;
-		arg[1] = NULL;
-		execve("./cd", arg, NULL);
-		return;
-    }
-
-	p1 = fork();
-	if (p1 < 0)
-	{
-		ft_printf("Cannot execute child process.\n");
-		exit(-1);
-	}
-	if (p1 == 0)
-	{
-		execve(args[0], args, NULL);
-		exit(0);
-	}
-	wait(NULL);
-}
-
-/*
 ** Infinite loop that call get_input, a function printing a command prompt and
 ** waiting for an input.
 ** TODO: Need to call functions for parsing the input string
@@ -106,16 +63,14 @@ int		main(int argc, char **argv)
 		{
 			get_input(input);
 			ret = parse_cmdline(env_lst, input);
-			if (ret == 1)
+			if (ret == EXIT)
 				break ;
 			else if (ret == 2)
-				exec_cmd(env_lst, input);
-			else if (ret == 3)
 			{
 				export_env(&env_lst, "testkey", "testvalue");
 				ft_printf("env var testkey=testvalue added to the env list.\n");
 			}
-			else if (ret == 4)
+			else if (ret == 3)
 				cd("libft");
 		}
 	}

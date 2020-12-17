@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:30:32 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 12:43:42 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 16:10:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	assign_envp(char *str, t_env **env_lst)
 	while (sub_strs[i] != NULL)
 		free(sub_strs[i++]);
 	free(sub_strs);
+	parse_path(*env_lst);
 }
 
 /*

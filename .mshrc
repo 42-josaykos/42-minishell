@@ -2,4 +2,4 @@
 # ~/.mshrc
 #
 
-export PATH=/home/jonny/42cursus/42-minishell
+export PATH=/home/jonny/42cursus/42-minishell:/home/alpascal/minishell

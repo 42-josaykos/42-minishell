@@ -36,12 +36,10 @@ int     cd(char *arg)
     char    *cur_path;
 
     cur_path = path_finding();
-    ft_printf("%s\n%s\n", arg, cur_path);
     if (!(path = ft_calloc(1 + ft_strlen(cur_path) +
         ft_strlen (arg), sizeof(char))))
         return (EXIT_FAILURE);
     cpy_path(path, cur_path, arg);
-   	ft_printf("%s\n%s\n%s\n", arg, cur_path, path);
     chdir(path);
     free (path);
     free(cur_path);
