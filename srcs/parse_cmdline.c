@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 15:35:56 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 15:52:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 /*
 ** Check the input.
-** Returns 3 if "export" command (debug test).
-** Returns 2 if this a valid command.
 ** Returns 1 if "exit".
+** Returns 2 if "export" command (debug test).
+** Returns 3 if "cd".
+** Check each path directories for the executable and execute it. If doesn't
+** exists try the command in the system shell (debug test).
 ** Prints "command not found" message and  returns 0 if invalid command, but
 ** don't print the message if input is an empty string.
 */
@@ -25,11 +27,10 @@ int		parse_cmdline(t_env *env_lst, char *input)
 {
 	int		i;
 	char	filepath[MAXCHAR];
-	t_env 	*tmp;
+	t_env	*tmp;
 
 	i = 0;
 	tmp = env_lst;
-
 	if (ft_strncmp(input, "exit", 4) == 0)
 		return (1);
 	else if (ft_strncmp(input, "export", 6) == 0)
