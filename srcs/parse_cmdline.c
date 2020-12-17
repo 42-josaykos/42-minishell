@@ -6,11 +6,36 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 15:52:53 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 18:32:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+void	cmd_handler(t_env *tmp, char *input)
+{
+	char	filepath[MAXCHAR];
+
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->key, "path", 4) == 0)
+		{
+			read_path(tmp, filepath);
+			ft_strcat(filepath, input);
+			if (file_exists(filepath) == 0)
+			{
+				exec_cmd(filepath);
+				break ;
+			}
+		}
+		tmp = tmp->next;
+	}
+	if (tmp == NULL)
+	{
+		printf("minishell: %s: not found. Try in system shell...\n", input);
+		exec_syscmd(input);
+	}
+}
 
 /*
 ** Check the input.
@@ -26,35 +51,16 @@
 int		parse_cmdline(t_env *env_lst, char *input)
 {
 	int		i;
-	char	filepath[MAXCHAR];
 	t_env	*tmp;
 
 	i = 0;
 	tmp = env_lst;
 	if (ft_strncmp(input, "exit", 4) == 0)
-		return (1);
+		return (EXIT);
 	else if (ft_strncmp(input, "export", 6) == 0)
-		return (2);
+		return (EXPORT);
 	else if (ft_strncmp(input, "cd", 2) == 0)
-		return (3);
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->key, "path", 4) == 0)
-		{
-			read_path(tmp, filepath);
-			ft_strcat(filepath, input);
-			if (file_exists(filepath) == 0)
-			{
-				exec_cmd(filepath);
-				return (0);
-			}
-		}
-		tmp = tmp->next;
-	}
-	if (tmp == NULL)
-	{
-		printf("msh: %s: not found. Try command in system shell...\n", input);
-		exec_syscmd(input);
-	}
+		return (CD);
+	cmd_handler(tmp, input);
 	return (0);
 }

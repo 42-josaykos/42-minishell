@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 16:10:26 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 18:32:23 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_msh(t_env **env_lst)
 {
 	int		fd;
 
-	ft_printf("Welcome to minishell (msh)!\nCtrl-C or \"exit\" to quit msh.\n");
+	ft_printf("Welcome to minishell !\nCtrl-C or \"exit\" to quit.\n");
 	fd = open(".mshrc", O_RDWR);
 	init_path(fd, env_lst);
 	close(fd);
@@ -34,7 +34,7 @@ int		get_input(char *input)
 	char *line;
 
 	line = NULL;
-	ft_printf("$ ");
+	ft_printf("minishell $ ");
 	get_next_line(0, &line);
 	ft_strlcpy(input, line, MAXCHAR);
 	free(line);
@@ -47,32 +47,37 @@ int		get_input(char *input)
 ** TODO: Need to call functions for parsing the input string
 */
 
-int		main(int argc, char **argv)
+void	main_loop(t_env *env_lst)
 {
 	char	input[MAXCHAR];
 	int		ret;
+
+	while (1)
+	{
+		get_input(input);
+		ret = parse_cmdline(env_lst, input);
+		if (ret == EXIT)
+			break ;
+		else if (ret == EXPORT)
+		{
+			export_env(&env_lst, "testkey", "testvalue");
+			ft_printf("env var testkey=testvalue added to the env list.\n");
+		}
+		else if (ret == CD)
+			cd("libft");
+	}
+}
+
+int		main(int argc, char **argv)
+{
 	t_env	*env_lst;
 
 	(void)argv;
 	env_lst = NULL;
-	ft_memset(input, '0', sizeof(input));
 	if (argc < 2)
 	{
 		init_msh(&env_lst);
-		while (1)
-		{
-			get_input(input);
-			ret = parse_cmdline(env_lst, input);
-			if (ret == EXIT)
-				break ;
-			else if (ret == 2)
-			{
-				export_env(&env_lst, "testkey", "testvalue");
-				ft_printf("env var testkey=testvalue added to the env list.\n");
-			}
-			else if (ret == 3)
-				cd("libft");
-		}
+		main_loop(env_lst);
 	}
 	else
 		printf("Usage: just ./minishell with no arguments.\n");

@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 15:52:23 by jonny            ###   ########.fr       */
+/*   Updated: 2020/12/17 18:32:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # define MAXCHAR 100
 # define EXIT 1
+# define EXPORT 2
+# define CD 3
 
 typedef struct	s_env
 {
