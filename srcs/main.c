@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 18:32:23 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/04 11:40:25 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	init_msh(t_env **env_lst)
 	close(fd);
 }
 
-int		get_input(char *input)
+int	get_input(char *input)
 {
-	char *line;
+	char	*line;
 
 	line = NULL;
 	ft_printf("minishell $ ");
@@ -68,7 +68,7 @@ void	main_loop(t_env *env_lst)
 	}
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_env	*env_lst;
 

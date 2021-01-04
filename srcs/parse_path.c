@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:41:57 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 15:53:24 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/04 11:53:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void	split_path(t_env *env_lst, char *str)
 	free(sub_strs);
 }
 
-void		parse_path(t_env *env_lst)
+void	parse_path(t_env *env_lst)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = env_lst;
 	while (tmp)

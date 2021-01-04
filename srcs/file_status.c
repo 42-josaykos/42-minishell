@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 11:31:49 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 15:25:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/04 11:47:16 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** Returns 0 if the file exists.
 */
 
-int		file_exists(char *filename)
+int	file_exists(char *filename)
 {
-	struct stat buf;
+	struct stat	buf;
 
 	return (stat(filename, &buf));
 }

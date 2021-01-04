@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 15:49:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/04 11:45:37 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	exec_cmd(char *filepath)
 
 void	exec_syscmd(char *input)
 {
-	pid_t p1;
+	pid_t	p1;
 
 	p1 = fork();
 	if (p1 < 0)

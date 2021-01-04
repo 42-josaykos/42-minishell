@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/17 18:32:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/04 11:52:46 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	cmd_handler(t_env *tmp, char *input)
 ** don't print the message if input is an empty string.
 */
 
-int		parse_cmdline(t_env *env_lst, char *input)
+int	parse_cmdline(t_env *env_lst, char *input)
 {
 	int		i;
 	t_env	*tmp;
