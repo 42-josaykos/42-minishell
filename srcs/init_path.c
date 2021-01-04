@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:30:32 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/15 12:43:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/04 11:47:54 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Check for "export" command in the line. Returns 1 if "export" is present.
 */
 
-int		parse_envp(char *str)
+int	parse_envp(char *str)
 {
 	if (ft_strncmp(str, "export", 6) == 0)
 		return (1);
@@ -38,6 +38,7 @@ void	assign_envp(char *str, t_env **env_lst)
 	while (sub_strs[i] != NULL)
 		free(sub_strs[i++]);
 	free(sub_strs);
+	parse_path(*env_lst);
 }
 
 /*
@@ -79,8 +80,8 @@ void	init_path(int fd, t_env **env_lst)
 
 void	free_env_lst(t_env **env_lst)
 {
-	t_env *ptr;
-	t_env *tmp;
+	t_env	*ptr;
+	t_env	*tmp;
 
 	ptr = *env_lst;
 	while (ptr)

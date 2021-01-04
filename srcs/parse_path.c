@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   parse_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 15:02:22 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/04 11:53:35 by jonny            ###   ########.fr       */
+/*   Created: 2020/12/17 12:41:57 by jonny             #+#    #+#             */
+/*   Updated: 2021/01/04 11:53:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-/*
-** Print current directory.
-*/
-
-static void	print_cwd(void)
+static void	split_path(t_env *env_lst, char *str)
 {
-	char	buf[1024];
+	char	**sub_strs;
+	int		i;
 
-	getcwd(buf, sizeof(buf));
-	ft_printf("%s\n", buf);
+	i = 0;
+	sub_strs = ft_split(str, ':');
+	while (sub_strs[i] != NULL)
+	{
+		export_env(&env_lst, "path", sub_strs[i]);
+		free(sub_strs[i]);
+		i++;
+	}
+	free(sub_strs);
 }
 
-int	main(void)
+void	parse_path(t_env *env_lst)
 {
-	print_cwd();
-	return (EXIT_SUCCESS);
+	t_env	*tmp;
+
+	tmp = env_lst;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->key, "PATH", 4) == 0)
+			split_path(env_lst, tmp->value);
+		tmp = tmp->next;
+	}
 }
