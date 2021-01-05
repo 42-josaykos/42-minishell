@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josaykos <josaykos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:07:07 by josaykos          #+#    #+#             */
-/*   Updated: 2020/05/30 20:47:14 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/05 17:14:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,13 @@ void	del(char **str)
 		free(*str);
 		*str = NULL;
 	}
+}
+
+int 	init_gnl(char **s, int fd, char **line)
+{
+	if (*s == 0)
+		*s = ft_strdup("");
+	if (fd < 0 || !line || BUFFER_SIZE <= 0 || !s)
+		return (-1);
+	return (0);
 }
