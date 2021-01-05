@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 12:10:33 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/05 14:04:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,30 @@ void	cmd_handler(t_env *env_lst, char *input)
 ** don't print the message if input is an empty string.
 */
 
-int	parse_cmdline(t_env *env_lst, char *input, char **args)
+void	parse_cmdargs(char *str, char **cmdargs)
 {
-	int		i;
+	int i;
 
-	(void)args;
 	i = 0;
-	if (ft_strncmp(input, "exit", 4) == 0)
+	while (i < 100)
+	{
+		cmdargs[i] = ft_strsep(&str, " ");
+		if (cmdargs[i] == NULL)
+			break;
+		if (ft_strlen(cmdargs[i]) == 0)
+			i--;
+		i++;
+	}
+}
+
+int	parse_cmdline(t_env *env_lst, char *input, char **cmdargs)
+{
+	parse_cmdargs(input, cmdargs);
+	if (ft_strncmp(cmdargs[0], "exit", 4) == 0)
 		return (EXIT);
-	else if (ft_strncmp(input, "export", 6) == 0)
+	else if (ft_strncmp(cmdargs[0], "export", 6) == 0)
 		return (EXPORT);
-	else if (ft_strncmp(input, "cd", 2) == 0)
+	else if (ft_strncmp(cmdargs[0], "cd", 2) == 0)
 		return (CD);
 	cmd_handler(env_lst, input);
 	return (0);
