@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josaykos <josaykos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:25:42 by josaykos          #+#    #+#             */
-/*   Updated: 2019/11/09 11:35:47 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 15:05:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_toupper(int c)
+int	ft_toupper(int c)
 {
 	if (c >= 0 && c <= 255)
 	{

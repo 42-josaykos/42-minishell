@@ -6,21 +6,21 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/04 11:52:46 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/05 14:57:07 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-void	cmd_handler(t_env *tmp, char *input)
+void	cmd_handler(t_env *env_lst, char *input)
 {
 	char	filepath[MAXCHAR];
 
-	while (tmp)
+	while (env_lst)
 	{
-		if (ft_strncmp(tmp->key, "path", 4) == 0)
+		if (ft_strncmp(env_lst->key, "path", 4) == 0)
 		{
-			read_path(tmp, filepath);
+			read_path(env_lst, filepath);
 			ft_strcat(filepath, input);
 			if (file_exists(filepath) == 0)
 			{
@@ -28,12 +28,28 @@ void	cmd_handler(t_env *tmp, char *input)
 				break ;
 			}
 		}
-		tmp = tmp->next;
+		env_lst = env_lst->next;
 	}
-	if (tmp == NULL)
+	if (env_lst == NULL)
 	{
 		printf("minishell: %s: not found. Try in system shell...\n", input);
 		exec_syscmd(input);
+	}
+}
+
+void	parse_cmdargs(char *str, char **cmdargs)
+{
+	int	i;
+
+	i = 0;
+	while (i < 100)
+	{
+		cmdargs[i] = ft_strsep(&str, " ");
+		if (cmdargs[i] == NULL)
+			break ;
+		if (ft_strlen(cmdargs[i]) == 0)
+			i--;
+		i++;
 	}
 }
 
@@ -48,19 +64,15 @@ void	cmd_handler(t_env *tmp, char *input)
 ** don't print the message if input is an empty string.
 */
 
-int	parse_cmdline(t_env *env_lst, char *input)
+int	parse_cmdline(t_env *env_lst, char *input, char **cmdargs)
 {
-	int		i;
-	t_env	*tmp;
-
-	i = 0;
-	tmp = env_lst;
-	if (ft_strncmp(input, "exit", 4) == 0)
+	parse_cmdargs(input, cmdargs);
+	if (ft_strncmp(cmdargs[0], "exit", 4) == 0)
 		return (EXIT);
-	else if (ft_strncmp(input, "export", 6) == 0)
+	else if (ft_strncmp(cmdargs[0], "export", 6) == 0)
 		return (EXPORT);
-	else if (ft_strncmp(input, "cd", 2) == 0)
+	else if (ft_strncmp(cmdargs[0], "cd", 2) == 0)
 		return (CD);
-	cmd_handler(tmp, input);
+	cmd_handler(env_lst, input);
 	return (0);
 }

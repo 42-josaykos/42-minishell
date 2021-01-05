@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josaykos <josaykos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:44:25 by josaykos          #+#    #+#             */
-/*   Updated: 2019/11/09 11:38:31 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 15:58:55 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_tolower(int c)
+int	ft_tolower(int c)
 {
 	if (c >= 0 && c <= 255)
 	{

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josaykos <josaykos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 10:29:20 by josaykos          #+#    #+#             */
-/*   Updated: 2019/11/19 14:40:39 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:10:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*ft_positive(char *tab, int nbr, int index)
+static char	*ft_positive(char *tab, int nbr, int index)
 {
 	while (index >= 0)
 	{
@@ -23,9 +23,9 @@ static char		*ft_positive(char *tab, int nbr, int index)
 	return (tab);
 }
 
-static char		*ft_negative(char *tab, int nbr, int index)
+static char	*ft_negative(char *tab, int nbr, int index)
 {
-	unsigned int nbr_min;
+	unsigned int	nbr_min;
 
 	tab[0] = '-';
 	while (index > 0)
@@ -47,9 +47,9 @@ static char		*ft_negative(char *tab, int nbr, int index)
 	return (tab);
 }
 
-static int		ft_nbrlen(int nbr)
+static int	ft_nbrlen(int nbr)
 {
-	int len;
+	int	len;
 
 	len = 1;
 	if (nbr >= 0)
@@ -76,14 +76,15 @@ static int		ft_nbrlen(int nbr)
 	return (len);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*str;
 	int		i;
 
 	str = NULL;
 	i = ft_nbrlen(n);
-	if (!(str = malloc(sizeof(char) * i + 1)))
+	str = malloc(sizeof(char) * i + 1);
+	if (!str)
 		return (NULL);
 	str[i] = '\0';
 	i--;

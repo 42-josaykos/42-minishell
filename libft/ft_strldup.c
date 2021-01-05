@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strldup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 17:54:20 by jonny             #+#    #+#             */
-/*   Updated: 2020/07/30 17:54:27 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/05 16:02:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*ft_strldup(int len, const char *s1)
 	char	*cpy;
 
 	i = 0;
-	if (!(cpy = (char *)ft_calloc(len + 1, sizeof(char))))
+	cpy = (char *)ft_calloc(len + 1, sizeof(char));
+	if (!cpy)
 		return (NULL);
 	while (s1[i])
 	{

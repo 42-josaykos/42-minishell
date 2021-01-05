@@ -50,12 +50,13 @@ int	get_input(char *input)
 void	main_loop(t_env *env_lst)
 {
 	char	input[MAXCHAR];
+	char	*cmdargs[100];
 	int		ret;
 
 	while (1)
 	{
 		get_input(input);
-		ret = parse_cmdline(env_lst, input);
+		ret = parse_cmdline(env_lst, input, cmdargs);
 		if (ret == EXIT)
 			break ;
 		else if (ret == EXPORT)
@@ -64,7 +65,7 @@ void	main_loop(t_env *env_lst)
 			ft_printf("env var testkey=testvalue added to the env list.\n");
 		}
 		else if (ret == CD)
-			cd("libft");
+			cd(cmdargs[1]);
 	}
 }
 

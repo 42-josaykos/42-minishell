@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:30:06 by jonny             #+#    #+#             */
-/*   Updated: 2019/12/12 11:33:40 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 17:14:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,17 @@ char	*join_buffer(char **line, char **s1, char *s2)
 **  that means we reach the last line and call check_lastline
 */
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*s[FOPEN_MAX];
-	int			ret;
+	static int	ret = 0;
 	char		buf[BUFFER_SIZE + 1];
 
-	if (fd < 0 || !line || BUFFER_SIZE <= 0 ||
-			!(s[fd] = (!s[fd] ? ft_strdup("") : s[fd])))
+	if (init_gnl(&s[fd], fd, line) == -1)
 		return (-1);
-	while ((ret = read(fd, buf, BUFFER_SIZE)) >= 0)
+	while (ret >= 0)
 	{
+		ret = read(fd, buf, BUFFER_SIZE);
 		buf[ret] = '\0';
 		join_buffer(line, &s[fd], buf);
 		if (s[fd] && ft_strchr(s[fd], '\n') != 0)

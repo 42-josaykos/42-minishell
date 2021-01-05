@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josaykos <josaykos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:58:28 by josaykos          #+#    #+#             */
-/*   Updated: 2019/11/20 10:27:56 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:10:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*ft_memchr(const void *str, int c, size_t n)
 		if (ptr_str[i] == c)
 		{
 			ptr_str += i;
-			return ((char*)ptr_str);
+			return ((char *)ptr_str);
 		}
 		i++;
 	}

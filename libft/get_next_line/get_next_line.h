@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josaykos <josaykos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:04:23 by josaykos          #+#    #+#             */
-/*   Updated: 2019/12/12 11:12:02 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 17:14:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		get_next_line(int fd, char **line);
+int		init_gnl(char **s, int fd, char **line);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 8

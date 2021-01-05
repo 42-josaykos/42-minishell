@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_nbr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 20:49:25 by jonny             #+#    #+#             */
-/*   Updated: 2020/01/07 15:13:51 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:15:46 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	nbr_whitespace(t_specs *specs, char *str, int len, int *ret)
 	if (str[0] == '-' && specs->precision >= len)
 		specs->width--;
 	while (specs->width > len && specs->width > specs->precision
-			&& specs->precision != 0)
+		&& specs->precision != 0)
 	{
 		ft_putchar(' ', ret);
 		specs->width--;
@@ -54,7 +54,7 @@ void	nbr_padding(t_specs *specs, char *str, int len, int *ret)
 
 void	nbr_zero_padding(t_specs *specs, char *str, int len, int *ret)
 {
-	int n;
+	int	n;
 
 	n = specs->precision;
 	if (str[0] == '-')

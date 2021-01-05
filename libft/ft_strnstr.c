@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:54:46 by jonny             #+#    #+#             */
-/*   Updated: 2019/11/14 13:39:45 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 15:03:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*ft_strnstr(const char *str, const char *to_find, size_t n)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	if (*to_find == '\0')
-		return ((char*)str);
+		return ((char *)str);
 	i = 0;
 	while (i < n && str[i] != '\0')
 	{
@@ -30,7 +30,7 @@ char	*ft_strnstr(const char *str, const char *to_find, size_t n)
 			j++;
 		}
 		if (to_find[j] == '\0')
-			return ((char*)(str + i));
+			return ((char *)(str + i));
 		i++;
 	}
 	return (0);

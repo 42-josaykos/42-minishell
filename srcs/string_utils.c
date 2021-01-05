@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 11:09:34 by josaykos          #+#    #+#             */
-/*   Updated: 2021/01/05 16:11:47 by jonny            ###   ########.fr       */
+/*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
+/*   Updated: 2021/01/05 14:57:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "msh.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char 	*ft_strsep(char **stringp, const char *delim)
 {
-	char	*tab;
-	int		len;
+	int		i;
+	char	*tmp;
 
-	if (s1 && s2)
+	tmp = *stringp;
+	if (*stringp == NULL)
+		return (NULL);
+	while (*delim)
 	{
-		tab = NULL;
-		len = ft_strlen(s1) + ft_strlen(s2) + 1;
-		tab = malloc(sizeof(char) * len);
-		if (!tab)
-			return (0);
-		tab[0] = '\0';
-		tab = ft_strcat(tab, s1);
-		tab = ft_strcat(tab, s2);
-		return (tab);
+		i = 0;
+		while (tmp[i])
+		{
+			if (tmp[i] == *delim)
+			{
+				tmp[i] = '\0';
+				*stringp += (i + 1);
+				return (tmp);
+			}
+			i++;
+		}
+		delim++;
 	}
-	return (NULL);
+	*stringp = NULL;
+	return (tmp);
 }

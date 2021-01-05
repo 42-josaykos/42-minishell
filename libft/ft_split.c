@@ -6,16 +6,16 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:47:07 by jonny             #+#    #+#             */
-/*   Updated: 2020/12/10 12:19:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/05 15:53:48 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_count_words(char const *str, char c)
+static int	ft_count_words(char const *str, char c)
 {
-	int count;
-	int is_word;
+	int	count;
+	int	is_word;
 
 	count = 0;
 	is_word = 0;
@@ -35,9 +35,9 @@ static int		ft_count_words(char const *str, char c)
 	return (count);
 }
 
-static int		ft_wordlen(const char *str, char c, int i)
+static int	ft_wordlen(const char *str, char c, int i)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (str[i] != c && str[i] != '\0')
@@ -48,7 +48,7 @@ static int		ft_wordlen(const char *str, char c, int i)
 	return (len);
 }
 
-static char		**ft_memfree(char const **tab, int j)
+static char	**ft_memfree(char const **tab, int j)
 {
 	while (j > 0)
 	{
@@ -59,11 +59,11 @@ static char		**ft_memfree(char const **tab, int j)
 	return (NULL);
 }
 
-static char		**ft_splitstr(char const *s, char **tab, char c, int wc)
+static char	**ft_splitstr(char const *s, char **tab, char c, int wc)
 {
-	int i;
-	int j;
-	int k;
+	int	i;
+	int	j;
+	int	k;
 
 	i = 0;
 	j = 0;
@@ -74,7 +74,7 @@ static char		**ft_splitstr(char const *s, char **tab, char c, int wc)
 			i++;
 		tab[j] = malloc(sizeof(char) * ft_wordlen(s, c, i) + 1);
 		if (tab[j] == NULL)
-			return (ft_memfree((char const**)tab, j));
+			return (ft_memfree((char const **)tab, j));
 		while (s[i] != '\0' && s[i] != c)
 			tab[j][k++] = s[i++];
 		tab[j][k] = '\0';
@@ -84,7 +84,7 @@ static char		**ft_splitstr(char const *s, char **tab, char c, int wc)
 	return (tab);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**tab;
 	int		wc;
