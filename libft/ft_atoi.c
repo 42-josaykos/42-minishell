@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josaykos <josaykos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 09:28:19 by josaykos          #+#    #+#             */
-/*   Updated: 2019/11/20 10:31:51 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 15:57:40 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int i;
-	int nb;
-	int sign;
-	int minus;
+	int	i;
+	int	nb;
+	int	sign;
+	int	minus;
 
 	i = 0;
 	nb = 0;

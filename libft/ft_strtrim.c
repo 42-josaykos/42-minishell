@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josaykos <josaykos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 14:11:53 by josaykos          #+#    #+#             */
-/*   Updated: 2019/11/20 11:34:13 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 15:56:37 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_inset(char ch, char const *charset)
+static int	ft_inset(char ch, char const *charset)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (charset[i])
@@ -26,7 +26,7 @@ static int		ft_inset(char ch, char const *charset)
 	return (0);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*copy;
 	char	*final_str;
@@ -35,7 +35,8 @@ char			*ft_strtrim(char const *s1, char const *set)
 	len = 0;
 	if (s1 && set)
 	{
-		if (!(copy = ft_strdup(s1)))
+		copy = ft_strdup(s1);
+		if (!copy)
 			return (0);
 		while (ft_inset(*copy, set) == 1)
 			copy++;

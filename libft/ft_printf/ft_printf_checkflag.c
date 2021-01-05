@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_checkflag.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 21:35:24 by jonny             #+#    #+#             */
-/*   Updated: 2020/01/07 16:05:06 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:29:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static void	nbr_flag_zero(t_specs *specs, char *str, int len, int *ret)
 {
 	if (specs->width > len && specs->precision < 0)
 	{
-		specs->flag == '0' ? nbr_zero_padding(specs, str, len, ret) :
+		if (specs->flag == '0')
+			nbr_zero_padding(specs, str, len, ret);
+		else
 			nbr_whitespace(specs, str, len, ret);
 		if (specs->flag != '0')
 			ft_putstr(str, ret);
@@ -42,18 +44,18 @@ static void	nbr_flag_zero(t_specs *specs, char *str, int len, int *ret)
 ** print zeros or whitespaces before the number.
 */
 
-void		check_nbr_flag(t_specs *specs, char *str, int *ret)
+void	check_nbr_flag(t_specs *specs, char *str, int *ret)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (str[len] != '\0')
 		len++;
 	if (specs->flag == '0' && specs->width - specs->precision > len
-			&& specs->precision != -1)
+		&& specs->precision != -1)
 		specs->flag = '+';
-	if ((specs->precision > len && specs->width == -1) ||
-			specs->precision > specs->width)
+	if ((specs->precision > len && specs->width == -1)
+		|| specs->precision > specs->width)
 		nbr_zero_padding(specs, str, len, ret);
 	else if ((specs->flag == '0' || specs->flag == '+') && specs->width >= 0)
 		nbr_flag_zero(specs, str, len, ret);
@@ -77,7 +79,7 @@ void		check_nbr_flag(t_specs *specs, char *str, int *ret)
 ** necessary whitespaces, then "0x" followed by the number.
 */
 
-void		check_p_flag(t_specs *specs, char *str, int len, int *ret)
+void	check_p_flag(t_specs *specs, char *str, int len, int *ret)
 {
 	if (specs->flag == '-')
 	{

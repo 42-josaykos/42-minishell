@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_convertbase.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:42:37 by jonny             #+#    #+#             */
-/*   Updated: 2020/01/02 17:09:01 by josaykos         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:22:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	strlen_base(long int nb, int base)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (nb < 0)
@@ -26,16 +26,17 @@ static int	strlen_base(long int nb, int base)
 
 static char	*print_zero_base(void)
 {
-	char *str;
+	char	*str;
 
-	if (!(str = malloc(sizeof(char) * 2)))
+	str = malloc(sizeof(char) * 2);
+	if (!str)
 		return (NULL);
 	str[0] = '0';
 	str[1] = '\0';
 	return (str);
 }
 
-char		*itoa_base(long int nb, int base, char *tab)
+char	*itoa_base(long int nb, int base, char *tab)
 {
 	char		*str;
 	int			len;
@@ -49,7 +50,8 @@ char		*itoa_base(long int nb, int base, char *tab)
 	{
 		if (nb < 0)
 			tmp *= -1;
-		if (!(str = malloc(sizeof(char) * len)))
+		str = malloc(sizeof(char) * len);
+		if (!str)
 			return (NULL);
 		str[len] = '\0';
 		if (nb < 0)
@@ -63,9 +65,9 @@ char		*itoa_base(long int nb, int base, char *tab)
 	return (str);
 }
 
-int			mini_atoi(const char *str, int *i)
+int	mini_atoi(const char *str, int *i)
 {
-	unsigned int nb;
+	unsigned int	nb;
 
 	nb = 0;
 	while (str[*i] >= '0' && str[*i] <= '9')
