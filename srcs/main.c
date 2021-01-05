@@ -50,7 +50,7 @@ int	get_input(char *input)
 void	main_loop(t_env *env_lst)
 {
 	char	input[MAXCHAR];
-	char 	*cmdargs[100];
+	char	*cmdargs[100];
 	int		ret;
 
 	while (1)
