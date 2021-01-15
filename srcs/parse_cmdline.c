@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 14:57:07 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/15 09:52:08 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,15 @@ void	parse_cmdargs(char *str, char **cmdargs)
 ** don't print the message if input is an empty string.
 */
 
-int	parse_cmdline(t_env *env_lst, char *input, char **cmdargs)
+int	parse_cmdline(t_env *env_lst, char *input, char **args, char **piped)
 {
-	parse_cmdargs(input, cmdargs);
-	if (ft_strncmp(cmdargs[0], "exit", 4) == 0)
+	(void)piped;
+	parse_cmdargs(input, args);
+	if (ft_strncmp(args[0], "exit", 4) == 0)
 		return (EXIT);
-	else if (ft_strncmp(cmdargs[0], "export", 6) == 0)
+	else if (ft_strncmp(args[0], "export", 6) == 0)
 		return (EXPORT);
-	else if (ft_strncmp(cmdargs[0], "cd", 2) == 0)
+	else if (ft_strncmp(args[0], "cd", 2) == 0)
 		return (CD);
 	cmd_handler(env_lst, input);
 	return (0);

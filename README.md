@@ -7,14 +7,14 @@
 - [x] PATH variable. Non-buitlin commands should be execute through the PATH
 
 - [ ] builtin command `echo`, with -n option
-- [ ] builtin command `cd`, only with absolute or relative path
+- [x] builtin command `cd`, only with absolute or relative path
 - [x] builtin command `pwd`, with no options
 - [ ] builtin command `export`, with nooptions
 - [ ] builtin command `unset`, with no options
 - [ ] builtin command `env`, with no args nor options
-- [ ] builtin command `exit`, with no options
+- [x] builtin command `exit`, with no options
 
-- [ ] function to parse the commands
+- [x] function to parse the commands
 - [ ] function to parse the args and/or options of the command
 - [ ] function to execute the right command with the options
 
@@ -30,3 +30,4 @@ to be continued...
   execute the right executable.
 - Check valgrind, some invalid read errors in function cd();
 - Need to trim whitespaces in command line. e.g: `$<space> ls <space> -l` is a valid command
+- segfautlt with `cd` when no args
