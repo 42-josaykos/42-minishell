@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 13:16:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/15 15:29:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_cmd
 ** Cmd parsing
 */
 
-int		parse_cmdline(t_env *env_lst, char *input, char **args, char **piped);
+int		parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input);
 void	parse_args(char *str, char **args);
 int		file_exists(char *filename);
 void	read_path(t_env *env_lst, char *filepath);
@@ -75,9 +75,10 @@ void	exec_syscmd(char *input);
 char	*ft_strsep(char **stringp, const char *delim);
 
 /*
-** String utils
+** parsing cmd pipes
 */
 
-void	check_pipe(char *input, char **args, char **piped);
+void	check_pipe(char *input, t_cmd *cmd_lst);
+void	free_cmd_lst(t_cmd **cmd_lst);
 
 #endif

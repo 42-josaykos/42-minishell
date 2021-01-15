@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 12:48:44 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/15 15:56:39 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	parse_args(char *str, char **args)
 ** exists try the command in the system shell (debug test).
 */
 
-int	parse_cmdline(t_env *env_lst, char *input, char **args, char **piped)
+int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
-	check_pipe(input, args, piped);
-	if (ft_strncmp(args[0], "exit", 4) == 0)
+	check_pipe(input, cmd_lst);
+	if (ft_strncmp(cmd_lst->args[0], "exit", 4) == 0)
 		return (EXIT);
-	else if (ft_strncmp(args[0], "export", 6) == 0)
+	else if (ft_strncmp(cmd_lst->args[0], "export", 6) == 0)
 		return (EXPORT);
-	else if (ft_strncmp(args[0], "cd", 2) == 0)
+	else if (ft_strncmp(cmd_lst->args[0], "cd", 2) == 0)
 		return (CD);
 	cmd_handler(env_lst, input);
 	return (0);
