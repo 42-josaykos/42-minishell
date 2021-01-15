@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/04 11:45:37 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/15 12:35:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,31 @@ void	exec_cmd(char *filepath)
 		exit(0);
 	}
 	wait(NULL);
+}
+
+void	cmd_handler(t_env *env_lst, char *input)
+{
+	char	filepath[MAXCHAR];
+
+	while (env_lst)
+	{
+		if (ft_strncmp(env_lst->key, "path", 4) == 0)
+		{
+			read_path(env_lst, filepath);
+			ft_strcat(filepath, input);
+			if (file_exists(filepath) == 0)
+			{
+				exec_cmd(filepath);
+				break ;
+			}
+		}
+		env_lst = env_lst->next;
+	}
+	if (env_lst == NULL)
+	{
+		printf("minishell: %s: not found. Try in system shell...\n", input);
+		exec_syscmd(input);
+	}
 }
 
 /*

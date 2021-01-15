@@ -15,6 +15,7 @@
         "srcs/exec_cmd.c",
         "srcs/parse_path.c",
         "srcs/string_utils.c",
+        "srcs/parse_pipe.c",
         "libft/libft.a",
         "-g",
         "-Ilibft"

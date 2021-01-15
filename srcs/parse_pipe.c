@@ -1,45 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string_utils.c                                     :+:      :+:    :+:   */
+/*   parse_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 12:49:38 by jonny            ###   ########.fr       */
+/*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
+/*   Updated: 2021/01/15 12:49:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-/*
-** Implementation of strsep
-** $ man strsep
-*/
-
-char 	*ft_strsep(char **stringp, const char *delim)
+bool	parse_pipe(char *str, char **piped)
 {
-	int		i;
-	char	*tmp;
+	int	i;
 
-	tmp = *stringp;
-	if (*stringp == NULL)
-		return (NULL);
-	while (*delim)
+	i = 0;
+	while (i < 100)
 	{
-		i = 0;
-		while (tmp[i])
+		piped[i] = ft_strsep(&str, "|");
+		if (piped[i] == NULL)
+			break ;
+		i++;
+	}
+	if (piped[1] == NULL)
+		return (false);
+	return (true);
+}
+
+void	check_pipe(char *input, char **args, char **piped)
+{
+	char	*tmp[100];
+	int		i;
+
+	i = 1;
+	if (parse_pipe(input, tmp) == true)
+	{
+		parse_args(tmp[0], args);
+		while (tmp[i] != NULL)
 		{
-			if (tmp[i] == *delim)
-			{
-				tmp[i] = '\0';
-				*stringp += (i + 1);
-				return (tmp);
-			}
+			parse_args(tmp[i], piped);
 			i++;
 		}
-		delim++;
 	}
-	*stringp = NULL;
-	return (tmp);
+	else
+		parse_args(input, args);
 }
