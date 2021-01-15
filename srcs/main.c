@@ -73,13 +73,16 @@ void	main_loop(t_env *env_lst)
 int	main(int argc, char **argv)
 {
 	t_env	*env_lst;
+	t_cmd	*cmd_lst;
 
 	(void)argv;
 	env_lst = NULL;
 	if (argc < 2)
 	{
+		cmd_lst = malloc(sizeof(t_cmd));
 		init_msh(&env_lst);
 		main_loop(env_lst);
+		free(cmd_lst);
 	}
 	else
 		printf("Usage: just ./minishell with no arguments.\n");
