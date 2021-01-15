@@ -50,13 +50,14 @@ int	get_input(char *input)
 void	main_loop(t_env *env_lst)
 {
 	char	input[MAXCHAR];
-	char	*cmdargs[100];
+	char	*args[100];
+	char	*piped[100];
 	int		ret;
 
 	while (1)
 	{
 		get_input(input);
-		ret = parse_cmdline(env_lst, input, cmdargs);
+		ret = parse_cmdline(env_lst, input, args, piped);
 		if (ret == EXIT)
 			break ;
 		else if (ret == EXPORT)
@@ -64,8 +65,8 @@ void	main_loop(t_env *env_lst)
 			export_env(&env_lst, "testkey", "testvalue");
 			ft_printf("env var testkey=testvalue added to the env list.\n");
 		}
-		else if (ret == CD)
-			cd(cmdargs[1]);
+		else if (ret == CD && args[1] != NULL)
+			cd(args[1]);
 	}
 }
 
