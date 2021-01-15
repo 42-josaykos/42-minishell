@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 16:06:45 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/15 16:49:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd)
 	}
 }
 
-void	check_pipe(char *input, t_cmd *cmd_lst)
+int	check_pipe(char *input, t_cmd *cmd_lst)
 {
 	char	*tmp[100];
 	t_cmd	*new_cmd;
@@ -66,9 +66,11 @@ void	check_pipe(char *input, t_cmd *cmd_lst)
 			cmd_lst = cmd_lst->next;
 			i++;
 		}
+		return (1);
 	}
 	else
 		parse_args(input, cmd_lst->args);
+	return (0);
 }
 
 void	free_cmd_lst(t_cmd **cmd_lst)

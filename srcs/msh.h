@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 15:29:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/15 16:53:37 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,13 @@ char	*ft_strsep(char **stringp, const char *delim);
 ** parsing cmd pipes
 */
 
-void	check_pipe(char *input, t_cmd *cmd_lst);
+int		check_pipe(char *input, t_cmd *cmd_lst);
 void	free_cmd_lst(t_cmd **cmd_lst);
+
+/*
+** Tests
+*/
+
+void	execArgsPiped(t_cmd *cmd_lst);
 
 #endif

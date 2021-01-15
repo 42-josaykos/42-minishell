@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 12:35:14 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/15 16:52:36 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,62 @@ void	exec_syscmd(char *input)
 	}
 	wait(NULL);
 }
+
+/*
+** For TESTING only
+*/
+
+void execArgsPiped(t_cmd *cmd_lst) 
+{ 
+    // 0 is read end, 1 is write end 
+    int pipefd[2];  
+    pid_t p1, p2; 
+  
+    if (pipe(pipefd) < 0) { 
+        printf("\nPipe could not be initialized"); 
+        return; 
+    } 
+    p1 = fork(); 
+    if (p1 < 0) { 
+        printf("\nCould not fork"); 
+        return; 
+    } 
+  
+    if (p1 == 0) { 
+        // Child 1 executing.. 
+        // It only needs to write at the write end 
+        close(pipefd[0]); 
+        dup2(pipefd[1], STDOUT_FILENO); 
+        close(pipefd[1]); 
+  
+        if (execvp(cmd_lst->args[0], cmd_lst->args) < 0) { 
+            printf("\nCould not execute command 1.."); 
+            exit(0); 
+        } 
+    } else { 
+        // Parent executing 
+        p2 = fork(); 
+ 
+        if (p2 < 0) { 
+            printf("\nCould not fork"); 
+            return; 
+        } 
+  
+        // Child 2 executing.. 
+        // It only needs to read at the read end 
+        if (p2 == 0) { 
+            close(pipefd[1]); 
+            dup2(pipefd[0], STDIN_FILENO); 
+            close(pipefd[0]); 
+			cmd_lst = cmd_lst->next;
+            if (execvp(cmd_lst->args[0], cmd_lst->args) < 0) { 
+                printf("\nCould not execute command 2.."); 
+                exit(0); 
+            } 
+        } else { 
+            // parent executing, waiting for two children 
+            wait(NULL); 
+            wait(NULL); 
+        } 
+    } 
+} 
