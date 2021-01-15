@@ -31,3 +31,4 @@ to be continued...
 - Check valgrind, some invalid read errors in function cd();
 - Need to trim whitespaces in command line. e.g: `$<space> ls <space> -l` is a valid command
 - segfautlt with `cd` when no args
+- Try use third main's argument for environnement variable list
