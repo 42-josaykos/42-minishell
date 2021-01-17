@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:30:32 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 13:28:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 13:35:42 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	parse_envp(char *str)
 void	assign_envp(char *str, t_env **env_lst)
 {
 	int		i;
-	char *env[2];
-	(void)env_lst;
+	char	*env[2];
 
+	(void)env_lst;
 	i = 0;
 	while (i < 2)
 	{
@@ -48,7 +48,7 @@ void	assign_envp(char *str, t_env **env_lst)
 
 void	init_env(t_env **env_lst, char **envp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envp[i])

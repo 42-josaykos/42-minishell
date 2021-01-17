@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 12:53:57 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 13:34:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	read_path(t_env *env_lst, char *filepath);
 **  Path initialization, export env and free memory
 */
 
-void	init_path(int fd, t_env **env_lst);
+void	init_env(t_env **env_lst, char **envp);
 void	export_env(t_env **env_lst, char *key, char *value);
 void	free_env_lst(t_env **env_lst);
 int		cd(char *arg);
@@ -86,6 +86,5 @@ void	free_cmd_lst(t_cmd **cmd_lst);
 */
 
 void	execArgsPiped(t_cmd *cmd_lst);
-void	init_env(t_env **env_lst, char **envp);
 
 #endif
