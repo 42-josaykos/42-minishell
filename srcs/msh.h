@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 14:48:19 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 17:13:24 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,27 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+
 /*
-** Cmd parsing
+** 
+*/
+
+int		cd(char *arg);
+void	export_env(t_env **env_lst, char *key, char *value);
+int		file_exists(char *filename);
+
+/*
+** parse_cmdline.c
 */
 
 int		parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input);
 void	parse_args(char *str, char **args);
-int		file_exists(char *filename);
 
 /*
-**  Path initialization, export env and free memory
+** init_env_lst.c
 */
 
 void	init_env(t_env **env_lst, char **envp);
-void	export_env(t_env **env_lst, char *key, char *value);
-void	free_env_lst(t_env **env_lst);
-int		cd(char *arg);
 
 /*
 ** Commands executions
@@ -67,16 +72,23 @@ void	cmd_handler(t_env *env_lst, char *input);
 void	exec_syscmd(char *input);
 
 /*
-** String utils
+** string_utils.c
 */
 
 char	*ft_strsep(char **stringp, const char *delim);
 
 /*
-** parsing cmd pipes
+** parse_pipe.c
 */
 
 int		check_pipe(char *input, t_cmd *cmd_lst);
+
+/*
+** list_utils.c
+*/
+void	env_lst_add(t_env **env_lst, t_env *new_env);
+void	env_lst_remove(t_env *env_lst, char *key);
+void	free_env_lst(t_env **env_lst);
 void	free_cmd_lst(t_cmd **cmd_lst);
 
 /*

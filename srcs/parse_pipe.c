@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 16:49:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 17:08:35 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,4 @@ int	check_pipe(char *input, t_cmd *cmd_lst)
 	else
 		parse_args(input, cmd_lst->args);
 	return (0);
-}
-
-void	free_cmd_lst(t_cmd **cmd_lst)
-{
-	t_cmd	*ptr;
-	t_cmd	*tmp;
-
-	ptr = *cmd_lst;
-	while (ptr)
-	{
-		tmp = ptr->next;
-		free(ptr);
-		ptr = tmp;
-	}
-	*cmd_lst = NULL;
 }

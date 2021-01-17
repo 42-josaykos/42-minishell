@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 14:45:04 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 17:02:43 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	exec_cmd(char *filepath)
 
 	args[0] = filepath;
 	args[1] = NULL;
-	if (file_exists(args[0]) != 0)
-		ft_printf("Command doesn't exist in PATH.\n");
 	p1 = fork();
 	if (p1 < 0)
 	{
