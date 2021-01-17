@@ -19,14 +19,10 @@
 ** TODO: Need to handle mutliple variables in the config file (.mshrc)
 */
 
-void	init_msh(t_env **env_lst)
+void	init_msh(t_env **env_lst, char **envp)
 {
-	int		fd;
-
 	ft_printf("Welcome to minishell !\nCtrl-C or \"exit\" to quit.\n");
-	fd = open(".mshrc", O_RDWR);
-	init_path(fd, env_lst);
-	close(fd);
+	init_env(env_lst, envp);
 }
 
 int	get_input(char *input)
@@ -68,7 +64,7 @@ void	main_loop(t_env *env_lst, t_cmd *cmd_lst)
 	}
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	t_env	*env_lst;
 	t_cmd	*cmd_lst;
@@ -78,7 +74,7 @@ int	main(int argc, char **argv)
 	cmd_lst = NULL;
 	if (argc < 2)
 	{
-		init_msh(&env_lst);
+		init_msh(&env_lst, envp);
 		cmd_lst = ft_calloc(1, sizeof(t_cmd));
 		main_loop(env_lst, cmd_lst);
 	}

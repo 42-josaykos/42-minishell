@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 16:53:37 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 12:53:57 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdbool.h>
 # include "../libft/libft.h"
 
-# define MAXCHAR 100
+# define MAXCHAR 1000
 # define EXIT 1
 # define EXPORT 2
 # define CD 3
@@ -86,5 +86,6 @@ void	free_cmd_lst(t_cmd **cmd_lst);
 */
 
 void	execArgsPiped(t_cmd *cmd_lst);
+void	init_env(t_env **env_lst, char **envp);
 
 #endif

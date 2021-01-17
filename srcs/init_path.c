@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:30:32 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 13:10:43 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 13:28:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,47 +29,32 @@ int	parse_envp(char *str)
 
 void	assign_envp(char *str, t_env **env_lst)
 {
-	char	**sub_strs;
 	int		i;
+	char *env[2];
+	(void)env_lst;
 
 	i = 0;
-	sub_strs = ft_split(str, '=');
-	export_env(env_lst, *(sub_strs), *(sub_strs + 1));
-	while (sub_strs[i] != NULL)
-		free(sub_strs[i++]);
-	free(sub_strs);
-	parse_path(*env_lst);
+	while (i < 2)
+	{
+		env[i] = ft_strsep(&str, "=");
+		if (env[i] == NULL)
+			break ;
+		if (strlen(env[i]) == 0)
+			i--;
+		i++;
+	}
+	export_env(env_lst, env[0], env[1]);
 }
 
-/*
-** Read the config file opened in a fd and check each line. If "export" command
-** is present, create a new env (key=value) in the list.
-*/
-
-void	init_path(int fd, t_env **env_lst)
+void	init_env(t_env **env_lst, char **envp)
 {
-	int		ret;
-	char	*line;
-	char	**strs;
-	char	**ptr;
-	char	buf[MAXCHAR];
+	int i;
 
-	ret = 1;
-	while (ret > 0)
+	i = 0;
+	while (envp[i])
 	{
-		ret = get_next_line(fd, &line);
-		ft_strlcpy(buf, line, MAXCHAR);
-		free(line);
-		strs = ft_split(buf, ' ');
-		ptr = strs;
-		while (*strs)
-		{
-			if (parse_envp(*strs))
-				assign_envp(*(strs + 1), env_lst);
-			free(*strs);
-			strs++;
-		}
-		free(ptr);
+		assign_envp(envp[i], env_lst);
+		i++;
 	}
 	return ;
 }

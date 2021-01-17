@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 14:46:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 13:22:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void	export_env(t_env **env_lst, char *key, char *value)
 	t_env	*new_env;
 
 	new_env = malloc(sizeof(t_env));
-	ft_strlcpy(new_env->key, key, ft_strlen(key) + 1);
-	ft_strlcpy(new_env->value, value, ft_strlen(value) + 1);
+	if (key)
+		ft_strlcpy(new_env->key, key, ft_strlen(key) + 1);
+	if (value)
+		ft_strlcpy(new_env->value, value, ft_strlen(value) + 1);
 	new_env->next = NULL;
 	env_lst_add(env_lst, new_env);
 }
