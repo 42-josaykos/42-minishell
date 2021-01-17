@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 16:52:36 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 14:45:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
-#include <unistd.h>
 
 /*
 ** Create a child process and execute the command in it. Parent process waits
@@ -45,49 +44,42 @@ void	exec_cmd(char *filepath)
 void	cmd_handler(t_env *env_lst, char *input)
 {
 	char	filepath[MAXCHAR];
+	char	*tmp;
+	char	*ptr;
+	char	copy[1000];
+	int		len;
 
+	ptr = NULL;
+	len = 0;
 	while (env_lst)
 	{
-		if (ft_strncmp(env_lst->key, "path", 4) == 0)
+		if (!ft_strncmp(env_lst->key, "PATH", 4))
 		{
-			read_path(env_lst, filepath);
-			ft_strcat(filepath, input);
-			if (file_exists(filepath) == 0)
-			{
-				exec_cmd(filepath);
-				break ;
-			}
+			ft_strlcpy(copy, env_lst->value, ft_strlen(env_lst->value));
+			ptr = copy;
+			break ;
 		}
 		env_lst = env_lst->next;
 	}
-	if (env_lst == NULL)
+	while (ptr)
 	{
-		printf("minishell: %s: not found. Try in system shell...\n", input);
-		exec_syscmd(input);
+		tmp = ft_strsep(&ptr, ":");
+		len = ft_strlen(tmp);
+		ft_strlcpy(filepath, tmp, len + 1);
+		if (filepath[len - 1] != '/')
+			ft_strcat(filepath, "/");
+		ft_strcat(filepath, input);
+		if (file_exists(filepath) == 0)
+		{
+			printf(">>> Executing %s >>>\n", filepath);
+			exec_cmd(filepath);
+			break ;
+		}
+		if (ptr == NULL)
+			break ;
 	}
-}
-
-/*
-** Execute system command. system() function is not allowed in the subject !
-** For debug only.
-*/
-
-void	exec_syscmd(char *input)
-{
-	pid_t	p1;
-
-	p1 = fork();
-	if (p1 < 0)
-	{
-		ft_printf("Cannot execute child process.\n");
-		exit(-1);
-	}
-	if (p1 == 0)
-	{
-		system(input);
-		exit(0);
-	}
-	wait(NULL);
+	if (ptr == NULL)
+		printf("minishell: %s: not found...\n", input);
 }
 
 /*

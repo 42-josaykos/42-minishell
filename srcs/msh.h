@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 13:34:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/17 14:48:19 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_cmd
 int		parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input);
 void	parse_args(char *str, char **args);
 int		file_exists(char *filename);
-void	read_path(t_env *env_lst, char *filepath);
 
 /*
 **  Path initialization, export env and free memory
@@ -58,7 +57,6 @@ void	init_env(t_env **env_lst, char **envp);
 void	export_env(t_env **env_lst, char *key, char *value);
 void	free_env_lst(t_env **env_lst);
 int		cd(char *arg);
-void	parse_path(t_env *env_lst);
 
 /*
 ** Commands executions
