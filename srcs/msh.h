@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/18 11:02:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/18 17:57:35 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_cmd
 	char			*args[MAXCHAR];
 	struct s_cmd	*next;
 }	t_cmd;
-
 
 /*
 ** 
@@ -76,6 +75,7 @@ void	exec_syscmd(char *input);
 */
 
 char	*ft_strsep(char **stringp, const char *delim);
+bool	is_empty(char *str);
 
 /*
 ** parse_pipe.c
