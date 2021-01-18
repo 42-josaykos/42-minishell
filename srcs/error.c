@@ -3,19 +3,19 @@
 void	error_cases(int errnum, char *cmd, char *arg)
 {
 	if (errnum == 2)
-		printf("%s: %s: No such file or directory", cmd, arg);
+		ft_printf("%s: %s: No such file or directory\n", cmd, arg);
 	else if (errnum == 12)
-		printf("%s: %s: Out of memory", cmd, arg);
+		ft_printf("%s: %s: Out of memory\n", cmd, arg);
 	else if (errnum == 13)
-		printf("%s: %s: Permission denied", cmd, arg);
+		ft_printf("%s: %s: Permission denied\n", cmd, arg);
 	else if (errnum == 14)
-		printf("%s: %s: Bad address", cmd, arg);
+		ft_printf("%s: %s: Bad address\n", cmd, arg);
 	else if (errnum == 20)
-		printf("%s: %s: Not a directory", cmd, arg);
+		ft_printf("%s: %s: Not a directory\n", cmd, arg);
 	else if (errnum == 36)
-		printf("%s: %s: File name too long", cmd, arg);
+		ft_printf("%s: %s: File name too long\n", cmd, arg);
 	else if (errnum == 40)
-		printf("%s: %s: Too many symbolic links encountered", cmd, arg);
+		ft_printf("%s: %s: Too many symbolic links encountered\n", cmd, arg);
 	else if (errnum == 121)
-		printf("%s: %s: Remote I/O error", cmd, arg);
+		ft_printf("%s: %s: Remote I/O error\n", cmd, arg);
 }

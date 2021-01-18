@@ -29,6 +29,7 @@ SRC_NAME	=	main.c \
 						exec_cmd.c \
 						parse_path.c \
 						string_utils.c \
+						error.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs

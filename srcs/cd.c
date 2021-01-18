@@ -6,8 +6,8 @@
 
 int	cd(char *arg)
 {
-	int	ret;
 	int	errnum;
+	int ret;
 
 	if (!arg || arg[0] == '~')
 	{
@@ -16,12 +16,12 @@ int	cd(char *arg)
 		if (ret == 0)
 			return (EXIT_SUCCESS);
 		error_cases(errnum, "cd", arg);
-		return (errnum);
+		return (EXIT_FAILURE);
 	}
-	ret = chdir(arg);
+	ret =chdir(arg);
 	errnum = errno;
 	if (ret == 0)
 		return (EXIT_SUCCESS);
 	error_cases(errnum, "cd", arg);
-	return (errnum);
+	return (EXIT_FAILURE);
 }
