@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmdline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 16:54:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/18 11:03:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	parse_args(char *str, char **args)
 
 int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
+	clear_previous_cmd(cmd_lst);
 	if (check_pipe(input, cmd_lst))
 		execArgsPiped(cmd_lst);
 	if (ft_strncmp(cmd_lst->args[0], "exit", 4) == 0)
