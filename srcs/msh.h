@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 17:13:24 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/18 10:03:19 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_cmd
 */
 
 int		cd(char *arg);
-void	export_env(t_env **env_lst, char *key, char *value);
+void	*export_env(t_env **env_lst, char *key, char *value);
 int		file_exists(char *filename);
 
 /*

@@ -56,7 +56,7 @@ void	main_loop(t_env *env_lst, t_cmd *cmd_lst)
 			break ;
 		else if (ret == EXPORT)
 		{
-			export_env(&env_lst, "testkey", "testvalue");
+			export_env(&env_lst, "USER", "testuser");
 			ft_printf("env var testkey=testvalue added to the env list.\n");
 		}
 		else if (ret == CD && cmd_lst->args[1] != NULL)
