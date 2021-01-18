@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/15 12:49:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/18 17:57:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+#include <ctype.h>
 
 /*
 ** Implementation of strsep
@@ -42,4 +43,34 @@ char 	*ft_strsep(char **stringp, const char *delim)
 	}
 	*stringp = NULL;
 	return (tmp);
+}
+
+int	ft_isblank(int c)
+{
+	if (c >= 0)
+	{
+		if (c == ' ' || c == '\t')
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
+
+bool	is_empty(char *str)
+{
+	bool	ret;
+
+	ret = true;
+	while (*str)
+	{
+		if (ft_isblank(*str))
+			str++;
+		else
+		{
+			ret = false;
+			break ;
+		}
+	}
+	return (ret);
 }

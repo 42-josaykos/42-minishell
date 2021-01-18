@@ -48,10 +48,12 @@ void	main_loop(t_env *env_lst, t_cmd *cmd_lst)
 	char	input[MAXCHAR];
 	int		ret;
 
+	ret = 0;
 	while (1)
 	{
 		get_input(input);
-		ret = parse_cmdline(env_lst, cmd_lst, input);
+		if (ft_strncmp(input, "", 1) && !is_empty(input))
+			ret = parse_cmdline(env_lst, cmd_lst, input);
 		if (ret == EXIT)
 			break ;
 		else if (ret == EXPORT)
