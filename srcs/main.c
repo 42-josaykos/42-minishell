@@ -19,14 +19,10 @@
 ** TODO: Need to handle mutliple variables in the config file (.mshrc)
 */
 
-void	init_msh(t_env **env_lst)
+void	init_msh(t_env **env_lst, char **envp)
 {
-	int		fd;
-
 	ft_printf("Welcome to minishell !\nCtrl-C or \"exit\" to quit.\n");
-	fd = open(".mshrc", O_RDWR);
-	init_path(fd, env_lst);
-	close(fd);
+	init_env(env_lst, envp);
 }
 
 int	get_input(char *input)
@@ -47,42 +43,44 @@ int	get_input(char *input)
 ** TODO: Need to call functions for parsing the input string
 */
 
-void	main_loop(t_env *env_lst)
+void	main_loop(t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	input[MAXCHAR];
-	char	*args[100];
-	char	*piped[100];
 	int		ret;
 
 	while (1)
 	{
 		get_input(input);
-		ret = parse_cmdline(env_lst, input, args, piped);
+		ret = parse_cmdline(env_lst, cmd_lst, input);
 		if (ret == EXIT)
 			break ;
 		else if (ret == EXPORT)
 		{
-			export_env(&env_lst, "testkey", "testvalue");
+			export_env(&env_lst, "USER", "testuser");
 			ft_printf("env var testkey=testvalue added to the env list.\n");
 		}
-		else if (ret == CD && args[1] != NULL)
-			cd(args[1]);
+		else if (ret == CD && cmd_lst->args[1] != NULL)
+			cd(cmd_lst->args[1]);
 	}
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	t_env	*env_lst;
+	t_cmd	*cmd_lst;
 
 	(void)argv;
 	env_lst = NULL;
+	cmd_lst = NULL;
 	if (argc < 2)
 	{
-		init_msh(&env_lst);
-		main_loop(env_lst);
+		init_msh(&env_lst, envp);
+		cmd_lst = ft_calloc(1, sizeof(t_cmd));
+		main_loop(env_lst, cmd_lst);
 	}
 	else
 		printf("Usage: just ./minishell with no arguments.\n");
 	free_env_lst(&env_lst);
+	free_cmd_lst(&cmd_lst);
 	return (EXIT_SUCCESS);
 }

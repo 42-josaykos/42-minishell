@@ -6,11 +6,16 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 14:57:56 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/15 12:49:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+/*
+** Implementation of strsep
+** $ man strsep
+*/
 
 char 	*ft_strsep(char **stringp, const char *delim)
 {
