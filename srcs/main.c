@@ -58,6 +58,7 @@ void	main_loop(t_env *env_lst)
 	{
 		get_input(input);
 		ret = parse_cmdline(env_lst, input, args, piped);
+		printf("%s\n", env_lst->value);
 		if (ret == EXIT)
 			break ;
 		else if (ret == EXPORT)
@@ -65,7 +66,7 @@ void	main_loop(t_env *env_lst)
 			export_env(&env_lst, "testkey", "testvalue");
 			ft_printf("env var testkey=testvalue added to the env list.\n");
 		}
-		else if (ret == CD && args[1] != NULL)
+		else if (ret == CD)
 			cd(args[1]);
 	}
 }

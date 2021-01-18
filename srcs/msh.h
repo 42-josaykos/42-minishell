@@ -13,6 +13,7 @@
 #ifndef MSH_H
 # define MSH_H
 
+# include <errno.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -60,5 +61,11 @@ void	parse_path(t_env *env_lst);
 void	exec_cmd(char *filepath);
 void	exec_syscmd(char *input);
 char	*ft_strsep(char **stringp, const char *delim);
+
+/*
+** Error management
+*/
+
+void	error_cases(int errnum, char *cmd, char *arg);
 
 #endif
