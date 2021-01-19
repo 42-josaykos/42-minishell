@@ -3,38 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 14:57:56 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/19 15:06:13 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+#include <ctype.h>
+
+/*
+** Implementation of strsep
+** $ man strsep
+*/
 
 char 	*ft_strsep(char **stringp, const char *delim)
 {
 	int		i;
+	int		j;
 	char	*tmp;
 
 	tmp = *stringp;
 	if (*stringp == NULL)
 		return (NULL);
-	while (*delim)
+	i = 0;
+	while (tmp[i])
 	{
-		i = 0;
-		while (tmp[i])
+		j = 0;
+		while (delim[j])
 		{
-			if (tmp[i] == *delim)
+			if (tmp[i] == delim[j])
 			{
 				tmp[i] = '\0';
 				*stringp += (i + 1);
 				return (tmp);
 			}
-			i++;
+			j++;
 		}
-		delim++;
+		i++;
 	}
 	*stringp = NULL;
 	return (tmp);
+}
+
+int	ft_isblank(int c)
+{
+	if (c >= 0)
+	{
+		if (c == ' ' || c == '\t')
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
+
+bool	is_empty(char *str)
+{
+	bool	ret;
+
+	ret = true;
+	while (*str)
+	{
+		if (ft_isblank(*str))
+			str++;
+		else
+		{
+			ret = false;
+			break ;
+		}
+	}
+	return (ret);
 }

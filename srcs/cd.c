@@ -18,7 +18,7 @@ int	cd(char *arg)
 		error_cases(errnum, "cd", arg);
 		return (EXIT_FAILURE);
 	}
-	ret =chdir(arg);
+	ret = chdir(arg);
 	errnum = errno;
 	if (ret == 0)
 		return (EXIT_SUCCESS);

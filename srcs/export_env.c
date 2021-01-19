@@ -3,49 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   export_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/04 11:46:28 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/18 10:25:11 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-/*
-** Add a new env variable (key=value) at the end of the env list.
-** Should be call in export_env function below.
-*/
-
-static void	env_lst_add(t_env **env_lst, t_env *new_env)
+static void	content_add(t_env *node, char *key, char *value)
 {
-	t_env	*tmp;
-
-	if (env_lst != NULL)
-	{
-		if (*env_lst == NULL)
-			*env_lst = new_env;
-		else
-		{
-			tmp = *env_lst;
-			while (tmp->next != NULL)
-				tmp = tmp->next;
-			tmp->next = new_env;
-		}
-	}
+	ft_strlcpy(node->key, key, ft_strlen(key) + 1);
+	ft_strlcpy(node->value, value, ft_strlen(value) + 1);
 }
 
 /*
 ** Create a new env variable (key=value) and add it to the env list.
 */
 
-void	export_env(t_env **env_lst, char *key, char *value)
+void	*export_env(t_env **env_lst, char *key, char *value)
 {
 	t_env	*new_env;
+	t_env	*tmp;
 
+	tmp = *env_lst;
+	if (!key)
+		key = "export";
+	if (!value)
+		value = "";
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->key, key, ft_strlen(key) + 1))
+		{
+			content_add(tmp, key, value);
+			return (tmp);
+		}
+		tmp = (tmp)->next;
+	}
 	new_env = malloc(sizeof(t_env));
-	ft_strlcpy(new_env->key, key, ft_strlen(key) + 1);
-	ft_strlcpy(new_env->value, value, ft_strlen(value) + 1);
+	if (!new_env)
+		return (NULL);
 	new_env->next = NULL;
+	content_add(new_env, key, value);
 	env_lst_add(env_lst, new_env);
+	return (new_env);
 }
