@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 17:02:43 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/19 11:47:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	exec_cmd(char *filepath)
 	wait(NULL);
 }
 
-void	cmd_handler(t_env *env_lst, char *input)
+void	cmd_handler(t_env *env_lst, char *cmd)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
@@ -66,7 +66,7 @@ void	cmd_handler(t_env *env_lst, char *input)
 		ft_strlcpy(filepath, tmp, len + 1);
 		if (filepath[len - 1] != '/')
 			ft_strcat(filepath, "/");
-		ft_strcat(filepath, input);
+		ft_strcat(filepath, cmd);
 		if (file_exists(filepath) == 0)
 		{
 			printf(">>> Executing %s >>>\n", filepath);
@@ -77,7 +77,7 @@ void	cmd_handler(t_env *env_lst, char *input)
 			break ;
 	}
 	if (ptr == NULL)
-		printf("minishell: %s: not found...\n", input);
+		printf("minishell: %s: not found...\n", cmd);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/18 17:57:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/19 12:08:24 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,27 @@
 char 	*ft_strsep(char **stringp, const char *delim)
 {
 	int		i;
+	int		j;
 	char	*tmp;
 
 	tmp = *stringp;
 	if (*stringp == NULL)
 		return (NULL);
-	while (*delim)
+	i = 0;
+	while (tmp[i])
 	{
-		i = 0;
-		while (tmp[i])
+		j = 0;
+		while (delim[j])
 		{
-			if (tmp[i] == *delim)
+			if (tmp[i] == delim[j])
 			{
 				tmp[i] = '\0';
 				*stringp += (i + 1);
 				return (tmp);
 			}
-			i++;
+			j++;
 		}
-		delim++;
+		i++;
 	}
 	*stringp = NULL;
 	return (tmp);
