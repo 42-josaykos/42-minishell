@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/19 13:09:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/19 15:08:13 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	exec_cmd(char *filepath)
 ** If found, execute the command. 
 */
 
-static void	cmd_handler2(char **ptr, char *cmd)
+static void	*cmd_handler2(char *ptr, char *cmd)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
@@ -53,7 +53,7 @@ static void	cmd_handler2(char **ptr, char *cmd)
 	len = 0;
 	while (ptr)
 	{
-		tmp = ft_strsep(ptr, ":");
+		tmp = ft_strsep(&ptr, ":");
 		len = ft_strlen(tmp);
 		ft_strlcpy(filepath, tmp, len + 1);
 		if (filepath[len - 1] != '/')
@@ -63,11 +63,10 @@ static void	cmd_handler2(char **ptr, char *cmd)
 		{
 			printf(">>> Executing %s >>>\n", filepath);
 			exec_cmd(filepath);
-			break ;
+			return (ptr);
 		}
-		if (ptr == NULL)
-			break ;
 	}
+	return (ptr);
 }
 
 /*
@@ -90,8 +89,7 @@ void	cmd_handler(t_env *env_lst, char *cmd)
 		}
 		env_lst = env_lst->next;
 	}
-	cmd_handler2(&ptr, cmd);
-	if (ptr == NULL)
+	if (cmd_handler2(ptr, cmd) == NULL)
 		printf("minishell: %s: not found...\n", cmd);
 }
 
