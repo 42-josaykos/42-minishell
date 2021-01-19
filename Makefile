@@ -30,6 +30,7 @@ SRC_NAME	=	main.c \
 						string_utils.c \
 						error.c \
 						list_utils.c \
+						list_utils2.c \
 						parse_pipe.c \
 
 OBJ 			= $(SRC:.c=.o)

@@ -43,10 +43,10 @@ typedef struct s_cmd
 }	t_cmd;
 
 /*
-** 
+**	
 */
 
-int		cd(char *arg);
+int		cd(char *arg, t_env *env_lst);
 void	*export_env(t_env **env_lst, char *key, char *value);
 int		file_exists(char *filename);
 
@@ -92,6 +92,7 @@ void	env_lst_remove(t_env *env_lst, char *key);
 void	free_env_lst(t_env **env_lst);
 void	free_cmd_lst(t_cmd **cmd_lst);
 void	clear_previous_cmd(t_cmd *cmd_lst);
+char	*get_env(t_env *env_lst, char *key);
 
 /*
 ** Tests
