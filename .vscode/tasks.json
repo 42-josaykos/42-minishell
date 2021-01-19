@@ -7,11 +7,13 @@
       "command": "clang",
       "args": [
         "srcs/cd.c",
+        "srcs/error.c",
         "srcs/exec_cmd.c",
         "srcs/export_env.c",
         "srcs/file_status.c",
         "srcs/init_env_lst.c",
         "srcs/list_utils.c",
+        "srcs/list_utils2.c",
         "srcs/main.c",
         "srcs/parse_cmdline.c",
         "srcs/parse_pipe.c",
