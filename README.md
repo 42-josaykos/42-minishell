@@ -26,4 +26,5 @@ to be continued...
 
 ## Notes:
 
-- Should handle backslash inside double quotes (escaping character).
+- Should handle backslash inside double quotes `"\\"` (escaping character).
+- Handle `cd ~`, `cd -` and `cd /`, with absolute path from root `cd /home/user`
