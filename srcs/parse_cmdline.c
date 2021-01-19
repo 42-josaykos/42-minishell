@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/18 17:34:39 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/19 12:47:33 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	parse_args(char *str, char **args)
 	i = 0;
 	while (i < 100)
 	{
-		args[i] = ft_strsep(&str, " ");
+		args[i] = ft_strsep(&str, " \t");
 		if (args[i] == NULL)
 			break ;
 		if (strlen(args[i]) == 0)
@@ -33,8 +33,7 @@ void	parse_args(char *str, char **args)
 ** Returns 1 if "exit".
 ** Returns 2 if "export" command (debug test).
 ** Returns 3 if "cd".
-** Check each path directories for the executable and execute it. If doesn't
-** exists try the command in the system shell (debug test).
+** Check each path directories for the executable and execute it (cmd_handler).
 */
 
 int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
@@ -48,6 +47,6 @@ int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 		return (EXPORT);
 	else if (ft_strncmp(cmd_lst->args[0], "cd", 2) == 0)
 		return (CD);
-	cmd_handler(env_lst, input);
+	cmd_handler(env_lst, cmd_lst->args[0]);
 	return (0);
 }

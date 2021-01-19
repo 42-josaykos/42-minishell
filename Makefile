@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/01/17 16:56:48 by jonny            ###   ########.fr        #
+#    Updated: 2021/01/19 19:44:23 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,17 @@ LIBFT 		= libft/libft.a
 INCLUDES 	= -Iincludes -Ilibft
 
 SRC_NAME	=	main.c \
-						parse_cmdline.c \
-						init_env_lst.c \
+						cd.c \
+						error.c \
+						exec_cmd.c \
 						export_env.c \
 						file_status.c \
-						cd.c \
-						exec_cmd.c \
-						string_utils.c \
+						init_env_lst.c \
 						list_utils.c \
+						list_utils2.c \
+						parse_cmdline.c \
 						parse_pipe.c \
+						string_utils.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs

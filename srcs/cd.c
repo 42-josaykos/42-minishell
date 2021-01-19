@@ -4,45 +4,27 @@
 ** Move to targeted directory
 */
 
-char	*path_finding(void)
+
+
+int		cd(char *arg, t_env *env_lst)
 {
-	char	*buf;
+	int	errnum;
+	int ret;
+	char *str;
+	char tmp[MAXCHAR + 1];
 
-	buf = ft_calloc(1024, sizeof(char));
-	if (!buf)
-		return (malloc(0));
-	getcwd(buf, 1024 * sizeof(char));
-	return (buf);
-}
+	str = arg;
+	if (arg && arg[0] == '-')
+		str = get_env(env_lst, "OLDPWD");
 
-void	cpy_path(char *path, char *cur_path, char *dir)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (cur_path[j])
-		path[i++] = cur_path[j++];
-	j = 0;
-	path[i++] = '/';
-	while (dir[j])
-		path[i++] = dir[j++];
-	path[i] = 0;
-}
-
-int	cd(char *arg)
-{
-	char	*path;
-	char	*cur_path;
-
-	cur_path = path_finding();
-	path = ft_calloc(2 + ft_strlen(cur_path) + ft_strlen(arg), sizeof(char));
-	if (!path)
-		return (EXIT_FAILURE);
-	cpy_path(path, cur_path, arg);
-	chdir(path);
-	free (path);
-	free(cur_path);
-	return (EXIT_SUCCESS);
+	if (!arg || arg[0] == '~')
+		str = get_env(env_lst, "HOME");
+	getcwd(tmp, MAXCHAR);
+	ret = chdir(str);
+	errnum = errno;
+	export_env(&env_lst, "OLDPWD", tmp);
+	if (ret == 0)
+		return (EXIT_SUCCESS);
+	error_cases(errnum, "cd", str);
+	return (EXIT_FAILURE);
 }

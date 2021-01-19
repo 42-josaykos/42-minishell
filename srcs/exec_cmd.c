@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 17:02:43 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/19 15:08:13 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,46 @@ void	exec_cmd(char *filepath)
 	wait(NULL);
 }
 
-void	cmd_handler(t_env *env_lst, char *input)
+/*
+** Split PATH and look in each filepath for the command.
+** If found, execute the command. 
+*/
+
+static void	*cmd_handler2(char *ptr, char *cmd)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
-	char	*ptr;
-	char	copy[1000];
 	int		len;
 
-	ptr = NULL;
 	len = 0;
+	while (ptr)
+	{
+		tmp = ft_strsep(&ptr, ":");
+		len = ft_strlen(tmp);
+		ft_strlcpy(filepath, tmp, len + 1);
+		if (filepath[len - 1] != '/')
+			ft_strcat(filepath, "/");
+		ft_strcat(filepath, cmd);
+		if (file_exists(filepath) == 0)
+		{
+			printf(">>> Executing %s >>>\n", filepath);
+			exec_cmd(filepath);
+			return (ptr);
+		}
+	}
+	return (ptr);
+}
+
+/*
+** Iterate through the env list for PATH, then try each filepath.
+*/
+
+void	cmd_handler(t_env *env_lst, char *cmd)
+{
+	char	*ptr;
+	char	copy[MAXCHAR];
+
+	ptr = NULL;
 	while (env_lst)
 	{
 		if (!ft_strncmp(env_lst->key, "PATH", 4))
@@ -59,25 +89,8 @@ void	cmd_handler(t_env *env_lst, char *input)
 		}
 		env_lst = env_lst->next;
 	}
-	while (ptr)
-	{
-		tmp = ft_strsep(&ptr, ":");
-		len = ft_strlen(tmp);
-		ft_strlcpy(filepath, tmp, len + 1);
-		if (filepath[len - 1] != '/')
-			ft_strcat(filepath, "/");
-		ft_strcat(filepath, input);
-		if (file_exists(filepath) == 0)
-		{
-			printf(">>> Executing %s >>>\n", filepath);
-			exec_cmd(filepath);
-			break ;
-		}
-		if (ptr == NULL)
-			break ;
-	}
-	if (ptr == NULL)
-		printf("minishell: %s: not found...\n", input);
+	if (cmd_handler2(ptr, cmd) == NULL)
+		printf("minishell: %s: not found...\n", cmd);
 }
 
 /*
