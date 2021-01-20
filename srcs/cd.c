@@ -4,19 +4,16 @@
 ** Move to targeted directory
 */
 
-
-
-int		cd(char *arg, t_env *env_lst)
+int	cd(char *arg, t_env *env_lst)
 {
-	int	errnum;
-	int ret;
-	char *str;
-	char tmp[MAXCHAR + 1];
+	int		errnum;
+	int		ret;
+	char	*str;
+	char	tmp[MAXCHAR];
 
 	str = arg;
 	if (arg && arg[0] == '-')
 		str = get_env(env_lst, "OLDPWD");
-
 	if (!arg || arg[0] == '~')
 		str = get_env(env_lst, "HOME");
 	getcwd(tmp, MAXCHAR);

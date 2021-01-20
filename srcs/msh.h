@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 10:45:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 12:08:37 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ bool	is_empty(char *str);
 int		check_pipe(char *input, t_cmd *cmd_lst);
 
 /*
-** list_utils.c
+** list_utils.c && list_utils2.c
 */
 void	env_lst_add(t_env **env_lst, t_env *new_env);
 void	env_lst_remove(t_env *env_lst, char *key);
@@ -93,12 +93,7 @@ void	free_env_lst(t_env **env_lst);
 void	free_cmd_lst(t_cmd **cmd_lst);
 void	clear_previous_cmd(t_cmd *cmd_lst);
 char	*get_env(t_env *env_lst, char *key);
-
-/*
-** Tests
-*/
-
-void	execArgsPiped(t_cmd *cmd_lst);
+void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 
 /*
 ** Error management

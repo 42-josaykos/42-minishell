@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 17:08:35 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 12:02:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,6 @@ bool	parse_pipe(char *str, char **piped)
 	if (piped[1] == NULL)
 		return (false);
 	return (true);
-}
-
-static void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd)
-{
-	t_cmd	*tmp;
-
-	if (cmd_lst != NULL)
-	{
-		if (*cmd_lst == NULL)
-			*cmd_lst = new_cmd;
-		else
-		{
-			tmp = *cmd_lst;
-			while (tmp->next != NULL)
-				tmp = tmp->next;
-			tmp->next = new_cmd;
-		}
-	}
 }
 
 int	check_pipe(char *input, t_cmd *cmd_lst)
@@ -68,7 +50,5 @@ int	check_pipe(char *input, t_cmd *cmd_lst)
 		}
 		return (1);
 	}
-	else
-		parse_args(input, cmd_lst->args);
 	return (0);
 }

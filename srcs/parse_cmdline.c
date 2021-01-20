@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 11:07:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 12:15:01 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	clear_previous_cmd(cmd_lst);
 	if (check_pipe(input, cmd_lst))
-		execArgsPiped(cmd_lst);
+	{
+		printf(">> input has piped commands but need a function to handle it !\n");
+		return(0);
+	}
+	else
+		parse_args(input, cmd_lst->args);
 	if (ft_strncmp(cmd_lst->args[0], "exit", 4) == 0)
 		return (EXIT);
 	else if (ft_strncmp(cmd_lst->args[0], "export", 6) == 0)
