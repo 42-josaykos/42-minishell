@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/19 15:08:13 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 11:11:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 ** filepath[MAXCHAR] buffer. We add the filename to the path with ft_strcat()
 */
 
-void	exec_cmd(char *filepath)
+void	exec_cmd(char *filepath, char **args)
 {
-	char	*args[2];
 	pid_t	p1;
-
+	
 	args[0] = filepath;
-	args[1] = NULL;
 	p1 = fork();
 	if (p1 < 0)
 	{
@@ -33,7 +31,7 @@ void	exec_cmd(char *filepath)
 	}
 	if (p1 == 0)
 	{
-		execve(args[0], args, NULL);
+		execve(*args, args, NULL);
 		exit(0);
 	}
 	wait(NULL);
@@ -44,7 +42,7 @@ void	exec_cmd(char *filepath)
 ** If found, execute the command. 
 */
 
-static void	*cmd_handler2(char *ptr, char *cmd)
+static void	*cmd_handler2(char *ptr, char **args)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
@@ -58,11 +56,11 @@ static void	*cmd_handler2(char *ptr, char *cmd)
 		ft_strlcpy(filepath, tmp, len + 1);
 		if (filepath[len - 1] != '/')
 			ft_strcat(filepath, "/");
-		ft_strcat(filepath, cmd);
+		ft_strcat(filepath, args[0]);
 		if (file_exists(filepath) == 0)
 		{
 			printf(">>> Executing %s >>>\n", filepath);
-			exec_cmd(filepath);
+			exec_cmd(filepath, args);
 			return (ptr);
 		}
 	}
@@ -73,7 +71,7 @@ static void	*cmd_handler2(char *ptr, char *cmd)
 ** Iterate through the env list for PATH, then try each filepath.
 */
 
-void	cmd_handler(t_env *env_lst, char *cmd)
+void	cmd_handler(t_env *env_lst, char **args)
 {
 	char	*ptr;
 	char	copy[MAXCHAR];
@@ -89,8 +87,8 @@ void	cmd_handler(t_env *env_lst, char *cmd)
 		}
 		env_lst = env_lst->next;
 	}
-	if (cmd_handler2(ptr, cmd) == NULL)
-		printf("minishell: %s: not found...\n", cmd);
+	if (cmd_handler2(ptr, args) == NULL)
+		printf("minishell: %s: not found...\n", args[0]);
 }
 
 /*

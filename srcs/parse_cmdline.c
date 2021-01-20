@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/19 12:47:33 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 11:07:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 		return (EXPORT);
 	else if (ft_strncmp(cmd_lst->args[0], "cd", 2) == 0)
 		return (CD);
-	cmd_handler(env_lst, cmd_lst->args[0]);
+	cmd_handler(env_lst, cmd_lst->args);
 	return (0);
 }

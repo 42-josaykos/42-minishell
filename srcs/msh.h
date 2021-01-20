@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/18 17:57:35 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 10:45:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	init_env(t_env **env_lst, char **envp);
 ** Commands executions
 */
 
-void	exec_cmd(char *filepath);
-void	cmd_handler(t_env *env_lst, char *input);
+void	exec_cmd(char *filepath, char **args);
+void	cmd_handler(t_env *env_lst, char **args);
 void	exec_syscmd(char *input);
 
 /*
