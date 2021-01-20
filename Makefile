@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/01/19 19:44:23 by jonny            ###   ########.fr        #
+#    Updated: 2021/01/20 12:45:05 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ INCLUDES 	= -Iincludes -Ilibft
 SRC_NAME	=	main.c \
 						cd.c \
 						error.c \
+						exec_builtin.c \
 						exec_cmd.c \
 						export_env.c \
 						file_status.c \

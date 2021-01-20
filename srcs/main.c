@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "msh.h"
-#include <fcntl.h>
 
 /*
 ** Prints a welcome message.
@@ -56,13 +55,8 @@ void	main_loop(t_env *env_lst, t_cmd *cmd_lst)
 			ret = parse_cmdline(env_lst, cmd_lst, input);
 		if (ret == EXIT)
 			break ;
-		else if (ret == EXPORT)
-		{
-			export_env(&env_lst, "USER", "testuser");
-			ft_printf("env var testkey=testvalue added to the env list.\n");
-		}
-		else if (ret == CD)
-			cd(cmd_lst->args[1], env_lst);
+		else if (ret)
+			exec_builtin(ret, env_lst, cmd_lst);
 	}
 }
 

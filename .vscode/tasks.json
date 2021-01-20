@@ -8,6 +8,7 @@
       "args": [
         "srcs/cd.c",
         "srcs/error.c",
+        "srcs/exec_builtin.c",
         "srcs/exec_cmd.c",
         "srcs/export_env.c",
         "srcs/file_status.c",

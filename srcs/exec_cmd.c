@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 12:08:29 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 12:40:57 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** filepath[MAXCHAR] buffer. We add the filename to the path with ft_strcat()
 */
 
-void	exec_cmd(char *filepath, char **args)
+static void	exec_cmd(char *filepath, char **args)
 {
 	pid_t	p1;
 

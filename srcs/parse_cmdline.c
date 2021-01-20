@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 12:22:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 12:51:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	parse_args(char *str, char **args)
 
 int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
+	int	ret;
+
+	ret = 0;
 	clear_previous_cmd(cmd_lst);
 	if (check_pipe(input, cmd_lst))
 	{
@@ -46,12 +49,8 @@ int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 	}
 	else
 		parse_args(input, cmd_lst->args);
-	if (ft_strncmp(cmd_lst->args[0], "exit", 4) == 0)
-		return (EXIT);
-	else if (ft_strncmp(cmd_lst->args[0], "export", 6) == 0)
-		return (EXPORT);
-	else if (ft_strncmp(cmd_lst->args[0], "cd", 2) == 0)
-		return (CD);
-	cmd_handler(env_lst, cmd_lst->args);
-	return (0);
+	ret = is_builtin(cmd_lst->args[0]);
+	if (!ret)
+		cmd_handler(env_lst, cmd_lst->args);
+	return (ret);
 }
