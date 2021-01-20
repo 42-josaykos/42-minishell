@@ -1,4 +1,4 @@
-#include "msh.h"
+#include "../msh.h"
 
 /*
 **	look for the value of a specified key

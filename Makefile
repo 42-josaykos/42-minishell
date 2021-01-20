@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/01/20 12:45:05 by jonny            ###   ########.fr        #
+#    Updated: 2021/01/20 13:19:33 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,21 +18,22 @@ END = `tput sgr0`
 NAME 			= minishell
 LIBFT 		= libft/libft.a
 
-INCLUDES 	= -Iincludes -Ilibft
+INCLUDES 	= -Isrcs -Ilibft
 
 SRC_NAME	=	main.c \
-						cd.c \
+						builtins/cd.c \
+						execs/exec_builtin.c \
+						execs/exec_cmd.c \
+						parsing/parse_cmdline.c \
+						parsing/parse_pipe.c \
+						parsing/parse_semicolon.c \
+						utils/list_utils.c \
+						utils/list_utils2.c \
+						utils/string_utils.c \
 						error.c \
-						exec_builtin.c \
-						exec_cmd.c \
 						export_env.c \
 						file_status.c \
 						init_env_lst.c \
-						list_utils.c \
-						list_utils2.c \
-						parse_cmdline.c \
-						parse_pipe.c \
-						string_utils.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs

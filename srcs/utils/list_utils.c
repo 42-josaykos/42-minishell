@@ -6,11 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/18 11:06:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 13:09:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "../msh.h"
 
 /*
 ** Add a new env variable (key=value) at the end of the env list.

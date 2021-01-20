@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "../msh.h"
 
 bool	parse_pipe(char *str, char **piped)
 {

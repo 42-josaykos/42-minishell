@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 12:40:46 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 13:21:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ typedef struct s_cmd
 	char			*args[MAXCHAR];
 	struct s_cmd	*next;
 }	t_cmd;
-
-/*
-**	
-*/
 
 int		cd(char *arg, t_env *env_lst);
 void	*export_env(t_env **env_lst, char *key, char *value);
@@ -100,5 +96,11 @@ void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 */
 
 void	error_cases(int errnum, char *cmd, char *arg);
+
+/*
+** Error management
+*/
+
+void	check_semicolon(char *input, t_cmd *cmd_lst);
 
 #endif

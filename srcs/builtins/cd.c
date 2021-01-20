@@ -1,4 +1,4 @@
-#include "msh.h"
+#include "../msh.h"
 
 /*
 ** Move to targeted directory
