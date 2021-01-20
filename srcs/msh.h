@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 13:21:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 15:22:52 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define EXIT 1
 # define EXPORT 2
 # define CD 3
+# define PWD 4
 
 typedef struct s_env
 {
@@ -45,6 +46,7 @@ typedef struct s_cmd
 int		cd(char *arg, t_env *env_lst);
 void	*export_env(t_env **env_lst, char *key, char *value);
 int		file_exists(char *filename);
+void	print_cwd(void);
 
 /*
 ** parse_cmdline.c

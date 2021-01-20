@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/01/20 13:19:33 by jonny            ###   ########.fr        #
+#    Updated: 2021/01/20 15:24:36 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ INCLUDES 	= -Isrcs -Ilibft
 
 SRC_NAME	=	main.c \
 						builtins/cd.c \
+						builtins/pwd.c \
 						execs/exec_builtin.c \
 						execs/exec_cmd.c \
 						parsing/parse_cmdline.c \
@@ -47,7 +48,6 @@ all:	$(NAME)
 $(NAME): $(OBJ)
 	make -C libft/ 1>/dev/null
 	@echo "$(GREEN)$(LIBFT) done...$(END)"
-	$(CC) srcs/pwd.c $(INCLUDES) $(LIBFT) -o pwd
 	@echo "$(GREEN)pwd builtin command done...$(END)"
 	$(CC) $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) binary is ready !$(END)"
