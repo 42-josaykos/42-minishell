@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 13:21:57 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 15:48:41 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 	int	ret;
 
 	ret = 0;
-	clear_previous_cmd(cmd_lst);
 	if (check_pipe(input, cmd_lst))
 	{
 		printf("input has | cmds but need a function to handle it!\n");

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 15:23:22 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 15:39:42 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void	exec_builtin(int ret, t_env *env_lst, t_cmd *cmd_lst)
 {
 	if (ret == EXPORT)
-	{
-		export_env(&env_lst, "USER", "testuser");
-		ft_printf("env var testkey=testvalue added to the env list.\n");
-	}
+		assign_env(cmd_lst->args[1], &env_lst);
 	else if (ret == CD)
 		cd(cmd_lst->args[1], env_lst);
 	else if (ret == PWD)

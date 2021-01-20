@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 13:14:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 16:01:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	*cmd_handler2(char *ptr, char **args)
 		{
 			printf(">>> Executing %s >>>\n", filepath);
 			exec_cmd(filepath, args);
-			return (ptr);
+			return (tmp);
 		}
 	}
 	return (ptr);
@@ -81,7 +81,7 @@ void	cmd_handler(t_env *env_lst, char **args)
 	{
 		if (!ft_strncmp(env_lst->key, "PATH", 4))
 		{
-			ft_strlcpy(copy, env_lst->value, ft_strlen(env_lst->value));
+			ft_strlcpy(copy, env_lst->value, ft_strlen(env_lst->value) + 1);
 			ptr = copy;
 			break ;
 		}

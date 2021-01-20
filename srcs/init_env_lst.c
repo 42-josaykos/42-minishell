@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:56:57 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 17:08:49 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 15:30:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Create a new env (key=value) in the env list.
 */
 
-static void	assign_env(char *str, t_env **env_lst)
+void	assign_env(char *str, t_env **env_lst)
 {
 	int		i;
 	char	*env[2];

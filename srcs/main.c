@@ -57,6 +57,7 @@ void	main_loop(t_env *env_lst, t_cmd *cmd_lst)
 			break ;
 		else if (ret)
 			exec_builtin(ret, env_lst, cmd_lst);
+		clear_previous_cmd(cmd_lst);
 	}
 }
 
