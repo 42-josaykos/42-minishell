@@ -1,10 +1,10 @@
 srcs/*.o
+srcs/*/*.o
 libft/*.o
-libft/*.a
 libft/*/*.o
+libft/*.a
 minishell
 LICENSE
 tags
 vgcore*
 a.out
-pwd

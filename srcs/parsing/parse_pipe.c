@@ -6,11 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 12:02:56 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 16:30:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../../includes/msh.h"
 
 bool	parse_pipe(char *str, char **piped)
 {

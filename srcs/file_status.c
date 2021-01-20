@@ -6,11 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 11:31:49 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/17 17:07:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 16:29:40 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "../includes/msh.h"
 
 /*
 ** Returns 0 if the file exists.

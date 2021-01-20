@@ -6,11 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 16:01:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 16:30:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../../includes/msh.h"
 
 /*
 ** Create a child process and execute the command in it. Parent process waits

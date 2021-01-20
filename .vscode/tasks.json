@@ -23,6 +23,7 @@
         "srcs/init_env_lst.c",
         "libft/libft.a",
         "-g",
+        "-Iincludes",
         "-Ilibft"
       ],
       "group": {

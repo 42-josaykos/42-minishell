@@ -6,11 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:02:22 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 15:24:24 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 16:31:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../../includes/msh.h"
 
 /*
 ** Print current directory.

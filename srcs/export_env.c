@@ -6,11 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/18 10:25:11 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 16:29:48 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "../includes/msh.h"
 
 static void	content_add(t_env *node, char *key, char *value)
 {

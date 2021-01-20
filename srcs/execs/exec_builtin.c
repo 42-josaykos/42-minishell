@@ -6,11 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 15:39:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 16:30:45 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../../includes/msh.h"
 
 void	exec_builtin(int ret, t_env *env_lst, t_cmd *cmd_lst)
 {

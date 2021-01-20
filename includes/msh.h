@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 15:30:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 16:28:57 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
 # include <sys/stat.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
+# include "colors.h"
 
-# define MAXCHAR 1000
+# define MAXCHAR 1024
+# define MAXLIST 128
 # define EXIT 1
 # define EXPORT 2
 # define CD 3

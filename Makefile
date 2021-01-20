@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/01/20 15:24:36 by jonny            ###   ########.fr        #
+#    Updated: 2021/01/20 16:31:33 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ END = `tput sgr0`
 NAME 			= minishell
 LIBFT 		= libft/libft.a
 
-INCLUDES 	= -Isrcs -Ilibft
+INCLUDES 	= -Iincludes -Ilibft
 
 SRC_NAME	=	main.c \
 						builtins/cd.c \

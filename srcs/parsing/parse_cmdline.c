@@ -6,18 +6,18 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 15:48:41 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/20 16:30:18 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../../includes/msh.h"
 
 void	parse_args(char *str, char **args)
 {
 	int	i;
 
 	i = 0;
-	while (i < 100)
+	while (i < MAXLIST)
 	{
 		args[i] = ft_strsep(&str, " \t");
 		if (args[i] == NULL)

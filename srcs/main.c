@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "../includes/msh.h"
 
 /*
 ** Prints a welcome message.
@@ -29,7 +29,7 @@ int	get_input(char *input)
 	char	*line;
 
 	line = NULL;
-	ft_printf("minishell $ ");
+	ft_printf("%sminishell $ %s", BOLD_MAGENTA, RESET);
 	get_next_line(0, &line);
 	ft_strlcpy(input, line, MAXCHAR);
 	free(line);

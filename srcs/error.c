@@ -1,4 +1,4 @@
-#include "msh.h"
+#include "../includes/msh.h"
 
 void	error_cases(int errnum, char *cmd, char *arg)
 {
