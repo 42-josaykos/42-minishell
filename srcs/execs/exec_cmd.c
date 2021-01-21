@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 15:26:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/21 15:32:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 ** filepath[MAXCHAR] buffer. We add the filename to the path with ft_strcat()
 */
 
-static void	exec_cmd(char *filepath, char **args)
+static void	exec_cmd(char **args)
 {
 	pid_t	p1;
 
-	args[0] = filepath;
 	p1 = fork();
 	if (p1 < 0)
 	{
@@ -60,7 +59,8 @@ static void	*cmd_handler2(char *ptr, char **args)
 		if (file_exists(filepath))
 		{
 			printf(">>> Executing %s >>>\n", filepath);
-			exec_cmd(filepath, args);
+			args[0] = filepath;
+			exec_cmd(args);
 			return (tmp);
 		}
 	}
@@ -77,6 +77,11 @@ void	cmd_handler(t_env *env_lst, char **args)
 	char	copy[MAXCHAR];
 
 	ptr = NULL;
+	if (file_exists(args[0]))
+	{
+		exec_cmd(args);
+		return ;
+	}
 	while (env_lst)
 	{
 		if (!ft_strncmp(env_lst->key, "PATH", 4))
