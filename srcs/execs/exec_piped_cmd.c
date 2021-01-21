@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 15:44:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/21 15:47:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	exec_piped_cmd(t_cmd *cmd_lst)
 	}
 	if (p1 == 0)
 	{
-		ft_printf("In child process 1\n");
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
@@ -53,7 +52,6 @@ void	exec_piped_cmd(t_cmd *cmd_lst)
 	}
 	else
 	{
-		ft_printf("In child process 2\n");
 		p2 = fork();
 		if (p2 < 0)
 		{
@@ -100,7 +98,6 @@ void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 			ft_strcat(filepath, ptr->args[0]);
 			if (file_exists(filepath))
 			{
-				printf("filepath = %s\n", filepath);
 				ft_strlcpy(ptr->cmd, filepath, ft_strlen(filepath) + 1);
 				cmd_paths = cmd_paths->next;
 			}
