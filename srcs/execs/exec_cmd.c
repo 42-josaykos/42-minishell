@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 07:13:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/21 15:26:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	*cmd_handler2(char *ptr, char **args)
 		if (filepath[len - 1] != '/')
 			ft_strcat(filepath, "/");
 		ft_strcat(filepath, args[0]);
-		if (file_exists(filepath) == 0)
+		if (file_exists(filepath))
 		{
 			printf(">>> Executing %s >>>\n", filepath);
 			exec_cmd(filepath, args);

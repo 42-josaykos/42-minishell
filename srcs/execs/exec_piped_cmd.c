@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 15:17:01 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/21 15:23:25 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void exec_piped_cmd(t_cmd *cmd_lst)
 
 	while (cmd_lst)
 	{
-		if (file_exists(*cmd_lst->args))
+		if (!file_exists(*cmd_lst->args))
 			cmd_lst->args[0] = cmd_lst->cmd;
 		args[i] = cmd_lst->args;
 		cmd_lst = cmd_lst->next;
@@ -97,7 +97,7 @@ void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 		while (ptr && ptr->args[0])
 		{
 			ft_strcat(filepath, ptr->args[0]);
-			if (file_exists(filepath) == 0)
+			if (file_exists(filepath))
 			{
 				printf("filepath = %s\n", filepath);
 				ft_strlcpy(ptr->cmd, filepath, ft_strlen(filepath) + 1);
