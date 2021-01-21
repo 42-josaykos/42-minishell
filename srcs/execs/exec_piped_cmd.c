@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 13:31:27 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/21 13:47:09 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void exec_piped_cmd(t_cmd *cmd_lst)
 
 void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 {
-	char	*filepath;
+	char	filepath[MAXCHAR];
 	char	*tmp;
 	int		len;
 	t_cmd	*ptr;
@@ -87,7 +87,7 @@ void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 	{
 		tmp = ft_strsep(&path, ":");
 		len = ft_strlen(tmp);
-		filepath = tmp;
+		ft_strlcpy(filepath, tmp, len + 1);
 		if (filepath[len - 1] != '/')
 			ft_strcat(filepath, "/");
 		ptr = cmd_paths;
