@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 11:27:44 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/21 13:31:27 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,58 @@ void exec_piped_cmd(t_cmd *cmd_lst)
 			wait(NULL);
 		}
 	}
+}
+
+void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
+{
+	char	*filepath;
+	char	*tmp;
+	int		len;
+	t_cmd	*ptr;
+	t_cmd	*cmd_paths;
+	char 	uncat_path[MAXCHAR];
+
+	len = 0;
+	cmd_paths = cmd_lst;
+	while (path && cmd_lst)
+	{
+		tmp = ft_strsep(&path, ":");
+		len = ft_strlen(tmp);
+		filepath = tmp;
+		if (filepath[len - 1] != '/')
+			ft_strcat(filepath, "/");
+		ptr = cmd_paths;
+		ft_strlcpy(uncat_path, filepath, ft_strlen(filepath) + 1);
+		while (ptr && ptr->args[0])
+		{
+			ft_strcat(filepath, ptr->args[0]);
+			if (file_exists(filepath) == 0)
+			{
+				printf("filepath = %s\n", filepath);
+				ptr->args[0] = filepath;
+				cmd_paths = cmd_paths->next;
+			}
+			ft_strlcpy(filepath, uncat_path, ft_strlen(filepath) + 1);
+			ptr = ptr->next;
+		}
+	}
+}
+
+void	piped_cmd_handler(t_env *env_lst, t_cmd *cmd_lst)
+{
+	char	*pathstr;
+	char	copy[MAXCHAR];
+
+	pathstr = NULL;
+	while (env_lst)
+	{
+		if (!ft_strncmp(env_lst->key, "PATH", 4))
+		{
+			ft_strlcpy(copy, env_lst->value, ft_strlen(env_lst->value) + 1);
+			pathstr = copy;
+			break ;
+		}
+		env_lst = env_lst->next;
+	}
+	piped_cmd_handler2(pathstr, cmd_lst);
 }

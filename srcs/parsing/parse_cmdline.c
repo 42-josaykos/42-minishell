@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 06:55:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/21 11:48:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 	if (check_pipe(input, cmd_lst))
 	{
 		// printf("input has | cmds but need a function to handle it!\n");
-		exec_piped_cmd(cmd_lst);
+		piped_cmd_handler(env_lst, cmd_lst);
+		// exec_piped_cmd(cmd_lst);
 		return (0);
 	}
 	// else if (check_semicolon(input, cmd_lst))
