@@ -11,6 +11,7 @@
         "srcs/builtins/pwd.c",
         "srcs/execs/exec_builtin.c",
         "srcs/execs/exec_cmd.c",
+        "srcs/execs/exec_piped__cmd.c",
         "srcs/parsing/parse_cmdline.c",
         "srcs/parsing/parse_pipe.c",
         "srcs/parsing/parse_semicolon.c",
