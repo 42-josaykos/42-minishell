@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 11:47:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/21 15:05:03 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_env
 
 typedef struct s_cmd
 {
+	char			cmd[MAXCHAR];
 	char			*args[MAXCHAR];
 	struct s_cmd	*next;
 }	t_cmd;
