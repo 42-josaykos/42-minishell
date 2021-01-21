@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 15:36:10 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/21 15:44:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void exec_piped_cmd(t_cmd *cmd_lst)
+void	exec_piped_cmd(t_cmd *cmd_lst)
 {
-	int fd[2];
-	pid_t p1, p2;
+	char	**args[MAXLIST];
+	int		fd[2];
+	pid_t	p1;
+	pid_t	p2;
+	int		i;
 
-	int i = 0;
-	char **args[MAXLIST];
-
+	i = 0;
 	while (cmd_lst)
 	{
 		if (!file_exists(*cmd_lst->args))
@@ -35,7 +36,7 @@ void exec_piped_cmd(t_cmd *cmd_lst)
 		printf("pipe failed\n");
 		return ;
 	}
-	p1= fork();
+	p1 = fork();
 	if (p1 < 0)
 	{
 		printf("fork failed\n");
@@ -81,7 +82,7 @@ void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 	int		len;
 	t_cmd	*ptr;
 	t_cmd	*cmd_paths;
-	char 	uncat_path[MAXCHAR];
+	char	uncat_path[MAXCHAR];
 
 	len = 0;
 	cmd_paths = cmd_lst;
