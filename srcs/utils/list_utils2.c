@@ -34,3 +34,20 @@ void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd)
 		}
 	}
 }
+
+int	cmd_lst_size(t_cmd *cmd_lst)
+{
+	int		count;
+	t_cmd	*tmp;
+
+	count = 0;
+	tmp = cmd_lst;
+	if (!cmd_lst)
+		return (0);
+	while (tmp->next != NULL)
+	{
+		count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}

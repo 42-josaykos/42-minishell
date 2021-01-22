@@ -6,71 +6,64 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 16:10:35 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/22 13:10:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../includes/msh.h"
 #include <stdio.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
-void	exec_piped_cmd(t_cmd *cmd_lst)
+int		exec_process(int in, int out, t_cmd *cmd_lst)
 {
-	char	**args[MAXLIST];
-	int		fd[2];
-	pid_t	p1;
-	pid_t	p2;
-	int		i;
+	pid_t pid;
 
+	if (!file_exists(*cmd_lst->args))
+		cmd_lst->args[0] = cmd_lst->cmd;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (in != 0)
+		{
+			dup2(in, STDIN_FILENO);
+			close(in);
+		}
+		if (out != 0)
+		{
+			dup2(out, STDOUT_FILENO);
+			close(out);
+		}
+		execve(*cmd_lst->args, cmd_lst->args, NULL);
+	}
+	return (pid);
+}
+
+int fork_pipes (int n, t_cmd *cmd_lst)
+{
+	int i;
+	int in;
+	int fd[2]; // pipe fd. fd[1] is write, fd [0] is read
+	int pid;
+
+	in = STDIN_FILENO; // get input from standard input;
 	i = 0;
-	while (cmd_lst)
+	while (i < n - 1)
 	{
-		if (!file_exists(*cmd_lst->args))
-			cmd_lst->args[0] = cmd_lst->cmd;
-		args[i] = cmd_lst->args;
-		cmd_lst = cmd_lst->next;
+		pipe(fd);
+		pid = exec_process(in, fd[1], cmd_lst);
+		close(fd[1]); // close write side of the pipe
+		in = fd[0]; // input of next process is the read side of the pipe
 		i++;
+		cmd_lst = cmd_lst->next;
 	}
-	if (pipe(fd) == -1)
-	{
-		printf("pipe failed\n");
-		return ;
-	}
-	p1 = fork();
-	if (p1 < 0)
-	{
-		printf("fork failed\n");
-		return ;
-	}
-	if (p1 == 0)
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		execve(*args[1], args[1], NULL);
-		exit(0);
-	}
-	else
-	{
-		p2 = fork();
-		if (p2 < 0)
-		{
-			printf("fork failed\n");
-			return ;
-		}
-		if (p2 == 0)
-		{
-			close(fd[0]);
-			dup2(fd[1], STDOUT_FILENO);
-			close(fd[1]);
-			execve(*args[0], args[0], NULL);
-			exit(0);
-		}
-		else
-		{
-			wait(NULL);
-		}
-	}
+	if (in != STDIN_FILENO) // read from previous pipe from stdin
+		dup2(in, STDIN_FILENO); // output to original standard output
+	if (!file_exists(*cmd_lst->args))
+		cmd_lst->args[0] = cmd_lst->cmd;
+	execve(*cmd_lst->args, cmd_lst->args, NULL);
+	return (0);
 }
 
 void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
@@ -81,6 +74,7 @@ void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 	t_cmd	*ptr;
 	t_cmd	*cmd_paths;
 	char	uncat_path[MAXCHAR];
+	int n = 0;
 
 	len = 0;
 	cmd_paths = cmd_lst;
@@ -105,7 +99,8 @@ void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 			ptr = ptr->next;
 		}
 	}
-	exec_piped_cmd(cmd_lst);
+	n = cmd_lst_size(cmd_lst);
+	fork_pipes(n, cmd_lst);
 }
 
 void	piped_cmd_handler(t_env *env_lst, t_cmd *cmd_lst)

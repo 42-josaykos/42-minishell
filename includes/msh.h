@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 15:05:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/22 12:49:22 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	free_cmd_lst(t_cmd **cmd_lst);
 void	clear_previous_cmd(t_cmd *cmd_lst);
 char	*get_env(t_env *env_lst, char *key);
 void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
+int		cmd_lst_size(t_cmd *cmd_lst);
 
 /*
 ** Error management
@@ -108,7 +109,6 @@ void	error_cases(int errnum, char *cmd, char *arg);
 */
 
 void	check_semicolon(char *input, t_cmd *cmd_lst);
-void	exec_piped_cmd(t_cmd *cmd_lst);
 void	piped_cmd_handler(t_env *env_lst, t_cmd *cmd_lst);
 
 #endif
