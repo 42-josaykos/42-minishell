@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/22 13:23:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/23 16:40:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ int	exec_process(int in, int out, t_cmd *cmd_lst)
 	if (!file_exists(*cmd_lst->args))
 		cmd_lst->args[0] = cmd_lst->cmd;
 	pid = fork();
+	if (pid < 0 )
+	{
+		ft_printf("Cannot execute child process.\n");
+		exit(-1);
+	}
 	if (pid == 0)
 	{
 		if (in != 0)
@@ -32,30 +37,35 @@ int	exec_process(int in, int out, t_cmd *cmd_lst)
 			close(out);
 		}
 		execve(*cmd_lst->args, cmd_lst->args, NULL);
+		exit(0);
 	}
+	wait(NULL);
 	return (pid);
 }
 
 void	fork_pipes (int n, t_cmd *cmd_lst)
 {
-	int		i;
 	int		in;
 	int		fd[2];
 	pid_t	pid;
 	pid_t	last_process;
 
 	last_process = fork();
+	if (last_process < 0 )
+	{
+		ft_printf("Cannot execute child process.\n");
+		exit(-1);
+	}
 	if (last_process == 0)
 	{
 		in = STDIN_FILENO; // get input from standard input;
-		i = 0;
-		while (i < n - 1)
+		while (n - 1 > 0)
 		{
 			pipe(fd);
 			pid = exec_process(in, fd[1], cmd_lst);
 			close(fd[1]); // close write side of the pipe
 			in = fd[0]; // input of next process is the read side of the pipe
-			i++;
+			n--;
 			cmd_lst = cmd_lst->next;
 		}
 		if (in != STDIN_FILENO) // read from previous pipe from stdin
