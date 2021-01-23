@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/23 16:58:32 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/23 17:14:02 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,35 @@ static void	fork_pipes (int n, t_cmd *cmd_lst)
 	wait(NULL);
 }
 
+static void	piped_cmd_handler3(t_cmd *cmd_lst, char *filepath)
+{
+	t_cmd	*cmd_paths;
+	char	uncat_path[MAXCHAR];
+	t_cmd	*ptr;
+
+	cmd_paths = cmd_lst;
+	ptr = cmd_paths;
+	while (ptr && ptr->args[0])
+	{
+		ft_strlcpy(uncat_path, filepath, ft_strlen(filepath) + 1);
+		ft_strcat(filepath, ptr->args[0]);
+		if (file_exists(filepath))
+		{
+			ft_strlcpy(ptr->cmd, filepath, ft_strlen(filepath) + 1);
+			cmd_paths = cmd_paths->next;
+		}
+		ft_strlcpy(filepath, uncat_path, ft_strlen(filepath) + 1);
+		ptr = ptr->next;
+	}
+}
+
 static void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
 	int		len;
-	t_cmd	*ptr;
-	t_cmd	*cmd_paths;
-	char	uncat_path[MAXCHAR];
 
 	len = 0;
-	cmd_paths = cmd_lst;
 	while (path && cmd_lst)
 	{
 		tmp = ft_strsep(&path, ":");
@@ -90,19 +108,7 @@ static void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 		ft_strlcpy(filepath, tmp, len + 1);
 		if (filepath[len - 1] != '/')
 			ft_strcat(filepath, "/");
-		ptr = cmd_paths;
-		ft_strlcpy(uncat_path, filepath, ft_strlen(filepath) + 1);
-		while (ptr && ptr->args[0])
-		{
-			ft_strcat(filepath, ptr->args[0]);
-			if (file_exists(filepath))
-			{
-				ft_strlcpy(ptr->cmd, filepath, ft_strlen(filepath) + 1);
-				cmd_paths = cmd_paths->next;
-			}
-			ft_strlcpy(filepath, uncat_path, ft_strlen(filepath) + 1);
-			ptr = ptr->next;
-		}
+		piped_cmd_handler3(cmd_lst, filepath);
 	}
 	len = cmd_lst_size(cmd_lst);
 	fork_pipes(len, cmd_lst);
