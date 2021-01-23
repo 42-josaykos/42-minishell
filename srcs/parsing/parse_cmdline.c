@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/22 12:50:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/23 10:12:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
 	else
 		parse_args(input, cmd_lst->args);
 	ret = is_builtin(cmd_lst->args[0]);
-	if (!ret)
+	if (ret)
+		exec_builtin(ret, env_lst, cmd_lst);
+	else
 		cmd_handler(env_lst, cmd_lst->args);
 	return (ret);
 }
