@@ -15,6 +15,7 @@
         "srcs/parsing/parse_cmdline.c",
         "srcs/parsing/parse_pipe.c",
         "srcs/parsing/parse_semicolon.c",
+        "srcs/utils/fork_utils.c",
         "srcs/utils/list_utils.c",
         "srcs/utils/list_utils2.c",
         "srcs/utils/string_utils.c",

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 15:48:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/23 17:00:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ static void	exec_cmd(char **args)
 {
 	pid_t	p1;
 
-	p1 = fork();
-	if (p1 < 0)
-	{
-		ft_printf("Cannot execute child process.\n");
+	p1 = 0;
+	if (create_fork(&p1) < 0 )
 		exit(-1);
-	}
 	if (p1 == 0)
 	{
 		execve(*args, args, NULL);

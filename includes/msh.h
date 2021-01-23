@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/22 12:49:22 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/23 16:53:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		cmd_lst_size(t_cmd *cmd_lst);
 */
 
 void	error_cases(int errnum, char *cmd, char *arg);
+pid_t	create_fork(pid_t *pid);
 
 /*
 ** Error management

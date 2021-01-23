@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/23 16:40:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/23 16:58:32 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ int	exec_process(int in, int out, t_cmd *cmd_lst)
 
 	if (!file_exists(*cmd_lst->args))
 		cmd_lst->args[0] = cmd_lst->cmd;
-	pid = fork();
-	if (pid < 0 )
-	{
-		ft_printf("Cannot execute child process.\n");
+	pid = 0;
+	if (create_fork(&pid) < 0 )
 		exit(-1);
-	}
 	if (pid == 0)
 	{
 		if (in != 0)
@@ -43,19 +40,16 @@ int	exec_process(int in, int out, t_cmd *cmd_lst)
 	return (pid);
 }
 
-void	fork_pipes (int n, t_cmd *cmd_lst)
+static void	fork_pipes (int n, t_cmd *cmd_lst)
 {
 	int		in;
 	int		fd[2];
 	pid_t	pid;
 	pid_t	last_process;
 
-	last_process = fork();
-	if (last_process < 0 )
-	{
-		ft_printf("Cannot execute child process.\n");
+	last_process = 0;
+	if (create_fork(&last_process) < 0 )
 		exit(-1);
-	}
 	if (last_process == 0)
 	{
 		in = STDIN_FILENO; // get input from standard input;
@@ -78,7 +72,7 @@ void	fork_pipes (int n, t_cmd *cmd_lst)
 	wait(NULL);
 }
 
-void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
+static void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
