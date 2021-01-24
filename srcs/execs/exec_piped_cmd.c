@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/24 15:59:44 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/24 18:25:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../includes/msh.h"
 
-int	exec_process(int in, int out, t_cmd *cmd_lst)
+int	exec_process(char **envp, int in, int out, t_cmd *cmd_lst)
 {
 	pid_t	pid;
 
@@ -33,14 +33,14 @@ int	exec_process(int in, int out, t_cmd *cmd_lst)
 			dup2(out, STDOUT_FILENO);
 			close(out);
 		}
-		execve(*cmd_lst->args, cmd_lst->args, NULL);
+		execve(*cmd_lst->args, cmd_lst->args, envp);
 		exit(0);
 	}
 	wait(NULL);
 	return (pid);
 }
 
-static void	fork_pipes (int n, t_cmd *cmd_lst)
+static void	fork_pipes (char **envp, int n, t_cmd *cmd_lst)
 {
 	int		in;
 	int		fd[2];
@@ -56,13 +56,13 @@ static void	fork_pipes (int n, t_cmd *cmd_lst)
 		while (n - 1 > 0)
 		{
 			pipe(fd);
-			pid = exec_process(in, fd[1], cmd_lst);
+			pid = exec_process(envp, in, fd[1], cmd_lst);
 			close(fd[1]); // close write side of the pipe
 			in = fd[0]; // input of next process is the read side of the pipe
 			n--;
 			cmd_lst = cmd_lst->next;
 		}
-		exec_last_process(in, cmd_lst);
+		exec_last_process(envp, in, cmd_lst);
 		exit(0);
 	}
 	wait(NULL);
@@ -90,7 +90,7 @@ static void	piped_cmd_handler3(t_cmd *cmd_lst, char *filepath)
 	}
 }
 
-static void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
+static void	piped_cmd_handler2(char **envp, char *path, t_cmd *cmd_lst)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
@@ -107,10 +107,10 @@ static void	piped_cmd_handler2(char *path, t_cmd *cmd_lst)
 		piped_cmd_handler3(cmd_lst, filepath);
 	}
 	len = cmd_lst_size(cmd_lst);
-	fork_pipes(len, cmd_lst);
+	fork_pipes(envp, len, cmd_lst);
 }
 
-void	piped_cmd_handler(t_env *env_lst, t_cmd *cmd_lst)
+void	piped_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*pathstr;
 	char	copy[MAXCHAR];
@@ -126,5 +126,5 @@ void	piped_cmd_handler(t_env *env_lst, t_cmd *cmd_lst)
 		}
 		env_lst = env_lst->next;
 	}
-	piped_cmd_handler2(pathstr, cmd_lst);
+	piped_cmd_handler2(envp, pathstr, cmd_lst);
 }

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/24 17:17:16 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/24 18:21:45 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,26 @@ void	parse_args(char *str, char **args)
 ** Check each path directories for the executable and execute it (cmd_handler).
 */
 
-int	parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input)
+int	parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	int	ret;
 
 	ret = 0;
 	if (check_pipe(input, cmd_lst))
 	{
-		piped_cmd_handler(env_lst, cmd_lst);
+		piped_cmd_handler(envp, env_lst, cmd_lst);
 		return (0);
 	}
-	// else if (check_semicolon(input, cmd_lst))
-	// {
-		// return (0);
-	// }
+//	// else if (check_semicolon(input, cmd_lst))
+//	// {
+//		// return (0);
+//	// }
 	else
 		parse_args(input, cmd_lst->args);
 	ret = is_builtin(cmd_lst->args[0]);
 	if (ret)
 		exec_builtin(ret, env_lst, cmd_lst);
 	else
-		cmd_handler(env_lst, cmd_lst->args);
+		cmd_handler(envp, env_lst, cmd_lst->args);
 	return (ret);
 }

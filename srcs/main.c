@@ -36,6 +36,11 @@ int	get_input(char *input)
 	return (0);
 }
 
+/*
+** Returns the env_lst in big single string. Each key=value is
+** separated by a '\n' in the string.
+*/
+
 char	*concat_env(t_env *env_lst)
 {
 	int		n;
@@ -65,13 +70,15 @@ char	*concat_env(t_env *env_lst)
 /*
 ** Infinite loop that call get_input, a function printing a command prompt and
 ** waiting for an input.
-** TODO: Need to call functions for parsing the input string
+** If input is not an empty, concatenate env_lst in a single string, env
+** then split in an array of strings, envp.
 */
 
 void	main_loop(char *env, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	input[MAXCHAR];
 	int		ret;
+	char	**envp;
 
 	ret = 0;
 	while (1)
@@ -80,14 +87,20 @@ void	main_loop(char *env, t_env *env_lst, t_cmd *cmd_lst)
 		if (ft_strncmp(input, "", 1) && !is_empty(input))
 		{
 			env = concat_env(env_lst);
-			ret = parse_cmdline(env_lst, cmd_lst, input);
+			envp = ft_split(env, '\n');
 			free(env);
+			ret = parse_cmdline(envp, env_lst, cmd_lst, input);
+			free_2darray(envp);
 		}
 		if (ret == EXIT)
 			break ;
 		clear_previous_cmd(cmd_lst);
 	}
 }
+
+/*
+** We will use env to store a copy of envp in a single string.
+*/
 
 int	main(int argc, char **argv, char **envp)
 {
