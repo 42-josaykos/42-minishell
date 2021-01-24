@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/23 17:14:02 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/24 15:59:44 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,7 @@ static void	fork_pipes (int n, t_cmd *cmd_lst)
 			n--;
 			cmd_lst = cmd_lst->next;
 		}
-		if (in != STDIN_FILENO) // read from previous pipe from stdin
-			dup2(in, STDIN_FILENO); // output to original standard output
-		if (!file_exists(*cmd_lst->args))
-			cmd_lst->args[0] = cmd_lst->cmd;
-		execve(*cmd_lst->args, cmd_lst->args, NULL);
+		exec_last_process(in, cmd_lst);
 		exit(0);
 	}
 	wait(NULL);

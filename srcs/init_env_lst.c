@@ -6,11 +6,12 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:56:57 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 16:29:26 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/24 15:44:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/msh.h"
+#include <string.h>
 
 /*
 ** Create a new env (key=value) in the env list.
@@ -44,5 +45,7 @@ void	init_env(t_env **env_lst, char **envp)
 		assign_env(envp[i], env_lst);
 		i++;
 	}
+	if (*env_lst == NULL)
+		export_env(env_lst, "export", "");
 	return ;
 }

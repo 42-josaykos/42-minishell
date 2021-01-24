@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/23 16:53:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/24 15:55:40 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,20 @@ void	clear_previous_cmd(t_cmd *cmd_lst);
 char	*get_env(t_env *env_lst, char *key);
 void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 int		cmd_lst_size(t_cmd *cmd_lst);
-
-/*
-** Error management
-*/
-
-void	error_cases(int errnum, char *cmd, char *arg);
 pid_t	create_fork(pid_t *pid);
 
 /*
 ** Error management
 */
 
+void	error_cases(int errnum, char *cmd, char *arg);
+
+/*
+** exec_piped_cmd
+*/
+
 void	check_semicolon(char *input, t_cmd *cmd_lst);
 void	piped_cmd_handler(t_env *env_lst, t_cmd *cmd_lst);
+void	exec_last_process(int in, t_cmd *cmd_lst);
 
 #endif
