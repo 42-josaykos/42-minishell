@@ -1,74 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_piped_cmd.c                                   :+:      :+:    :+:   */
+/*   exec_multi_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/26 15:41:05 by jonny            ###   ########.fr       */
+/*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
+/*   Updated: 2021/01/26 15:50:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../../includes/msh.h"
+#include "../../includes/msh.h"
 
-static int	exec_process(char **envp, int in, int out, t_cmd *cmd_lst)
+static void	exec_multi_cmd(char **envp, int n, t_cmd *cmd_lst)
 {
 	pid_t	pid;
 
-	if (!file_exists(*cmd_lst->args))
-		cmd_lst->args[0] = cmd_lst->cmd;
-	pid = 0;
 	if (create_fork(&pid) < 0 )
 		exit(-1);
-	if (pid == 0)
+	while (n > 0)
 	{
-		if (in != 0)
+		if (pid == 0)
 		{
-			dup2(in, STDIN_FILENO);
-			close(in);
+			if (!file_exists(*cmd_lst->args))
+				cmd_lst->args[0] = cmd_lst->cmd;
+			execve(*cmd_lst->args, cmd_lst->args, envp);
+			exit(0);
 		}
-		if (out != 0)
-		{
-			dup2(out, STDOUT_FILENO);
-			close(out);
-		}
-		execve(*cmd_lst->args, cmd_lst->args, envp);
-		exit(0);
+		n--;
+		cmd_lst = cmd_lst->next;
+		wait(NULL);
 	}
-	wait(NULL);
-	return (pid);
 }
 
-static void	fork_pipes (char **envp, int n, t_cmd *cmd_lst)
-{
-	int		in;
-	int		fd[2];
-	pid_t	pid;
-	pid_t	last_process;
-
-	last_process = 0;
-	if (create_fork(&last_process) < 0 )
-		exit(-1);
-	if (last_process == 0)
-	{
-		in = STDIN_FILENO; // get input from standard input;
-		while (n - 1 > 0)
-		{
-			pipe(fd);
-			pid = exec_process(envp, in, fd[1], cmd_lst);
-			close(fd[1]); // close write side of the pipe
-			in = fd[0]; // input of next process is the read side of the pipe
-			n--;
-			cmd_lst = cmd_lst->next;
-		}
-		exec_last_process(envp, in, cmd_lst);
-		exit(0);
-	}
-	wait(NULL);
-}
-
-static void	piped_cmd_handler3(t_cmd *cmd_lst, char *filepath)
+static void	multi_cmd_handler3(t_cmd *cmd_lst, char *filepath)
 {
 	t_cmd	*cmd_paths;
 	char	uncat_path[MAXCHAR];
@@ -90,7 +55,7 @@ static void	piped_cmd_handler3(t_cmd *cmd_lst, char *filepath)
 	}
 }
 
-static void	piped_cmd_handler2(char **envp, char *path, t_cmd *cmd_lst)
+static void	multi_cmd_handler2(char **envp, char *path, t_cmd *cmd_lst)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
@@ -104,13 +69,13 @@ static void	piped_cmd_handler2(char **envp, char *path, t_cmd *cmd_lst)
 		ft_strlcpy(filepath, tmp, len + 1);
 		if (filepath[len - 1] != '/')
 			ft_strcat(filepath, "/");
-		piped_cmd_handler3(cmd_lst, filepath);
+		multi_cmd_handler3(cmd_lst, filepath);
 	}
 	len = cmd_lst_size(cmd_lst);
-	fork_pipes(envp, len, cmd_lst);
+	exec_multi_cmd(envp, len, cmd_lst);
 }
 
-void	piped_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst)
+void 	multi_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*pathstr;
 	char	copy[MAXCHAR];
@@ -126,5 +91,5 @@ void	piped_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst)
 		}
 		env_lst = env_lst->next;
 	}
-	piped_cmd_handler2(envp, pathstr, cmd_lst);
+	multi_cmd_handler2(envp, pathstr, cmd_lst);
 }

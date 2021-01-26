@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/24 18:24:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/26 15:50:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,9 @@ void	error_cases(int errnum, char *cmd, char *arg);
 ** exec_piped_cmd
 */
 
-void	check_semicolon(char *input, t_cmd *cmd_lst);
+int		check_semicolon(char *input, t_cmd *cmd_lst);
 void	piped_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
 void	exec_last_process(char **envp, int in, t_cmd *cmd_lst);
+void	multi_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
 
 #endif
