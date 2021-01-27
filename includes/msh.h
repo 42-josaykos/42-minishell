@@ -31,6 +31,7 @@
 # define EXPORT 2
 # define CD 3
 # define PWD 4
+# define ECHO 5
 
 typedef struct s_env
 {
@@ -46,9 +47,15 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-int		cd(char *arg, t_env *env_lst);
 void	*export_env(t_env **env_lst, char *key, char *value);
 int		file_exists(char *filename);
+
+/*
+** builtins
+*/
+
+int		cd(char *arg, t_env *env_lst);
+int		echo(char **arg, t_env *env_lst, int fd);
 void	print_cwd(void);
 
 /*

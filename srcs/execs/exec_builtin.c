@@ -20,6 +20,8 @@ void	exec_builtin(int ret, t_env *env_lst, t_cmd *cmd_lst)
 		cd(cmd_lst->args[1], env_lst);
 	else if (ret == PWD)
 		print_cwd();
+		else if (ret == ECHO)
+	echo(cmd_lst->args, env_lst, 0);
 }
 
 int	is_builtin(char *cmd)
@@ -32,5 +34,7 @@ int	is_builtin(char *cmd)
 		return (CD);
 	else if (!ft_strncmp(cmd, "pwd", 3))
 		return (PWD);
+		else if (!ft_strncmp(cmd, "echo", 4))
+	return (ECHO);
 	return (0);
 }

@@ -23,6 +23,7 @@ INCLUDES 	= -Iincludes -Ilibft
 SRC_NAME	=	main.c \
 						builtins/cd.c \
 						builtins/pwd.c \
+						builtins/echo.c \
 						execs/exec_builtin.c \
 						execs/exec_cmd.c \
 						execs/exec_piped_cmd.c \
