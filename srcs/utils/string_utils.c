@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/20 16:32:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/24 18:13:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,18 @@ bool	is_empty(char *str)
 		}
 	}
 	return (ret);
+}
+
+char	**free_2darray(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free((void*)tab[i]);
+		i++;
+	}
+	free(tab);
+	return (NULL);
 }

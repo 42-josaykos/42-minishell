@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 15:05:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/26 15:50:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	print_cwd(void);
 ** parse_cmdline.c
 */
 
-int		parse_cmdline(t_env *env_lst, t_cmd *cmd_lst, char *input);
+int		parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input);
 void	parse_args(char *str, char **args);
 
 /*
@@ -76,7 +76,7 @@ void	assign_env(char *str, t_env **env_lst);
 ** Commands executions
 */
 
-void	cmd_handler(t_env *env_lst, char **args);
+void	cmd_handler(char **envp, t_env *env_lst, char **args);
 int		is_builtin(char *cmd);
 void	exec_builtin(int ret, t_env *env_lst, t_cmd *cmd_lst);
 
@@ -103,6 +103,9 @@ void	free_cmd_lst(t_cmd **cmd_lst);
 void	clear_previous_cmd(t_cmd *cmd_lst);
 char	*get_env(t_env *env_lst, char *key);
 void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
+int		cmd_lst_size(t_cmd *cmd_lst);
+pid_t	create_fork(pid_t *pid);
+char	**free_2darray(char **tab);
 
 /*
 ** Error management
@@ -111,11 +114,12 @@ void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 void	error_cases(int errnum, char *cmd, char *arg);
 
 /*
-** Error management
+** exec_piped_cmd
 */
 
-void	check_semicolon(char *input, t_cmd *cmd_lst);
-void	exec_piped_cmd(t_cmd *cmd_lst);
-void	piped_cmd_handler(t_env *env_lst, t_cmd *cmd_lst);
+int		check_semicolon(char *input, t_cmd *cmd_lst);
+void	piped_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
+void	exec_last_process(char **envp, int in, t_cmd *cmd_lst);
+void	multi_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
 
 #endif

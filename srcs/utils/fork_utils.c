@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   fork_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/22 13:24:33 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/22 13:24:37 by jonny            ###   ########.fr       */
+/*   Created: 2021/01/23 16:43:39 by jonny             #+#    #+#             */
+/*   Updated: 2021/01/23 16:57:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/msh.h"
+#include "../../includes/msh.h"
 
-void	error_cases(int errnum, char *cmd, char *arg)
+pid_t	create_fork(pid_t *pid)
 {
-	ft_printf("bash: %s: %s: %s\n", cmd, arg, strerror(errnum));
+	*pid = fork();
+	if (*pid < 0 )
+		ft_printf("Cannot execute child process.\n");
+	return (*pid);
 }

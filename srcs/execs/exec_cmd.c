@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 15:48:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/24 18:06:42 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,16 @@
 ** filepath[MAXCHAR] buffer. We add the filename to the path with ft_strcat()
 */
 
-static void	exec_cmd(char **args)
+static void	exec_cmd(char **envp, char **args)
 {
 	pid_t	p1;
 
-	p1 = fork();
-	if (p1 < 0)
-	{
-		ft_printf("Cannot execute child process.\n");
+	p1 = 0;
+	if (create_fork(&p1) < 0 )
 		exit(-1);
-	}
 	if (p1 == 0)
 	{
-		execve(*args, args, NULL);
+		execve(*args, args, envp);
 		exit(0);
 	}
 	wait(NULL);
@@ -41,7 +38,7 @@ static void	exec_cmd(char **args)
 ** If found, execute the command. 
 */
 
-static void	*cmd_handler2(char *ptr, char **args)
+static void	*cmd_handler2(char **envp, char *ptr, char **args)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
@@ -59,7 +56,7 @@ static void	*cmd_handler2(char *ptr, char **args)
 		if (file_exists(filepath))
 		{
 			args[0] = filepath;
-			exec_cmd(args);
+			exec_cmd(envp, args);
 			return (tmp);
 		}
 	}
@@ -70,7 +67,7 @@ static void	*cmd_handler2(char *ptr, char **args)
 ** Iterate through the env list for PATH, then try each filepath.
 */
 
-void	cmd_handler(t_env *env_lst, char **args)
+void	cmd_handler(char **envp, t_env *env_lst, char **args)
 {
 	char	*ptr;
 	char	copy[MAXCHAR];
@@ -78,7 +75,7 @@ void	cmd_handler(t_env *env_lst, char **args)
 	ptr = NULL;
 	if (file_exists(args[0]))
 	{
-		exec_cmd(args);
+		exec_cmd(envp, args);
 		return ;
 	}
 	while (env_lst)
@@ -91,6 +88,6 @@ void	cmd_handler(t_env *env_lst, char **args)
 		}
 		env_lst = env_lst->next;
 	}
-	if (cmd_handler2(ptr, args) == NULL)
+	if (cmd_handler2(envp, ptr, args) == NULL)
 		printf("minishell: %s: not found...\n", args[0]);
 }
