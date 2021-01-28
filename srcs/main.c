@@ -20,7 +20,7 @@
 
 void	init_msh(t_env **env_lst, char **envp)
 {
-	ft_printf("Welcome to minishell !\nCtrl-C or \"exit\" to quit.\n");
+	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
 	init_env(env_lst, envp);
 }
 
@@ -28,10 +28,13 @@ int	get_input(char *input)
 {
 	char	*line;
 
-	line = NULL;
-	ft_printf("%sminishell $ %s", BOLD_MAGENTA, RESET);
-	get_next_line(0, &line);
-	ft_strlcpy(input, line, MAXCHAR);
+	line = ft_readline("minishell $ ");
+	if (line == NULL)
+	{
+		ft_printf("exit\n");
+		exit(0);
+	}
+	ft_strlcpy(input, line, ft_strlen(line));
 	free(line);
 	return (0);
 }

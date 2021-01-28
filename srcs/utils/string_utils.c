@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/24 18:13:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/28 16:04:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,25 @@ char	**free_2darray(char **tab)
 	}
 	free(tab);
 	return (NULL);
+}
+
+char	*ft_readline(char *prompt)
+{
+	char	*str;
+	char	buf[MAXCHAR + 1];
+	int		ret;
+
+	ret = 0;
+	str = NULL;
+	ft_printf("%s%s%s", BOLD_GREEN, prompt, RESET);
+	ft_bzero(buf, MAXCHAR + 1);
+	ret = read(0, buf, MAXCHAR);
+	if (ret == 0)
+		return (NULL);
+	else
+	{
+		str = ft_calloc(ret + 1, sizeof(char));
+		ft_strlcpy(str, buf, ret + 1);
+	}
+	return (str);
 }
