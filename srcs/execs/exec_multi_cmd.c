@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/26 16:47:29 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/28 16:11:28 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 static void	exec_multi_cmd(char **envp, t_env *env_lst, int n, t_cmd *cmd_lst)
 {
 	pid_t	pid;
-	int		ret;
 	int		status;
 
+	pid = 0;
 	while (n > 0)
 	{
-		ret = is_builtin(*cmd_lst->args);
+		pid = is_builtin(*cmd_lst->args);
 		if (!file_exists(*cmd_lst->args))
 			cmd_lst->args[0] = cmd_lst->cmd;
-		if (ret)
-			exec_builtin(ret, env_lst, cmd_lst);
+		if (pid)
+			exec_builtin(pid, env_lst, cmd_lst);
 		else
 		{
 			if (create_fork(&pid) < 0 )
