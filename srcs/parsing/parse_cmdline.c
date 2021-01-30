@@ -6,11 +6,32 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/30 13:35:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/30 15:58:28 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
+#include <stdio.h>
+
+void analyze_word(char *str)
+{
+	int i;
+	char tmp[MAXCHAR];
+
+	i = 0;
+	ft_strlcpy(tmp, str, ft_strlen(str) + 1);
+	while (tmp[i])
+	{
+		if (tmp[i] != '\"')
+		{
+			*str = tmp[i];
+			str++;
+		}
+		i++;
+	}
+	*str = '\0';
+	// printf("tmp = %s\n", tmp);
+}
 
 void	parse_args(char *str, char **args)
 {
@@ -19,9 +40,12 @@ void	parse_args(char *str, char **args)
 	i = 0;
 	while (i < MAXLIST)
 	{
-		args[i] = ft_strsep(&str, " \"\t");
+		args[i] = ft_strsep(&str, " \t");
 		if (args[i] == NULL)
 			break ;
+		if (i != 0)
+			analyze_word(args[i]);
+		// printf("args[%d] = %s\n", i, args[i]);
 		if (strlen(args[i]) == 0)
 			i--;
 		i++;
