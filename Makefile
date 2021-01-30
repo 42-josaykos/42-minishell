@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/01/26 15:23:14 by jonny            ###   ########.fr        #
+#    Updated: 2021/01/30 13:36:20 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC_NAME	=	main.c \
 						parsing/parse_pipe.c \
 						parsing/parse_semicolon.c \
 						utils/fork_utils.c \
+						utils/free_utils.c \
 						utils/list_utils.c \
 						utils/list_utils2.c \
 						utils/string_utils.c \

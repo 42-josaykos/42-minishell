@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/26 15:21:24 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/30 13:35:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	parse_args(char *str, char **args)
 	i = 0;
 	while (i < MAXLIST)
 	{
-		args[i] = ft_strsep(&str, " \t");
+		args[i] = ft_strsep(&str, " \"\t");
 		if (args[i] == NULL)
 			break ;
 		if (strlen(args[i]) == 0)
