@@ -89,7 +89,7 @@ void	main_loop(char *env, t_env *env_lst, t_cmd *cmd_lst)
 	{
 		if (!get_input(input))
 			break ;
-		if (ft_strncmp(input, "", 1) && !is_empty(input))
+		if (!is_empty(input))
 		{
 			env = concat_env(env_lst);
 			envp = ft_split(env, '\n');
