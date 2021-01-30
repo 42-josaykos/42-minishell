@@ -32,11 +32,12 @@ int	get_input(char *input)
 	if (line == NULL)
 	{
 		ft_printf("exit\n");
-		exit(0);
+		free(line);
+		return (0);
 	}
 	ft_strlcpy(input, line, ft_strlen(line));
 	free(line);
-	return (0);
+	return (1);
 }
 
 /*
@@ -86,7 +87,8 @@ void	main_loop(char *env, t_env *env_lst, t_cmd *cmd_lst)
 	ret = 0;
 	while (1)
 	{
-		get_input(input);
+		if (!get_input(input))
+			break ;
 		if (ft_strncmp(input, "", 1) && !is_empty(input))
 		{
 			env = concat_env(env_lst);
