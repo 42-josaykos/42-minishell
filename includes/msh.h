@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/28 16:04:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/31 16:42:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,5 @@ void	exec_last_process(char **envp, int in, t_cmd *cmd_lst);
 void	multi_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
 
 char	*ft_readline(char *prompt);
+void	handle_signal(int signum);
 #endif

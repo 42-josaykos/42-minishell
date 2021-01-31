@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/msh.h"
+#include <signal.h>
 
 /*
 ** Prints a welcome message.
@@ -87,6 +88,7 @@ void	main_loop(char *env, t_env *env_lst, t_cmd *cmd_lst)
 	ret = 0;
 	while (1)
 	{
+		handle_signal(SIGINT);
 		if (!get_input(input))
 			break ;
 		if (!is_empty(input))

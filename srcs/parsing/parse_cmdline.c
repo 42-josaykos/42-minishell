@@ -6,17 +6,17 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/30 15:58:28 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/31 17:05:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 #include <stdio.h>
 
-void analyze_word(char *str)
+void	analyze_word(char *str)
 {
-	int i;
-	char tmp[MAXCHAR];
+	int		i;
+	char	tmp[MAXCHAR];
 
 	i = 0;
 	ft_strlcpy(tmp, str, ft_strlen(str) + 1);
