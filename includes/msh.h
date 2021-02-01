@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/31 16:42:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/01 18:43:16 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	print_cwd(void);
 */
 
 int		parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input);
-void	parse_args(char *str, char **args);
+void	parse_args(char *str, t_cmd *cmd_lst);
 
 /*
 ** init_env_lst.c
