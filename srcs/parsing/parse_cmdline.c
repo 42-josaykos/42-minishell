@@ -6,34 +6,12 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/01 18:47:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/01 23:16:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 #include <stdio.h>
-
-void	analyze_word(char **str, int p)
-{
-	int		i;
-	int j;
-	char	tmp[MAXCHAR];
-
-	i = 0;
-	j = 0;
-	while (str[p][i])
-	{
-		if (str[p][i] != '\"')
-		{
-			tmp[j] = str[p][i];
-			j++;
-		}
-		i++;
-	}
-	tmp[j] = '\0';
-	printf("tmp = %s\n", tmp);
-	str[p] = tmp;
-}
 
 void	parse_args(char *str, t_cmd *cmd_lst)
 {
@@ -45,9 +23,6 @@ void	parse_args(char *str, t_cmd *cmd_lst)
 		cmd_lst->args[i] = ft_strsep(&str, " \t");
 		if (cmd_lst->args[i] == NULL)
 			break ;
-		if (i != 0)
-			analyze_word(cmd_lst->args, i);
-		// printf("args[%d] = %s\n", i, args[i]);
 		if (strlen(cmd_lst->args[i]) == 0)
 			i--;
 		i++;
