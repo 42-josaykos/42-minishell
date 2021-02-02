@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/01 18:43:16 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/02 15:10:07 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/stat.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
+# include "signal_handler.h"
 # include "colors.h"
 
 # define MAXCHAR 1024

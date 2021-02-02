@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   other_utils.c                                      :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/30 13:28:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/02 15:37:41 by jonny            ###   ########.fr       */
+/*   Created: 2021/02/02 14:26:25 by jonny             #+#    #+#             */
+/*   Updated: 2021/02/02 15:44:28 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/msh.h"
+#include "../includes/msh.h"
 
-char	**free_2darray(char **tab)
+bool	g_interrupt = 0;
+
+void	handle_signal(int signal)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
+	if (signal == SIGINT)
 	{
-		free((void*)tab[i]);
-		i++;
+		ft_printf("%s%s%s", BOLD_GREEN, "\nminishell $ ", RESET);
+		g_interrupt = 1;
 	}
-	free(tab);
-	return (NULL);
+	if (signal == SIGQUIT)
+	{
+		ft_printf("%s%s%s", BOLD_GREEN, "\nminishell $ ", RESET);
+		g_interrupt = 1;
+	}
+}
+
+void	catch_signal(void)
+{
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, handle_signal);
 }

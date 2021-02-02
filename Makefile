@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/01/31 16:41:34 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/02 15:16:12 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_NAME	=	main.c \
 						export_env.c \
 						file_status.c \
 						init_env_lst.c \
+						signal.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
