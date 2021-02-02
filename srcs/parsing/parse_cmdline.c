@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/01 23:16:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/02 16:33:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int	parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	int	ret;
 
 	ret = 0;
-	if (check_pipe(input, cmd_lst))
-	{
-		piped_cmd_handler(envp, env_lst, cmd_lst);
-		return (0);
-	}
-	else if (check_semicolon(input, cmd_lst))
+	if (check_semicolon(input, cmd_lst))
 	{
 		multi_cmd_handler(envp, env_lst, cmd_lst);
+		return (0);
+	}
+	else if (check_pipe(input, cmd_lst))
+	{
+		piped_cmd_handler(envp, env_lst, cmd_lst);
 		return (0);
 	}
 	else
