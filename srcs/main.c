@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/msh.h"
+#include <signal.h>
 
 /*
 ** Prints a welcome message.
@@ -20,7 +21,7 @@
 
 void	init_msh(t_env **env_lst, char **envp)
 {
-	ft_printf("Welcome to minishell !\nCtrl-C or \"exit\" to quit.\n");
+	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
 	init_env(env_lst, envp);
 }
 
@@ -28,12 +29,16 @@ int	get_input(char *input)
 {
 	char	*line;
 
-	line = NULL;
-	ft_printf("%sminishell $ %s", BOLD_MAGENTA, RESET);
-	get_next_line(0, &line);
-	ft_strlcpy(input, line, MAXCHAR);
+	line = ft_readline("minishell $ ");
+	if (line == NULL)
+	{
+		ft_printf("exit\n");
+		free(line);
+		return (0);
+	}
+	ft_strlcpy(input, line, ft_strlen(line));
 	free(line);
-	return (0);
+	return (1);
 }
 
 /*
@@ -83,8 +88,10 @@ void	main_loop(char *env, t_env *env_lst, t_cmd *cmd_lst)
 	ret = 0;
 	while (1)
 	{
-		get_input(input);
-		if (ft_strncmp(input, "", 1) && !is_empty(input))
+		catch_signal();
+		if (!get_input(input))
+			break ;
+		if (!is_empty(input))
 		{
 			env = concat_env(env_lst);
 			envp = ft_split(env, '\n');

@@ -6,27 +6,53 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/26 16:47:29 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/02 17:05:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 #include <sys/wait.h>
 
+static int 	has_piped_cmd(char **envp, t_env *env_lst, char **args)
+{
+	int		i;
+	char	buffer[MAXCHAR];
+	t_cmd	*piped_cmd;
+
+	i = 0;
+	piped_cmd = NULL;
+	ft_bzero(buffer, MAXCHAR);
+	piped_cmd = ft_calloc(1, sizeof(t_cmd));
+	while (args[i])
+	{
+		ft_strcat(buffer, args[i]);
+		ft_strcat(buffer, " ");
+		i++;
+	}
+	if (check_pipe(buffer, piped_cmd))
+	{
+		piped_cmd_handler(envp, env_lst, piped_cmd);
+		free_cmd_lst(&piped_cmd);
+		return (1);
+	}
+	free(piped_cmd);
+	return (0);
+}
+
 static void	exec_multi_cmd(char **envp, t_env *env_lst, int n, t_cmd *cmd_lst)
 {
 	pid_t	pid;
-	int		ret;
 	int		status;
 
+	pid = 0;
 	while (n > 0)
 	{
-		ret = is_builtin(*cmd_lst->args);
+		pid = is_builtin(*cmd_lst->args);
 		if (!file_exists(*cmd_lst->args))
 			cmd_lst->args[0] = cmd_lst->cmd;
-		if (ret)
-			exec_builtin(ret, env_lst, cmd_lst);
-		else
+		if (pid)
+			exec_builtin(pid, env_lst, cmd_lst);
+		else if (!has_piped_cmd(envp, env_lst, cmd_lst->args))
 		{
 			if (create_fork(&pid) < 0 )
 				exit(-1);

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/24 18:13:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/30 13:36:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,23 @@ bool	is_empty(char *str)
 	return (ret);
 }
 
-char	**free_2darray(char **tab)
+char	*ft_readline(char *prompt)
 {
-	int	i;
+	char	*str;
+	char	buf[MAXCHAR + 1];
+	int		ret;
 
-	i = 0;
-	while (tab[i])
+	ret = 0;
+	str = NULL;
+	ft_printf("%s%s%s", BOLD_GREEN, prompt, RESET);
+	ft_bzero(buf, MAXCHAR + 1);
+	ret = read(0, buf, MAXCHAR);
+	if (ret == 0)
+		return (NULL);
+	else
 	{
-		free((void*)tab[i]);
-		i++;
+		str = ft_calloc(ret + 1, sizeof(char));
+		ft_strlcpy(str, buf, ret + 1);
 	}
-	free(tab);
-	return (NULL);
+	return (str);
 }

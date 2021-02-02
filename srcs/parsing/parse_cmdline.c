@@ -6,26 +6,29 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/26 15:21:24 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/02 16:33:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
+#include <stdio.h>
 
-void	parse_args(char *str, char **args)
+void	parse_args(char *str, t_cmd *cmd_lst)
 {
 	int	i;
 
 	i = 0;
 	while (i < MAXLIST)
 	{
-		args[i] = ft_strsep(&str, " \t");
-		if (args[i] == NULL)
+		cmd_lst->args[i] = ft_strsep(&str, " \t");
+		if (cmd_lst->args[i] == NULL)
 			break ;
-		if (strlen(args[i]) == 0)
+		if (strlen(cmd_lst->args[i]) == 0)
 			i--;
 		i++;
 	}
+	//fonction parsing -> cmd_lst->args
+	// cmd_lst->args[1] -> *tmp
 }
 
 /*
@@ -41,18 +44,19 @@ int	parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	int	ret;
 
 	ret = 0;
-	if (check_pipe(input, cmd_lst))
-	{
-		piped_cmd_handler(envp, env_lst, cmd_lst);
-		return (0);
-	}
-	else if (check_semicolon(input, cmd_lst))
+	if (check_semicolon(input, cmd_lst))
 	{
 		multi_cmd_handler(envp, env_lst, cmd_lst);
 		return (0);
 	}
+	else if (check_pipe(input, cmd_lst))
+	{
+		piped_cmd_handler(envp, env_lst, cmd_lst);
+		return (0);
+	}
 	else
-		parse_args(input, cmd_lst->args);
+		parse_args(input, cmd_lst);
+		// parsing cmd_lst->args
 	ret = is_builtin(cmd_lst->args[0]);
 	if (ret)
 		exec_builtin(ret, env_lst, cmd_lst);

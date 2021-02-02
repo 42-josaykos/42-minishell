@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/01/26 15:23:14 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/02 15:16:12 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,11 +35,13 @@ SRC_NAME	=	main.c \
 						utils/fork_utils.c \
 						utils/list_utils.c \
 						utils/list_utils2.c \
+						utils/other_utils.c \
 						utils/string_utils.c \
 						error.c \
 						export_env.c \
 						file_status.c \
 						init_env_lst.c \
+						signal.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
