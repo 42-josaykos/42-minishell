@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/02 16:33:50 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/03 15:56:09 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	parse_args(char *str, t_cmd *cmd_lst)
 	i = 0;
 	while (i < MAXLIST)
 	{
-		cmd_lst->args[i] = ft_strsep(&str, " \t");
+		cmd_lst->args[i] = ft_strsep(&str, " \t\n");
 		if (cmd_lst->args[i] == NULL)
 			break ;
 		if (strlen(cmd_lst->args[i]) == 0)

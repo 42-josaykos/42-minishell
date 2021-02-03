@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/30 13:36:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/03 15:54:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,17 @@ char	*ft_readline(char *prompt)
 	str = NULL;
 	ft_printf("%s%s%s", BOLD_GREEN, prompt, RESET);
 	ft_bzero(buf, MAXCHAR + 1);
-	ret = read(0, buf, MAXCHAR);
-	if (ret == 0)
-		return (NULL);
-	else
+	while (1)
 	{
-		str = ft_calloc(ret + 1, sizeof(char));
-		ft_strlcpy(str, buf, ret + 1);
+		ret = read(0, buf, MAXCHAR);
+		if (ret == 0)
+			return (NULL);
+		else
+		{
+			str = ft_calloc(ret + 1, sizeof(char));
+			ft_strlcpy(str, buf, ret + 1);
+			break ;
+		}
 	}
 	return (str);
 }
