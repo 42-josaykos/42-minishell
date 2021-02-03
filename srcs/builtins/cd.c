@@ -17,7 +17,7 @@ int	cd(char *arg, t_env *env_lst)
 	if (!arg || arg[0] == '~')
 	{
 		str = get_env(env_lst, "HOME");
-		if (str == NULL)
+		if (str == NULL || !ft_strlen(str))
 			return (EXIT_SUCCESS);
 	}
 	getcwd(tmp, MAXCHAR);
