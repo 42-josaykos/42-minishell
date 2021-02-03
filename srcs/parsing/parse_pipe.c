@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/01 18:47:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/03 16:55:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ bool	parse_pipe(char *str, char **piped)
 		piped[i] = ft_strsep(&str, "|");
 		if (piped[i] == NULL)
 			break ;
+		if (strlen(piped[i]) == 0)
+			i--;
 		i++;
 	}
 	if (piped[1] == NULL)
