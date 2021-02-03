@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/03 15:54:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/03 16:09:39 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,39 @@ bool	is_empty(char *str)
 	return (ret);
 }
 
+void	ft_readline2()
+{
+	return ;
+}
+
 char	*ft_readline(char *prompt)
 {
 	char	*str;
-	char	buf[MAXCHAR + 1];
+	char	buf[MAXCHAR];
+	char	tmp[MAXCHAR];
 	int		ret;
+	int		len;
 
 	ret = 0;
 	str = NULL;
 	ft_printf("%s%s%s", BOLD_GREEN, prompt, RESET);
-	ft_bzero(buf, MAXCHAR + 1);
+	ft_bzero(tmp, MAXCHAR);
 	while (1)
 	{
+		ft_bzero(buf, MAXCHAR);
 		ret = read(0, buf, MAXCHAR);
 		if (ret == 0)
 			return (NULL);
 		else
 		{
-			str = ft_calloc(ret + 1, sizeof(char));
-			ft_strlcpy(str, buf, ret + 1);
-			break ;
+			ft_strcat(tmp, buf);
+			len = ft_strlen(tmp);
+			if (tmp[0] && tmp[len - 1] == '\n')
+			{
+				str = ft_calloc(len + 1, sizeof(char));
+				ft_strlcpy(str, tmp, len + 1);
+				break ;
+			}
 		}
 	}
 	return (str);
