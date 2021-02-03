@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/03 16:09:39 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/03 16:35:44 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*ft_readline(char *prompt)
 		{
 			ft_strcat(tmp, buf);
 			len = ft_strlen(tmp);
-			if (tmp[0] && tmp[len - 1] == '\n')
+			if (tmp[0] != 0 && tmp[len - 1] == '\n')
 			{
 				str = ft_calloc(len + 1, sizeof(char));
 				ft_strlcpy(str, tmp, len + 1);

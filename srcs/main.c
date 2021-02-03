@@ -36,7 +36,7 @@ int	get_input(char *input)
 		free(line);
 		return (0);
 	}
-	ft_strlcpy(input, line, ft_strlen(line) + 1);
+	ft_strlcpy(input, line, ft_strlen(line));
 	free(line);
 	return (1);
 }
