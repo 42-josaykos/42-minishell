@@ -89,6 +89,13 @@ char	*ft_strsep(char **stringp, const char *delim);
 bool	is_empty(char *str);
 
 /*
+** string_utils.c
+*/
+
+char 	*ft_strsep2(char **stringp);
+int		check_dquotes(char *input);
+
+/*
 ** parse_pipe.c
 */
 
@@ -113,6 +120,7 @@ char	**free_2darray(char **tab);
 */
 
 void	error_cases(int errnum, char *cmd, char *arg);
+void	error_quotes();
 
 /*
 ** exec_piped_cmd

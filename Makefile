@@ -37,6 +37,7 @@ SRC_NAME	=	main.c \
 						utils/list_utils2.c \
 						utils/other_utils.c \
 						utils/string_utils.c \
+						utils/string_utils2.c \
 						error.c \
 						export_env.c \
 						file_status.c \

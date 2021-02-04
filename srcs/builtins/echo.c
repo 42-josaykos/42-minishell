@@ -16,6 +16,8 @@ void	echo_loop(char *arg, t_env *env_lst, int fd)
 {
 	char	*str;
 
+	if (arg[0] == '\"')
+		arg++;
 	if ((arg[0] != '$') || ((arg[0] == '$') && (ft_strlen(arg) == 1)))
 		ft_putstr_fd(arg, fd);
 	else if (arg)
@@ -30,7 +32,7 @@ int	echo(char **arg, t_env *env_lst, int fd)
 {
 	int		i;
 	int		isn;
-
+ 
 	isn = 0;
 	i = 1;
 	if (!ft_strncmp(arg[i], "-n", 2))

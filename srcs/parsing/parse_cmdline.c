@@ -20,7 +20,9 @@ void	parse_args(char *str, t_cmd *cmd_lst)
 	i = 0;
 	while (i < MAXLIST)
 	{
-		cmd_lst->args[i] = ft_strsep(&str, " \t");
+
+		cmd_lst->args[i] = ft_strsep2(&str);
+//		ft_printf("??%s\n", cmd_lst->args[i]);
 		if (cmd_lst->args[i] == NULL)
 			break ;
 		if (strlen(cmd_lst->args[i]) == 0)
@@ -44,6 +46,11 @@ int	parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	int	ret;
 
 	ret = 0;
+	if (check_dquotes(input) < 1)
+	{
+		error_quotes();
+		return (0);
+	}
 	if (check_semicolon(input, cmd_lst))
 	{
 		multi_cmd_handler(envp, env_lst, cmd_lst);
