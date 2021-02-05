@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 14:07:50 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 15:03:11 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 16:22:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_env_lst(char **envp)
 {
 	while (*envp)
 	{
-		ft_printf("%s\n", *envp);
+		printf("%s\n", *envp);
 		envp++;
 	}
 }

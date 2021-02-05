@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 15:04:44 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 16:28:27 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	exec_builtin(int ret, char **envp, t_env *env_lst, t_cmd *cmd_lst)
 	else if (ret == ECHO)
 		echo(cmd_lst->args, env_lst, 0);
 	else if (ret == ENV)
+	{
 		print_env_lst(envp);
+	}
 }
 
 int	is_builtin(char *cmd)
