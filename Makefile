@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/02/05 13:04:43 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/05 14:11:57 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_NAME	=	main.c \
 						builtins/cd.c \
 						builtins/pwd.c \
 						builtins/echo.c \
+						builtins/env.c \
 						builtins/export.c \
 						builtins/exit.c \
 						execs/exec_builtin.c \

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 13:51:01 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 14:54:52 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define CD 3
 # define PWD 4
 # define ECHO 5
+# define ENV 6
 
 typedef struct s_env
 {
@@ -79,7 +80,7 @@ void	assign_env(char *str, t_env **env_lst);
 
 void	cmd_handler(char **envp, t_env *env_lst, char **args);
 int		is_builtin(char *cmd);
-void	exec_builtin(int ret, t_env *env_lst, t_cmd *cmd_lst);
+void	exec_builtin(int ret, char **envp, t_env *env_lst, t_cmd *cmd_lst);
 
 /*
 ** string_utils.c
@@ -126,4 +127,5 @@ void	multi_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
 char	*ft_readline(char *prompt);
 int		exit_msh(int status, char *env, t_env **env_lst, t_cmd **cmd_lst);
 void	free_all(char *env, t_env **env_lst, t_cmd **cmd_lst);
+void	print_env_lst(char **envp);
 #endif
