@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 14:54:52 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 16:03:16 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,17 @@
 
 # define MAXCHAR 1024
 # define MAXLIST 128
-# define EXIT 1
-# define EXPORT 2
-# define CD 3
-# define PWD 4
-# define ECHO 5
-# define ENV 6
+
+enum e_builtin
+{
+	EXIT = 1,
+	EXPORT,
+	CD,
+	PWD,
+	ECHO,
+	ENV,
+	UNSET
+};
 
 typedef struct s_env
 {

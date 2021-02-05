@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 14:54:40 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 15:56:48 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	parse_args(char *str, t_cmd *cmd_lst)
 
 int	parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
-	int	ret;
+	enum e_builtin	ret;
 
 	ret = 0;
 	if (check_semicolon(input, cmd_lst))
