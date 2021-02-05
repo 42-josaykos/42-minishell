@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 17:16:56 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 19:22:05 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	piped_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*pathstr;
 	char	copy[MAXCHAR];
-	char 	**envp;
+	char	**envp;
 
 	pathstr = NULL;
 	envp = status->envp;

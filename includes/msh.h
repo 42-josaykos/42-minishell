@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 17:12:41 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 19:23:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	print_cwd(void);
 ** parse_cmdline.c
 */
 
-int		parse_cmdline(t_state *status, t_env *env_lst, t_cmd *cmd_lst, char *input);
+int		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 void	parse_args(char *str, t_cmd *cmd_lst);
 
 /*

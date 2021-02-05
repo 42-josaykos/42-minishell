@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/02/05 14:11:57 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/05 19:19:11 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS_PATH = srcs
 SRC 			= $(addprefix $(SRCS_PATH)/,$(SRC_NAME))
 RM 				= rm -rf
 CC 				= clang
+MEM				= -g -O3 -fsanitize=address
 
 all:	$(NAME)
 
@@ -58,12 +59,12 @@ $(NAME): $(OBJ)
 	make -C libft/ 1>/dev/null
 	@echo "$(GREEN)$(LIBFT) done...$(END)"
 	@echo "$(GREEN)pwd builtin command done...$(END)"
-	$(CC) $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME)
+	$(CC) $(MEM) -Wall -Wextra -Werror $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) binary is ready !$(END)"
 
 %.o: %.c
 	@echo "$(GREEN)Compiling source files to objects $<$ ...$(END)"
-	$(CC) -Wall -Wextra -Werror $(INCLUDES) -c $< -o $@
+	$(CC) $(MEM) -Wall -Wextra -Werror $(INCLUDES) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)
