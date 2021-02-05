@@ -13,6 +13,8 @@
 #include "../includes/msh.h"
 #include <signal.h>
 
+int	g_status;
+
 /*
 ** Prints a welcome message.
 ** Create a list of env variables.
@@ -127,8 +129,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 		printf("Usage: just ./minishell with no arguments.\n");
-	free_env_lst(&env_lst);
-	free_cmd_lst(&cmd_lst);
-	free(env);
+	exit_msh(0, env, &env_lst, &cmd_lst);
 	return (EXIT_SUCCESS);
 }

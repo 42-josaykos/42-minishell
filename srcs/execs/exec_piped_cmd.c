@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/03 12:00:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 14:00:48 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ static void	fork_pipes (char **envp, int n, t_cmd *cmd_lst)
 		exit(-1);
 	if (last_process == 0)
 	{
-		in = STDIN_FILENO; // get input from standard input;
+		in = STDIN_FILENO;
 		while (n - 1 > 0)
 		{
 			pipe(fd);
 			pid = exec_process(envp, in, fd[1], cmd_lst);
-			close(fd[1]); // close write side of the pipe
-			in = fd[0]; // input of next process is the read side of the pipe
+			close(fd[1]);
+			in = fd[0];
 			n--;
 			cmd_lst = cmd_lst->next;
 		}

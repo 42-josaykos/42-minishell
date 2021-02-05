@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:28:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 13:05:27 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 13:50:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**free_2darray(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 	{
 		free((void*)tab[i]);
 		i++;
@@ -26,9 +26,9 @@ char	**free_2darray(char **tab)
 	return (NULL);
 }
 
-void	free_all(char **envp, t_env **env_lst, t_cmd **cmd_lst)
+void	free_all(char *env, t_env **env_lst, t_cmd **cmd_lst)
 {
 	free_env_lst(env_lst);
 	free_cmd_lst(cmd_lst);
-	free_2darray(envp);
+	free(env);
 }
