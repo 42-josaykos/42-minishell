@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/02/02 15:16:12 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/05 13:04:43 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRC_NAME	=	main.c \
 						builtins/cd.c \
 						builtins/pwd.c \
 						builtins/echo.c \
+						builtins/export.c \
+						builtins/exit.c \
 						execs/exec_builtin.c \
 						execs/exec_cmd.c \
 						execs/exec_multi_cmd.c \
@@ -33,12 +35,11 @@ SRC_NAME	=	main.c \
 						parsing/parse_pipe.c \
 						parsing/parse_semicolon.c \
 						utils/fork_utils.c \
+						utils/free_utils.c \
 						utils/list_utils.c \
 						utils/list_utils2.c \
-						utils/other_utils.c \
 						utils/string_utils.c \
 						error.c \
-						export_env.c \
 						file_status.c \
 						init_env_lst.c \
 						signal.c \
