@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 16:41:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 16:54:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 	else if (ret == ENV)
 	{
 		print_env_lst(status->envp);
+		status->code = 43;
 	}
 }
 
