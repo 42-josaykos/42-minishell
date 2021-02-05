@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 16:28:49 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 16:46:25 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	print_cwd(void);
 ** parse_cmdline.c
 */
 
-int		parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input);
+int		parse_cmdline(t_state *status, t_env *env_lst, t_cmd *cmd_lst, char *input);
 void	parse_args(char *str, t_cmd *cmd_lst);
 
 /*
@@ -91,7 +91,7 @@ void	assign_env(char *str, t_env **env_lst);
 
 void	cmd_handler(char **envp, t_env *env_lst, char **args);
 int		is_builtin(char *cmd);
-void	exec_builtin(int ret, char **envp, t_env *env_lst, t_cmd *cmd_lst);
+void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 /*
 ** string_utils.c
@@ -133,7 +133,7 @@ void	error_cases(int errnum, char *cmd, char *arg);
 int		check_semicolon(char *input, t_cmd *cmd_lst);
 void	piped_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
 void	exec_last_process(char **envp, int in, t_cmd *cmd_lst);
-void	multi_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
+void	multi_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 char	*ft_readline(char *prompt);
 int		exit_msh(t_state *status, t_env **env_lst, t_cmd **cmd_lst);

@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 16:28:27 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 16:41:25 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-void	exec_builtin(int ret, char **envp, t_env *env_lst, t_cmd *cmd_lst)
+void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	if (ret == EXPORT)
 		assign_env(cmd_lst->args[1], &env_lst);
@@ -24,7 +24,7 @@ void	exec_builtin(int ret, char **envp, t_env *env_lst, t_cmd *cmd_lst)
 		echo(cmd_lst->args, env_lst, 0);
 	else if (ret == ENV)
 	{
-		print_env_lst(envp);
+		print_env_lst(status->envp);
 	}
 }
 

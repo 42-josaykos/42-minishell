@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 14:55:33 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 16:50:28 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ static int 	has_piped_cmd(char **envp, t_env *env_lst, char **args)
 	return (0);
 }
 
-static void	exec_multi_cmd(char **envp, t_env *env_lst, int n, t_cmd *cmd_lst)
+static void	exec_multi_cmd(t_state *status, t_env *env_lst, int n, t_cmd *cmd_lst)
 {
 	pid_t	pid;
-	int		status;
 
 	pid = 0;
 	while (n > 0)
@@ -50,21 +49,21 @@ static void	exec_multi_cmd(char **envp, t_env *env_lst, int n, t_cmd *cmd_lst)
 		pid = is_builtin(*cmd_lst->args);
 		if (!file_exists(*cmd_lst->args))
 			cmd_lst->args[0] = cmd_lst->cmd;
-		if (pid)
-			exec_builtin(pid, envp, env_lst, cmd_lst);
-		else if (!has_piped_cmd(envp, env_lst, cmd_lst->args))
+		// if (pid)
+			// exec_builtin(pid, envp, env_lst, cmd_lst);
+		if (!has_piped_cmd(status->envp, env_lst, cmd_lst->args))
 		{
 			if (create_fork(&pid) < 0 )
 				exit(-1);
 			if (pid == 0)
 			{
-				execve(*cmd_lst->args, cmd_lst->args, envp);
-				exit(status);
+				execve(*cmd_lst->args, cmd_lst->args, status->envp);
+				exit(status->code);
 			}
 		}
 		cmd_lst = cmd_lst->next;
 		n--;
-		waitpid(pid, &status, WCONTINUED);
+		waitpid(pid, &status->code, WCONTINUED);
 	}
 }
 
@@ -90,7 +89,7 @@ static void	multi_cmd_handler3(t_cmd *cmd_lst, char *filepath)
 	}
 }
 
-void	multi_cmd_handler2(char **envp, t_env *env_lst, char *s, t_cmd *cmd_lst)
+void	multi_cmd_handler2(t_state *status, t_env *env_lst, char *s, t_cmd *cmd_lst)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
@@ -107,10 +106,10 @@ void	multi_cmd_handler2(char **envp, t_env *env_lst, char *s, t_cmd *cmd_lst)
 		multi_cmd_handler3(cmd_lst, filepath);
 	}
 	len = cmd_lst_size(cmd_lst);
-	exec_multi_cmd(envp, env_lst, len, cmd_lst);
+	exec_multi_cmd(status, env_lst, len, cmd_lst);
 }
 
-void 	multi_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst)
+void 	multi_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*pathstr;
 	char	copy[MAXCHAR];
@@ -126,5 +125,5 @@ void 	multi_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst)
 		}
 		env_lst = env_lst->next;
 	}
-	multi_cmd_handler2(envp, env_lst, pathstr, cmd_lst);
+	multi_cmd_handler2(status, env_lst, pathstr, cmd_lst);
 }

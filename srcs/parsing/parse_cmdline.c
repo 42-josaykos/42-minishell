@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 15:56:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/05 16:46:02 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,27 @@ void	parse_args(char *str, t_cmd *cmd_lst)
 ** Check each path directories for the executable and execute it (cmd_handler).
 */
 
-int	parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input)
+int	parse_cmdline(t_state *status, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	enum e_builtin	ret;
 
 	ret = 0;
 	if (check_semicolon(input, cmd_lst))
 	{
-		multi_cmd_handler(envp, env_lst, cmd_lst);
+		multi_cmd_handler(status, env_lst, cmd_lst);
 		return (0);
 	}
-	else if (check_pipe(input, cmd_lst))
-	{
-		piped_cmd_handler(envp, env_lst, cmd_lst);
-		return (0);
-	}
-	else
+	// else if (check_pipe(input, cmd_lst))
+	// {
+		// piped_cmd_handler(status->envp, env_lst, cmd_lst);
+		// return (0);
+	// }
+	// else
 		parse_args(input, cmd_lst);
 	ret = is_builtin(cmd_lst->args[0]);
 	if (ret)
-		exec_builtin(ret, envp, env_lst, cmd_lst);
+		exec_builtin(ret, status, env_lst, cmd_lst);
 	else
-		cmd_handler(envp, env_lst, cmd_lst->args);
+		cmd_handler(status->envp, env_lst, cmd_lst->args);
 	return (ret);
 }

@@ -98,7 +98,7 @@ void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 			env = concat_env(env_lst);
 			status->envp = ft_split(env, '\n');
 			free(env);
-			ret = parse_cmdline(status->envp, env_lst, cmd_lst, input);
+			ret = parse_cmdline(status, env_lst, cmd_lst, input);
 			free_2darray(status->envp);
 		}
 		if (ret == EXIT)
