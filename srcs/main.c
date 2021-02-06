@@ -34,7 +34,6 @@ int	get_input(char *input)
 	line = ft_readline("minishell $ ");
 	if (line == NULL)
 	{
-		ft_printf("exit\n");
 		free(line);
 		return (0);
 	}

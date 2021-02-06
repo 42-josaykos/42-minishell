@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/06 14:30:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/06 14:47:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 
 # define MAXCHAR 1024
 # define MAXLIST 128
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
 
 enum e_builtin
 {
