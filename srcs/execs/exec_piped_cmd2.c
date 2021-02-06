@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:52:35 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 14:01:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/06 14:31:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-void	exec_last_process(char **envp, int in, t_cmd *cmd_lst)
+void	exec_last_process(t_state *status, int in, t_cmd *cmd_lst)
 {
 	int	ret;
 
@@ -23,6 +23,6 @@ void	exec_last_process(char **envp, int in, t_cmd *cmd_lst)
 			dup2(in, STDIN_FILENO);
 		if (!file_exists(*cmd_lst->args))
 			cmd_lst->args[0] = cmd_lst->cmd;
-		execve(*cmd_lst->args, cmd_lst->args, envp);
+		execve(*cmd_lst->args, cmd_lst->args, status->envp);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 19:21:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/06 14:22:13 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	exec_multi_cmd(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 		}
 		cmd_lst = cmd_lst->next;
 		n--;
-		waitpid(pid, &st->code, WCONTINUED);
+		waitpid(pid, &st->code, 0);
 	}
 }
 
