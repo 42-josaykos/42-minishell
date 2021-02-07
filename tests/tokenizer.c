@@ -36,34 +36,44 @@ typedef struct s_token {
 // 0123456789
 // ls -l srcs
 
-void get_next_token(char *input)
+char * get_next_token(char *input, int *pos)
 {
-	int pos;
+	int start;
+	char *token;
 
-	pos = 0;
-	while (input[pos] != 0)
+	while (input[*pos] && isblank(input[*pos]))
+		(*pos)++;
+	start = *pos;
+	while (input[*pos] != 0 || isblank(input[*pos]))
 	{
-		if (isblank(input[pos]))
+		if (isblank(input[*pos]))
 		{
-			while (input[pos] && isblank(input[pos]))
-			{
-				pos++;
-			}
+			token = ft_substr(input, start, *pos - start);
+			return token;
 		}
-		printf("%c\n", input[pos]);
-		pos++;
+		(*pos)++;
 	}
+	token = ft_substr(input, start, *pos);
+	return token;
 }
 
 int main(void)
 {
 	t_token *tkn;
-	char *input = "ls -l srcs ; pwd";
+	int pos = 0;
+	char *input = "				ls -l srcs ;     pwd";
+	char *token;
 
+	token = NULL;
 	if (input)
 	{
 		tkn = ft_calloc(1, sizeof(t_token));
-		get_next_token(input);
+		while (input[pos])
+		{
+			token = get_next_token(input, &pos);
+			printf("%s\n", token);
+			free(token);
+		}
 		free(tkn);
 	}
 	else {
