@@ -1,5 +1,6 @@
 # include "../includes/msh.h"
 #include <ctype.h>
+#include <stdio.h>
 
 enum e_type {
 	BUILTIN,
@@ -37,47 +38,31 @@ typedef struct s_token {
 
 void get_next_token(char *input)
 {
-	char *current_tkn;
-	char *current_char;
-	char *tkn;
-	int i;
-	int j;
+	char current_char;
+	int pos;
 
-	current_char = input;
-	current_tkn = input;
-	i = 0;
-	j = 0;
-	while(1)
+	pos = 0;
+	current_char = input[pos];
+	while (current_char != 0)
 	{
-		if (isblank(current_char[i]) || current_char[i] == 0)
+		if (isblank(current_char))
 		{
-			tkn = ft_substr(current_tkn, 0, j);
-			if (current_char[i] == '\0')
-				break ;
-			ft_printf("tkn = '%s'\n", tkn);
-			current_tkn += i;
-			while (isblank(current_char[i]))
+			while (current_char && isblank(current_char))
 			{
-				current_tkn++;
-				i++;
+				pos++;
+				current_char = input[pos];
 			}
-			j = 0;
-			j++;
-			continue ;
 		}
-		ft_printf("current_char = '%c'\n", current_char[i]);
-		i++;
-		j++;
+		printf("%c\n", current_char);
+		pos++;
+		current_char = input[pos];
 	}
-	tkn = ft_strdup(current_tkn);
-	ft_printf("tkn = '%s'\n", tkn);
-	return ;
 }
 
 int main(void)
 {
 	t_token *tkn;
-	char *input = "ls -l srcs";
+	char *input = "ls -l srcs ; pwd";
 
 	if (input)
 	{
