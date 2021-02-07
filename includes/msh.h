@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/06 14:47:04 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/07 17:52:42 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <ctype.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>

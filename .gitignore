@@ -10,3 +10,4 @@ vgcore*
 a.out
 tests/*.o
 tests/*.a
+tests/tests
