@@ -8,3 +8,5 @@ LICENSE
 tags
 vgcore*
 a.out
+tests/*.o
+tests/*.a
