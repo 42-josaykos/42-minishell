@@ -38,24 +38,20 @@ typedef struct s_token {
 
 void get_next_token(char *input)
 {
-	char current_char;
 	int pos;
 
 	pos = 0;
-	current_char = input[pos];
-	while (current_char != 0)
+	while (input[pos] != 0)
 	{
-		if (isblank(current_char))
+		if (isblank(input[pos]))
 		{
-			while (current_char && isblank(current_char))
+			while (input[pos] && isblank(input[pos]))
 			{
 				pos++;
-				current_char = input[pos];
 			}
 		}
-		printf("%c\n", current_char);
+		printf("%c\n", input[pos]);
 		pos++;
-		current_char = input[pos];
 	}
 }
 
