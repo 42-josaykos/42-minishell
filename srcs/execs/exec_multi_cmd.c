@@ -6,12 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/06 14:22:13 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/08 16:46:45 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-#include <sys/wait.h>
 
 static int 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 {
