@@ -65,22 +65,47 @@ char * get_next_token(char *input, int *pos)
 
 void ast_add(t_ast **node, char *token)
 {
-	t_ast *new;
+	t_ast *new = NULL;
+	t_ast *next_parent;
+	t_ast *left_node;
 	t_ast *ptr;
 
-	ptr = *node; // reference to the begining of the tree
-	if (!ptr->left && !ptr->right && !ptr->parent)
+	ptr = *node;
+	if (!ptr->left && !ptr->right && !ptr->parent) // start new tree
 	{
 		new = ft_calloc(1, sizeof(t_ast));
 		new->type = ARG;
 		new->value = token;
 		new->left = NULL;
 		new->right = NULL;
-		new->parent = ft_calloc(1, sizeof(t_ast));
-		*node = new;
+
+		next_parent = ft_calloc(1, sizeof(t_ast)); // create next parent node (top)
+		next_parent->left = new; // link parent to his left child
+		new->parent = next_parent; // link child node to his parent
+
+		ptr = new;
+		*node = ptr;
+
 	}
-	else 
+	else if (!ptr->right && ptr->left) // add right child to the parent node (top)
 	{
+		return ;
+	}
+	else // new parent
+	{
+		while (ptr->parent)
+		{
+			left_node = ptr;
+			ptr = ptr->parent;
+		}
+		// new = ft_calloc(1, sizeof(t_ast));
+		ptr->type = ARG;
+		ptr->value = token;
+		ptr->left = left_node;
+		ptr->right = NULL;
+		ptr->parent = ft_calloc(1, sizeof(t_ast));
+		// ptr = new;
+		*node = ptr;
 		return ;
 	}
 	return ;
