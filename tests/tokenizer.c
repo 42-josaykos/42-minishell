@@ -15,7 +15,8 @@ char * get_next_token(char *input, int *pos)
 		(*pos)++;
 	start = *pos;
 	if (input[*pos] == ';' || input[*pos] == '|' || input[*pos] == '>'
-		|| input[*pos] == '<' || input[*pos] == '$')
+		|| input[*pos] == '<' || input[*pos] == '$' || input[*pos] == '\''
+		|| input[*pos] == '\"' || input[*pos] == '\\')
 	{
 		token = ft_calloc(2, sizeof(char));
 		token[0] = input[*pos];
@@ -26,7 +27,8 @@ char * get_next_token(char *input, int *pos)
 	{
 		if (isblank(input[*pos]) || input[*pos] == ';' || input[*pos] == '|'
 			|| input[*pos] == '|' || input[*pos] == '>' || input[*pos] == '<'
-			|| input[*pos] == '$')
+			|| input[*pos] == '$' || input[*pos] == '\'' || input[*pos] == '\"'
+			|| input[*pos] == '\\')
 		{
 			token = ft_substr(input, start, *pos - start);
 			return token;
@@ -37,20 +39,20 @@ char * get_next_token(char *input, int *pos)
 	return token;
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
 	t_ast *token = NULL;
 	int pos = 0;
 	int i = 0;
-	char *input = "pwd;ls -l libft;ls $HOME| grep main.c";
+	// char *input = "pwd;ls -l libft;ls $HOME| grep main.c";
 	char *buffer[MAXLIST];
 
 	ft_bzero(buffer, MAXLIST);
-	if (input)
+	if (argc == 2)
 	{
-		while (input[pos])
+		while (argv[1][pos])
 		{
-			buffer[i] = get_next_token(input, &pos);
+			buffer[i] = get_next_token(argv[1], &pos);
 			printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
 			i++;
 		}
