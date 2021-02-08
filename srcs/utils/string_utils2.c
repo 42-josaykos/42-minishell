@@ -54,7 +54,7 @@ char 	*ft_strsep2(char **stringp)
 	i = 0;
 	while (tmp[i])
 	{
-		if (tmp[i] == '\"' && i == 0)
+		if ((tmp[i] == '\"' || tmp[i] == '\'') && i == 0)
 			return (dquotes_loop(tmp, &i, stringp));
 		else if (tmp[i] == ' ' || tmp[i] == '\t')
 		{
