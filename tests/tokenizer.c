@@ -28,24 +28,23 @@ char * get_next_token(char *input, int *pos)
 	return token;
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
 	t_ast *node;
 	int pos = 0;
 	int i = 0;
-	// char *input = "pwd;ls -l libft;ls $HOME| grep main.c";
+	char *input = "pwd;ls -l libft;ls $HOME| grep main.c";
 	char *tokens[MAXLIST];
 
 	ft_bzero(tokens, MAXLIST);
-	if (argc == 2)
+	if (input)
 	{
 		node = ft_calloc(1, sizeof(t_ast));
 		node->left = NULL;
 		node->right = NULL;
-		node->parent = NULL;
-		while (argv[1][pos])
+		while (input[pos])
 		{
-			tokens[i] = get_next_token(argv[1], &pos);
+			tokens[i] = get_next_token(input, &pos);
 			printf("%s\n", tokens[i]);
 			ast_add(&node, tokens[i]);
 			i++;
