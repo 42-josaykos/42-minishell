@@ -3,7 +3,8 @@
 
 # include "../includes/msh.h"
 
-enum e_type {
+enum	e_type
+{
 	END,
 	BUILTIN,
 	EXEC,
@@ -19,9 +20,10 @@ enum e_type {
 	BACKSLASH,
 };
 
-typedef struct s_ast {
-	enum e_type	type;
-	char	*value;
+typedef struct	s_ast
+{
+	enum e_type		type;
+	char			*value;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }				t_ast;

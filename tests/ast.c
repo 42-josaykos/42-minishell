@@ -16,6 +16,7 @@ static void	ast_add(t_ast **token, t_ast *new_node)
 		while ((*token)->right != NULL)
 			*token = (*token)->right;
 		(*token)->right = new_node;
+		new_node->left = *token;
 		*token = tmp;
 	}
 }
@@ -24,20 +25,21 @@ static void	ast_add(t_ast **token, t_ast *new_node)
 ** Create a new node and set the value and type of the token
 */
 
-static t_ast *create_node(char *buffer)
+static t_ast *create_node(char *buffer, enum e_type type)
 {
 	t_ast *new_node;
 
 	new_node = malloc(sizeof(t_ast));
 	new_node->right = NULL;
-	new_node->type = BUILTIN;
+	new_node->type = type;
 	new_node->value = buffer;
 
 	return (new_node);
 }
 
 /*
-** Iterate in the buffered list, and create a new node for each token
+** Iterate in the buffered list, and create a new node for
+** each token from the list
 */
 
 void ast_init(t_ast **token, char **buffer)
@@ -47,7 +49,7 @@ void ast_init(t_ast **token, char **buffer)
 	
 	while (buffer[i])
 	{
-		new_node = create_node(buffer[i]);
+		new_node = create_node(buffer[i], BUILTIN);
 		ast_add(token, new_node);
 		i++;
 	}
