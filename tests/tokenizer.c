@@ -1,4 +1,6 @@
 # include "ast.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 char * get_next_token(char *input, int *pos)
 {
@@ -30,25 +32,25 @@ char * get_next_token(char *input, int *pos)
 
 int main(void)
 {
-	t_ast *node;
+	t_ast *token = NULL;
 	int pos = 0;
 	int i = 0;
 	char *input = "pwd;ls -l libft;ls $HOME| grep main.c";
-	char *tokens[MAXLIST];
+	char *buffer[MAXLIST];
 
-	ft_bzero(tokens, MAXLIST);
+	ft_bzero(buffer, MAXLIST);
 	if (input)
 	{
-		node = ft_calloc(1, sizeof(t_ast));
-		node->left = NULL;
-		node->right = NULL;
 		while (input[pos])
 		{
-			tokens[i] = get_next_token(input, &pos);
-			printf("%s\n", tokens[i]);
-			ast_add(&node, tokens[i]);
+			buffer[i] = get_next_token(input, &pos);
+			// printf("%s\n", tokens[i]);
 			i++;
 		}
+		ast_init(&token, buffer);
+		// for(; token->right != NULL ; token = token->right)
+			// printf("%s\n", token->value);
+		free_ast(&token);
 	}
 	else {
 		printf("Usage: ./a.out <args>\n");

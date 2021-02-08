@@ -1,41 +1,75 @@
 #include "ast.h"
 
-void ast_add(t_ast **node, char *token)
+/*
+** Add new token node at the end of the token list 
+*/
+
+static void	ast_add(t_ast **token, t_ast *new_node)
 {
-	t_ast *new = NULL;
-	t_ast *next_node;
 	t_ast *tmp;
-	t_ast *ptr;
 
-	ptr = *node;
-	if (!ptr->left && !ptr->right) // start new tree from the left side
+	tmp = *token;
+	if (!(*token))
+		*token = new_node;
+	else
 	{
-		new = ft_calloc(1, sizeof(t_ast));
-		new->type = BUILTIN;
-		new->value = token;
-		new->left = NULL;
-
-		ptr = new;
-		next_node = ft_calloc(1, sizeof(t_ast)); // create next empty node (right)
-		next_node->left = new; // link next empty node to his previous node (left)
-		new->right = next_node; // link node to the next empty node (right)
-
-		*node = ptr;
-
+		while ((*token)->right != NULL)
+			*token = (*token)->right;
+		(*token)->right = new_node;
+		*token = tmp;
 	}
-	else // new node
+}
+
+/*
+** Create a new node and set the value and type of the token
+*/
+
+static t_ast *create_node(char *buffer)
+{
+	t_ast *new_node;
+
+	new_node = malloc(sizeof(t_ast));
+	new_node->right = NULL;
+	new_node->type = BUILTIN;
+	new_node->value = buffer;
+
+	return (new_node);
+}
+
+/*
+** Iterate in the buffered list, and create a new node for each token
+*/
+
+void ast_init(t_ast **token, char **buffer)
+{
+	t_ast *new_node;
+	int i = 0;
+	
+	while (buffer[i])
 	{
-		while (ptr->right)
-		{
-			tmp = ptr;
-			ptr = ptr->right;
-		}
-		ptr->type = SEMICOLON;
-		ptr->value = token;
-		ptr->left = tmp;
-		ptr->right = ft_calloc(1, sizeof(t_ast));
-		*node = ptr;
-		return ;
+		new_node = create_node(buffer[i]);
+		ast_add(token, new_node);
+		i++;
 	}
-	return ;
+}
+
+/*
+** Iterate in the token list, free buffered value and free each node till empty
+*/
+
+void	free_ast(t_ast **token)
+{
+	t_ast	*ptr;
+	t_ast	*tmp;
+
+	ptr = *token;
+	while (ptr)
+	{
+		tmp = ptr->right;
+		if (ptr->value)
+			free(ptr->value);
+		free(ptr);
+		ptr = tmp;
+	}
+	*token = NULL;
 }

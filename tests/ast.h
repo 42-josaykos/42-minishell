@@ -26,7 +26,7 @@ typedef struct s_ast {
 	struct s_ast	*right;
 }				t_ast;
 
-
-void ast_add(t_ast **node, char *token);
+void	ast_init(t_ast **token, char **buffer);
+void	free_ast(t_ast **token);
 
 #endif
