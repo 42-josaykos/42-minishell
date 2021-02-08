@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/02/07 18:38:08 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/08 16:52:10 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ END = `tput sgr0`
 NAME 			= minishell
 LIBFT 		= libft/libft.a
 
-INCLUDES 	= -Iincludes -Ilibft
+INCLUDES 	= -Iincludes -Ilibft -Itests
 
 SRC_NAME	=	main.c \
 						builtins/cd.c \
@@ -44,6 +44,8 @@ SRC_NAME	=	main.c \
 						file_status.c \
 						init_env_lst.c \
 						signal.c \
+						tests/tokenizer.c \
+						tests/ast.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
