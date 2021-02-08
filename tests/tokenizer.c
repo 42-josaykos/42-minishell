@@ -1,6 +1,10 @@
 # include "ast.h"
-#include <stdio.h>
-#include <stdlib.h>
+
+/*
+** Iterate through the input from the pos index and check each character.
+** Returns the fisrt token it finds and move the pos index at the start of
+** the next token
+*/
 
 char * get_next_token(char *input, int *pos)
 {
@@ -10,7 +14,8 @@ char * get_next_token(char *input, int *pos)
 	while (input[*pos] && isblank(input[*pos]))
 		(*pos)++;
 	start = *pos;
-	if (input[*pos] == ';' || input[*pos] == '|')
+	if (input[*pos] == ';' || input[*pos] == '|' || input[*pos] == '>'
+		|| input[*pos] == '<' || input[*pos] == '$')
 	{
 		token = ft_calloc(2, sizeof(char));
 		token[0] = input[*pos];
@@ -19,7 +24,9 @@ char * get_next_token(char *input, int *pos)
 	}
 	while (input[*pos] || isblank(input[*pos]))
 	{
-		if (isblank(input[*pos]) || input[*pos] == ';' || input[*pos] == '|')
+		if (isblank(input[*pos]) || input[*pos] == ';' || input[*pos] == '|'
+			|| input[*pos] == '|' || input[*pos] == '>' || input[*pos] == '<'
+			|| input[*pos] == '$')
 		{
 			token = ft_substr(input, start, *pos - start);
 			return token;
@@ -44,12 +51,12 @@ int main(void)
 		while (input[pos])
 		{
 			buffer[i] = get_next_token(input, &pos);
-			// printf("%s\n", tokens[i]);
+			printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
 			i++;
 		}
 		ast_init(&token, buffer);
-		// for(; token->right != NULL ; token = token->right)
-			// printf("%s\n", token->value);
+		// for(int j = 0; token->right != NULL ; token = token->right)
+			// printf("token[%d] = \"%s\"\n", j++, token->value);
 		free_ast(&token);
 	}
 	else {
