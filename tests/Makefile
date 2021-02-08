@@ -1,9 +1,11 @@
 NAME 			= tests
 LIBFT 		= ../libft/libft.a
 
-SRC 			= tokenizer.c
+SRC 			= tokenizer.c \
+						ast.c
+
 OBJ 			= $(SRC:.c=.o)
-INCLUDES 	= -Iincludes -Ilibft
+INCLUDES 	= -I../includes -I../libft
 RM 				= rm -rf
 CC 				= clang
 MEM				= -g -O3 -fsanitize=address
