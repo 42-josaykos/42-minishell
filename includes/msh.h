@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 16:01:19 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 16:26:08 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-void	*export_env(t_env **env_lst, char *key, char *value);
-int		file_exists(char *filename);
-
 /*
 ** builtins
 */
@@ -101,12 +98,7 @@ int		file_exists(char *filename);
 int		cd(char *arg, t_env *env_lst);
 int		echo(char **arg, t_env *env_lst, int fd);
 void	print_cwd(void);
-
-/*
-** parse_cmdline.c
-*/
-
-int		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
+void	*export_env(t_env **env_lst, char *key, char *value);
 
 /*
 ** init_env_lst.c
@@ -124,21 +116,9 @@ int		is_builtin(char *cmd);
 void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 /*
-** string_utils.c
+** utils
 */
 
-char	*ft_strsep(char **stringp, const char *delim);
-bool	is_empty(char *str);
-
-/*
-** parse_pipe.c
-*/
-
-int		check_pipe(char *input, t_cmd *cmd_lst);
-
-/*
-** list_utils.c && list_utils2.c
-*/
 void	env_lst_add(t_env **env_lst, t_env *new_env);
 void	env_lst_remove(t_env *env_lst, char *key);
 void	free_env_lst(t_env **env_lst);
@@ -149,6 +129,8 @@ void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 int		cmd_lst_size(t_cmd *cmd_lst);
 pid_t	create_fork(pid_t *pid);
 char	**free_2darray(char **tab);
+char	*ft_strsep(char **stringp, const char *delim);
+bool	is_empty(char *str);
 
 /*
 ** Error management
@@ -170,6 +152,20 @@ int		exit_msh(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	free_all(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	print_env_lst(char **envp);
 
+/*
+** tokenizer
+*/
+void	ast_init(t_ast **token, char **buffer);
+void	free_ast(t_ast **token);
+char	*get_next_token(char *input, int *pos);
+
+/*
+** parsing
+*/
+
+int		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
+int		check_pipe(char *input, t_cmd *cmd_lst);
+int		file_exists(char *filename);
 bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
 void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 #endif

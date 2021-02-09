@@ -6,21 +6,21 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 16:06:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 16:33:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-#include "../tests/ast.h"
 
-void interpret_cmd(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
+void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 {
+	t_ast	*ptr;
+	char	buf[MAXCHAR];
+
+	ptr = *token;
 	(void)cmd_lst;
 	(void)st;
 	(void)env_lst;
-	t_ast *ptr;
-	ptr = *token;
-	char  buf[MAXCHAR];
 	if (!ft_strncmp(ptr->value, ";", 2))
 	{
 		ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
@@ -41,12 +41,15 @@ void interpret_cmd(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 
 void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
-	(void)cmd_lst;
-	t_ast *token = NULL;
+	t_ast	*token;
+	char	*buffer[MAXLIST];
+	int		pos;
+	int		i;
 
-	int pos = 0;
-	int i = 0;
-	char *buffer[MAXLIST];
+	token = NULL;
+	pos = 0;
+	i = 0;
+	(void)cmd_lst;
 	ft_bzero(buffer, MAXLIST);
 	if (input)
 	{
@@ -59,7 +62,7 @@ void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 		ast_init(&token, buffer);
 		// for(t_ast *ptr = token; ptr != NULL ; ptr = ptr->right)
 			// printf("token = \"%s\"\n", ptr->value);
-		interpret_cmd(st, &token, env_lst, &cmd_lst);
+		interpreter(st, &token, env_lst, &cmd_lst);
 		free_ast(&token);
 	}
 }
@@ -71,7 +74,7 @@ int	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	ret = 0;
 	st->path_value = get_env(env_lst, "PATH");
 	parse_args(st, env_lst, cmd_lst, input);
-	ret = is_builtin(cmd_lst->args[0]);
+	ret = is_builtin(*cmd_lst->args);
 	if (ret)
 		exec_builtin(ret, st, env_lst, cmd_lst);
 	else if (*cmd_lst->args)

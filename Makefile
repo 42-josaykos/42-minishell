@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/02/09 12:14:48 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/09 16:28:31 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,8 @@ SRC_NAME	=	main.c \
 						file_status.c \
 						init_env_lst.c \
 						signal.c \
-						tests/tokenizer.c \
-						tests/ast.c \
+						tokenizer/tokenizer.c \
+						tokenizer/ast.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
