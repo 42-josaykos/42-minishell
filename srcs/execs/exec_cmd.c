@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/24 18:06:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 16:02:02 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,60 +34,18 @@ static void	exec_cmd(char **envp, char **args)
 }
 
 /*
-** Split PATH and look in each filepath for the command.
-** If found, execute the command. 
-*/
-
-static void	*cmd_handler2(char **envp, char *ptr, char **args)
-{
-	char	filepath[MAXCHAR];
-	char	*tmp;
-	int		len;
-
-	len = 0;
-	while (ptr)
-	{
-		tmp = ft_strsep(&ptr, ":");
-		len = ft_strlen(tmp);
-		ft_strlcpy(filepath, tmp, len + 1);
-		if (filepath[len - 1] != '/')
-			ft_strcat(filepath, "/");
-		ft_strcat(filepath, args[0]);
-		if (file_exists(filepath))
-		{
-			args[0] = filepath;
-			exec_cmd(envp, args);
-			return (tmp);
-		}
-	}
-	return (ptr);
-}
-
-/*
 ** Iterate through the env list for PATH, then try each filepath.
 */
 
-void	cmd_handler(char **envp, t_env *env_lst, char **args)
+void	cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*ptr;
-	char	copy[MAXCHAR];
 
 	ptr = NULL;
-	if (file_exists(args[0]))
+	if (filepath_exists(env_lst, cmd_lst))
 	{
-		exec_cmd(envp, args);
+		exec_cmd(envp, cmd_lst->args);
 		return ;
 	}
-	while (env_lst)
-	{
-		if (!ft_strncmp(env_lst->key, "PATH", 4))
-		{
-			ft_strlcpy(copy, env_lst->value, ft_strlen(env_lst->value) + 1);
-			ptr = copy;
-			break ;
-		}
-		env_lst = env_lst->next;
-	}
-	if (cmd_handler2(envp, ptr, args) == NULL)
-		printf("minishell: %s: not found...\n", args[0]);
+	printf("minishell: %s: not found...\n", cmd_lst->args[0]);
 }

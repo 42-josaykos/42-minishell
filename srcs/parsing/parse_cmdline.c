@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 14:12:53 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 16:01:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,25 @@ void interpret_cmd(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 	(void)cmd_lst;
 	(void)st;
 	(void)env_lst;
-	// char *parsed[MAXCHAR];
 	t_ast *ptr;
 	ptr = *token;
+	char  buf[MAXCHAR];
 	if (!ft_strncmp(ptr->value, ";", 2))
 	{
 		ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
 		return ;
 	}
+	ft_bzero(buf, MAXCHAR);
+	while (ptr)
+	{
+		if (ptr->type == BUILTIN || ptr->type == EXEC)
+		{
+			ft_strcat(buf, ptr->value);
+			ft_strcat(buf, " ");
+		}
+		ptr = ptr->right;
+	}
+	(*cmd_lst)->args = ft_split(buf, ' ');
 }
 
 void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
@@ -83,6 +94,6 @@ int	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	if (ret)
 		exec_builtin(ret, st, env_lst, cmd_lst);
 	else if (*cmd_lst->args)
-		cmd_handler(st->envp, env_lst, cmd_lst->args);
+		cmd_handler(st->envp, env_lst, cmd_lst);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 13:45:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 16:01:19 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_env
 typedef struct s_cmd
 {
 	char			cmd[MAXCHAR];
-	char			*args[MAXCHAR];
+	char			**args;
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -119,7 +119,7 @@ void	assign_env(char *str, t_env **env_lst);
 ** Commands executions
 */
 
-void	cmd_handler(char **envp, t_env *env_lst, char **args);
+void	cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
 int		is_builtin(char *cmd);
 void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
@@ -170,6 +170,6 @@ int		exit_msh(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	free_all(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	print_env_lst(char **envp);
 
-bool	filepath_exists(t_env *env_lst, t_ast *str);
+bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
 void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 #endif

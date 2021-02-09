@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:32:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 14:09:01 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 15:51:03 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ bool	is_exec_path(char *str)
 	return (false);
 }
 
-bool	check_filepath(char *ptr, t_ast *str)
+bool	check_filepath(char *ptr, t_cmd *cmd_lst)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;
 	int		len;
 
 	len = 0;
-	if (is_exec_path(str->value))
+	if (is_exec_path(*cmd_lst->args))
 		return (true);
 	while (ptr)
 	{
@@ -43,19 +43,19 @@ bool	check_filepath(char *ptr, t_ast *str)
 		ft_strlcpy(filepath, tmp, len + 1);
 		if (filepath[len - 1] != '/')
 			ft_strcat(filepath, "/");
-		ft_strcat(filepath, str->value);
+		ft_strcat(filepath, *cmd_lst->args);
 		if (file_exists(filepath))
 		{
-			if (str->value)
-				free(str->value);
-			str->value = ft_strdup(filepath);
+			if (*cmd_lst->args)
+				free(*cmd_lst->args);
+			*cmd_lst->args = ft_strdup(filepath);
 			return (true);
 		}
 	}
 	return (false);
 }
 
-bool	filepath_exists(t_env *env_lst, t_ast *str)
+bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*ptr;
 	char	copy[MAXCHAR];
@@ -71,7 +71,7 @@ bool	filepath_exists(t_env *env_lst, t_ast *str)
 		}
 		env_lst = env_lst->next;
 	}
-	if (check_filepath(ptr, str))
+	if (check_filepath(ptr, cmd_lst))
 		return (true);
 	return (false);
 }
