@@ -102,7 +102,7 @@ void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 			clear_previous_cmd(cmd_lst);
 		}
 		if (ret == EXIT)
-			exit_msh(status, env_lst, cmd_lst);
+			break ;
 	}
 }
 
@@ -130,5 +130,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 		printf("Usage: just ./minishell with no arguments.\n");
+	exit_msh(status, env_lst, cmd_lst);
 	return (EXIT_SUCCESS);
 }
