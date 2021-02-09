@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/08 16:51:11 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 13:45:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,35 @@ enum e_builtin
 	UNSET
 };
 
+enum	e_type
+{
+	END,
+	BUILTIN,
+	EXEC,
+	ARG,
+	VAR,
+	QUOTE,
+	DBL_QUOTE,
+	SEMICOLON,
+	PIPE,
+	L_CHEVRON,
+	R_CHEVRON,
+	DBL_CHEVRON,
+	BACKSLASH,
+};
+
+typedef struct s_ast
+{
+	enum e_type		type;
+	char			*value;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}				t_ast;
+
 typedef struct s_state
 {
 	char	**envp;
+	char	*path_value;
 	int		code;
 }				t_state;
 
@@ -81,7 +107,6 @@ void	print_cwd(void);
 */
 
 int		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
-void	parse_args(char *str, t_cmd *cmd_lst);
 
 /*
 ** init_env_lst.c
@@ -144,4 +169,7 @@ char	*ft_readline(char *prompt);
 int		exit_msh(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	free_all(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	print_env_lst(char **envp);
+
+bool	filepath_exists(t_env *env_lst, t_ast *str);
+void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 #endif
