@@ -6,32 +6,34 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:04:23 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/02 16:30:56 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/03 16:56:26 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-bool	parse_semicolon(char *str, char **piped)
+bool	parse_semicolon(char *str, char **args)
 {
 	int	i;
 
 	i = 0;
-	while (i < 100)
+	while (i < MAXLIST)
 	{
-		piped[i] = ft_strsep(&str, ";");
-		if (piped[i] == NULL)
+		args[i] = ft_strsep(&str, ";");
+		if (args[i] == NULL)
 			break ;
+		if (strlen(args[i]) == 0)
+			i--;
 		i++;
 	}
-	if (piped[1] == NULL)
+	if (args[1] == NULL)
 		return (false);
 	return (true);
 }
 
 int	check_semicolon(char *input, t_cmd *cmd_lst)
 {
-	char	*tmp[100];
+	char	*tmp[MAXLIST];
 	t_cmd	*new_cmd;
 	int		i;
 

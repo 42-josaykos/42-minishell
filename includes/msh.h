@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/02 15:10:07 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/08 16:51:11 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <ctype.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -28,11 +29,27 @@
 
 # define MAXCHAR 1024
 # define MAXLIST 128
-# define EXIT 1
-# define EXPORT 2
-# define CD 3
-# define PWD 4
-# define ECHO 5
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
+enum e_builtin
+{
+	EXIT = 1,
+	EXPORT,
+	CD,
+	PWD,
+	ECHO,
+	ENV,
+	UNSET
+};
+
+typedef struct s_state
+{
+	char	**envp;
+	int		code;
+}				t_state;
 
 typedef struct s_env
 {
@@ -63,7 +80,7 @@ void	print_cwd(void);
 ** parse_cmdline.c
 */
 
-int		parse_cmdline(char **envp, t_env *env_lst, t_cmd *cmd_lst, char *input);
+int		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 void	parse_args(char *str, t_cmd *cmd_lst);
 
 /*
@@ -79,7 +96,7 @@ void	assign_env(char *str, t_env **env_lst);
 
 void	cmd_handler(char **envp, t_env *env_lst, char **args);
 int		is_builtin(char *cmd);
-void	exec_builtin(int ret, t_env *env_lst, t_cmd *cmd_lst);
+void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 /*
 ** string_utils.c
@@ -127,10 +144,12 @@ void	error_quotes();
 */
 
 int		check_semicolon(char *input, t_cmd *cmd_lst);
-void	piped_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
-void	exec_last_process(char **envp, int in, t_cmd *cmd_lst);
-void	multi_cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
+void	piped_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
+void	exec_last_process(t_state *status, int in, t_cmd *cmd_lst);
+void	multi_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 char	*ft_readline(char *prompt);
-void	handle_signal(int signum);
+int		exit_msh(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
+void	free_all(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
+void	print_env_lst(char **envp);
 #endif

@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/msh.h"
-#include <signal.h>
+
+int	g_status;
 
 /*
 ** Prints a welcome message.
@@ -32,7 +33,6 @@ int	get_input(char *input)
 	line = ft_readline("minishell $ ");
 	if (line == NULL)
 	{
-		ft_printf("exit\n");
 		free(line);
 		return (0);
 	}
@@ -79,11 +79,11 @@ char	*concat_env(t_env *env_lst)
 ** then split in an array of strings, envp.
 */
 
-void	main_loop(char *env, t_env *env_lst, t_cmd *cmd_lst)
+void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	input[MAXCHAR];
 	int		ret;
-	char	**envp;
+	char	*env;
 
 	ret = 0;
 	while (1)
@@ -94,10 +94,10 @@ void	main_loop(char *env, t_env *env_lst, t_cmd *cmd_lst)
 		if (!is_empty(input))
 		{
 			env = concat_env(env_lst);
-			envp = ft_split(env, '\n');
+			status->envp = ft_split(env, '\n');
 			free(env);
-			ret = parse_cmdline(envp, env_lst, cmd_lst, input);
-			free_2darray(envp);
+			ret = parse_cmdline(status, env_lst, cmd_lst, input);
+			free_2darray(status->envp);
 		}
 		if (ret == EXIT)
 			break ;
@@ -113,22 +113,22 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_env	*env_lst;
 	t_cmd	*cmd_lst;
-	char	*env;
+	t_state	*status;
 
 	(void)argv;
 	env_lst = NULL;
 	cmd_lst = NULL;
-	env = NULL;
+	status = NULL;
 	if (argc < 2)
 	{
 		init_msh(&env_lst, envp);
 		cmd_lst = ft_calloc(1, sizeof(t_cmd));
-		main_loop(env, env_lst, cmd_lst);
+		status = ft_calloc(1, sizeof(t_state));
+		status->code = 42;
+		main_loop(status, env_lst, cmd_lst);
 	}
 	else
 		printf("Usage: just ./minishell with no arguments.\n");
-	free_env_lst(&env_lst);
-	free_cmd_lst(&cmd_lst);
-	free(env);
+	exit_msh(status, &env_lst, &cmd_lst);
 	return (EXIT_SUCCESS);
 }

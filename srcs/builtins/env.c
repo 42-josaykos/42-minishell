@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 15:02:22 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 16:22:24 by jonny            ###   ########.fr       */
+/*   Created: 2021/02/05 14:07:50 by jonny             #+#    #+#             */
+/*   Updated: 2021/02/05 16:22:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-/*
-** Print current directory.
-*/
-
-void	print_cwd(void)
+void	print_env_lst(char **envp)
 {
-	char	buf[MAXCHAR];
-
-	getcwd(buf, sizeof(buf));
-	printf("%s\n", buf);
+	while (*envp)
+	{
+		printf("%s\n", *envp);
+		envp++;
+	}
 }

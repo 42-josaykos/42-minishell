@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/02/02 15:16:12 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/08 16:52:10 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,15 @@ END = `tput sgr0`
 NAME 			= minishell
 LIBFT 		= libft/libft.a
 
-INCLUDES 	= -Iincludes -Ilibft
+INCLUDES 	= -Iincludes -Ilibft -Itests
 
 SRC_NAME	=	main.c \
 						builtins/cd.c \
 						builtins/pwd.c \
 						builtins/echo.c \
+						builtins/env.c \
+						builtins/export.c \
+						builtins/exit.c \
 						execs/exec_builtin.c \
 						execs/exec_cmd.c \
 						execs/exec_multi_cmd.c \
@@ -33,16 +36,17 @@ SRC_NAME	=	main.c \
 						parsing/parse_pipe.c \
 						parsing/parse_semicolon.c \
 						utils/fork_utils.c \
+						utils/free_utils.c \
 						utils/list_utils.c \
 						utils/list_utils2.c \
-						utils/other_utils.c \
 						utils/string_utils.c \
 						utils/string_utils2.c \
 						error.c \
-						export_env.c \
 						file_status.c \
 						init_env_lst.c \
 						signal.c \
+						tests/tokenizer.c \
+						tests/ast.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
@@ -50,14 +54,14 @@ SRCS_PATH = srcs
 SRC 			= $(addprefix $(SRCS_PATH)/,$(SRC_NAME))
 RM 				= rm -rf
 CC 				= clang
+MEM				= -g -O3 -fsanitize=address
 
 all:	$(NAME)
 
 $(NAME): $(OBJ)
 	make -C libft/ 1>/dev/null
 	@echo "$(GREEN)$(LIBFT) done...$(END)"
-	@echo "$(GREEN)pwd builtin command done...$(END)"
-	$(CC) $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME)
+	$(CC) -Wall -Wextra -Werror $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) binary is ready !$(END)"
 
 %.o: %.c
@@ -69,7 +73,7 @@ clean:
 	make clean -C libft/ 1>/dev/null
 
 fclean:		clean
-	$(RM) $(NAME) pwd a.out vgcore.*
+	$(RM) $(NAME) a.out vgcore.*
 	make fclean -C libft/ 1>/dev/null
 	@echo "$(RED)$(LIBFT) removed$(END)"
 	@echo "$(RED)$(NAME) removed$(END)"
