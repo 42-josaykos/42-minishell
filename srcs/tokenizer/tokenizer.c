@@ -1,4 +1,4 @@
-#include "ast.h"
+#include "../../includes/msh.h"
 
 /*
 ** Iterate through the input from the pos index and check each character.

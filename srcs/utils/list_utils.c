@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/21 16:11:40 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 15:44:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	free_cmd_lst(t_cmd **cmd_lst)
 	while (ptr)
 	{
 		tmp = ptr->next;
+		free_2darray(ptr->args);
 		free(ptr);
 		ptr = tmp;
 	}
@@ -95,11 +96,12 @@ void	clear_previous_cmd(t_cmd *cmd_lst)
 
 	ptr = cmd_lst->next;
 	ft_bzero(cmd_lst->cmd, MAXCHAR);
-	ft_bzero(cmd_lst->args, MAXCHAR);
+	// ft_bzero(cmd_lst->args, MAXCHAR);
 	cmd_lst->next = NULL;
 	while (ptr)
 	{
 		tmp = ptr->next;
+		free_2darray(ptr->args);
 		free(ptr);
 		ptr = tmp;
 	}

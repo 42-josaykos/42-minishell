@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/08 16:51:11 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 16:26:08 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,35 @@ enum e_builtin
 	UNSET
 };
 
+enum	e_type
+{
+	END,
+	BUILTIN,
+	EXEC,
+	ARG,
+	VAR,
+	QUOTE,
+	DBL_QUOTE,
+	SEMICOLON,
+	PIPE,
+	L_CHEVRON,
+	R_CHEVRON,
+	DBL_CHEVRON,
+	BACKSLASH,
+};
+
+typedef struct s_ast
+{
+	enum e_type		type;
+	char			*value;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}				t_ast;
+
 typedef struct s_state
 {
 	char	**envp;
+	char	*path_value;
 	int		code;
 }				t_state;
 
@@ -61,12 +87,9 @@ typedef struct s_env
 typedef struct s_cmd
 {
 	char			cmd[MAXCHAR];
-	char			*args[MAXCHAR];
+	char			**args;
 	struct s_cmd	*next;
 }	t_cmd;
-
-void	*export_env(t_env **env_lst, char *key, char *value);
-int		file_exists(char *filename);
 
 /*
 ** builtins
@@ -75,13 +98,7 @@ int		file_exists(char *filename);
 int		cd(char *arg, t_env *env_lst);
 int		echo(char **arg, t_env *env_lst, int fd);
 void	print_cwd(void);
-
-/*
-** parse_cmdline.c
-*/
-
-int		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
-void	parse_args(char *str, t_cmd *cmd_lst);
+void	*export_env(t_env **env_lst, char *key, char *value);
 
 /*
 ** init_env_lst.c
@@ -94,11 +111,12 @@ void	assign_env(char *str, t_env **env_lst);
 ** Commands executions
 */
 
-void	cmd_handler(char **envp, t_env *env_lst, char **args);
+void	cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
 int		is_builtin(char *cmd);
 void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 /*
+<<<<<<< HEAD
 ** string_utils.c
 */
 
@@ -114,13 +132,11 @@ int		check_dquotes(char *input);
 
 /*
 ** parse_pipe.c
+=======
+** utils
+>>>>>>> origin/test
 */
 
-int		check_pipe(char *input, t_cmd *cmd_lst);
-
-/*
-** list_utils.c && list_utils2.c
-*/
 void	env_lst_add(t_env **env_lst, t_env *new_env);
 void	env_lst_remove(t_env *env_lst, char *key);
 void	free_env_lst(t_env **env_lst);
@@ -131,6 +147,8 @@ void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 int		cmd_lst_size(t_cmd *cmd_lst);
 pid_t	create_fork(pid_t *pid);
 char	**free_2darray(char **tab);
+char	*ft_strsep(char **stringp, const char *delim);
+bool	is_empty(char *str);
 
 /*
 ** Error management
@@ -152,4 +170,21 @@ char	*ft_readline(char *prompt);
 int		exit_msh(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	free_all(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	print_env_lst(char **envp);
+
+/*
+** tokenizer
+*/
+void	ast_init(t_ast **token, char **buffer);
+void	free_ast(t_ast **token);
+char	*get_next_token(char *input, int *pos);
+
+/*
+** parsing
+*/
+
+int		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
+int		check_pipe(char *input, t_cmd *cmd_lst);
+int		file_exists(char *filename);
+bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
+void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/06 09:44:45 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 14:15:52 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_pipe(char *input, t_cmd *cmd_lst)
 		i = 0;
 		while (tmp[i])
 		{
-			parse_args(tmp[i], cmd_lst);
+			// parse_args(tmp[i], cmd_lst);
 			new_cmd = ft_calloc(1, sizeof(t_cmd));
 			new_cmd->next = NULL;
 			cmd_lst_add(&cmd_lst, new_cmd);
