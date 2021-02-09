@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 15:44:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 19:44:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,30 @@ void	env_lst_remove(t_env *env_lst, char *key)
 
 void	free_env_lst(t_env **env_lst)
 {
-	t_env	*ptr;
-	t_env	*tmp;
+	t_env	*ptr_lst;
+	t_env	*temp;
 
-	ptr = *env_lst;
-	while (ptr)
+	ptr_lst = *env_lst;
+	while (ptr_lst)
 	{
-		tmp = ptr->next;
-		free(ptr);
-		ptr = tmp;
+		temp = ptr_lst->next;
+		free(ptr_lst);
+		ptr_lst = temp;
 	}
 	*env_lst = NULL;
 }
 
 void	free_cmd_lst(t_cmd **cmd_lst)
 {
-	t_cmd	*ptr;
-	t_cmd	*tmp;
+	t_cmd	*ptr_lst;
+	t_cmd	*temp;
 
-	ptr = *cmd_lst;
-	while (ptr)
+	ptr_lst = *cmd_lst;
+	while (*cmd_lst)
 	{
-		tmp = ptr->next;
-		free_2darray(ptr->args);
-		free(ptr);
-		ptr = tmp;
+		temp = ptr_lst->next;
+		free(ptr_lst);
+		ptr_lst = temp;
 	}
 	*cmd_lst = NULL;
 }

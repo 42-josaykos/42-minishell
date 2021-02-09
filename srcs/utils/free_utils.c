@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:28:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 16:18:18 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 19:59:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,9 @@ char	**free_2darray(char **tab)
 	while (tab && tab[i])
 	{
 		free((void*)tab[i]);
+		tab[i] = NULL;
 		i++;
 	}
 	free(tab);
 	return (NULL);
-}
-
-void	free_all(t_state *status, t_env **env_lst, t_cmd **cmd_lst)
-{
-	free_env_lst(env_lst);
-	free_cmd_lst(cmd_lst);
-	free(status);
 }

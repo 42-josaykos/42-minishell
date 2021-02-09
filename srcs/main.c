@@ -98,10 +98,11 @@ void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 			free(env);
 			ret = parse_cmdline(status, env_lst, cmd_lst, input);
 			free_2darray(status->envp);
+			free_2darray(cmd_lst->args);
+			clear_previous_cmd(cmd_lst);
 		}
 		if (ret == EXIT)
-			break ;
-		clear_previous_cmd(cmd_lst);
+			exit_msh(status, env_lst, cmd_lst);
 	}
 }
 
@@ -129,6 +130,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 		printf("Usage: just ./minishell with no arguments.\n");
-	exit_msh(status, &env_lst, &cmd_lst);
 	return (EXIT_SUCCESS);
 }

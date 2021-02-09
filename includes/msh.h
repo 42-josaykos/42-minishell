@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 16:26:08 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 19:41:09 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	exec_last_process(t_state *status, int in, t_cmd *cmd_lst);
 void	multi_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 char	*ft_readline(char *prompt);
-int		exit_msh(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
+int		exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 void	free_all(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	print_env_lst(char **envp);
 
