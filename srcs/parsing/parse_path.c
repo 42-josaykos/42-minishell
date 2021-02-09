@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:32:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 14:07:23 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 14:09:01 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-bool is_exec_path(char *str)
+bool	is_exec_path(char *str)
 {
 	if (*str == '/')
 	{
@@ -27,7 +27,7 @@ bool is_exec_path(char *str)
 	return (false);
 }
 
-bool check_filepath(char *ptr, t_ast *str)
+bool	check_filepath(char *ptr, t_ast *str)
 {
 	char	filepath[MAXCHAR];
 	char	*tmp;

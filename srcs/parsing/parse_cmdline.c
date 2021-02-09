@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 13:43:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 14:12:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void interpret_cmd(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 {
 	(void)cmd_lst;
 	(void)st;
+	(void)env_lst;
 	// char *parsed[MAXCHAR];
 	t_ast *ptr;
 	ptr = *token;
@@ -25,8 +26,6 @@ void interpret_cmd(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 		ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
 		return ;
 	}
-	if (filepath_exists(env_lst, ptr))
-		printf("%s exists\n", ptr->value);
 }
 
 void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
