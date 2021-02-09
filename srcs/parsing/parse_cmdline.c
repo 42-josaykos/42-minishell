@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 16:01:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/09 16:06:42 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,13 @@ void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	}
 }
 
-/*
-** Check the input.
-** Returns 1 if "exit".
-** Returns 2 if "export" command (debug test).
-** Returns 3 if "cd".
-** Check each path directories for the executable and execute it (cmd_handler).
-*/
-
 int	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	enum e_builtin	ret;
 
 	ret = 0;
 	st->path_value = get_env(env_lst, "PATH");
-	// if (check_semicolon(input, cmd_lst))
-	// {
-		// multi_cmd_handler(status, env_lst, cmd_lst);
-		// return (0);
-	// }
-	// else if (check_pipe(input, cmd_lst))
-	// {
-		// piped_cmd_handler(status, env_lst, cmd_lst);
-		// return (0);
-	// }
-	// else
-		parse_args(st, env_lst, cmd_lst, input);
+	parse_args(st, env_lst, cmd_lst, input);
 	ret = is_builtin(cmd_lst->args[0]);
 	if (ret)
 		exec_builtin(ret, st, env_lst, cmd_lst);
