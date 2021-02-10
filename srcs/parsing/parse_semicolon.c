@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:04:23 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 14:15:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/10 11:19:01 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	parse_semicolon(char *str, char **args)
 	int	i;
 
 	i = 0;
-	while (i < MAXLIST)
+	while (i < BUF_SIZE)
 	{
 		args[i] = ft_strsep(&str, ";");
 		if (args[i] == NULL)
@@ -33,7 +33,7 @@ bool	parse_semicolon(char *str, char **args)
 
 int	check_semicolon(char *input, t_cmd *cmd_lst)
 {
-	char	*tmp[MAXLIST];
+	char	*tmp[BUF_SIZE];
 	t_cmd	*new_cmd;
 	int		i;
 

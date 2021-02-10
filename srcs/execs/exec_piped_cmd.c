@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/06 14:31:56 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/10 11:19:36 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst)
 static void	piped_cmd_handler3(t_cmd *cmd_lst, char *filepath)
 {
 	t_cmd	*cmd_paths;
-	char	uncat_path[MAXCHAR];
+	char	uncat_path[BUF_SIZE];
 	t_cmd	*ptr;
 
 	cmd_paths = cmd_lst;
@@ -92,7 +92,7 @@ static void	piped_cmd_handler3(t_cmd *cmd_lst, char *filepath)
 
 static void	piped_cmd_handler2(t_state *status, char *path, t_cmd *cmd_lst)
 {
-	char	filepath[MAXCHAR];
+	char	filepath[BUF_SIZE];
 	char	*tmp;
 	int		len;
 
@@ -113,7 +113,7 @@ static void	piped_cmd_handler2(t_state *status, char *path, t_cmd *cmd_lst)
 void	piped_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*pathstr;
-	char	copy[MAXCHAR];
+	char	copy[BUF_SIZE];
 
 	pathstr = NULL;
 	while (env_lst)

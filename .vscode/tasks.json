@@ -22,7 +22,13 @@
       "type": "shell",
       "label": "tests",
       "command": "clang",
-      "args": ["tests/*.c", "libft/libft.a", "-g", "-Iincludes", "-Ilibft"],
+      "args": [
+        "srcs/tokenizer/*.c",
+        "libft/libft.a",
+        "-g",
+        "-Iincludes",
+        "-Ilibft"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true

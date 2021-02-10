@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 14:15:52 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/10 11:19:08 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	parse_pipe(char *str, char **piped)
 	int	i;
 
 	i = 0;
-	while (i < MAXLIST)
+	while (i < BUF_SIZE)
 	{
 		piped[i] = ft_strsep(&str, "|");
 		if (piped[i] == NULL)
@@ -33,7 +33,7 @@ bool	parse_pipe(char *str, char **piped)
 
 int	check_pipe(char *input, t_cmd *cmd_lst)
 {
-	char	*tmp[MAXLIST];
+	char	*tmp[BUF_SIZE];
 	t_cmd	*new_cmd;
 	int		i;
 

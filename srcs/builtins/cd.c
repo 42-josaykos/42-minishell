@@ -9,7 +9,7 @@ int	cd(char *arg, t_env *env_lst)
 	int		errnum;
 	int		ret;
 	char	*str;
-	char	tmp[MAXCHAR];
+	char	tmp[BUF_SIZE];
 
 	str = arg;
 	if (arg && arg[0] == '-')
@@ -20,7 +20,7 @@ int	cd(char *arg, t_env *env_lst)
 		if (str == NULL || !ft_strlen(str))
 			return (EXIT_SUCCESS);
 	}
-	getcwd(tmp, MAXCHAR);
+	getcwd(tmp, BUF_SIZE);
 	ret = chdir(str);
 	errnum = errno;
 	export_env(&env_lst, "OLDPWD", tmp);

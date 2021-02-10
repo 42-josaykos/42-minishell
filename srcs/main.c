@@ -81,7 +81,7 @@ char	*concat_env(t_env *env_lst)
 
 void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
-	char	input[MAXCHAR];
+	char	input[BUF_SIZE];
 	int		ret;
 	char	*env;
 

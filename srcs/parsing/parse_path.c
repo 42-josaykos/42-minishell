@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:32:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 19:16:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/10 11:19:16 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	is_exec_path(char *str)
 
 bool	check_filepath(char *ptr, t_cmd *cmd_lst)
 {
-	char	filepath[MAXCHAR];
+	char	filepath[BUF_SIZE];
 	char	*tmp;
 	int		len;
 
@@ -58,7 +58,7 @@ bool	check_filepath(char *ptr, t_cmd *cmd_lst)
 bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*ptr;
-	char	copy[MAXCHAR];
+	char	copy[BUF_SIZE];
 
 	ptr = NULL;
 	while (env_lst)

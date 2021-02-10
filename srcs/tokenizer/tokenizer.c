@@ -38,26 +38,31 @@ char	*get_next_token(char *input, int *pos)
 	return (token);
 }
 
-// int main(int argc, char **argv)
+// int main(void)
 // {
 // 	t_ast *token = NULL;
 // 	int pos = 0;
 // 	int i = 0;
-// 	// char *input = "pwd;ls -l libft;ls $HOME| grep main.c";
-// 	char *buffer[MAXLIST];
+// 	// char *input = "echo            \"     salut\""; // segfault
+// 	char *buffer[MAXCHAR];
 
-// 	ft_bzero(buffer, MAXLIST);
-// 	if (argc == 2)
+// 	while (i < MAXCHAR)
 // 	{
-// 		while (argv[1][pos])
+// 		buffer[i] = NULL;
+// 		i++;
+// 	}
+// 	i = 0;
+// 	if (input)
+// 	{
+// 		while (input[pos])
 // 		{
-// 			buffer[i] = get_next_token(argv[1], &pos);
-// 			printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
+// 			buffer[i] = get_next_token(input, &pos);
+// 			// printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
 // 			i++;
 // 		}
 // 		ast_init(&token, buffer);
-// 		// for(int j = 0; token->right != NULL ; token = token->right)
-// 			// printf("token[%d] = \"%s\"\n", j++, token->value);
+// 		for(int j = 0; token->right != NULL ; token = token->right)
+// 			printf("token[%d] = \"%s\"\n", j++, token->value);
 // 		free_ast(&token);
 // 	}
 // 	else {

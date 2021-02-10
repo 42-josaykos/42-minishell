@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 16:33:15 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/10 11:17:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 {
 	t_ast	*ptr;
-	char	buf[MAXCHAR];
+	char	buf[BUF_SIZE];
 
 	ptr = *token;
 	(void)cmd_lst;
@@ -26,7 +26,7 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 		ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
 		return ;
 	}
-	ft_bzero(buf, MAXCHAR);
+	ft_bzero(buf, BUF_SIZE);
 	while (ptr)
 	{
 		if (ptr->type == BUILTIN || ptr->type == EXEC)
@@ -42,15 +42,19 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	t_ast	*token;
-	char	*buffer[MAXLIST];
+	char	*buffer[BUF_SIZE];
 	int		pos;
 	int		i;
 
 	token = NULL;
 	pos = 0;
 	i = 0;
-	(void)cmd_lst;
-	ft_bzero(buffer, MAXLIST);
+	while (i < BUF_SIZE)
+	{
+		buffer[i] = NULL;
+		i++;
+	}
+	i = 0;
 	if (input)
 	{
 		while (input[pos])

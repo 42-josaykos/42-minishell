@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:02:22 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 16:22:24 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/10 11:20:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	print_cwd(void)
 {
-	char	buf[MAXCHAR];
+	char	buf[BUF_SIZE];
 
 	getcwd(buf, sizeof(buf));
 	printf("%s\n", buf);

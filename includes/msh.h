@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 19:41:09 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/10 11:16:23 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@
 # include "signal_handler.h"
 # include "colors.h"
 
-# define MAXCHAR 1024
-# define MAXLIST 128
+# define BUF_SIZE 2048
 
 # define STDIN 0
 # define STDOUT 1
@@ -79,14 +78,14 @@ typedef struct s_state
 
 typedef struct s_env
 {
-	char			key[MAXCHAR];
-	char			value[MAXCHAR];
+	char			key[BUF_SIZE];
+	char			value[BUF_SIZE];
 	struct s_env	*next;
 }	t_env;
 
 typedef struct s_cmd
 {
-	char			cmd[MAXCHAR];
+	char			cmd[BUF_SIZE];
 	char			**args;
 	struct s_cmd	*next;
 }	t_cmd;

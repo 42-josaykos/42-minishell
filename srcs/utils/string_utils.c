@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/03 16:41:14 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/10 11:18:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,18 @@ int	ft_readline2(char *tmp, char **str)
 char	*ft_readline(char *prompt)
 {
 	char	*str;
-	char	buf[MAXCHAR];
-	char	tmp[MAXCHAR];
+	char	buf[BUF_SIZE];
+	char	tmp[BUF_SIZE];
 	int		ret;
 
 	ret = 0;
 	str = NULL;
 	ft_printf("%s%s%s", BOLD_GREEN, prompt, RESET);
-	ft_bzero(tmp, MAXCHAR);
+	ft_bzero(tmp, BUF_SIZE);
 	while (1)
 	{
-		ft_bzero(buf, MAXCHAR);
-		ret = read(0, buf, MAXCHAR);
+		ft_bzero(buf, BUF_SIZE);
+		ret = read(0, buf, BUF_SIZE);
 		if (ret == 0)
 			return (NULL);
 		else

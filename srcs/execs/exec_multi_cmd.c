@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/08 16:46:45 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/10 11:19:44 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static int 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 {
 	int		i;
-	char	buffer[MAXCHAR];
+	char	buffer[BUF_SIZE];
 	t_cmd	*piped_cmd;
 
 	i = 0;
 	piped_cmd = NULL;
-	ft_bzero(buffer, MAXCHAR);
+	ft_bzero(buffer, BUF_SIZE);
 	piped_cmd = ft_calloc(1, sizeof(t_cmd));
 	while (args[i])
 	{
@@ -69,7 +69,7 @@ static void	exec_multi_cmd(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 static void	multi_cmd_handler3(t_cmd *cmd_lst, char *filepath)
 {
 	t_cmd	*cmd_paths;
-	char	uncat_path[MAXCHAR];
+	char	uncat_path[BUF_SIZE];
 	t_cmd	*ptr;
 
 	cmd_paths = cmd_lst;
@@ -90,7 +90,7 @@ static void	multi_cmd_handler3(t_cmd *cmd_lst, char *filepath)
 
 void	multi_cmd_handler2(t_state *st, t_env *env_lst, char *s, t_cmd *cmd_lst)
 {
-	char	filepath[MAXCHAR];
+	char	filepath[BUF_SIZE];
 	char	*tmp;
 	int		len;
 
@@ -111,7 +111,7 @@ void	multi_cmd_handler2(t_state *st, t_env *env_lst, char *s, t_cmd *cmd_lst)
 void 	multi_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*pathstr;
-	char	copy[MAXCHAR];
+	char	copy[BUF_SIZE];
 
 	pathstr = NULL;
 	while (env_lst)
