@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 16:14:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/11 11:24:41 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,23 @@ static void	exec_cmd(char **envp, char **args)
 	wait(NULL);
 }
 
-void	cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst)
+void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
-	char	*ptr;
+	char *cmd;
 
-	ptr = NULL;
-	if (filepath_exists(env_lst, cmd_lst))
+	while (cmd_lst && cmd_lst->args)
 	{
-		exec_cmd(envp, cmd_lst->args);
-		return ;
+		cmd = cmd_lst->args[0];
+		if (filepath_exists(env_lst, cmd_lst))
+		{
+			exec_cmd(st->envp, cmd_lst->args);
+		}
+		else
+		{
+			ft_putstr_fd("minishell: ", STDERR);
+			ft_putstr_fd(cmd, STDERR);
+			ft_putstr_fd(" : command not found\n", STDERR);	
+		}
+		cmd_lst = cmd_lst->next;
 	}
-	printf("minishell: %s: not found...\n", cmd_lst->args[0]);
 }

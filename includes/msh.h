@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/10 11:16:23 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/11 11:13:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ typedef struct s_state
 {
 	char	**envp;
 	char	*path_value;
-	int		code;
+	union {
+		int		code;
+		int		has_semicolon;
+	};
 }				t_state;
 
 typedef struct s_env
@@ -110,7 +113,7 @@ void	assign_env(char *str, t_env **env_lst);
 ** Commands executions
 */
 
-void	cmd_handler(char **envp, t_env *env_lst, t_cmd *cmd_lst);
+void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
 int		is_builtin(char *cmd);
 void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
@@ -166,5 +169,5 @@ int		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 int		check_pipe(char *input, t_cmd *cmd_lst);
 int		file_exists(char *filename);
 bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
-void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
+t_ast	*parse_args(char *input);
 #endif
