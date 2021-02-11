@@ -100,8 +100,7 @@ void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 			free_2darray(status->envp);
 			if (ret == EXIT)
 				exit_msh(status, env_lst, cmd_lst);
-			free_2darray(cmd_lst->args);
-			clear_previous_cmd(cmd_lst);
+			clear_previous_cmd(cmd_lst); // clear multicommands, keeps one node in cmd_lst and cmd_lst->args = '\0'
 		}
 	}
 }
