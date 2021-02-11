@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/11 11:39:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/11 12:12:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 		if (is_semicolon(ptr, cmd_lst))
 		{
 			st->has_semicolon = true;
-			cmd->args = ft_split(buf, ' ');
+			cmd->args = split_whitespace(buf);
 			cmd = cmd->next;
 			ft_bzero(buf, BUF_SIZE);
 		}
@@ -57,7 +57,7 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 		}
 		ptr = ptr->right;
 	}
-	cmd->args = ft_split(buf, ' ');
+	cmd->args = split_whitespace(buf);
 }
 
 t_ast	*parse_args(char *input)
@@ -82,12 +82,6 @@ t_ast	*parse_args(char *input)
 		{
 			buffer[i] = get_next_token(input, &pos);
 			// printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
-			if (!ft_strncmp(buffer[0], ";", 2))
-			{
-				ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
-				free(buffer[i]);
-					return (token);
-			}
 			i++;
 		}
 		ast_init(&token, buffer);
@@ -109,11 +103,14 @@ int	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	{
 		interpreter(st, &token, env_lst, &cmd_lst);
 		free_ast(&token);
-		ret = is_builtin(*cmd_lst->args);
-		if (ret)
-			exec_builtin(ret, st, env_lst, cmd_lst);
-		else if (*cmd_lst->args)
-			cmd_handler(st, env_lst, cmd_lst);
+		if (cmd_lst->args)
+		{
+			ret = is_builtin(*cmd_lst->args);
+			if (ret)
+				exec_builtin(ret, st, env_lst, cmd_lst);
+			else if (*cmd_lst->args)
+				cmd_handler(st, env_lst, cmd_lst);
+		}
 	}
 	return (ret);
 }
