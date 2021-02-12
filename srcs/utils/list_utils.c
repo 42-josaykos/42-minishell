@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/11 15:57:49 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/12 15:57:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	clear_previous_cmd(t_cmd *cmd_lst)
 	t_cmd	*tmp;
 
 	free_2darray(cmd_lst->args);
+	cmd_lst->args = NULL;
 	ptr = cmd_lst->next;
 	ft_bzero(cmd_lst->cmd, BUF_SIZE);
 	cmd_lst->next = NULL;
