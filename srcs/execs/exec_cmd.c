@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/11 11:24:41 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/12 16:03:32 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char *cmd;
 
-	while (cmd_lst && cmd_lst->args)
+	while (cmd_lst && *cmd_lst->args)
 	{
 		cmd = cmd_lst->args[0];
 		if (filepath_exists(env_lst, cmd_lst))
