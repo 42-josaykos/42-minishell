@@ -41,7 +41,7 @@ int	cmd_lst_size(t_cmd *cmd_lst)
 	tmp = cmd_lst;
 	if (!cmd_lst)
 		return (0);
-	while (tmp->next != NULL)
+	while (tmp)
 	{
 		count++;
 		tmp = tmp->next;
