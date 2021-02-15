@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 15:24:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 16:41:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,4 +172,5 @@ t_ast	*parse_args(char *input);
 void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args);
 void	parse_pipe(char *str, t_cmd **cmd_lst);
 int	ft_isblank(int c);
+void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst);
 #endif

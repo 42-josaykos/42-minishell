@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 16:34:40 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 16:42:23 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 	int		i;
 	char	buffer[BUF_SIZE];
 	t_cmd	*piped_cmd;
+	int len = 0;
 	(void)env_lst;
 	(void)status;
 
@@ -30,34 +31,8 @@ void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 		i++;
 	}
 	parse_pipe(buffer, &piped_cmd);
+	len = cmd_lst_size(piped_cmd);
+	fork_pipes(status, len, piped_cmd);
 	clear_previous_cmd(piped_cmd, status);
 	free(piped_cmd);
 }
-
-// static void	exec_multi_cmd(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
-// {
-// 	pid_t	pid;
-
-// 	pid = 0;
-// 	while (n > 0)
-// 	{
-// 		pid = is_builtin(*cmd_lst->args);
-// 		if (!file_exists(*cmd_lst->args))
-// 			cmd_lst->args[0] = cmd_lst->cmd;
-// 		if (pid)
-// 			exec_builtin(pid, st, env_lst, cmd_lst);
-// 		else if (!has_piped_cmd(st, env_lst, cmd_lst->args))
-// 		{
-// 			if (create_fork(&pid) < 0 )
-// 				exit(-1);
-// 			if (pid == 0)
-// 			{
-// 				execve(*cmd_lst->args, cmd_lst->args, st->envp);
-// 				exit(st->code);
-// 			}
-// 		}
-// 		cmd_lst = cmd_lst->next;
-// 		n--;
-// 		waitpid(pid, &st->code, 0);
-// 	}
-// }

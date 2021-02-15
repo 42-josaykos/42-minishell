@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/10 11:19:36 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 16:45:18 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static int	exec_process(t_state *status, int in, int out, t_cmd *cmd_lst)
 {
 	pid_t	pid;
 
-	if (!file_exists(*cmd_lst->args))
-		cmd_lst->args[0] = cmd_lst->cmd;
 	pid = 0;
 	if (create_fork(&pid) < 0 )
 		exit(-1);
@@ -40,7 +38,7 @@ static int	exec_process(t_state *status, int in, int out, t_cmd *cmd_lst)
 	return (pid);
 }
 
-static void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst)
+void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst)
 {
 	int		in;
 	int		fd[2];
