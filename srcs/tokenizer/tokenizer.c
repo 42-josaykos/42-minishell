@@ -11,12 +11,12 @@ char	*get_next_token(char *input, int *pos)
 	int		start;
 	char	*token;
 
-	while (input[*pos] && isblank(input[*pos]))
-		(*pos)++;
+//	while (input[*pos] && isblank(input[*pos]))
+//		(*pos)++;
 	start = *pos;
 	if (input[*pos] == ';' || input[*pos] == '|' || input[*pos] == '>'
 		|| input[*pos] == '<' || input[*pos] == '$' || input[*pos] == '\''
-		|| input[*pos] == '\"' || input[*pos] == '\\')
+		|| input[*pos] == '\"' || input[*pos] == '\\' || input[*pos] == ' ')
 	{
 		token = ft_calloc(2, sizeof(char));
 		token[0] = input[*pos];

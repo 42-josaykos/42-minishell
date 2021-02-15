@@ -116,25 +116,7 @@ int		is_builtin(char *cmd);
 void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 /*
-<<<<<<< HEAD
-** string_utils.c
-*/
-
-char	*ft_strsep(char **stringp, const char *delim);
-bool	is_empty(char *str);
-
-/*
-** string_utils.c
-*/
-
-char 	*ft_strsep2(char **stringp);
-int		check_dquotes(char *input);
-
-/*
-** parse_pipe.c
-=======
 ** utils
->>>>>>> origin/test
 */
 
 void	env_lst_add(t_env **env_lst, t_env *new_env);
@@ -145,6 +127,7 @@ void	clear_previous_cmd(t_cmd *cmd_lst);
 char	*get_env(t_env *env_lst, char *key);
 void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 int		cmd_lst_size(t_cmd *cmd_lst);
+int		ft_isblank(int c);
 pid_t	create_fork(pid_t *pid);
 char	**free_2darray(char **tab);
 char	*ft_strsep(char **stringp, const char *delim);
@@ -177,6 +160,12 @@ void	print_env_lst(char **envp);
 void	ast_init(t_ast **token, char **buffer);
 void	free_ast(t_ast **token);
 char	*get_next_token(char *input, int *pos);
+
+/*
+**  interpreter
+*/
+
+void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst);
 
 /*
 ** parsing

@@ -44,6 +44,7 @@ int 	exit_msh(t_state *status, t_env **env_lst, t_cmd **cmd_lst)
 	else if ((*cmd_lst)->args[1])
 		code = ft_atoi((*cmd_lst)->args[1]);
 	free_all(status, env_lst, cmd_lst);
+	
 	printf("========> Exit Status: %d\n", code);
 	exit(code);
 	return (code);

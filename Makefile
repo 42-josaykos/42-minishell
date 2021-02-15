@@ -31,6 +31,7 @@ SRC_NAME	=	main.c \
 						execs/exec_cmd.c \
 						parsing/parse_cmdline.c \
 						parsing/parse_path.c \
+						parsing/interpreter.c \
 						utils/fork_utils.c \
 						utils/free_utils.c \
 						utils/list_utils.c \

@@ -12,32 +12,30 @@
 
 #include "../../includes/msh.h"
 
-void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
+int		test_quotes(char *str)
 {
-	t_ast	*ptr;
-	char	buf[MAXCHAR];
+	int	quotes;
+	int	dquotes;
+	int	i;
 
-	ptr = *token;
-	(void)cmd_lst;
-	(void)st;
-	(void)env_lst;
-	if (!ft_strncmp(ptr->value, ";", 2))
+	i = 0;
+	quotes = 0;
+	dquotes = 0;
+	while (str[i])
 	{
-		ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
-		return ;
+		if (str[i] == '\"')
+			dquotes += 1;
+		if (str[i] == '\'')
+			quotes += 1;
+		i++;
 	}
-	ft_bzero(buf, MAXCHAR);
-	while (ptr)
-	{
-		if (ptr->type == BUILTIN || ptr->type == EXEC)
-		{
-			ft_strcat(buf, ptr->value);
-			ft_strcat(buf, " ");
-		}
-		ptr = ptr->right;
-	}
-	(*cmd_lst)->args = ft_split(buf, ' ');
+	if (dquotes % 2 || quotes % 2)
+		error_quotes();
+	else
+		return (1);
+	return (0);
 }
+
 
 void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
@@ -56,13 +54,15 @@ void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 		while (input[pos])
 		{
 			buffer[i] = get_next_token(input, &pos);
-			// printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
+			//printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
 			i++;
 		}
 		ast_init(&token, buffer);
 		// for(t_ast *ptr = token; ptr != NULL ; ptr = ptr->right)
 			// printf("token = \"%s\"\n", ptr->value);
 		interpreter(st, &token, env_lst, &cmd_lst);
+			for(int i = 0; cmd_lst->args[i] != NULL ; i = i + 1)
+		//printf("arg = \"%s\"\n", cmd_lst->args[i]);
 		free_ast(&token);
 	}
 }
@@ -72,6 +72,8 @@ int	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	enum e_builtin	ret;
 
 	ret = 0;
+	if (!test_quotes(input))
+		return (0);
 	st->path_value = get_env(env_lst, "PATH");
 	parse_args(st, env_lst, cmd_lst, input);
 	ret = is_builtin(*cmd_lst->args);
