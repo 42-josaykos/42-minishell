@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/12 16:03:32 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 11:21:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	exec_cmd(char **envp, char **args)
 
 void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
-	char *cmd;
+	char	*cmd;
 
 	while (cmd_lst && *cmd_lst->args)
 	{
@@ -42,7 +42,7 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 		{
 			ft_putstr_fd("minishell: ", STDERR);
 			ft_putstr_fd(cmd, STDERR);
-			ft_putstr_fd(" : command not found\n", STDERR);	
+			ft_putstr_fd(" : command not found\n", STDERR);
 		}
 		cmd_lst = cmd_lst->next;
 	}

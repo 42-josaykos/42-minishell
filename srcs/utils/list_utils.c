@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/12 15:57:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 11:20:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,17 @@ void	free_cmd_lst(t_cmd **cmd_lst)
 	*cmd_lst = NULL;
 }
 
-void	clear_previous_cmd(t_cmd *cmd_lst)
+/*
+** clear multicommands, keeps one node in cmd_lst and cmd_lst->args = NULL
+*/
+
+void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st)
 {
 	t_cmd	*ptr;
 	t_cmd	*tmp;
 
+	st->has_semicolon = false;
+	st->has_pipe = false;
 	free_2darray(cmd_lst->args);
 	cmd_lst->args = NULL;
 	ptr = cmd_lst->next;

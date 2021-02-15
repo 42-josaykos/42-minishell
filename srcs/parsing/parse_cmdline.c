@@ -6,16 +6,16 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/12 15:56:40 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 11:15:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-bool is_semicolon(t_ast *token, t_cmd **cmd_lst)
+bool is_symbol(t_ast *token, t_cmd **cmd_lst, char *sym)
 {
 	t_cmd *new_cmd;
-	if (!ft_strncmp(token->value, ";", 2))
+	if (!ft_strncmp(token->value, sym, 2))
 	{
 		new_cmd = ft_calloc(1, sizeof(t_cmd));
 		new_cmd->next = NULL;
@@ -30,11 +30,10 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 	t_ast	*ptr;
 	t_cmd	*cmd;
 	char	buf[BUF_SIZE];
+	(void)env_lst;
 
 	ptr = *token;
 	cmd = *cmd_lst;
-	(void)st;
-	(void)env_lst;
 	if (!ft_strncmp(ptr->value, ";", 2))
 	{
 		ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
@@ -43,12 +42,16 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 	ft_bzero(buf, BUF_SIZE);
 	while (ptr)
 	{
-		if (is_semicolon(ptr, cmd_lst))
+		if (is_symbol(ptr, cmd_lst, ";"))
 		{
 			st->has_semicolon = true;
 			cmd->args = split_whitespace(buf);
 			cmd = cmd->next;
 			ft_bzero(buf, BUF_SIZE);
+		}
+		else if (is_symbol(ptr, cmd_lst, "|"))
+		{
+			st->has_pipe = true;
 		}
 		else if (ptr->type == BUILTIN || ptr->type == EXEC)
 		{

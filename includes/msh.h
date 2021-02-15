@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/11 11:13:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 11:18:44 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,9 @@ typedef struct s_state
 {
 	char	**envp;
 	char	*path_value;
-	union {
-		int		code;
-		int		has_semicolon;
-	};
+	int		code;
+	bool	has_semicolon;
+	bool	has_pipe;
 }				t_state;
 
 typedef struct s_env
@@ -125,7 +124,7 @@ void	env_lst_add(t_env **env_lst, t_env *new_env);
 void	env_lst_remove(t_env *env_lst, char *key);
 void	free_env_lst(t_env **env_lst);
 void	free_cmd_lst(t_cmd **cmd_lst);
-void	clear_previous_cmd(t_cmd *cmd_lst);
+void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st);
 char	*get_env(t_env *env_lst, char *key);
 void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 int		cmd_lst_size(t_cmd *cmd_lst);
