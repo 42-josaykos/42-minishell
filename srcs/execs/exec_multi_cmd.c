@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 15:35:11 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 16:34:40 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 		i++;
 	}
 	parse_pipe(buffer, &piped_cmd);
-	free_cmd_lst(&piped_cmd);
+	clear_previous_cmd(piped_cmd, status);
+	free(piped_cmd);
 }
 
 // static void	exec_multi_cmd(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
