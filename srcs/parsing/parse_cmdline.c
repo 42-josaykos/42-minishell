@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 11:49:47 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 14:30:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,8 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 			cmd = cmd->next;
 			ft_bzero(buf, BUF_SIZE);
 		}
-		else if (!is_symbol(ptr, cmd_lst, ";") && is_symbol(ptr, cmd_lst, "|"))
-		{
+		else if (!ft_strncmp(ptr->value, "|", 2))
 			st->has_pipe = true;
-			cmd->args = split_whitespace(buf);
-			cmd = cmd->next;
-			ft_bzero(buf, BUF_SIZE);
-		}
 		else if (ptr->type == BUILTIN || ptr->type == EXEC)
 		{
 			ft_strcat(buf, ptr->value);

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 11:50:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 14:39:40 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,25 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 	while (cmd_lst && *cmd_lst->args)
 	{
 		cmd = *cmd_lst->args;
-		ret = is_builtin(*cmd_lst->args);
-		if (ret)
-			exec_builtin(ret, st, env_lst, cmd_lst);
-		else if (filepath_exists(env_lst, cmd_lst))
+		if (st->has_pipe)
 		{
-			exec_cmd(st->envp, cmd_lst->args);
+			has_piped_cmd(st, env_lst, cmd_lst->args);
 		}
 		else
 		{
-			ft_putstr_fd("minishell: ", STDERR);
-			ft_putstr_fd(cmd, STDERR);
-			ft_putstr_fd(" : command not found\n", STDERR);
+			ret = is_builtin(*cmd_lst->args);
+			if (ret)
+				exec_builtin(ret, st, env_lst, cmd_lst);
+			else if (filepath_exists(env_lst, cmd_lst))
+			{
+				exec_cmd(st->envp, cmd_lst->args);
+			}
+			else
+			{
+				ft_putstr_fd("minishell: ", STDERR);
+				ft_putstr_fd(cmd, STDERR);
+				ft_putstr_fd(" : command not found\n", STDERR);
+			}
 		}
 		cmd_lst = cmd_lst->next;
 	}
