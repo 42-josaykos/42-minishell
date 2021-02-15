@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 14:38:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 15:24:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,7 @@ int		check_pipe(char *input, t_cmd *cmd_lst);
 int		file_exists(char *filename);
 bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
 t_ast	*parse_args(char *input);
-int 	has_piped_cmd(t_state *status, t_env *env_lst, char **args);
+void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args);
+void	parse_pipe(char *str, t_cmd **cmd_lst);
+int	ft_isblank(int c);
 #endif

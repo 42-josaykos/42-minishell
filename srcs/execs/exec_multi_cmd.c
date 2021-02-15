@@ -6,36 +6,31 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:21:45 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 14:40:54 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 15:35:11 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-int 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
+void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 {
 	int		i;
 	char	buffer[BUF_SIZE];
 	t_cmd	*piped_cmd;
+	(void)env_lst;
+	(void)status;
 
 	i = 0;
 	piped_cmd = NULL;
 	ft_bzero(buffer, BUF_SIZE);
-	piped_cmd = ft_calloc(1, sizeof(t_cmd));
 	while (args[i])
 	{
 		ft_strcat(buffer, args[i]);
 		ft_strcat(buffer, " ");
 		i++;
 	}
-	if (check_pipe(buffer, piped_cmd))
-	{
-		piped_cmd_handler(status, env_lst, piped_cmd);
-		free_cmd_lst(&piped_cmd);
-		return (1);
-	}
-	free(piped_cmd);
-	return (0);
+	parse_pipe(buffer, &piped_cmd);
+	free_cmd_lst(&piped_cmd);
 }
 
 // static void	exec_multi_cmd(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)

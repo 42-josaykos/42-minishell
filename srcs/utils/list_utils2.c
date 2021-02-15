@@ -21,17 +21,14 @@ void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd)
 {
 	t_cmd	*tmp;
 
-	if (cmd_lst != NULL)
+	if (*cmd_lst == NULL)
+		*cmd_lst = new_cmd;
+	else
 	{
-		if (*cmd_lst == NULL)
-			*cmd_lst = new_cmd;
-		else
-		{
-			tmp = *cmd_lst;
-			while (tmp->next != NULL)
-				tmp = tmp->next;
-			tmp->next = new_cmd;
-		}
+		tmp = *cmd_lst;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new_cmd;
 	}
 }
 
