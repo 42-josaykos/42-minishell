@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 11:21:50 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 11:50:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@ static void	exec_cmd(char **envp, char **args)
 
 void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
-	char	*cmd;
+	char			*cmd;
+	enum e_builtin	ret;
 
 	while (cmd_lst && *cmd_lst->args)
 	{
-		cmd = cmd_lst->args[0];
-		if (filepath_exists(env_lst, cmd_lst))
+		cmd = *cmd_lst->args;
+		ret = is_builtin(*cmd_lst->args);
+		if (ret)
+			exec_builtin(ret, st, env_lst, cmd_lst);
+		else if (filepath_exists(env_lst, cmd_lst))
 		{
 			exec_cmd(st->envp, cmd_lst->args);
 		}

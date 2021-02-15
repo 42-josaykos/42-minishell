@@ -82,10 +82,8 @@ char	*concat_env(t_env *env_lst)
 void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	input[BUF_SIZE];
-	int		ret;
 	char	*env;
 
-	ret = 0;
 	while (1)
 	{
 		catch_signal();
@@ -96,10 +94,8 @@ void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 			env = concat_env(env_lst);
 			status->envp = ft_split(env, '\n');
 			free(env);
-			ret = parse_cmdline(status, env_lst, cmd_lst, input);
+			parse_cmdline(status, env_lst, cmd_lst, input);
 			free_2darray(status->envp);
-			if (ret == EXIT)
-				exit_msh(status, env_lst, cmd_lst);
 			clear_previous_cmd(cmd_lst, status);
 		}
 	}

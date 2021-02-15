@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 18:37:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 11:43:08 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
-	if (ret == EXPORT)
+	if (ret == EXIT)
+		exit_msh(status, env_lst, cmd_lst);
+	else if (ret == EXPORT)
 		assign_env(cmd_lst->args[1], &env_lst);
 	else if (ret == CD)
 		cd(cmd_lst->args[1], env_lst);

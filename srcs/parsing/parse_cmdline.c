@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 11:15:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 11:49:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,12 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 			cmd = cmd->next;
 			ft_bzero(buf, BUF_SIZE);
 		}
-		else if (is_symbol(ptr, cmd_lst, "|"))
+		else if (!is_symbol(ptr, cmd_lst, ";") && is_symbol(ptr, cmd_lst, "|"))
 		{
 			st->has_pipe = true;
+			cmd->args = split_whitespace(buf);
+			cmd = cmd->next;
+			ft_bzero(buf, BUF_SIZE);
 		}
 		else if (ptr->type == BUILTIN || ptr->type == EXEC)
 		{
@@ -94,26 +97,17 @@ t_ast	*parse_args(char *input)
 	return (token);
 }
 
-int	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
+void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
-	enum e_builtin	ret;
 	t_ast	*token;
 
-	ret = 0;
 	st->path_value = get_env(env_lst, "PATH");
 	token = parse_args(input);
 	if (token != NULL)
 	{
 		interpreter(st, &token, env_lst, &cmd_lst);
 		free_ast(&token);
-		if (cmd_lst->args)
-		{
-			ret = is_builtin(*cmd_lst->args);
-			if (ret)
-				exec_builtin(ret, st, env_lst, cmd_lst);
-			else if (*cmd_lst->args)
-				cmd_handler(st, env_lst, cmd_lst);
-		}
+		if (cmd_lst->args && *cmd_lst->args)
+			cmd_handler(st, env_lst, cmd_lst);
 	}
-	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:47:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/11 15:40:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 11:47:07 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int 	exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 	// }
 	// else if (cmd_lst->args && cmd_lst->args[1])
 	// 	code = ft_atoi(cmd_lst->args[1]);
+	if (status->envp)
+		free_2darray(status->envp);
 	free(status);
 	free_env_lst(&env_lst);
 	while (cmd_lst)
