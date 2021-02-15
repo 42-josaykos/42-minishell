@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 11:43:08 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 11:58:33 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 	else if (ret == ECHO)
 		echo(cmd_lst->args, env_lst, 0);
 	else if (ret == ENV)
-	{
 		print_env_lst(status->envp);
-		status->code = 43;
-	}
+	else if (ret == UNSET)
+		ft_putstr_fd("execute unset builtin\n", 1);
 }
 
 int	is_builtin(char *cmd)
@@ -47,5 +46,7 @@ int	is_builtin(char *cmd)
 		return (ECHO);
 	else if (!ft_strncmp(cmd, "env", 4))
 		return (ENV);
+	else if (!ft_strncmp(cmd, "unset", 4))
+		return (UNSET);
 	return (0);
 }
