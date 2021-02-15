@@ -6,11 +6,31 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 16:39:23 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/15 17:12:55 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
+
+bool check_pipe(char **str)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			if (str[i][j] == '|')
+				return (true);
+			j++;
+		}
+		i++;
+	}
+	return (false);
+}
 
 void	parse_pipe(char *str, t_cmd **piped_cmd)
 {
