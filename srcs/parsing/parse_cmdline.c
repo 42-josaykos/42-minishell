@@ -6,60 +6,36 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 14:46:27 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/16 19:23:45 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-bool is_symbol(t_ast *token, t_cmd **cmd_lst, char *sym)
+int		test_quotes(char *str)
 {
-	t_cmd *new_cmd;
-	if (!ft_strncmp(token->value, sym, 2))
+	int	quotes;
+	int	dquotes;
+	int	i;
+
+	i = 0;
+	quotes = 0;
+	dquotes = 0;
+	while (str[i])
 	{
-		new_cmd = ft_calloc(1, sizeof(t_cmd));
-		new_cmd->next = NULL;
-		cmd_lst_add(cmd_lst, new_cmd);
-		return (true);
+		if (str[i] == '\"')
+			dquotes += 1;
+		if (str[i] == '\'')
+			quotes += 1;
+		i++;
 	}
-	return (false);
+	if (dquotes % 2 || quotes % 2)
+		error_quotes();
+	else
+		return (1);
+	return (0);
 }
 
-void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
-{
-	t_ast	*ptr;
-	t_cmd	*cmd;
-	char	buf[BUF_SIZE];
-	(void)env_lst;
-
-	ptr = *token;
-	cmd = *cmd_lst;
-	if (!ft_strncmp(ptr->value, ";", 2))
-	{
-		ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
-		return ;
-	}
-	ft_bzero(buf, BUF_SIZE);
-	while (ptr)
-	{
-		if (is_symbol(ptr, cmd_lst, ";"))
-		{
-			st->has_semicolon = true;
-			cmd->args = split_whitespace(buf);
-			cmd = cmd->next;
-			ft_bzero(buf, BUF_SIZE);
-		}
-		else if (ptr->type == BUILTIN || ptr->type == EXEC)
-		{
-			if (!ft_strncmp(ptr->value, "|", 2))
-				st->has_pipe = true;
-			ft_strcat(buf, ptr->value);
-			ft_strcat(buf, " ");
-		}
-		ptr = ptr->right;
-	}
-	cmd->args = split_whitespace(buf);
-}
 
 t_ast	*parse_args(char *input)
 {
@@ -82,7 +58,7 @@ t_ast	*parse_args(char *input)
 		while (input[pos])
 		{
 			buffer[i] = get_next_token(input, &pos);
-			// printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
+		//	printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
 			i++;
 		}
 		ast_init(&token, buffer);
@@ -96,6 +72,8 @@ void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	t_ast	*token;
 
+	if (!test_quotes(input))
+		return ;
 	st->path_value = get_env(env_lst, "PATH");
 	token = parse_args(input);
 	if (token != NULL)

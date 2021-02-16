@@ -14,5 +14,10 @@
 
 void	error_cases(int errnum, char *cmd, char *arg)
 {
-	ft_printf("bash: %s: %s: %s\n", cmd, arg, strerror(errnum));
+	ft_printf("minishell: %s: %s: %s\n", cmd, arg, strerror(errnum));
+}
+
+void	error_quotes()
+{
+	ft_printf("minishell: error: invalid arguments: opened quotes are not closed\n");
 }
