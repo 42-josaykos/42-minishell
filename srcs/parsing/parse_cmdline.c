@@ -54,7 +54,7 @@ void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 		while (input[pos])
 		{
 			buffer[i] = get_next_token(input, &pos);
-			//printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
+		//	printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
 			i++;
 		}
 		ast_init(&token, buffer);

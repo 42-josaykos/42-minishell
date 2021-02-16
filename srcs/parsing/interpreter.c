@@ -15,7 +15,11 @@ int		arg_count(t_ast **token)
 		{
 			ac++;
 			while (ptr->value && ft_isblank(ptr->value[0]))
+			{
 				ptr = ptr->right;
+				if (test % 2)
+					ac++;
+			}
 		}
 		else if (ptr->value[0] == '\'')
 		{
@@ -59,10 +63,12 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 {
 	int		ac;
 	int		i;
+	int		test;
 	char	*tmp;
 	char	**args;
 	t_ast	*ptr;
 
+	test = 0;
 	i = 0;
 	ptr = *token;
 	ac = arg_count(token);
@@ -73,10 +79,17 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 	{
 		if (ft_isblank(ptr->value[0]))
 		{
-			args[i] = ft_strdup(" ");
+			args[i] = ft_strdup(ptr->value);
 			i++;
 			while (ft_isblank(ptr->value[0]))
+			{
+				if (test % 2)
+				{
+					args[i] = ptr->value;
+					i++;
+				}
 				ptr = ptr->right;
+			}
 		}
 		else if (ptr->value[0] == '\'')
 		{
@@ -96,6 +109,7 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 		else if (ptr->value[0] == '\"')
 		{
 			ptr = ptr->right;
+			i++;
 			// tmp = ft_strdup("");
 			// ptr = ptr->right;
 			// while(ptr->value[0] != '\'')
