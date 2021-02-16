@@ -59,10 +59,10 @@ void	parse_args(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 		}
 		ast_init(&token, buffer);
 		// for(t_ast *ptr = token; ptr != NULL ; ptr = ptr->right)
-			// printf("token = \"%s\"\n", ptr->value);
+		// 	printf("token = \"%s\"\n", ptr->value);
 		interpreter(st, &token, env_lst, &cmd_lst);
-			for(int i = 0; cmd_lst->args[i] != NULL ; i = i + 1)
-		//printf("arg = \"%s\"\n", cmd_lst->args[i]);
+		// 	for(int i = 0; cmd_lst->args[i] != NULL ; i = i + 1)
+		// printf("arg = \"%s\"\n", cmd_lst->args[i]);
 		free_ast(&token);
 	}
 }

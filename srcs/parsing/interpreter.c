@@ -81,6 +81,7 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 		{
 			args[i] = ft_strdup(ptr->value);
 			i++;
+			ptr = ptr->right;
 			while (ft_isblank(ptr->value[0]))
 			{
 				if (test % 2)
@@ -109,7 +110,7 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 		else if (ptr->value[0] == '\"')
 		{
 			ptr = ptr->right;
-			i++;
+			// i++;
 			// tmp = ft_strdup("");
 			// ptr = ptr->right;
 			// while(ptr->value[0] != '\'')
@@ -142,7 +143,7 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 		else
 		{
 			args[i] = ft_strdup(ptr->value);
-			ptr = ptr->right;
+			ptr = ptr->right;		
 			i++;
 		}
 	}
