@@ -6,18 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/16 19:25:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 11:15:05 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-/*
-** Implementation of strsep
-** $ man strsep
-*/
-
-int		check_dquotes(char *input)
+int	check_dquotes(char *input)
 {
 	int	i;
 	int	ret;
@@ -30,8 +25,8 @@ int		check_dquotes(char *input)
 			ret *= -1;
 		i++;
 	}
-	return (ret)
-;}
+	return (ret);
+}
 
 char	*dquotes_loop(char *str, int *i, char **stringp)
 {
@@ -40,10 +35,10 @@ char	*dquotes_loop(char *str, int *i, char **stringp)
 		*i += 1;
 	str[*i] = 0;
 	*stringp += (*i + 1);
-	return (str); 
+	return (str);
 }
 
-char 	*ft_strsep2(char **stringp)
+char	*ft_strsep2(char **stringp)
 {
 	int		i;
 	char	*tmp;

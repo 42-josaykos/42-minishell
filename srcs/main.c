@@ -12,14 +12,6 @@
 
 #include "../includes/msh.h"
 
-int	g_status;
-
-/*
-** Prints a welcome message.
-** Create a list of env variables.
-** TODO: Need to handle mutliple variables in the config file (.mshrc)
-*/
-
 void	init_msh(t_env **env_lst, char **envp)
 {
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
@@ -100,10 +92,6 @@ void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 		}
 	}
 }
-
-/*
-** We will use env to store a copy of envp in a single string.
-*/
 
 int	main(int argc, char **argv, char **envp)
 {

@@ -1,6 +1,6 @@
 #include "../../includes/msh.h"
 
-int		arg_count(t_ast **token)
+int	arg_count(t_ast **token)
 {
 	int		ac;
 	t_ast	*ptr;
@@ -73,9 +73,9 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 	ptr = *token;
 	ac = arg_count(token);
 //	ft_printf("!!%d\n", ac);
-	args = calloc(sizeof(char*) , (ac + 1));
+	args = calloc(sizeof(char*), (ac + 1));
 //	args[ac] = 0;
-	while(ptr)
+	while (ptr)
 	{
 		if (ft_isblank(ptr->value[0]))
 		{
@@ -96,7 +96,7 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 		{
 			tmp = ft_strdup("");
 			ptr = ptr->right;
-			while(ptr->value[0] != '\'')
+			while (ptr->value[0] != '\'')
 			{
 				tmp = ft_strjoin(tmp, ptr->value);
 				if (args[i])
@@ -143,11 +143,11 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 		else
 		{
 			args[i] = ft_strdup(ptr->value);
-			ptr = ptr->right;		
+			ptr = ptr->right;
 			i++;
 		}
 	}
-	return(args);
+	return (args);
 }
 
 void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)

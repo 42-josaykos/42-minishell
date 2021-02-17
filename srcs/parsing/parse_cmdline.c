@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/16 19:23:45 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 11:18:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-int		test_quotes(char *str)
+int	test_quotes(char *str)
 {
 	int	quotes;
 	int	dquotes;
@@ -35,7 +35,6 @@ int		test_quotes(char *str)
 		return (1);
 	return (0);
 }
-
 
 t_ast	*parse_args(char *input)
 {

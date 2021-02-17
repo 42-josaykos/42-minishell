@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/02/16 19:15:10 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/17 11:07:16 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRC_NAME	=	main.c \
 						utils/fork_utils.c \
 						utils/free_utils.c \
 						utils/list_utils.c \
-						utils/list_utils2.c \
 						utils/string_utils.c \
 						utils/string_utils2.c \
 						error.c \

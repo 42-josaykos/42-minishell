@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:47:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/16 19:17:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 11:22:18 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ bool	ft_isnum(char *str)
 
 int 	exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
-	int	code;
-	t_cmd *tmp;
+	int		code;
+	t_cmd	*tmp;
 
 	code = 0;
 	ft_putstr_fd("exit\n", STDERR);

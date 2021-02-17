@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 11:20:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 11:05:11 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /*
 ** Add a new env variable (key=value) at the end of the env list.
-** Should be call in export_env function below.
 */
 
 void	env_lst_add(t_env **env_lst, t_env *new_env)
@@ -55,60 +54,50 @@ void	env_lst_remove(t_env *env_lst, char *key)
 }
 
 /*
-** Delete and free the env list. Should be call in main function before return.
+**	look for the value of a specified key
 */
 
-void	free_env_lst(t_env **env_lst)
+char	*get_env(t_env *env_lst, char *key)
 {
-	t_env	*ptr_lst;
-	t_env	*temp;
-
-	ptr_lst = *env_lst;
-	while (ptr_lst)
+	while (env_lst)
 	{
-		temp = ptr_lst->next;
-		free(ptr_lst);
-		ptr_lst = temp;
+		if (!ft_strncmp(env_lst->key, key, ft_strlen(key)))
+		{
+			return (env_lst->value);
+		}
+		env_lst = env_lst->next;
 	}
-	*env_lst = NULL;
+	return (NULL);
 }
 
-void	free_cmd_lst(t_cmd **cmd_lst)
+void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd)
 {
-	t_cmd	*ptr_lst;
-	t_cmd	*temp;
-
-	ptr_lst = *cmd_lst;
-	while (*cmd_lst)
-	{
-		temp = ptr_lst->next;
-		free(ptr_lst);
-		ptr_lst = temp;
-	}
-	*cmd_lst = NULL;
-}
-
-/*
-** clear multicommands, keeps one node in cmd_lst and cmd_lst->args = NULL
-*/
-
-void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st)
-{
-	t_cmd	*ptr;
 	t_cmd	*tmp;
 
-	st->has_semicolon = false;
-	st->has_pipe = false;
-	free_2darray(cmd_lst->args);
-	cmd_lst->args = NULL;
-	ptr = cmd_lst->next;
-	ft_bzero(cmd_lst->cmd, BUF_SIZE);
-	cmd_lst->next = NULL;
-	while (ptr)
+	if (*cmd_lst == NULL)
+		*cmd_lst = new_cmd;
+	else
 	{
-		tmp = ptr->next;
-		free_2darray(ptr->args);
-		free(ptr);
-		ptr = tmp;
+		tmp = *cmd_lst;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new_cmd;
 	}
+}
+
+int	cmd_lst_size(t_cmd *cmd_lst)
+{
+	int		count;
+	t_cmd	*tmp;
+
+	count = 0;
+	tmp = cmd_lst;
+	if (!cmd_lst)
+		return (0);
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->next;
+	}
+	return (count);
 }

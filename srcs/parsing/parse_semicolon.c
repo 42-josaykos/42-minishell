@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:04:23 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/10 11:19:01 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 11:10:27 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	check_semicolon(char *input, t_cmd *cmd_lst)
 		i = 0;
 		while (tmp[i])
 		{
-			// parse_args(tmp[i], cmd_lst);
 			new_cmd = ft_calloc(1, sizeof(t_cmd));
 			new_cmd->next = NULL;
 			cmd_lst_add(&cmd_lst, new_cmd);

@@ -6,16 +6,16 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 17:12:55 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 11:16:03 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-bool check_pipe(char **str)
+bool	check_pipe(char **str)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (str[i])
@@ -34,11 +34,11 @@ bool check_pipe(char **str)
 
 void	parse_pipe(char *str, t_cmd **piped_cmd)
 {
-	int	i;
-	int j;
-	int k;
-	char buffer[BUF_SIZE];
-	t_cmd *new_cmd[BUF_SIZE];
+	int		i;
+	int		j;
+	int		k;
+	char	buffer[BUF_SIZE];
+	t_cmd	*new_cmd[BUF_SIZE];
 
 	i = 0;
 	j = 0;
