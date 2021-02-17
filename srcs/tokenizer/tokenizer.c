@@ -22,9 +22,9 @@ char	*get_next_token(char *input, int *pos)
 		(*pos)++;
 		return (token);
 	}
-	while (input[*pos] || isblank(input[*pos]))
+	while (input[*pos] || ft_isblank(input[*pos]))
 	{
-		if (isblank(input[*pos]) || input[*pos] == ';' || input[*pos] == '|'
+		if (ft_isblank(input[*pos]) || input[*pos] == ';' || input[*pos] == '|'
 			|| input[*pos] == '|' || input[*pos] == '>' || input[*pos] == '<'
 			|| input[*pos] == '$' || input[*pos] == '\'' || input[*pos] == '\"'
 			|| input[*pos] == '\\')

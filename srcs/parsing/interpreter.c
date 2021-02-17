@@ -153,27 +153,13 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 {
 	t_ast	*ptr;
-	char	buf[BUF_SIZE];
 
 	ptr = *token;
-	(void)cmd_lst;
 	(void)st;
-	(void)env_lst;
 	if (!ft_strncmp(ptr->value, ";", 2))
 	{
 		ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
 		return ;
-	}
-	ft_bzero(buf, BUF_SIZE);
-	while (ptr)
-	{
-		if (ptr->type == BUILTIN || ptr->type == EXEC)
-		{
-			ft_strcat(buf, ptr->value);
-//			ft_strcat(buf, " ");
-		}
-		// ft_printf("??%s\n", buf);
-		ptr = ptr->right;
 	}
 	//(*cmd_lst)->args = ft_split(buf, ' ');
 	(*cmd_lst)->args = interpreter_loop(token, env_lst);

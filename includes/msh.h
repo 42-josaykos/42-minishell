@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 17:10:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 12:25:57 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# include <ctype.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -44,26 +43,8 @@ enum e_builtin
 	UNSET
 };
 
-enum	e_type
-{
-	END,
-	BUILTIN,
-	EXEC,
-	ARG,
-	VAR,
-	QUOTE,
-	DBL_QUOTE,
-	SEMICOLON,
-	PIPE,
-	L_CHEVRON,
-	R_CHEVRON,
-	DBL_CHEVRON,
-	BACKSLASH,
-};
-
 typedef struct s_ast
 {
-	enum e_type		type;
 	char			*value;
 	struct s_ast	*left;
 	struct s_ast	*right;
@@ -87,7 +68,6 @@ typedef struct s_env
 
 typedef struct s_cmd
 {
-	char			cmd[BUF_SIZE];
 	char			**args;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -139,46 +119,26 @@ bool	is_empty(char *str);
 */
 
 void	error_cases(int errnum, char *cmd, char *arg);
-void	error_quotes();
+void	error_quotes(void);
 
 /*
-** exec_piped_cmd
+**
 */
-
-int		check_semicolon(char *input, t_cmd *cmd_lst);
-void	piped_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
-void	exec_last_process(t_state *status, int in, t_cmd *cmd_lst);
-void	multi_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 char	*ft_readline(char *prompt);
 int		exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
-void	free_all(t_state *status, t_env **env_lst, t_cmd **cmd_lst);
 void	print_env_lst(char **envp);
-
-/*
-** tokenizer
-*/
 void	ast_init(t_ast **token, char **buffer);
 void	free_ast(t_ast **token);
 char	*get_next_token(char *input, int *pos);
-
-/*
-**  interpreter
-*/
-
-void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst);
-
-/*
-** parsing
-*/
-
+void	interpreter(t_state *s, t_ast **token, t_env *env_lst, t_cmd **cmd_lst);
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 int		file_exists(char *filename);
 bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
 t_ast	*parse_args(char *input);
-void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args);
+void	has_piped_cmd(t_state *status, t_env *env_lst, char **args);
 void	parse_pipe(char *str, t_cmd **cmd_lst);
-int	ft_isblank(int c);
-void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst);
-bool check_pipe(char **str);
+int		ft_isblank(int c);
+bool	check_pipe(char **str);
+
 #endif

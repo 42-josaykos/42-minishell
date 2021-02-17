@@ -6,11 +6,24 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 16:45:18 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 12:13:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../includes/msh.h"
+
+static void	exec_last_process(t_state *status, int in, t_cmd *cmd_lst)
+{
+	int	ret;
+
+	ret = is_builtin(cmd_lst->args[0]);
+	if (ret != CD && ret != EXPORT)
+	{
+		if (in != STDIN_FILENO)
+			dup2(in, STDIN_FILENO);
+		execve(*cmd_lst->args, cmd_lst->args, status->envp);
+	}
+}
 
 static int	exec_process(t_state *status, int in, int out, t_cmd *cmd_lst)
 {
@@ -38,7 +51,7 @@ static int	exec_process(t_state *status, int in, int out, t_cmd *cmd_lst)
 	return (pid);
 }
 
-void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst)
+static void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst)
 {
 	int		in;
 	int		fd[2];
@@ -66,63 +79,33 @@ void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst)
 	waitpid(last_process, &status->code, 0);
 }
 
-static void	piped_cmd_handler3(t_cmd *cmd_lst, char *filepath)
+void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 {
-	t_cmd	*cmd_paths;
-	char	uncat_path[BUF_SIZE];
+	int		i;
+	char	buffer[BUF_SIZE];
+	t_cmd	*piped_cmd;
 	t_cmd	*ptr;
-
-	cmd_paths = cmd_lst;
-	ptr = cmd_paths;
-	while (ptr && ptr->args[0])
-	{
-		ft_strlcpy(uncat_path, filepath, ft_strlen(filepath) + 1);
-		ft_strcat(filepath, ptr->args[0]);
-		if (file_exists(filepath))
-		{
-			ft_strlcpy(ptr->cmd, filepath, ft_strlen(filepath) + 1);
-			cmd_paths = cmd_paths->next;
-		}
-		ft_strlcpy(filepath, uncat_path, ft_strlen(filepath) + 1);
-		ptr = ptr->next;
-	}
-}
-
-static void	piped_cmd_handler2(t_state *status, char *path, t_cmd *cmd_lst)
-{
-	char	filepath[BUF_SIZE];
-	char	*tmp;
 	int		len;
 
+	i = 0;
+	piped_cmd = NULL;
 	len = 0;
-	while (path && cmd_lst)
+	ft_bzero(buffer, BUF_SIZE);
+	while (args[i])
 	{
-		tmp = ft_strsep(&path, ":");
-		len = ft_strlen(tmp);
-		ft_strlcpy(filepath, tmp, len + 1);
-		if (filepath[len - 1] != '/')
-			ft_strcat(filepath, "/");
-		piped_cmd_handler3(cmd_lst, filepath);
+		ft_strcat(buffer, args[i]);
+		ft_strcat(buffer, " ");
+		i++;
 	}
-	len = cmd_lst_size(cmd_lst);
-	fork_pipes(status, len, cmd_lst);
-}
-
-void	piped_cmd_handler(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
-{
-	char	*pathstr;
-	char	copy[BUF_SIZE];
-
-	pathstr = NULL;
-	while (env_lst)
+	parse_pipe(buffer, &piped_cmd);
+	len = cmd_lst_size(piped_cmd);
+	ptr = piped_cmd;
+	while (ptr)
 	{
-		if (!ft_strncmp(env_lst->key, "PATH", 4))
-		{
-			ft_strlcpy(copy, env_lst->value, ft_strlen(env_lst->value) + 1);
-			pathstr = copy;
-			break ;
-		}
-		env_lst = env_lst->next;
+		filepath_exists(env_lst, ptr);
+		ptr = ptr->next;
 	}
-	piped_cmd_handler2(status, pathstr, cmd_lst);
+	fork_pipes(status, len, piped_cmd);
+	clear_previous_cmd(piped_cmd, status);
+	free(piped_cmd);
 }
