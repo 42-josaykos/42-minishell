@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/17 18:38:07 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 19:22:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 	parse_pipe(buffer, &piped_cmd);
 	len = cmd_lst_size(piped_cmd);
 	ptr = piped_cmd;
-	while (ptr)
+	while (ptr && *ptr->args)
 	{
 		filepath_exists(env_lst, ptr);
 		ptr = ptr->next;
