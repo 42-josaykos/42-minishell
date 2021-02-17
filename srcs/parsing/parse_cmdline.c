@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/17 11:18:29 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 15:56:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 
 	if (!test_quotes(input))
 		return ;
-	st->path_value = get_env(env_lst, "PATH");
 	token = parse_args(input);
 	if (token != NULL)
 	{

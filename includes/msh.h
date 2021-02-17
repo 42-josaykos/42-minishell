@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/17 12:25:57 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 15:56:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_ast
 typedef struct s_state
 {
 	char	**envp;
-	char	*path_value;
 	int		code;
 	bool	has_semicolon;
 	bool	has_pipe;
