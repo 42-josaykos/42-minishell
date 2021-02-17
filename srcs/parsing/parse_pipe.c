@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/17 11:16:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 18:38:45 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	parse_pipe(char *str, t_cmd **piped_cmd)
 	ft_bzero(buffer, BUF_SIZE);
 	while (str[i])
 	{
-		if (str[i] == '|' || str[i + 1] == '\0')
+		if (i != 0 && (str[i] == '|' || str[i + 1] == '\0'))
 		{
 			new_cmd[k] = ft_calloc(1, sizeof(t_cmd));
 			new_cmd[k]->args = split_whitespace(buffer);

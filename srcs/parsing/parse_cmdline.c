@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/17 15:56:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/17 18:44:03 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	{
 		interpreter(st, &token, env_lst, &cmd_lst);
 		free_ast(&token);
-		if (cmd_lst->args && *cmd_lst->args)
+		if (cmd_lst->args && *cmd_lst->args && !is_empty(*cmd_lst->args))
 			cmd_handler(st, env_lst, cmd_lst);
 	}
 }

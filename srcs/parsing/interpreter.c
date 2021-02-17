@@ -14,7 +14,7 @@ int	arg_count(t_ast **token)
 		if (ft_isblank(ptr->value[0]))
 		{
 			ac++;
-			while (ptr->value && ft_isblank(ptr->value[0]))
+			while (ptr && ptr->value && ft_isblank(ptr->value[0]))
 			{
 				ptr = ptr->right;
 				if (test % 2)
@@ -82,7 +82,7 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 			args[i] = ft_strdup(ptr->value);
 			i++;
 			ptr = ptr->right;
-			while (ft_isblank(ptr->value[0]))
+			while (ptr && ft_isblank(ptr->value[0]))
 			{
 				if (test % 2)
 				{
