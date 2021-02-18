@@ -113,6 +113,7 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 					st->dbl_quotes = 0;
 					ft_bzero(buffer, BUF_SIZE);
 					i++;
+					ptr = ptr->right;
 					break ;
 				}
 				ft_strcat(buffer, ptr->value);
