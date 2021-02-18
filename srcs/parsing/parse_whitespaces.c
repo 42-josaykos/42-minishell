@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:59:18 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/18 11:46:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/18 12:04:01 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void parse_whitespaces(t_state *st, t_ast *ptr)
 {
+	(void)ptr;
 	(void)st;
 }
