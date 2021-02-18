@@ -35,6 +35,7 @@ char	*get_next_token(char *input, int *pos)
 		(*pos)++;
 	}
 	token = ft_substr(input, start, *pos);
+	
 	return (token);
 }
 

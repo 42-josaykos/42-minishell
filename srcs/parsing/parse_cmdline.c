@@ -57,12 +57,12 @@ t_ast	*parse_args(char *input)
 		while (input[pos])
 		{
 			buffer[i] = get_next_token(input, &pos);
-		//	printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
+		//	 printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
 			i++;
 		}
 		ast_init(&token, buffer);
 		// for(t_ast *ptr = token; ptr != NULL ; ptr = ptr->right)
-			// printf("token = \"%s\"\n", ptr->value);
+		// 	printf("token = \"%s\"\n", ptr->value);
 	}
 	return (token);
 }
