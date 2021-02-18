@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/02/17 12:23:20 by jonny            ###   ########.fr        #
+#    Updated: 2021/02/18 11:02:01 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC_NAME	=	builtins/cd.c \
 						parsing/parse_cmdline.c \
 						parsing/parse_path.c \
 						parsing/parse_pipe.c \
+						parsing/parse_whitespaces.c \
 						tokenizer/tokenizer.c \
 						tokenizer/ast.c \
 						utils/fork_utils.c \

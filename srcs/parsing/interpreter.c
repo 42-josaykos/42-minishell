@@ -1,5 +1,7 @@
 #include "../../includes/msh.h"
 
+void parse_whitespaces(t_state *st, t_ast *ptr);
+
 int	arg_count(t_ast **token)
 {
 	int		ac;
@@ -59,7 +61,7 @@ int	arg_count(t_ast **token)
 	return (ac);
 }
 
-char	**interpreter_loop(t_ast **token, t_env *env_lst)
+char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 {
 	int		ac;
 	int		i;
@@ -67,30 +69,20 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 	char	*tmp;
 	char	**args;
 	t_ast	*ptr;
+	char buffer[BUF_SIZE];
 
+	ft_bzero(buffer, BUF_SIZE);
 	test = 0;
 	i = 0;
 	ptr = *token;
 	ac = arg_count(token);
-//	ft_printf("!!%d\n", ac);
 	args = calloc(sizeof(char*), (ac + 1));
-//	args[ac] = 0;
 	while (ptr)
 	{
 		if (ft_isblank(ptr->value[0]))
 		{
-			args[i] = ft_strdup(ptr->value);
-			i++;
+			// parse_whitespaces(st, ptr);
 			ptr = ptr->right;
-			while (ptr && ft_isblank(ptr->value[0]))
-			{
-				if (test % 2)
-				{
-					args[i] = ptr->value;
-					i++;
-				}
-				ptr = ptr->right;
-			}
 		}
 		else if (ptr->value[0] == '\'')
 		{
@@ -109,20 +101,23 @@ char	**interpreter_loop(t_ast **token, t_env *env_lst)
 		}
 		else if (ptr->value[0] == '\"')
 		{
+			st->dbl_quotes++;
 			ptr = ptr->right;
-			// i++;
-			// tmp = ft_strdup("");
-			// ptr = ptr->right;
-			// while(ptr->value[0] != '\'')
-			// {
-			// 	tmp = ft_strjoin(tmp, ptr->value);
-			// 	if (args[i])
-			// 		free(args[i]);
-			// 	args[i] = tmp;
-			// 	ptr = ptr->right;
-			// }
-			// ptr = ptr->right;
-			// i++;
+			while (ptr)
+			{
+				if (ptr->value[0] == '\"')
+					st->dbl_quotes++;
+				if (st->dbl_quotes == 2)
+				{
+					args[i] = ft_strdup(buffer);
+					st->dbl_quotes = 0;
+					ft_bzero(buffer, BUF_SIZE);
+					i++;
+					break ;
+				}
+				ft_strcat(buffer, ptr->value);
+				ptr = ptr->right;
+			}
 		}
 		else if (ptr->value[0] == '$')
 		{
@@ -162,6 +157,6 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 		return ;
 	}
 	//(*cmd_lst)->args = ft_split(buf, ' ');
-	(*cmd_lst)->args = interpreter_loop(token, env_lst);
+	(*cmd_lst)->args = interpreter_loop(st, token, env_lst);
 	// TODO: split multi commands semicolon in new node cmd_lst
 }

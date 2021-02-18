@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 12:21:19 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/09 16:08:37 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/18 11:39:44 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	echo(char **arg, t_env *env_lst, int fd)
  
 	(void)env_lst;
 	isn = 0;
-	i = 2;
+	i = 1;
 	if (arg[i] && !ft_strncmp(arg[i], "-n", 3))
 		isn = 1;
 	i += 2 * isn;
