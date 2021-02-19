@@ -102,13 +102,19 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 		else if (ptr->value[0] == '\"')
 		{
 			st->dbl_quotes++;
-			ptr = ptr->right;
 			while (ptr)
 			{
+				ptr = ptr->right;
 				if (ptr->value[0] == '\"')
 					st->dbl_quotes++;
 				if (st->dbl_quotes == 2)
 				{
+					if (ptr->right && ptr->right->value[0] == '\"')
+					{
+						ptr = ptr->right;
+						st->dbl_quotes = 1;	
+						continue ;
+					}
 					args[i] = ft_strdup(buffer);
 					st->dbl_quotes = 0;
 					ft_bzero(buffer, BUF_SIZE);
@@ -117,7 +123,7 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 					break ;
 				}
 				ft_strcat(buffer, ptr->value);
-				ptr = ptr->right;
+				// ptr = ptr->right;
 			}
 		}
 		else if (ptr->value[0] == '$')
