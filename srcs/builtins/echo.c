@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 12:21:19 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/18 11:39:44 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/19 18:43:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	echo(char **arg, t_env *env_lst, int fd)
 	while (arg[i])
 	{
 		ft_printf("%s", arg[i]);
+		if (arg[i + 1])
+			write(1, " ", 1);
 		// if (i > (isn + 1))
 		// 	write (fd, " ", 1);
 		// echo_loop(arg[i], env_lst, fd);

@@ -101,29 +101,31 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 		}
 		else if (ptr->value[0] == '\"')
 		{
-			st->dbl_quotes++;
 			while (ptr)
 			{
-				ptr = ptr->right;
 				if (ptr->value[0] == '\"')
-					st->dbl_quotes++;
-				if (st->dbl_quotes == 2)
 				{
-					if (ptr->right && ptr->right->value[0] == '\"')
-					{
-						ptr = ptr->right;
-						st->dbl_quotes = 1;	
-						continue ;
-					}
+					st->dbl_quotes++;
+					ptr = ptr->right;
+				}
+				if (!(st->dbl_quotes % 2) && (!ptr || ptr->value[0] == ' '))
+				{
 					args[i] = ft_strdup(buffer);
-					st->dbl_quotes = 0;
 					ft_bzero(buffer, BUF_SIZE);
 					i++;
-					ptr = ptr->right;
+					if (ptr)
+						ptr = ptr->right;
 					break ;
 				}
-				ft_strcat(buffer, ptr->value);
-				// ptr = ptr->right;
+				else if (ptr && ptr->value[0] == '\"')
+					continue ;
+				else if (ptr)
+				{
+					ft_strcat(buffer, ptr->value);
+					ptr = ptr->right;
+					if (!ptr)
+						args[i] = ft_strdup(buffer);
+				}
 			}
 		}
 		else if (ptr->value[0] == '$')
