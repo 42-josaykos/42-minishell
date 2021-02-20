@@ -61,6 +61,38 @@ int	arg_count(t_ast **token)
 	return (ac);
 }
 
+void handle_dquotes(t_ast **ptr, t_state *st, char **arg)
+{
+	char buffer[BUF_SIZE];
+
+	ft_bzero(buffer, BUF_SIZE);
+	while (*ptr)
+	{
+		if ((*ptr)->value[0] == '\"')
+		{
+			st->dbl_quotes++;
+			*ptr = (*ptr)->right;
+		}
+		if (!(st->dbl_quotes % 2) && (!(*ptr) || (*ptr)->value[0] == ' '))
+		{
+			*arg = ft_strdup(buffer);
+			ft_bzero(buffer, BUF_SIZE);
+			if (*ptr)
+				*ptr = (*ptr)->right;
+			break ;
+		}
+		else if (*ptr && (*ptr)->value[0] == '\"')
+			continue ;
+		else if (*ptr)
+		{
+			ft_strcat(buffer, (*ptr)->value);
+			*ptr = (*ptr)->right;
+			if (!(*ptr))
+				*arg = ft_strdup(buffer);
+		}
+	}
+}
+
 char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 {
 	int		ac;
@@ -69,9 +101,6 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 	char	*tmp;
 	char	**args;
 	t_ast	*ptr;
-	char buffer[BUF_SIZE];
-
-	ft_bzero(buffer, BUF_SIZE);
 	test = 0;
 	i = 0;
 	ptr = *token;
@@ -101,34 +130,10 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 		}
 		else if (ptr->value[0] == '\"')
 		{
-			while (ptr)
-			{
-				if (ptr->value[0] == '\"')
-				{
-					st->dbl_quotes++;
-					ptr = ptr->right;
-				}
-				if (!(st->dbl_quotes % 2) && (!ptr || ptr->value[0] == ' '))
-				{
-					args[i] = ft_strdup(buffer);
-					ft_bzero(buffer, BUF_SIZE);
-					i++;
-					if (ptr)
-						ptr = ptr->right;
-					break ;
-				}
-				else if (ptr && ptr->value[0] == '\"')
-					continue ;
-				else if (ptr)
-				{
-					ft_strcat(buffer, ptr->value);
-					ptr = ptr->right;
-					if (!ptr)
-						args[i] = ft_strdup(buffer);
-				}
-			}
+			handle_dquotes(&ptr, st, &args[i]);
+			i++;
 		}
-		else if (ptr->value[0] == '$')
+		else if (ptr && ptr->value[0] == '$')
 		{
 			ptr = ptr->right;
 			if (get_env(env_lst, ptr->value))
@@ -138,13 +143,13 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 			}
 			ptr = ptr->right;
 		}
-		else if (ptr->value[0] == '>')
+		else if (ptr && ptr->value[0] == '>')
 		{
 			ptr = ptr->right;
 			args[i] = ft_strdup(">");
 			i++;
 		}
-		else
+		else if (ptr)
 		{
 			args[i] = ft_strdup(ptr->value);
 			ptr = ptr->right;
