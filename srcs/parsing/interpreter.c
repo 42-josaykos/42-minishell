@@ -168,5 +168,5 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 		return ;
 	}
 	(*cmd_lst)->args = interpreter_loop(st, token, env_lst);
-	// parse_semicolon(args, cmd_lst);
+	parse_semicolon(cmd_lst);
 }

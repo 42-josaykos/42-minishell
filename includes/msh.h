@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/21 12:02:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/21 13:30:23 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,6 @@ void	has_piped_cmd(t_state *status, t_env *env_lst, char **args);
 void	parse_pipe(char *str, t_cmd **cmd_lst);
 int		ft_isblank(int c);
 bool	check_pipe(char **str);
-void	parse_semicolon(char **args, t_cmd **cmd_lst);
+void	parse_semicolon(t_cmd **cmd_lst);
 
 #endif
