@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:28:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/17 12:16:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/21 21:23:32 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st)
 	t_cmd	*ptr;
 	t_cmd	*tmp;
 
-	st->has_semicolon = false;
-	st->has_pipe = false;
+	if (st)
+	{
+		st->has_semicolon = false;
+		st->has_pipe = false;
+	}
 	free_2darray(cmd_lst->args);
 	cmd_lst->args = NULL;
 	ptr = cmd_lst->next;
