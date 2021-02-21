@@ -1,7 +1,5 @@
 #include "../../includes/msh.h"
 
-void parse_whitespaces(t_state *st, t_ast *ptr);
-
 int	arg_count(t_ast **token)
 {
 	int		ac;
@@ -109,10 +107,7 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 	while (ptr)
 	{
 		if (ft_isblank(ptr->value[0]))
-		{
-			// parse_whitespaces(st, ptr);
 			ptr = ptr->right;
-		}
 		else if (ptr->value[0] == '\'')
 		{
 			tmp = ft_strdup("");
@@ -162,6 +157,8 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 {
 	t_ast	*ptr;
+	// char	**args;
+	(void)cmd_lst;
 
 	ptr = *token;
 	(void)st;
@@ -170,7 +167,6 @@ void	interpreter(t_state *st, t_ast **token, t_env *env_lst, t_cmd **cmd_lst)
 		ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
 		return ;
 	}
-	//(*cmd_lst)->args = ft_split(buf, ' ');
 	(*cmd_lst)->args = interpreter_loop(st, token, env_lst);
-	// TODO: split multi commands semicolon in new node cmd_lst
+	// parse_semicolon(args, cmd_lst);
 }

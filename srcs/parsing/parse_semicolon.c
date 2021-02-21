@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_whitespaces.c                                :+:      :+:    :+:   */
+/*   parse_semicolon.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 10:59:18 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/18 12:04:01 by jonny            ###   ########.fr       */
+/*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
+/*   Updated: 2021/02/21 12:37:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-void parse_whitespaces(t_state *st, t_ast *ptr)
+void	parse_semicolon(char **args, t_cmd **cmd_lst)
 {
-	(void)ptr;
-	(void)st;
+	int i = 0;
+	char tmp[BUF_SIZE];
+	(void)cmd_lst;
+
+	ft_bzero(tmp, BUF_SIZE);
+	while (args[i])
+	{
+		ft_strcat(tmp, args[i]);
+		ft_strcat(tmp, " ");
+		i++;
+	}
 }
