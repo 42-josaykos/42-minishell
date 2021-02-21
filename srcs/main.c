@@ -24,10 +24,7 @@ int	get_input(char *input)
 
 	line = ft_readline("minishell $ ");
 	if (line == NULL)
-	{
-		free(line);
 		return (0);
-	}
 	ft_strlcpy(input, line, ft_strlen(line));
 	free(line);
 	return (1);
@@ -78,6 +75,7 @@ void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 
 	while (1)
 	{
+		ft_bzero(input, BUF_SIZE);
 		catch_signal();
 		if (!get_input(input))
 			ft_strlcpy(input, "exit", 5);
