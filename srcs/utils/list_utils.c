@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/17 11:05:11 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/21 22:25:25 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd)
 {
 	t_cmd	*tmp;
 
-	if (*cmd_lst == NULL)
+	if (*cmd_lst == NULL || (*cmd_lst)->args == NULL)
 		*cmd_lst = new_cmd;
 	else
 	{

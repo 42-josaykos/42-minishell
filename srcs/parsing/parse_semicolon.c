@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/21 21:55:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/21 22:52:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,59 @@ bool check_semicolon(char **args)
 	return (false);
 }
 
+int		tab_size(char **tab)
+{
+	int i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
+
 void	init_cmd_lst(t_cmd **cmd_lst, char **args)
 {
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	char *tmp[BUF_SIZE];
+	t_cmd *new_cmd;
 	(void)cmd_lst;
 	(void)args;
+
+	ft_bzero(tmp, BUF_SIZE);
+	while (args[i])
+	{
+		if (args[i][0] == ';')
+		{
+			new_cmd = ft_calloc(1, sizeof(t_cmd));
+			new_cmd->args = ft_calloc(tab_size(args), sizeof(char*));
+			k = 0;
+			while (tmp[k])
+			{
+				new_cmd->args[k] = ft_strdup(tmp[k]);
+				k++;
+			}
+			ft_bzero(tmp, BUF_SIZE);
+			new_cmd->next = NULL;
+			cmd_lst_add(cmd_lst, new_cmd);
+			j = 0;
+			i++;
+			continue ;
+		}
+		tmp[j] = args[i];
+		j++;
+		i++;
+	}
+	new_cmd = ft_calloc(1, sizeof(t_cmd));
+	new_cmd->args = ft_calloc(tab_size(args), sizeof(char*));
+	k = 0;
+	while (tmp[k])
+	{
+		new_cmd->args[k] = ft_strdup(tmp[k]);
+		k++;
+	}
+	ft_bzero(tmp, BUF_SIZE);
+	new_cmd->next = NULL;
+	cmd_lst_add(cmd_lst, new_cmd);
 }
 
 void	parse_semicolon(t_cmd **cmd_lst)
@@ -42,8 +91,8 @@ void	parse_semicolon(t_cmd **cmd_lst)
 			args[i] = ft_strdup((*cmd_lst)->args[i]);
 			i++;
 		}
-		init_cmd_lst(cmd_lst, args);
 		clear_previous_cmd(*cmd_lst, NULL);
+		init_cmd_lst(cmd_lst, args);
 	}
 	i = 0;
 	while (args[i])
