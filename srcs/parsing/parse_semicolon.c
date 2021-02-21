@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/21 22:52:14 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/21 23:32:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_cmd_lst(t_cmd **cmd_lst, char **args)
 	int i = 0;
 	int j = 0;
 	int k = 0;
+	int len = 0;
 	char *tmp[BUF_SIZE];
 	t_cmd *new_cmd;
 	(void)cmd_lst;
@@ -48,13 +49,15 @@ void	init_cmd_lst(t_cmd **cmd_lst, char **args)
 		if (args[i][0] == ';')
 		{
 			new_cmd = ft_calloc(1, sizeof(t_cmd));
-			new_cmd->args = ft_calloc(tab_size(args), sizeof(char*));
+			len = tab_size(tmp);
+			new_cmd->args = ft_calloc(len + 1, sizeof(char*));
 			k = 0;
 			while (tmp[k])
 			{
 				new_cmd->args[k] = ft_strdup(tmp[k]);
 				k++;
 			}
+			new_cmd->args[k] = NULL;
 			ft_bzero(tmp, BUF_SIZE);
 			new_cmd->next = NULL;
 			cmd_lst_add(cmd_lst, new_cmd);
@@ -67,13 +70,14 @@ void	init_cmd_lst(t_cmd **cmd_lst, char **args)
 		i++;
 	}
 	new_cmd = ft_calloc(1, sizeof(t_cmd));
-	new_cmd->args = ft_calloc(tab_size(args), sizeof(char*));
+	new_cmd->args = ft_calloc(tab_size(args) + 1, sizeof(char*));
 	k = 0;
 	while (tmp[k])
 	{
 		new_cmd->args[k] = ft_strdup(tmp[k]);
 		k++;
 	}
+	new_cmd->args[k] = NULL;
 	ft_bzero(tmp, BUF_SIZE);
 	new_cmd->next = NULL;
 	cmd_lst_add(cmd_lst, new_cmd);

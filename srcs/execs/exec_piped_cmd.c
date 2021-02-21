@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/17 19:22:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/21 23:20:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 	piped_cmd = NULL;
 	len = 0;
 	ft_bzero(buffer, BUF_SIZE);
-	while (args[i])
+	while (args[i] && ft_strlen(args[i]))
 	{
 		ft_strcat(buffer, args[i]);
 		ft_strcat(buffer, " ");
