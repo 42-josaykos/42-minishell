@@ -86,7 +86,6 @@ void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 			free(env);
 			parse_cmdline(status, env_lst, cmd_lst, input);
 			free_2darray(status->envp);
-			clear_previous_cmd(cmd_lst, status);
 		}
 	}
 }

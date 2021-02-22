@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/22 12:13:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/22 12:15:32 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_ast	*parse_args(char *input)
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	t_ast	*token;
+	t_cmd	*tmp;
 
 	if (!test_quotes(input))
 		return ;
@@ -87,5 +88,12 @@ void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 		free_ast(&token);
 		if (cmd_lst->args && *cmd_lst->args && !is_empty(*cmd_lst->args))
 			cmd_handler(st, env_lst, cmd_lst);
+		while (cmd_lst)
+		{
+			tmp = cmd_lst->next;
+			free_2darray(cmd_lst->args);
+			free(cmd_lst);
+			cmd_lst = tmp;
+		}
 	}
 }
