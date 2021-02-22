@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/21 13:30:23 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/22 12:09:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ void	print_env_lst(char **envp);
 void	ast_init(t_ast **token, char **buffer);
 void	free_ast(t_ast **token);
 char	*get_next_token(char *input, int *pos);
-void	interpreter(t_state *s, t_ast **token, t_env *env_lst, t_cmd **cmd_lst);
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 int		file_exists(char *filename);
 bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
@@ -141,5 +140,6 @@ void	parse_pipe(char *str, t_cmd **cmd_lst);
 int		ft_isblank(int c);
 bool	check_pipe(char **str);
 void	parse_semicolon(t_cmd **cmd_lst);
+char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst);
 
 #endif
