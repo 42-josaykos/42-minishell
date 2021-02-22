@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 17:11:44 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/22 15:43:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char			*cmd;
 	enum e_builtin	ret;
+	t_cmd *ptr;
 
-	while (cmd_lst && *cmd_lst->args)
+	ptr = cmd_lst;
+	while (ptr && *ptr->args)
 	{
-		cmd = *cmd_lst->args;
-		if (st->has_pipe || check_pipe(cmd_lst->args))
+		cmd = *ptr->args;
+		if (st->has_pipe || check_pipe(ptr->args))
 		{
-			has_piped_cmd(st, env_lst, cmd_lst->args);
+			has_piped_cmd(st, env_lst, ptr->args);
 		}
 		else
 		{
-			ret = is_builtin(*cmd_lst->args);
+			ret = is_builtin(*ptr->args);
 			if (ret)
-				exec_builtin(ret, st, env_lst, cmd_lst);
-			else if (filepath_exists(env_lst, cmd_lst))
+				exec_builtin(ret, st, env_lst, ptr);
+			else if (filepath_exists(env_lst, ptr))
 			{
-				exec_cmd(st->envp, cmd_lst->args);
+				exec_cmd(st->envp, ptr->args);
 			}
 			else
 			{
@@ -55,6 +57,6 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 				ft_putstr_fd(" : command not found\n", STDERR);
 			}
 		}
-		cmd_lst = cmd_lst->next;
+		ptr = ptr->next;
 	}
 }

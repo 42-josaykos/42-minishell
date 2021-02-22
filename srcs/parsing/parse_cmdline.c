@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/22 14:12:40 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/22 15:46:46 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,25 @@ t_ast	*parse_args(char *input)
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	t_ast	*token;
-	// t_cmd	*tmp;
+	int ret;
 
 	if (!test_quotes(input))
 		return ;
 	token = parse_args(input);
 	if (token != NULL)
 	{
-		(void)st;
 		if (!ft_strncmp(token->value, ";", 2))
 		{
 			ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
 			return ;
 		}
 		cmd_lst->args = interpreter_loop(st, &token, env_lst);
-		parse_semicolon(&cmd_lst);
+		ret = parse_semicolon(&cmd_lst);
 		free_ast(&token);
 		if (cmd_lst->args && *cmd_lst->args && !is_empty(*cmd_lst->args))
 			cmd_handler(st, env_lst, cmd_lst);
 		clear_previous_cmd(cmd_lst, NULL);
+		if (ret)
+			free(cmd_lst);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/22 12:13:39 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/22 15:45:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	init_cmd_lst(t_cmd **cmd_lst, char **args)
 	cmd_lst_add(cmd_lst, new_cmd);
 }
 
-void	parse_semicolon(t_cmd **cmd_lst)
+int	parse_semicolon(t_cmd **cmd_lst)
 {
 	int i = 0;
 	char *args[BUF_SIZE];
@@ -97,11 +97,13 @@ void	parse_semicolon(t_cmd **cmd_lst)
 		}
 		clear_previous_cmd(*cmd_lst, NULL);
 		init_cmd_lst(cmd_lst, args);
+		i = 0;
+		while (args[i])
+		{
+			free(args[i]);
+			i++;
+		}
+		return (1);
 	}
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		i++;
-	}
+	return (0);
 }
