@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/21 23:20:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 11:53:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,19 @@ static void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst)
 
 void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
 {
-	int		i;
 	char	buffer[BUF_SIZE];
 	t_cmd	*piped_cmd;
 	t_cmd	*ptr;
 	int		len;
 
-	i = 0;
 	piped_cmd = NULL;
 	len = 0;
 	ft_bzero(buffer, BUF_SIZE);
-	while (args[i] && ft_strlen(args[i]))
+	while (*args && ft_strlen(*args))
 	{
-		ft_strcat(buffer, args[i]);
+		ft_strcat(buffer, *args);
 		ft_strcat(buffer, " ");
-		i++;
+		args++;
 	}
 	parse_pipe(buffer, &piped_cmd);
 	len = cmd_lst_size(piped_cmd);

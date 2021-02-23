@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 11:11:36 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 12:00:36 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,7 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 			else if (filepath_exists(env_lst, ptr))
 				exec_cmd(st->envp, ptr->args);
 			else
-			{
-				ft_putstr_fd("minishell: ", STDERR);
-				ft_putstr_fd(cmd, STDERR);
-				ft_putstr_fd(" : command not found\n", STDERR);
-			}
+				error_cmd(cmd);
 		}
 		ptr = ptr->next;
 	}

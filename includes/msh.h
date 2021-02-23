@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 11:14:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 11:59:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		cd(char *arg, t_env *env_lst);
 int		echo(char **arg, t_env *env_lst, int fd);
 void	print_cwd(void);
 void	*export_env(t_env **env_lst, char *key, char *value);
+int		exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 /*
 ** init_env_lst.c
@@ -119,13 +120,13 @@ bool	is_empty(char *str);
 
 void	error_cases(int errnum, char *cmd, char *arg);
 void	error_quotes(void);
+void	error_cmd(char *cmd);
 
 /*
 **
 */
 
 char	*ft_readline(char *prompt);
-int		exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 void	print_env_lst(char **envp);
 void	ast_init(t_ast **token, char **buffer);
 void	free_ast(t_ast **token);
