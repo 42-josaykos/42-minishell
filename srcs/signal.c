@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:26:25 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 17:07:18 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 17:19:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ void	sig_int(void)
 {
 	if (g_sig.pid == 0)
 	{
-		// ft_printf("%s%s%s", BOLD_GREEN, "\nminishell $ ", RESET);
-		// ft_putstr_fd("SIGINT catched\n", STDERR);
+		ft_putstr_fd("\n", STDERR);
 		g_sig.exit_status = 1;
 	}
 	else
 	{
 		ft_putstr_fd("\n", STDERR);
-		// ft_putstr_fd("minishell $ \n", STDERR);
 		g_sig.exit_status = 130;
 	}
 	g_sig.sigint = 1;
@@ -40,9 +38,9 @@ void	sig_int(void)
 void	sig_quit(int code)
 {
 	(void)code;
-
 	if (g_sig.pid != 0)
 	{
+		ft_putstr_fd("Quit\n", STDERR);
 		g_sig.exit_status = 131;
 		g_sig.sigquit = 1;
 	}

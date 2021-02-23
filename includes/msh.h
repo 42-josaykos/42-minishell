@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 16:41:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 17:20:01 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-typedef struct	s_sig
+typedef struct s_sig
 {
 	int		sigint;
 	int		sigquit;
@@ -79,7 +79,7 @@ typedef struct	s_sig
 	pid_t	pid;
 }				t_sig;
 
-extern	t_sig g_sig;
+extern t_sig	g_sig;
 
 void	sig_init(void);
 void	handle_signal(int signal);

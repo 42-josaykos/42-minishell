@@ -25,7 +25,7 @@ int	get_input(char *input)
 {
 	char	*line;
 
-	line = ft_readline("minishell $ ");
+	line = ft_readline("minishell ❯ ");
 	if (line == NULL)
 		return (0);
 	ft_strlcpy(input, line, ft_strlen(line));
