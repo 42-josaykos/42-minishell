@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 12:00:36 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 15:37:45 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-static void	exec_cmd(char **envp, char **args)
+static void	exec_cmd(t_state *st, char **args)
 {
 	pid_t	p1;
 
@@ -21,10 +21,10 @@ static void	exec_cmd(char **envp, char **args)
 		exit(-1);
 	if (p1 == 0)
 	{
-		execve(*args, args, envp);
+		execve(*args, args, st->envp);
 		exit(0);
 	}
-	wait(NULL);
+	waitpid(p1, &st->code, 0);
 }
 
 void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
@@ -45,7 +45,7 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 			if (ret)
 				exec_builtin(ret, st, env_lst, ptr);
 			else if (filepath_exists(env_lst, ptr))
-				exec_cmd(st->envp, ptr->args);
+				exec_cmd(st, ptr->args);
 			else
 				error_cmd(cmd);
 		}
