@@ -17,7 +17,6 @@ t_sig	g_sig;
 void	init_msh(t_env **env_lst, char **envp)
 {
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
-	sig_init();
 	init_env(env_lst, envp);
 }
 
@@ -71,13 +70,15 @@ char	*concat_env(t_env *env_lst)
 ** then split in an array of strings, envp.
 */
 
-void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
+void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	input[BUF_SIZE];
 	char	*env;
+	int		exit_status;
 
 	while (1)
 	{
+		sig_init();
 		ft_bzero(input, BUF_SIZE);
 		catch_signal();
 		if (!get_input(input))
@@ -85,10 +86,12 @@ void	main_loop(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 		if (!is_empty(input))
 		{
 			env = concat_env(env_lst);
-			status->envp = ft_split(env, '\n');
+			st->envp = ft_split(env, '\n');
 			free(env);
-			parse_cmdline(status, env_lst, cmd_lst, input);
-			free_2darray(status->envp);
+			parse_cmdline(st, env_lst, cmd_lst, input);
+			waitpid(-1, &exit_status, 0);
+			g_sig.exit_status = WEXITSTATUS(exit_status);
+			free_2darray(st->envp);
 		}
 	}
 }

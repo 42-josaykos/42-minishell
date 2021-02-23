@@ -6,25 +6,26 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 15:37:45 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 17:47:54 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
+#include <stdlib.h>
 
 static void	exec_cmd(t_state *st, char **args)
 {
-	pid_t	p1;
-
-	p1 = 0;
-	if (create_fork(&p1) < 0 )
-		exit(-1);
-	if (p1 == 0)
+	if (create_fork(&g_sig.pid) < 0 )
+		exit(EXIT_FAILURE);
+	if (g_sig.pid == 0)
 	{
 		execve(*args, args, st->envp);
-		exit(0);
+		if (g_sig.sigint || g_sig.sigquit)
+			exit(g_sig.exit_status);
+		exit(EXIT_SUCCESS);
 	}
-	waitpid(p1, &st->code, 0);
+	else
+		waitpid(g_sig.pid, &g_sig.exit_status, 0);
 }
 
 void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
