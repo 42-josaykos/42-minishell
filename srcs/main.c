@@ -12,9 +12,12 @@
 
 #include "../includes/msh.h"
 
+t_sig	g_sig;
+
 void	init_msh(t_env **env_lst, char **envp)
 {
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
+	sig_init();
 	init_env(env_lst, envp);
 }
 

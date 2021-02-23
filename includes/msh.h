@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 11:59:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 16:41:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <sys/stat.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
-# include "signal_handler.h"
 # include "colors.h"
 
 # define BUF_SIZE 2048
@@ -71,6 +70,20 @@ typedef struct s_cmd
 	char			**args;
 	struct s_cmd	*next;
 }	t_cmd;
+
+typedef struct	s_sig
+{
+	int		sigint;
+	int		sigquit;
+	int		exit_status;
+	pid_t	pid;
+}				t_sig;
+
+extern	t_sig g_sig;
+
+void	sig_init(void);
+void	handle_signal(int signal);
+void	catch_signal(void);
 
 /*
 ** builtins
