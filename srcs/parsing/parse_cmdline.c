@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/22 15:46:46 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 11:04:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,9 @@ t_ast	*parse_args(char *input)
 		while (input[pos])
 		{
 			buffer[i] = get_next_token(input, &pos);
-		//	 printf("tokens[%d] = \"%s\"\n", i, buffer[i]);
 			i++;
 		}
 		ast_init(&token, buffer);
-		// for(t_ast *ptr = token; ptr != NULL ; ptr = ptr->right)
-		// 	printf("token = \"%s\"\n", ptr->value);
 	}
 	return (token);
 }
@@ -70,7 +67,7 @@ t_ast	*parse_args(char *input)
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	t_ast	*token;
-	int ret;
+	int		ret;
 
 	if (!test_quotes(input))
 		return ;
@@ -79,7 +76,9 @@ void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	{
 		if (!ft_strncmp(token->value, ";", 2))
 		{
-			ft_putstr_fd("bash: syntax error near unexpected token `;'\n", STDERR);
+			ft_putstr_fd("msh: syntax error near unexpected token `;'", STDERR);
+			write(STDERR, "\n", 1);
+			free_ast(&token);
 			return ;
 		}
 		cmd_lst->args = interpreter_loop(st, &token, env_lst);
