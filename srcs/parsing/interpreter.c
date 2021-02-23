@@ -33,8 +33,6 @@ int	arg_count(t_ast **token)
 			if (test % 2)
 				ac++;
 			test++;
-			// while (ptr->value && ptr->value[0] != '\"')
-			// 	ptr = ptr->right;
 			 ptr = ptr->right;
 		}
 		else if (ptr->value[0] == '$')
@@ -55,13 +53,12 @@ int	arg_count(t_ast **token)
 			ptr = ptr->right;
 		}
 	}
-//	printf("%d\n", ac);
 	return (ac);
 }
 
-void handle_dquotes(t_ast **ptr, t_state *st, char **arg)
+void	handle_dquotes(t_ast **ptr, t_state *st, char **arg)
 {
-	char buffer[BUF_SIZE];
+	char	buffer[BUF_SIZE];
 
 	ft_bzero(buffer, BUF_SIZE);
 	while (*ptr)
@@ -91,7 +88,7 @@ void handle_dquotes(t_ast **ptr, t_state *st, char **arg)
 	}
 }
 
-char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
+char	**interpreter_loop(t_state *st, t_ast **token, t_env *env_lst)
 {
 	int		ac;
 	int		i;
@@ -99,6 +96,7 @@ char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst)
 	char	*tmp;
 	char	**args;
 	t_ast	*ptr;
+
 	test = 0;
 	i = 0;
 	ptr = *token;

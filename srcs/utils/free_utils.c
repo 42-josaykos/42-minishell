@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:28:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/21 21:23:32 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 11:13:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,6 @@ void	free_env_lst(t_env **env_lst)
 		ptr_lst = temp;
 	}
 	*env_lst = NULL;
-}
-
-void	free_cmd_lst(t_cmd **cmd_lst)
-{
-	t_cmd	*ptr_lst;
-	t_cmd	*temp;
-
-	ptr_lst = *cmd_lst;
-	while (*cmd_lst)
-	{
-		temp = ptr_lst->next;
-		free(ptr_lst);
-		ptr_lst = temp;
-	}
-	*cmd_lst = NULL;
 }
 
 /*

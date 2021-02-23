@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/22 15:44:57 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 11:14:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 void	env_lst_add(t_env **env_lst, t_env *new_env);
 void	env_lst_remove(t_env *env_lst, char *key);
 void	free_env_lst(t_env **env_lst);
-void	free_cmd_lst(t_cmd **cmd_lst);
 void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st);
 char	*get_env(t_env *env_lst, char *key);
 void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
@@ -139,7 +138,7 @@ void	has_piped_cmd(t_state *status, t_env *env_lst, char **args);
 void	parse_pipe(char *str, t_cmd **cmd_lst);
 int		ft_isblank(int c);
 bool	check_pipe(char **str);
-int	parse_semicolon(t_cmd **cmd_lst);
-char	**interpreter_loop(t_state *st,t_ast **token, t_env *env_lst);
+int		parse_semicolon(t_cmd **cmd_lst);
+char	**interpreter_loop(t_state *st, t_ast **token, t_env *env_lst);
 
 #endif
