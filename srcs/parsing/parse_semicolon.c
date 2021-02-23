@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 10:59:35 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/23 11:38:40 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,44 +36,14 @@ static int	tab_size(char **tab)
 	return (i);
 }
 
-void	init_cmd_lst(t_cmd **cmd_lst, char **args)
+static void	create_new_cmd(t_cmd **cmd_lst, char **tmp)
 {
-	int		i;
-	int		j;
-	int		k;
-	char	*tmp[BUF_SIZE];
 	t_cmd	*new_cmd;
+	int		k;
 
-	i = 0;
-	j = 0;
 	k = 0;
-	ft_bzero(tmp, BUF_SIZE);
-	while (args[i])
-	{
-		if (args[i][0] == ';')
-		{
-			new_cmd = ft_calloc(1, sizeof(t_cmd));
-			new_cmd->args = ft_calloc(tab_size(tmp) + 1, sizeof(char*));
-			k = 0;
-			while (tmp[k])
-			{
-				new_cmd->args[k] = ft_strdup(tmp[k]);
-				k++;
-			}
-			new_cmd->args[k] = NULL;
-			ft_bzero(tmp, BUF_SIZE);
-			new_cmd->next = NULL;
-			cmd_lst_add(cmd_lst, new_cmd);
-			j = 0;
-			i++;
-			continue ;
-		}
-		tmp[j] = args[i];
-		j++;
-		i++;
-	}
 	new_cmd = ft_calloc(1, sizeof(t_cmd));
-	new_cmd->args = ft_calloc(tab_size(args) + 1, sizeof(char*));
+	new_cmd->args = ft_calloc(tab_size(tmp) + 1, sizeof(char*));
 	k = 0;
 	while (tmp[k])
 	{
@@ -84,6 +54,31 @@ void	init_cmd_lst(t_cmd **cmd_lst, char **args)
 	ft_bzero(tmp, BUF_SIZE);
 	new_cmd->next = NULL;
 	cmd_lst_add(cmd_lst, new_cmd);
+}
+
+static void	init_cmd_lst(t_cmd **cmd_lst, char **args)
+{
+	int		i;
+	int		j;
+	char	*tmp[BUF_SIZE];
+
+	i = 0;
+	j = 0;
+	ft_bzero(tmp, BUF_SIZE);
+	while (args[i])
+	{
+		if (args[i][0] == ';')
+		{
+			create_new_cmd(cmd_lst, tmp);
+			j = 0;
+			i++;
+			continue ;
+		}
+		tmp[j] = args[i];
+		j++;
+		i++;
+	}
+	create_new_cmd(cmd_lst, tmp);
 }
 
 int	parse_semicolon(t_cmd **cmd_lst)
