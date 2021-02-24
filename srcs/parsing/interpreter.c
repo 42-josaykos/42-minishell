@@ -56,7 +56,7 @@ int	arg_count(t_ast **token)
 	return (ac);
 }
 
-void	handle_dquotes(t_ast **ptr, t_state *st, char **arg)
+void	handle_dquotes(t_ast **ptr, t_state *st, t_env *env_lst, char **arg)
 {
 	char	buffer[BUF_SIZE];
 
@@ -80,7 +80,13 @@ void	handle_dquotes(t_ast **ptr, t_state *st, char **arg)
 			continue ;
 		else if (*ptr)
 		{
-			ft_strcat(buffer, (*ptr)->value);
+			if (*ptr && (*ptr)->value[0] == '$')
+			{
+				*ptr = (*ptr)->right;
+				ft_strcat(buffer, get_env(env_lst, (*ptr)->value));
+			}
+			else
+				ft_strcat(buffer, (*ptr)->value);
 			*ptr = (*ptr)->right;
 			if (!(*ptr))
 				*arg = ft_strdup(buffer);
@@ -123,13 +129,18 @@ char	**interpreter_loop(t_state *st, t_ast **token, t_env *env_lst)
 		}
 		else if (ptr->value[0] == '\"')
 		{
-			handle_dquotes(&ptr, st, &args[i]);
+			handle_dquotes(&ptr, st, env_lst, &args[i]);
 			i++;
 		}
 		else if (ptr && ptr->value[0] == '$')
 		{
 			ptr = ptr->right;
-			if (get_env(env_lst, ptr->value))
+			if (ptr && ptr->value[0] == '?')
+			{
+				args[i] = ft_itoa(g_sig.exit_status);
+				i++;
+			}
+			else if (get_env(env_lst, ptr->value))
 			{	
 				args[i] = ft_strdup(get_env(env_lst, ptr->value));
 				i++;
