@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 17:17:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/24 11:12:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ char	*ft_readline(char *prompt)
 
 	ret = 0;
 	str = NULL;
+	ft_putstr_fd(GREEN, STDERR);
 	ft_putstr_fd(prompt, STDERR);
+	ft_putstr_fd(RESET, STDERR);
 	ft_bzero(tmp, BUF_SIZE);
 	while (1)
 	{

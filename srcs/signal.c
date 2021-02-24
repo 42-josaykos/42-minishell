@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:26:25 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/24 10:53:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/24 11:12:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	sig_int(void)
 {
 	if (g_sig.pid == 0)
 	{
+		ft_putstr_fd(GREEN, STDERR);
 		ft_putstr_fd("\nminishell ❯ ", STDERR);
+		ft_putstr_fd(RESET, STDERR);
 		g_sig.exit_status = 1;
 	}
 	else
