@@ -6,26 +6,34 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 17:47:54 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/24 09:57:49 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 
 static void	exec_cmd(t_state *st, char **args)
 {
 	if (create_fork(&g_sig.pid) < 0 )
 		exit(EXIT_FAILURE);
+	printf("pid before fork = %d\n", g_sig.pid);
+	printf("st->code = %d\n", st->code);
 	if (g_sig.pid == 0)
 	{
+		printf("pid in fork = %d\n", g_sig.pid);
 		execve(*args, args, st->envp);
-		if (g_sig.sigint || g_sig.sigquit)
+		if (g_sig.sigint)
 			exit(g_sig.exit_status);
-		exit(EXIT_SUCCESS);
+		else
+			exit(EXIT_SUCCESS);
 	}
 	else
-		waitpid(g_sig.pid, &g_sig.exit_status, 0);
+		waitpid(g_sig.pid, &st->code, WEXITSTATUS(st->code));
+	printf("st->code = %d\n", st->code);
+	printf("g_sig.exit_status = %d\n", g_sig.exit_status);
 }
 
 void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)

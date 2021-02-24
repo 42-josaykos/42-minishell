@@ -74,7 +74,6 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	input[BUF_SIZE];
 	char	*env;
-	int		exit_status;
 
 	while (1)
 	{
@@ -89,8 +88,6 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 			st->envp = ft_split(env, '\n');
 			free(env);
 			parse_cmdline(st, env_lst, cmd_lst, input);
-			waitpid(-1, &exit_status, 0);
-			g_sig.exit_status = WEXITSTATUS(exit_status);
 			free_2darray(st->envp);
 		}
 	}
