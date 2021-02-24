@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:26:25 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 17:19:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/24 10:53:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sig_int(void)
 {
 	if (g_sig.pid == 0)
 	{
-		ft_putstr_fd("\n", STDERR);
+		ft_putstr_fd("\nminishell ❯ ", STDERR);
 		g_sig.exit_status = 1;
 	}
 	else
@@ -35,9 +35,8 @@ void	sig_int(void)
 	g_sig.sigint = 1;
 }
 
-void	sig_quit(int code)
+void	sig_quit(void)
 {
-	(void)code;
 	if (g_sig.pid != 0)
 	{
 		ft_putstr_fd("Quit\n", STDERR);
@@ -53,7 +52,7 @@ void	handle_signal(int signal)
 	if (signal == SIGINT)
 		sig_int();
 	if (signal == SIGQUIT)
-		sig_quit(signal);
+		sig_quit();
 }
 
 void	catch_signal(void)

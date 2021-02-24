@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/24 09:57:49 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/24 10:40:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,18 @@ static void	exec_cmd(t_state *st, char **args)
 {
 	if (create_fork(&g_sig.pid) < 0 )
 		exit(EXIT_FAILURE);
-	printf("pid before fork = %d\n", g_sig.pid);
-	printf("st->code = %d\n", st->code);
 	if (g_sig.pid == 0)
 	{
-		printf("pid in fork = %d\n", g_sig.pid);
 		execve(*args, args, st->envp);
-		if (g_sig.sigint)
+		if (g_sig.sigint || g_sig.sigquit)
 			exit(g_sig.exit_status);
 		else
 			exit(EXIT_SUCCESS);
 	}
 	else
 		waitpid(g_sig.pid, &st->code, WEXITSTATUS(st->code));
-	printf("st->code = %d\n", st->code);
-	printf("g_sig.exit_status = %d\n", g_sig.exit_status);
+	// printf("st->code = %d\n", st->code);
+	// printf("g_sig.exit_status = %d\n", g_sig.exit_status);
 }
 
 void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
@@ -43,7 +40,8 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 	t_cmd			*ptr;
 
 	ptr = cmd_lst;
-	while (ptr && *ptr->args)
+	sig_init();
+	while (ptr && *ptr->args && g_sig.sigint == 0)
 	{
 		cmd = *ptr->args;
 		if (st->has_pipe || check_pipe(ptr->args))
@@ -59,5 +57,7 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 				error_cmd(cmd);
 		}
 		ptr = ptr->next;
+		if (ptr != NULL && g_sig.sigint == 0)
+			sig_init();
 	}
 }

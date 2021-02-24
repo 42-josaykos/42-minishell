@@ -17,6 +17,7 @@ t_sig	g_sig;
 void	init_msh(t_env **env_lst, char **envp)
 {
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
+	sig_init();
 	init_env(env_lst, envp);
 }
 
@@ -77,7 +78,6 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 
 	while (1)
 	{
-		sig_init();
 		ft_bzero(input, BUF_SIZE);
 		catch_signal();
 		if (!get_input(input))
@@ -89,6 +89,9 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 			free(env);
 			parse_cmdline(st, env_lst, cmd_lst, input);
 			free_2darray(st->envp);
+			g_sig.sigint = 0;
+			g_sig.sigquit = 0;
+			g_sig.pid = 0;
 		}
 	}
 }
