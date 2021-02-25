@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 12:21:19 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 11:09:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 15:51:07 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	echo(char **arg, t_env *env_lst, int fd)
 {
 	int		i;
 	int		isn;
+	(void)fd;
 
 	(void)env_lst;
 	isn = 0;
@@ -31,6 +32,6 @@ int	echo(char **arg, t_env *env_lst, int fd)
 		i++;
 	}
 	if (!isn)
-		write (fd, "\n", 1);
+		write (1, "\n", 1);
 	return (0);
 }

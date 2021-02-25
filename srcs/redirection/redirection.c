@@ -35,7 +35,6 @@ void parse_redirection(t_state *st, char **args)
 
 void	redir(t_state *st, char **args)
 {
-	ft_close(st->fdout);
 	if (*args[0] == '>')
 	{
 		args++;
@@ -55,6 +54,7 @@ void	redir(t_state *st, char **args)
 		return ;
 	}
 	dup2(st->fdout, STDOUT);
+	ft_close(st->fdout);
 }
 
 /*
@@ -63,7 +63,6 @@ void	redir(t_state *st, char **args)
 
 void	input(t_state *st, char **args)
 {
-	ft_close(st->fdin);
 	st->fdin = open(*args, O_RDONLY, S_IRWXU);
 	if (st->fdin == -1)
 	{
@@ -74,6 +73,7 @@ void	input(t_state *st, char **args)
 		return ;
 	}
 	dup2(st->fdin, STDIN);
+	ft_close(st->fdin);
 }
 
 void    init_fds(t_state **st)
