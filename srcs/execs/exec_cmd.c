@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/24 14:00:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 11:20:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void	exec_cmd(t_state *st, char **args)
 			exit(EXIT_SUCCESS);
 	}
 	else
-		waitpid(g_sig.pid, &st->code, WEXITSTATUS(st->code));
-	// printf("st->code = %d\n", st->code);
-	// printf("g_sig.exit_status = %d\n", g_sig.exit_status);
+		waitpid(g_sig.pid, &st->code, 0);
+	printf("st->code = %d\n", st->code);
+	printf("g_sig.exit_status = %d\n", g_sig.exit_status);
 }
 
 void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)

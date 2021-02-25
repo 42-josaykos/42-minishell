@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 11:53:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 11:22:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	exec_last_process(t_state *status, int in, t_cmd *cmd_lst)
 	}
 }
 
-static int	exec_process(t_state *status, int in, int out, t_cmd *cmd_lst)
+static int	exec_process(t_state *st, int in, int out, t_cmd *cmd_lst)
 {
 	pid_t	pid;
 
@@ -44,39 +44,42 @@ static int	exec_process(t_state *status, int in, int out, t_cmd *cmd_lst)
 			dup2(out, STDOUT_FILENO);
 			close(out);
 		}
-		execve(*cmd_lst->args, cmd_lst->args, status->envp);
-		exit(0);
+		execve(*cmd_lst->args, cmd_lst->args, st->envp);
+		if (g_sig.sigint || g_sig.sigquit)
+			exit(g_sig.exit_status);
+		else
+			exit(EXIT_SUCCESS);
 	}
-	waitpid(pid, &status->code, 0);
+	waitpid(pid, &st->code, 0);
 	return (pid);
 }
 
-static void	fork_pipes (t_state *status, int n, t_cmd *cmd_lst)
+static void	fork_pipes (t_state *st, int n, t_cmd *cmd_lst)
 {
 	int		in;
 	int		fd[2];
-	pid_t	pid;
-	pid_t	last_process;
 
-	last_process = 0;
-	if (create_fork(&last_process) < 0 )
-		exit(-1);
-	if (last_process == 0)
+	if (create_fork(&g_sig.pid) < 0 )
+		exit(EXIT_FAILURE);
+	if (g_sig.pid == 0)
 	{
 		in = STDIN_FILENO;
 		while (n - 1 > 0)
 		{
 			pipe(fd);
-			pid = exec_process(status, in, fd[1], cmd_lst);
+			exec_process(st, in, fd[1], cmd_lst);
 			close(fd[1]);
 			in = fd[0];
 			n--;
 			cmd_lst = cmd_lst->next;
 		}
-		exec_last_process(status, in, cmd_lst);
-		exit(0);
+		exec_last_process(st, in, cmd_lst);
+		if (g_sig.sigint || g_sig.sigquit)
+			exit(g_sig.exit_status);
+		else
+			exit(EXIT_SUCCESS);
 	}
-	waitpid(last_process, &status->code, 0);
+	waitpid(g_sig.pid, &st->code, 0);
 }
 
 void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
