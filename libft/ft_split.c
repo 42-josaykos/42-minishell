@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:47:07 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 15:53:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 10:36:08 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**ft_memfree(char const **tab, int j)
 	while (j > 0)
 	{
 		j--;
-		free((void*)tab[j]);
+		free((void *)tab[j]);
 	}
 	free(tab);
 	return (NULL);
@@ -92,7 +92,7 @@ char	**ft_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	wc = ft_count_words(s, c);
-	tab = malloc(sizeof(char*) * (wc + 1));
+	tab = malloc(sizeof(char *) * (wc + 1));
 	if (tab == NULL)
 		return (NULL);
 	return (ft_splitstr(s, tab, c, wc));

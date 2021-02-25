@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 11:38:40 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 10:34:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	create_new_cmd(t_cmd **cmd_lst, char **tmp)
 
 	k = 0;
 	new_cmd = ft_calloc(1, sizeof(t_cmd));
-	new_cmd->args = ft_calloc(tab_size(tmp) + 1, sizeof(char*));
+	new_cmd->args = ft_calloc(tab_size(tmp) + 1, sizeof(char *));
 	k = 0;
 	while (tmp[k])
 	{

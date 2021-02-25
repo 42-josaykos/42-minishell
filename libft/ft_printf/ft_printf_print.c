@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_print.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 23:03:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 16:19:43 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 10:35:43 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_str(va_list params, t_specs *specs, int *ret)
 	int		len;
 
 	len = 0;
-	str = va_arg(params, char*);
+	str = va_arg(params, char *);
 	if (!str)
 		str = "(null)";
 	while ((len < specs->precision || specs->precision == -1) && str[len])
@@ -68,7 +68,7 @@ void	print_pointer(va_list params, t_specs *specs, int *ret)
 	char		*str;
 
 	len = 0;
-	nb = (long int)va_arg(params, void*);
+	nb = (long int)va_arg(params, void *);
 	str = itoa_base(nb, 16, "0123456789abcdef");
 	if (str[0] == '0' && specs->precision != -1)
 		str[0] = '\0';

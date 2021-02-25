@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:28:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/23 11:13:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 10:33:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**free_2darray(char **tab)
 	i = 0;
 	while (tab && tab[i])
 	{
-		free((void*)tab[i]);
+		free((void *)tab[i]);
 		tab[i] = NULL;
 		i++;
 	}

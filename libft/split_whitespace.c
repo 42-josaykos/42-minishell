@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 11:49:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/11 16:23:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 10:37:35 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**ft_memfree(char const **tab, int j)
 	while (j > 0)
 	{
 		j--;
-		free((void*)tab[j]);
+		free((void *)tab[j]);
 	}
 	free(tab);
 	return (NULL);
@@ -92,7 +92,7 @@ char	**split_whitespace(char const *s)
 	if (s == NULL)
 		return (NULL);
 	wc = ft_count_words(s);
-	tab = malloc(sizeof(char*) * (wc + 1));
+	tab = malloc(sizeof(char *) * (wc + 1));
 	if (tab == NULL)
 		return (NULL);
 	return (ft_splitstr(s, tab, wc));

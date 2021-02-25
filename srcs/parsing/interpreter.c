@@ -107,7 +107,7 @@ char	**interpreter_loop(t_state *st, t_ast **token, t_env *env_lst)
 	i = 0;
 	ptr = *token;
 	ac = arg_count(token);
-	args = calloc(sizeof(char*), (ac + 1));
+	args = calloc(sizeof(char *), (ac + 1));
 	while (ptr)
 	{
 		if (ft_isblank(ptr->value[0]))
