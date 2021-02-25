@@ -22,9 +22,16 @@ void parse_redirection(t_state *st, char **args)
 {
 	if (has_redirection(args))
 	{
+		st->redir = 1;
 		while (*args[0] != '>')
 			args++;
 		redir(st, args);
+		while (*args)
+		{
+			free(*args);
+			*args = NULL;
+			args++;
+		}
 	}
 	return ;
 }
