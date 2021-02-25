@@ -1,2 +1,3 @@
 $> ls -l | grep libft; echo "hello    my friend      !";ls
 $> echo "hello     my friend   !"; ls -l | grep lib; whoami  (check whitespaces after dquotes in last echo arg)
+$> ls > sortie.txt | echo yes | grep s
