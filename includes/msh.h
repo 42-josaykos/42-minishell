@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/25 12:26:07 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 15:08:01 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_state
 	bool	has_semicolon;
 	bool	has_pipe;
 	int		dbl_quotes;
+	int		redir;
 	int		fdin;
 	int		fdout;
 	int		in;
@@ -86,6 +87,9 @@ typedef struct s_sig
 extern t_sig	g_sig;
 
 void    init_fds(t_state **st);
+void	reset_std(t_state *st);
+void	close_fds(t_state *st);
+void	ft_close(int fd);
 
 void	sig_init(void);
 void	handle_signal(int signal);

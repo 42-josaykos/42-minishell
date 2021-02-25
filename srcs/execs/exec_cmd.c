@@ -6,14 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/25 11:42:05 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/25 15:14:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/wait.h>
+
+void parse_redirection(t_state *st, char **args);
 
 static void	exec_cmd(t_state *st, char **args)
 {
@@ -48,6 +47,7 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 			has_piped_cmd(st, env_lst, ptr->args);
 		else
 		{
+			parse_redirection(st, ptr->args);
 			ret = is_builtin(*ptr->args);
 			if (ret)
 				exec_builtin(ret, st, env_lst, ptr);
@@ -57,6 +57,9 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 				error_cmd(cmd);
 		}
 		ptr = ptr->next;
+		reset_std(st);
+		close_fds(st);
+		init_fds(&st);
 		if (ptr != NULL && g_sig.sigint == 0)
 			sig_init();
 	}
