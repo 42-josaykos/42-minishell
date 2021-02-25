@@ -14,11 +14,14 @@
 
 t_sig	g_sig;
 
-void	init_msh(t_env **env_lst, char **envp)
+void	init_msh(t_state **st, t_env **env_lst, char **envp)
 {
-	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
+	(*st)->in = dup(STDIN);
+	(*st)->out = dup(STDOUT);
+	init_fds(st);
 	sig_init();
 	init_env(env_lst, envp);
+	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
 }
 
 int	get_input(char *input)
@@ -100,19 +103,18 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_env	*env_lst;
 	t_cmd	*cmd_lst;
-	t_state	*status;
+	t_state	*st;
 
 	(void)argv;
 	env_lst = NULL;
 	cmd_lst = NULL;
-	status = NULL;
+	st = NULL;
 	if (argc < 2)
 	{
-		init_msh(&env_lst, envp);
 		cmd_lst = ft_calloc(1, sizeof(t_cmd));
-		status = ft_calloc(1, sizeof(t_state));
-		status->code = 42;
-		main_loop(status, env_lst, cmd_lst);
+		st = ft_calloc(1, sizeof(t_state));
+		init_msh(&st, &env_lst, envp);
+		main_loop(st, env_lst, cmd_lst);
 	}
 	else
 		printf("Usage: just ./minishell with no arguments.\n");
