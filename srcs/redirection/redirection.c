@@ -20,24 +20,51 @@ static bool	has_redirection(char **args)
 
 void parse_redirection(t_state *st, char **args)
 {
+	char *buffer[BUF_SIZE];
+	int i = 0;
+	int pos = 0;
+
 	if (has_redirection(args))
 	{
-		st->redir = 1;
-		while (*args[0] != '>')
-			args++;
-		redir(st, args);
-		while (*args)
+		ft_bzero(buffer, BUF_SIZE);
+		while (args[i])
 		{
-			free(*args);
-			*args = NULL;
-			args++;
+			buffer[i] = ft_strdup(args[i]);
+			i++;
+		}
+		st->redir = 1;
+		while (args[pos][0] != '>')
+			pos++;
+		redir(st, args + pos);
+		i = 0;
+		while (args[i])
+		{
+			free(args[i]);
+			args[i] = NULL;
+			i++;
+		}
+		i = 0;
+		while (buffer[i])
+		{
+			if (i != pos && i != pos + 1)
+			{
+				*args = ft_strdup(buffer[i]);
+				args++;
+			}
+			i++;
+		}
+		i = 0;
+		while (buffer[i])
+		{
+			free(buffer[i]);
+			i++;
 		}
 	}
 	return ;
 }
 
 /*
-** Redirect stdout
+** Redirect stdout. [cmd] (> [new_fd is output]). (> [new_fd is ouput]) [cmd].
 */
 
 void	redir(t_state *st, char **args)
@@ -65,7 +92,7 @@ void	redir(t_state *st, char **args)
 }
 
 /*
-** arg as input
+** arg as input `[cmd] < [input]`
 */
 
 void	input(t_state *st, char **args)

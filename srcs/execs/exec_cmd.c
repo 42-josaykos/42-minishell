@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/25 15:14:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/02/26 12:37:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,29 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char			*cmd;
 	enum e_builtin	ret;
-	t_cmd			*ptr;
 
-	ptr = cmd_lst;
 	sig_init();
-	while (ptr && *ptr->args && g_sig.sigint == 0)
+	while (cmd_lst && *cmd_lst->args && g_sig.sigint == 0)
 	{
-		cmd = *ptr->args;
-		if (st->has_pipe || check_pipe(ptr->args))
-			has_piped_cmd(st, env_lst, ptr->args);
+		if (st->has_pipe || check_pipe(cmd_lst->args))
+			has_piped_cmd(st, env_lst, cmd_lst->args);
 		else
 		{
-			parse_redirection(st, ptr->args);
-			ret = is_builtin(*ptr->args);
+			parse_redirection(st, cmd_lst->args);
+			cmd = *cmd_lst->args;
+			ret = is_builtin(*cmd_lst->args);
 			if (ret)
-				exec_builtin(ret, st, env_lst, ptr);
-			else if (filepath_exists(env_lst, ptr))
-				exec_cmd(st, ptr->args);
+				exec_builtin(ret, st, env_lst, cmd_lst);
+			else if (filepath_exists(env_lst, cmd_lst))
+				exec_cmd(st, cmd_lst->args);
 			else
-				error_cmd(cmd);
+				error_cmd(*cmd_lst->args);
 		}
-		ptr = ptr->next;
+		cmd_lst = cmd_lst->next;
 		reset_std(st);
 		close_fds(st);
 		init_fds(&st);
-		if (ptr != NULL && g_sig.sigint == 0)
+		if (cmd_lst != NULL && g_sig.sigint == 0)
 			sig_init();
 	}
 }
