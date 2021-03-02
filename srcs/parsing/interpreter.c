@@ -1,4 +1,5 @@
 #include "../../includes/msh.h"
+#include <linux/limits.h>
 
 int	token_lst_size(t_ast *token)
 {
@@ -17,14 +18,24 @@ int	token_lst_size(t_ast *token)
 	return (count);
 }
 
-void	concat_buffer(t_ast **ptr, t_env *env_lst, char *buffer)
+void	concat_buffer(t_ast **ptr, t_env *env_lst, char **arg, char *buffer)
 {
 	if ((*ptr)->type == VARIABLE)
 		ft_strcat(buffer, get_env(env_lst, (*ptr)->value));
 	else if ((*ptr)->type == ARG || (*ptr)->type == WHITESPACE)
 		ft_strcat(buffer, (*ptr)->value);
 	*ptr = (*ptr)->right;
+	if (!(*ptr))
+		*arg = ft_strdup(buffer);
 }
+
+void	create_new_arg(t_ast **ptr, char **arg, char *buffer)
+{
+	(void)ptr;
+	*arg = ft_strdup(buffer);
+	ft_bzero(buffer, BUF_SIZE);
+}
+
 void	handle_dblquote(t_ast **ptr, t_state *st, t_env *env_lst, char **arg)
 {
 	char	buffer[BUF_SIZE];
@@ -37,12 +48,10 @@ void	handle_dblquote(t_ast **ptr, t_state *st, t_env *env_lst, char **arg)
 			st->dblquote++;
 			*ptr = (*ptr)->right;
 		}
-		if (!(st->dblquote % 2) && (!(*ptr) || (*ptr)->type == WHITESPACE))
+		if (!(st->dblquote % 2) && (!(*ptr) || (*ptr)->type == WHITESPACE
+			|| (*ptr)->type == SEMICOLON || (*ptr)->type == PIPE))
 		{
-			*arg = ft_strdup(buffer);
-			ft_bzero(buffer, BUF_SIZE);
-			if (*ptr)
-				*ptr = (*ptr)->right;
+			create_new_arg(ptr, arg, buffer);
 			break ;
 		}
 		else if (*ptr && ((*ptr)->type == ESCAPE || (*ptr)->type == DOLLAR))
@@ -51,9 +60,7 @@ void	handle_dblquote(t_ast **ptr, t_state *st, t_env *env_lst, char **arg)
 			continue ;
 		}
 		else if (*ptr)
-			concat_buffer(ptr, env_lst, buffer);
-		if (!(*ptr))
-			*arg = ft_strdup(buffer);
+			concat_buffer(ptr, env_lst, arg, buffer);
 	}
 }
 
@@ -71,7 +78,7 @@ char **interpreter(t_state *st, t_ast *token, t_env *env_lst)
 			handle_dblquote(&token, st, env_lst, &args[i]);
 			i++;
 		}
-		else if (token->type != WHITESPACE)
+		if (token->type == ARG || token->type == SEMICOLON || token->type == PIPE)
 		{
 			args[i] = ft_strdup(token->value);
 			i++;

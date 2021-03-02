@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/02 15:05:54 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/02 16:13:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ enum e_type
 	PIPE,
 	SEMICOLON,
 	QUOTE,
-	DBLQUOTE
+	DBLQUOTE,
+	CONCAT
 };
 
 typedef struct s_ast
