@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/02 12:14:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/02 12:31:13 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ enum e_builtin
 enum e_type
 {
 	ARG,
+	WHITESPACE,
+	ESCAPE,
+	DOLLAR,
+	VARIABLE,
 	REDIR
 };
 
