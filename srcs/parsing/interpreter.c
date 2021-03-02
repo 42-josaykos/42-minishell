@@ -163,13 +163,43 @@ char	**interpreter_loop(t_state *st, t_ast **token, t_env *env_lst)
 	return (args);
 }
 
+int	token_lst_size(t_ast *token)
+{
+	int		count;
+	t_ast	*tmp;
+
+	count = 0;
+	tmp = token;
+	if (!token)
+		return (0);
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->right;
+	}
+	return (count);
+}
+
 char **interpreter(t_state *st, t_ast *token, t_env *env_lst)
 {
 	char **args;
-	(void)st;
-	(void)token;
-	(void)env_lst;
-	args = NULL;
+	int ac;
+	int i;
 
+	(void)st;
+	(void)env_lst;
+	ac = token_lst_size(token);
+	args = calloc(sizeof(char *), (ac + 1));
+	args[ac] = NULL;
+	i = 0;
+	while (token && args)
+	{
+		if (token->type != WHITESPACE)
+		{
+			args[i] = ft_strdup(token->value);
+			i++;
+		}
+		token = token->right;
+	}
 	return (args);
 }
