@@ -162,3 +162,14 @@ char	**interpreter_loop(t_state *st, t_ast **token, t_env *env_lst)
 	}
 	return (args);
 }
+
+char **interpreter(t_state *st, t_ast *token, t_env *env_lst)
+{
+	char **args;
+	(void)st;
+	(void)token;
+	(void)env_lst;
+	args = NULL;
+
+	return (args);
+}
