@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/02 14:38:50 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/02 15:05:54 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ typedef struct s_state
 	int		code;
 	bool	has_semicolon;
 	bool	has_pipe;
-	int		dbl_quotes;
+	int		dblquote;
+	int		quote;
 	int		redir;
 	int		fdin;
 	int		fdout;

@@ -65,10 +65,10 @@ void	handle_dquotes(t_ast **ptr, t_state *st, t_env *env_lst, char **arg)
 	{
 		if ((*ptr)->value[0] == '\"')
 		{
-			st->dbl_quotes++;
+			st->dblquote++;
 			*ptr = (*ptr)->right;
 		}
-		if (!(st->dbl_quotes % 2) && (!(*ptr) || (*ptr)->value[0] == ' '))
+		if (!(st->dblquote % 2) && (!(*ptr) || (*ptr)->value[0] == ' '))
 		{
 			*arg = ft_strdup(buffer);
 			ft_bzero(buffer, BUF_SIZE);
@@ -180,13 +180,55 @@ int	token_lst_size(t_ast *token)
 	return (count);
 }
 
+void	concat_buffer()
+{
+	return ;
+}
+void	handle_dblquote(t_ast **ptr, t_state *st, t_env *env_lst, char **arg)
+{
+	char	buffer[BUF_SIZE];
+
+	ft_bzero(buffer, BUF_SIZE);
+	while (*ptr)
+	{
+		if ((*ptr)->type == DBLQUOTE)
+		{
+			st->dblquote++;
+			*ptr = (*ptr)->right;
+		}
+		if (!(st->dblquote % 2) && (!(*ptr) || (*ptr)->type == WHITESPACE))
+		{
+			*arg = ft_strdup(buffer);
+			ft_bzero(buffer, BUF_SIZE);
+			if (*ptr)
+				*ptr = (*ptr)->right;
+			break ;
+		}
+		else if (*ptr && ((*ptr)->type == ESCAPE || (*ptr)->type == DOLLAR))
+		{
+			*ptr = (*ptr)->right;
+			continue ;
+		}
+		else if (*ptr)
+		{
+			concat_buffer();
+			if ((*ptr)->type == VARIABLE)
+				ft_strcat(buffer, get_env(env_lst, (*ptr)->value));
+			else if ((*ptr)->type == ARG || (*ptr)->type == WHITESPACE)
+				ft_strcat(buffer, (*ptr)->value);
+			*ptr = (*ptr)->right;
+		}
+		if (!(*ptr))
+			*arg = ft_strdup(buffer);
+	}
+}
+
 char **interpreter(t_state *st, t_ast *token, t_env *env_lst)
 {
 	char **args;
 	int ac;
 	int i;
 
-	(void)st;
 	(void)env_lst;
 	ac = token_lst_size(token);
 	args = calloc(sizeof(char *), (ac + 1));
@@ -194,12 +236,18 @@ char **interpreter(t_state *st, t_ast *token, t_env *env_lst)
 	i = 0;
 	while (token && args)
 	{
-		if (token->type != WHITESPACE)
+		if (token->type == DBLQUOTE)
+		{
+			handle_dblquote(&token, st, env_lst, &args[i]);
+			i++;
+		}
+		else if (token->type != WHITESPACE)
 		{
 			args[i] = ft_strdup(token->value);
 			i++;
 		}
-		token = token->right;
+		if (token)
+			token = token->right;
 	}
 	return (args);
 }
