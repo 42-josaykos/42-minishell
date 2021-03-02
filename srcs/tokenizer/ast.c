@@ -36,35 +36,6 @@ static t_ast	*create_node(char *buffer)
 	return (new_node);
 }
 
-void	ast_check_type(t_ast **token)
-{
-	t_ast *ptr;
-
-	ptr = *token;
-	while (ptr)
-	{
-		if (ptr->value[0] == '\\')
-		{
-			if (ptr->left && ptr->left->type != ESCAPE)
-				ptr->type = ESCAPE;
-		}
-		else if (ptr->value[0] == ' ')
-		{
-			if (ptr->left && ptr->left->type != ESCAPE)
-				ptr->type = WHITESPACE;
-		}
-		else if (ptr->value[0] == '$')
-		{
-			if (ptr->left && ptr->left->type != ESCAPE)
-				ptr->type = DOLLAR;
-		}
-		else if (ptr->left && ptr->left->type == DOLLAR)
-			ptr->type = VARIABLE;
-		ptr = ptr->right;
-	}
-	return ;
-}
-
 /*
 ** Iterate in the buffered list, and create a new node for
 ** each token from the list

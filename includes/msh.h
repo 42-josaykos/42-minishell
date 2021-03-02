@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/02 12:31:13 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/02 14:31:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@ enum e_type
 	ESCAPE,
 	DOLLAR,
 	VARIABLE,
-	REDIR
+	REDIR,
+	APPEND,
+	INPUT,
+	PIPE,
+	SEMICOLON,
+	QUOTE,
+	DBLQUOTE
 };
 
 typedef struct s_ast
@@ -97,7 +103,7 @@ typedef struct s_sig
 
 extern t_sig	g_sig;
 
-void    init_fds(t_state **st);
+void	init_fds(t_state **st);
 void	reset_std(t_state *st);
 void	close_fds(t_state *st);
 void	ft_close(int fd);
@@ -105,6 +111,7 @@ void	ft_close(int fd);
 void	sig_init(void);
 void	handle_signal(int signal);
 void	catch_signal(void);
+void	parse_redirection(t_state *st, char **args);
 
 /*
 ** builtins
@@ -163,6 +170,7 @@ void	error_cmd(char *cmd);
 char	*ft_readline(char *prompt);
 void	print_env_lst(char **envp);
 void	ast_init(t_ast **token, char **buffer);
+void	ast_check_type(t_ast **token);
 void	free_ast(t_ast **token);
 char	*get_next_token(char *input, int *pos);
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);

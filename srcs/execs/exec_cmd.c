@@ -6,13 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/26 12:37:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/02 14:31:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-
-void parse_redirection(t_state *st, char **args);
 
 static void	exec_cmd(t_state *st, char **args)
 {
