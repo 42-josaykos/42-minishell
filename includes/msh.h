@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/25 15:08:01 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/02 12:14:42 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,15 @@ enum e_builtin
 	UNSET
 };
 
+enum e_type
+{
+	ARG,
+	REDIR
+};
+
 typedef struct s_ast
 {
+	enum e_type		type;
 	char			*value;
 	struct s_ast	*left;
 	struct s_ast	*right;

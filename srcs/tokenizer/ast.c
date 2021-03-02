@@ -30,6 +30,7 @@ static t_ast	*create_node(char *buffer)
 	t_ast	*new_node;
 
 	new_node = malloc(sizeof(t_ast));
+	new_node->type = ARG;
 	new_node->right = NULL;
 	new_node->value = buffer;
 	return (new_node);
