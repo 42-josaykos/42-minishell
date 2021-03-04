@@ -78,7 +78,7 @@ char **interpreter(t_state *st, t_ast *token, t_env *env_lst)
 			handle_dblquote(&token, st, env_lst, &args[i]);
 			i++;
 		}
-		if (token && (token->type == ARG || token->type == SEMICOLON || token->type == PIPE))
+		if (token && token->type != WHITESPACE && token->type != ESCAPE)
 		{
 			args[i] = ft_strdup(token->value);
 			i++;

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 14:22:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/02 16:22:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/04 10:03:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ static void	set_redir_append(t_ast *ptr)
 		ptr->left->type = APPEND;
 		ptr->type = APPEND;
 	}
+}
+
+static void	set_escape(t_ast *ptr)
+{
+	if (ptr->right && (ptr->right->value[0] == '$' ||
+	ptr->right->value[0] == '\"' || ptr->right->value[0] == '\'' ||
+	ptr->right->value[0] == '>' || ptr->right->value[0] == '<' ||
+	ptr->right->value[0] == '\\'))
+		set_type(ptr, ESCAPE);
 }
 
 static void	ast_check_type2(t_ast *ptr)
@@ -51,7 +60,7 @@ void	ast_check_type(t_ast **token)
 	while (ptr)
 	{
 		if (ptr->value[0] == '\\')
-			set_type(ptr, ESCAPE);
+			set_escape(ptr);
 		else if (ptr->value[0] == ' ')
 			set_type(ptr, WHITESPACE);
 		else if (ptr->value[0] == '$')
