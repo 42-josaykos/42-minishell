@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/02 14:39:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/04 15:02:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,29 +66,31 @@ t_ast	*parse_args(char *input)
 
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
+	t_ast	*tmp;
 	t_ast	*token;
-	int		ret;
+	// int		ret;
+	(void)cmd_lst;
 
 	if (!test_quotes(input))
 		return ;
-	token = parse_args(input);
-	if (token != NULL)
+	tmp = parse_args(input);
+	if (tmp != NULL)
 	{
-		if (!ft_strncmp(token->value, ";", 2))
+		if (!ft_strncmp(tmp->value, ";", 2))
 		{
 			ft_putstr_fd("msh: syntax error near unexpected token `;'", STDERR);
 			write(STDERR, "\n", 1);
-			free_ast(&token);
+			free_ast(&tmp);
 			return ;
 		}
-		// cmd_lst->args = interpreter_loop(st, &token, env_lst);
-		cmd_lst->args = interpreter(st, token, env_lst);
-		ret = parse_semicolon(&cmd_lst);
+		token = interpreter(st, tmp, env_lst);
+		free_ast(&tmp);
 		free_ast(&token);
-		if (cmd_lst->args && *cmd_lst->args && !is_empty(*cmd_lst->args))
-			cmd_handler(st, env_lst, cmd_lst);
-		clear_previous_cmd(cmd_lst, NULL);
-		if (ret)
-			free(cmd_lst);
+		// ret = parse_semicolon(&cmd_lst);
+		// if (cmd_lst->args && *cmd_lst->args && !is_empty(*cmd_lst->args))
+		// 	cmd_handler(st, env_lst, cmd_lst);
+		// clear_previous_cmd(cmd_lst, NULL);
+		// if (ret)
+			// free(cmd_lst);
 	}
 }

@@ -64,27 +64,33 @@ void	handle_dblquote(t_ast **ptr, t_state *st, t_env *env_lst, char **arg)
 	}
 }
 
-char **interpreter(t_state *st, t_ast *token, t_env *env_lst)
+t_ast *interpreter(t_state *st, t_ast *token, t_env *env_lst)
 {
-	char **args;
+	char *buffer[BUF_SIZE];
 	int i;
+	t_ast *new_node = NULL;
+	t_ast *new_token = NULL;
 
-	args = calloc(sizeof(char *), token_lst_size(token) + 1);
 	i = 0;
-	while (token && args)
+	ft_bzero(buffer, BUF_SIZE);
+	while (token)
 	{
 		if (token->type == DBLQUOTE)
 		{
-			handle_dblquote(&token, st, env_lst, &args[i]);
+			handle_dblquote(&token, st, env_lst, &buffer[i]);
+			new_node = create_node(buffer[i], ARG);
+			ast_add(&new_token, new_node);
 			i++;
 		}
 		if (token && token->type != WHITESPACE && token->type != ESCAPE)
 		{
-			args[i] = ft_strdup(token->value);
+			buffer[i] = ft_strdup(token->value);
+			new_node = create_node(buffer[i], token->type);
+			ast_add(&new_token, new_node);
 			i++;
 		}
 		if (token)
 			token = token->right;
 	}
-	return (args);
+	return (new_token);
 }

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 14:22:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/04 10:03:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/04 15:11:19 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ static void	set_escape(t_ast *ptr)
 		set_type(ptr, ESCAPE);
 }
 
+static void	set_whitespace(t_ast *ptr)
+{
+	ptr->type = WHITESPACE;
+}
+
 static void	ast_check_type2(t_ast *ptr)
 {
 	if (ptr->value[0] == '\'')
@@ -61,8 +66,8 @@ void	ast_check_type(t_ast **token)
 	{
 		if (ptr->value[0] == '\\')
 			set_escape(ptr);
-		else if (ptr->value[0] == ' ')
-			set_type(ptr, WHITESPACE);
+		else if (ptr->value[0] == ' ' || ptr->value[0] == '\t')
+			set_whitespace(ptr);
 		else if (ptr->value[0] == '$')
 			set_type(ptr, DOLLAR);
 		else if (ptr->value[0] == ';')

@@ -4,7 +4,7 @@
 ** Add new token node at the end of the token list 
 */
 
-static void	ast_add(t_ast **token, t_ast *new_node)
+void	ast_add(t_ast **token, t_ast *new_node)
 {
 	t_ast	*tmp;
 
@@ -25,12 +25,12 @@ static void	ast_add(t_ast **token, t_ast *new_node)
 ** Create a new node and set the value and type of the token
 */
 
-static t_ast	*create_node(char *buffer)
+t_ast	*create_node(char *buffer, enum e_type type)
 {
 	t_ast	*new_node;
 
 	new_node = ft_calloc(1, sizeof(t_ast));
-	new_node->type = ARG;
+	new_node->type = type;
 	new_node->right = NULL;
 	new_node->value = buffer;
 	return (new_node);
@@ -49,7 +49,7 @@ void	ast_init(t_ast **token, char **buffer)
 	i = 0;
 	while (buffer[i])
 	{
-		new_node = create_node(buffer[i]);
+		new_node = create_node(buffer[i], ARG);
 		ast_add(token, new_node);
 		i++;
 	}

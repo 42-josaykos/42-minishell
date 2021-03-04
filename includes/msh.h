@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/02 16:13:47 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/04 15:07:43 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,9 @@ void	sig_init(void);
 void	handle_signal(int signal);
 void	catch_signal(void);
 void	parse_redirection(t_state *st, char **args);
-char **interpreter(t_state *st, t_ast *token, t_env *env_lst);
+t_ast	*interpreter(t_state *st, t_ast *token, t_env *env_lst);
+void	ast_add(t_ast **token, t_ast *new_node);
+t_ast	*create_node(char *buffer, enum e_type type);
 
 /*
 ** builtins
