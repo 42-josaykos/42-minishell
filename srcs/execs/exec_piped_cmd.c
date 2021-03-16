@@ -6,26 +6,43 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/25 11:22:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/16 11:09:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../includes/msh.h"
 
-static void	exec_last_process(t_state *status, int in, t_cmd *cmd_lst)
+void	exec_last_process(t_state *st, t_env *env_lst, int in, t_cmd *cmd_lst)
 {
 	int	ret;
 
+	parse_redirection(st, cmd_lst);
 	ret = is_builtin(cmd_lst->args[0]);
-	if (ret != CD && ret != EXPORT)
+	if (ret && ret != CD && ret != EXPORT)
+		exec_builtin(ret, st, env_lst, cmd_lst);
+	else if (filepath_exists(env_lst, cmd_lst))
 	{
-		if (in != STDIN_FILENO)
+		if (in != STDIN_FILENO && st->fdin == -1)
 			dup2(in, STDIN_FILENO);
-		execve(*cmd_lst->args, cmd_lst->args, status->envp);
+		execve(*cmd_lst->args, cmd_lst->args, st->envp);
 	}
 }
 
-static int	exec_process(t_state *st, int in, int out, t_cmd *cmd_lst)
+static void	exec_process(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
+{
+	int		ret;
+
+	parse_redirection(st, cmd_lst);
+	ret = is_builtin(cmd_lst->args[0]);
+	if (ret && ret != CD && ret != EXPORT)
+		exec_builtin(ret, st, env_lst, cmd_lst);
+	else if (filepath_exists(env_lst, cmd_lst))
+	{
+		execve(*cmd_lst->args, cmd_lst->args, st->envp);
+	}
+}
+
+static int	create_process(t_state *st, t_env *env_lst, int in, t_cmd *cmd_lst)
 {
 	pid_t	pid;
 
@@ -39,12 +56,12 @@ static int	exec_process(t_state *st, int in, int out, t_cmd *cmd_lst)
 			dup2(in, STDIN_FILENO);
 			close(in);
 		}
-		if (out != 0)
+		if (st->pipefd[1] != 0)
 		{
-			dup2(out, STDOUT_FILENO);
-			close(out);
+			dup2(st->pipefd[1], STDOUT_FILENO);
+			close(st->pipefd[1]);
 		}
-		execve(*cmd_lst->args, cmd_lst->args, st->envp);
+		exec_process(st, env_lst, cmd_lst);
 		if (g_sig.sigint || g_sig.sigquit)
 			exit(g_sig.exit_status);
 		else
@@ -54,10 +71,9 @@ static int	exec_process(t_state *st, int in, int out, t_cmd *cmd_lst)
 	return (pid);
 }
 
-static void	fork_pipes (t_state *st, int n, t_cmd *cmd_lst)
+static void	fork_pipes (t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 {
 	int		in;
-	int		fd[2];
 
 	if (create_fork(&g_sig.pid) < 0 )
 		exit(EXIT_FAILURE);
@@ -66,47 +82,35 @@ static void	fork_pipes (t_state *st, int n, t_cmd *cmd_lst)
 		in = STDIN_FILENO;
 		while (n - 1 > 0)
 		{
-			pipe(fd);
-			exec_process(st, in, fd[1], cmd_lst);
-			close(fd[1]);
-			in = fd[0];
+			pipe(st->pipefd);
+			create_process(st, env_lst, in, cmd_lst);
+			close(st->pipefd[1]);
+			in = st->pipefd[0];
 			n--;
 			cmd_lst = cmd_lst->next;
 		}
-		exec_last_process(st, in, cmd_lst);
-		if (g_sig.sigint || g_sig.sigquit)
-			exit(g_sig.exit_status);
-		else
-			exit(EXIT_SUCCESS);
+		exec_last_process(st, env_lst, in, cmd_lst);
+		exit(g_sig.exit_status);
 	}
 	waitpid(g_sig.pid, &st->code, 0);
+	if (st->code > 255)
+		g_sig.exit_status = WEXITSTATUS(st->code);
 }
 
-void 	has_piped_cmd(t_state *status, t_env *env_lst, char **args)
+void 	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
-	char	buffer[BUF_SIZE];
 	t_cmd	*piped_cmd;
-	t_cmd	*ptr;
 	int		len;
+	int		i;
+	int		j;
 
 	piped_cmd = NULL;
 	len = 0;
-	ft_bzero(buffer, BUF_SIZE);
-	while (*args && ft_strlen(*args))
-	{
-		ft_strcat(buffer, *args);
-		ft_strcat(buffer, " ");
-		args++;
-	}
-	parse_pipe(buffer, &piped_cmd);
+	i = 0;
+	j = 0;
+	parse_pipe(i, j, cmd_lst, &piped_cmd);
 	len = cmd_lst_size(piped_cmd);
-	ptr = piped_cmd;
-	while (ptr && *ptr->args)
-	{
-		filepath_exists(env_lst, ptr);
-		ptr = ptr->next;
-	}
-	fork_pipes(status, len, piped_cmd);
+	fork_pipes(status, env_lst, len, piped_cmd);
 	clear_previous_cmd(piped_cmd, status);
 	free(piped_cmd);
 }

@@ -6,26 +6,29 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/04 15:07:43 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/16 12:15:19 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSH_H
 # define MSH_H
 
-# include <errno.h>
-# include <stdio.h>
 # include <unistd.h>
+# include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
-# include <stdbool.h>
+# include <errno.h>
 # include "../libft/libft.h"
 # include "colors.h"
+# include <term.h>
+# include <curses.h>
+# include <termios.h>
 
-# define BUF_SIZE 2048
+# define BUF_SIZE 4096
 
 # define STDIN 0
 # define STDOUT 1
@@ -37,13 +40,14 @@ enum e_builtin
 	EXPORT,
 	CD,
 	PWD,
-	ECHO,
+	PRINT,
 	ENV,
 	UNSET
 };
 
 enum e_type
 {
+	VOID,
 	ARG,
 	WHITESPACE,
 	ESCAPE,
@@ -56,7 +60,8 @@ enum e_type
 	SEMICOLON,
 	QUOTE,
 	DBLQUOTE,
-	CONCAT
+	CONCAT,
+	QUESTION
 };
 
 typedef struct s_ast
@@ -69,17 +74,20 @@ typedef struct s_ast
 
 typedef struct s_state
 {
-	char	**envp;
-	int		code;
-	bool	has_semicolon;
-	bool	has_pipe;
-	int		dblquote;
-	int		quote;
-	int		redir;
-	int		fdin;
-	int		fdout;
-	int		in;
-	int		out;
+	char			**envp;
+	int				code;
+	int				dblquote;
+	int				quote;
+	int				fdin;
+	int				fdout;
+	int				in;
+	int				out;
+	int				pipefd[2];
+	char			*term_type;
+	char			termcap;
+	struct termios	termios_new;
+	struct termios	termios_backup;
+
 }				t_state;
 
 typedef struct s_env
@@ -91,6 +99,7 @@ typedef struct s_env
 
 typedef struct s_cmd
 {
+	enum e_type		type[BUF_SIZE];
 	char			**args;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -105,28 +114,68 @@ typedef struct s_sig
 
 extern t_sig	g_sig;
 
+/*
+** termcap
+*/
+
+void	init_termcap(t_state *st, t_env *env_lst);
+
+/*
+** redirection
+*/
+
+void	parse_redirection(t_state *st, t_cmd *cmd_lst);
+void	redir_append(t_state *st, char **args, enum e_type type);
+void	input(t_state *st, char **args);
 void	init_fds(t_state **st);
 void	reset_std(t_state *st);
 void	close_fds(t_state *st);
 void	ft_close(int fd);
 
+/*
+** signal
+*/
+
 void	sig_init(void);
 void	handle_signal(int signal);
 void	catch_signal(void);
-void	parse_redirection(t_state *st, char **args);
-t_ast	*interpreter(t_state *st, t_ast *token, t_env *env_lst);
-void	ast_add(t_ast **token, t_ast *new_node);
+
+/*
+** parsing
+*/
+
+void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
+t_ast	*parse_args(char *input);
+t_ast	*interpreter(t_ast *token, t_env *env_lst);
+bool	parse_cmds(t_ast *token, t_cmd **cmd_lst);
+void	has_piped_cmd(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
+void	parse_pipe(int i, int j, t_cmd *cmd_Lst, t_cmd **piped);
+bool	check_pipe(char **str);
+int		parse_semicolon(t_cmd **cmd_lst);
+int		file_exists(char *filename);
+bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
+
+/*
+** tokenizer
+*/
+
+char	*get_next_token(char *input, int *pos);
+void	ast_init(t_ast **token, char **buffer);
 t_ast	*create_node(char *buffer, enum e_type type);
+void	ast_add(t_ast **token, t_ast *new_node);
+void	ast_check_type(t_ast **token);
+void	free_ast(t_ast **token);
 
 /*
 ** builtins
 */
 
 int		cd(char *arg, t_env *env_lst);
-int		echo(char **arg, t_env *env_lst, int fd);
+int		builtin_echo(char **arg, t_env *env_lst, int fd);
 void	print_cwd(void);
 void	*export_env(t_env **env_lst, char *key, char *value);
 int		exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
+void	print_env_lst(char **envp);
 
 /*
 ** init_env_lst.c
@@ -136,7 +185,7 @@ void	init_env(t_env **env_lst, char **envp);
 void	assign_env(char *str, t_env **env_lst);
 
 /*
-** Commands executions
+** execs
 */
 
 void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
@@ -147,46 +196,29 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 ** utils
 */
 
+char	*ft_readline(t_state *st, t_env *env_lst, char *prompt);
+char	*get_env(t_env *env_lst, char *key);
+pid_t	create_fork(pid_t *pid);
 void	env_lst_add(t_env **env_lst, t_env *new_env);
 void	env_lst_remove(t_env *env_lst, char *key);
-void	free_env_lst(t_env **env_lst);
-void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st);
-char	*get_env(t_env *env_lst, char *key);
 void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 int		cmd_lst_size(t_cmd *cmd_lst);
-int		ft_isblank(int c);
-pid_t	create_fork(pid_t *pid);
-char	**free_2darray(char **tab);
+void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st);
+void	free_env_lst(t_env **env_lst);
+char	**free_2darray(char **array);
+int		tab_size(char **array);
 char	*ft_strsep(char **stringp, const char *delim);
 bool	is_empty(char *str);
+int		ft_isblank(int c);
 
 /*
-** Error management
+** error.c
 */
 
 void	error_cases(int errnum, char *cmd, char *arg);
 void	error_quotes(void);
 void	error_cmd(char *cmd);
-
-/*
-**
-*/
-
-char	*ft_readline(char *prompt);
-void	print_env_lst(char **envp);
-void	ast_init(t_ast **token, char **buffer);
-void	ast_check_type(t_ast **token);
-void	free_ast(t_ast **token);
-char	*get_next_token(char *input, int *pos);
-void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
-int		file_exists(char *filename);
-bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
-t_ast	*parse_args(char *input);
-void	has_piped_cmd(t_state *status, t_env *env_lst, char **args);
-void	parse_pipe(char *str, t_cmd **cmd_lst);
-int		ft_isblank(int c);
-bool	check_pipe(char **str);
-int		parse_semicolon(t_cmd **cmd_lst);
-char	**interpreter_loop(t_state *st, t_ast **token, t_env *env_lst);
+int		error_syntax(char *cmd);
+void	error_fd(char *arg);
 
 #endif

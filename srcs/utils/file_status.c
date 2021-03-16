@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   file_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 10:23:37 by josaykos          #+#    #+#             */
-/*   Updated: 2021/03/08 11:42:54 by jonny            ###   ########.fr       */
+/*   Created: 2020/12/15 11:31:49 by jonny             #+#    #+#             */
+/*   Updated: 2021/03/09 11:12:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/msh.h"
 
-char	*ft_strdup(const char *str)
+/*
+** Returns 0 if the file exists.
+*/
+
+int	file_exists(char *filename)
 {
-	int		i;
-	char	*dest;
+	struct stat	buf;
 
-	i = 0;
-	if (str == NULL)
-		return (NULL);
-	dest = malloc(sizeof(char) * ft_strlen(str) + 1);
-	if (!dest)
-		return (NULL);
-	while (str[i] != '\0')
-	{
-		dest[i] = str[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	if (!filename)
+		return (0);
+	if (stat(filename, &buf))
+		return (0);
+	else
+		return (1);
 }

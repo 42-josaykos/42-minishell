@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/03/02 14:27:20 by jonny            ###   ########.fr        #
+#    Updated: 2021/03/16 11:46:24 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,15 @@ END = `tput sgr0`
 NAME 			= minishell
 LIBFT 		= libft/libft.a
 
-INCLUDES 	= -Iincludes -Ilibft -Itests
+INCLUDES 	= -Iincludes -Ilibft
 
-SRC_NAME	=	builtins/cd.c \
+SRC_NAME	=	main.c \
+						builtins/cd.c \
 						builtins/echo.c \
 						builtins/env.c \
 						builtins/exit.c \
 						builtins/export.c \
+						builtins/init_env_lst.c \
 						builtins/pwd.c \
 						execs/exec_builtin.c \
 						execs/exec_cmd.c \
@@ -34,7 +36,10 @@ SRC_NAME	=	builtins/cd.c \
 						parsing/parse_path.c \
 						parsing/parse_pipe.c \
 						parsing/parse_semicolon.c \
+						redirection/fds_handlers.c \
+						redirection/fds_redir.c \
 						redirection/redirection.c \
+						termcap/termcap.c \
 						tokenizer/tokenizer.c \
 						tokenizer/ast.c \
 						tokenizer/ast_type.c \
@@ -43,11 +48,9 @@ SRC_NAME	=	builtins/cd.c \
 						utils/list_utils.c \
 						utils/string_utils.c \
 						utils/string_utils2.c \
-						error.c \
-						file_status.c \
-						main.c \
-						init_env_lst.c \
-						signal.c \
+						utils/error.c \
+						utils/file_status.c \
+						utils/signal.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
@@ -62,7 +65,7 @@ all:	$(NAME)
 $(NAME): $(OBJ)
 	make -C libft/ 1>/dev/null
 	@echo "$(GREEN)$(LIBFT) done...$(END)"
-	$(CC) -Wall -Wextra -Werror $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME)
+	$(CC) -Wall -Wextra -Werror $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME) -lncurses
 	@echo "$(GREEN)$(NAME) binary is ready !$(END)"
 
 %.o: %.c

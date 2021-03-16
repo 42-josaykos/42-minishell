@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 23:03:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/25 10:35:43 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/13 10:17:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	print_char(va_list params, t_specs *specs, int *ret)
 	else
 		padding = ' ';
 	if (specs->flag == '-')
-		ft_putchar(c, ret);
+		ft_putchar_ret(c, ret);
 	while (specs->width-- > 1)
-		ft_putchar(padding, ret);
+		ft_putchar_ret(padding, ret);
 	if (specs->flag != '-')
-		ft_putchar(c, ret);
+		ft_putchar_ret(c, ret);
 }
 
 /*

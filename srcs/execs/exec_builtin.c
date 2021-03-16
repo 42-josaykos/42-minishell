@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/25 15:51:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/12 11:37:13 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 		cd(cmd_lst->args[1], env_lst);
 	else if (ret == PWD)
 		print_cwd();
-	else if (ret == ECHO)
-		echo(cmd_lst->args, env_lst, 0);
+	else if (ret == PRINT)
+		builtin_echo(cmd_lst->args, env_lst, 0);
 	else if (ret == ENV)
 		print_env_lst(status->envp);
 	else if (ret == UNSET)
@@ -43,7 +43,7 @@ int	is_builtin(char *cmd)
 	else if (!ft_strncmp(cmd, "pwd", 4))
 		return (PWD);
 	else if (!ft_strncmp(cmd, "echo", 5))
-		return (ECHO);
+		return (PRINT);
 	else if (!ft_strncmp(cmd, "env", 4))
 		return (ENV);
 	else if (!ft_strncmp(cmd, "unset", 4))

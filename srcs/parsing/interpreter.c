@@ -1,94 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   interpreter.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
+/*   Updated: 2021/03/16 11:35:06 by jonny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/msh.h"
-#include <linux/limits.h>
 
-int	token_lst_size(t_ast *token)
+void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 {
-	int		count;
-	t_ast	*tmp;
+	char	*tmp;
 
-	count = 0;
-	tmp = token;
-	if (!token)
-		return (0);
-	while (tmp)
+	tmp = NULL;
+	if (token->type == VARIABLE)
 	{
-		count++;
-		tmp = tmp->right;
+		tmp = get_env(env_lst, token->value);
+		if (tmp != NULL)
+			ft_strcat(buf, tmp);
 	}
-	return (count);
-}
-
-void	concat_buffer(t_ast **ptr, t_env *env_lst, char **arg, char *buffer)
-{
-	if ((*ptr)->type == VARIABLE)
-		ft_strcat(buffer, get_env(env_lst, (*ptr)->value));
-	else if ((*ptr)->type == ARG || (*ptr)->type == WHITESPACE)
-		ft_strcat(buffer, (*ptr)->value);
-	*ptr = (*ptr)->right;
-	if (!(*ptr))
-		*arg = ft_strdup(buffer);
-}
-
-void	create_new_arg(t_ast **ptr, char **arg, char *buffer)
-{
-	(void)ptr;
-	*arg = ft_strdup(buffer);
-	ft_bzero(buffer, BUF_SIZE);
-}
-
-void	handle_dblquote(t_ast **ptr, t_state *st, t_env *env_lst, char **arg)
-{
-	char	buffer[BUF_SIZE];
-
-	ft_bzero(buffer, BUF_SIZE);
-	while (*ptr)
+	else if (token->type == QUESTION)
 	{
-		if ((*ptr)->type == DBLQUOTE)
+		if (token->left && token->left->type == DOLLAR)
 		{
-			st->dblquote++;
-			*ptr = (*ptr)->right;
+			tmp = ft_itoa(g_sig.exit_status);
+			ft_strcat(buf, tmp);
+			free(tmp);
 		}
-		if (!(st->dblquote % 2) && (!(*ptr) || (*ptr)->type == WHITESPACE
-			|| (*ptr)->type == SEMICOLON || (*ptr)->type == PIPE))
+		else
+			ft_strcat(buf, token->value);
+	}
+}
+
+void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
+{
+	enum e_type	type;
+
+	if (*token)
+	{
+		type = (*token)->type;
+		*token = (*token)->right;
+	}
+	while (*token && (*token)->type != type)
+	{
+		if ((*token)->type == VARIABLE || (*token)->type == QUESTION)
+			handle_variables(buf, *token, env_lst);
+		else if ((*token)->type != DOLLAR && (*token)->type != ESCAPE)
+			ft_strcat(buf, (*token)->value);
+		*token = (*token)->right;
+	}
+}
+
+t_ast	*interpreter(t_ast *token, t_env *env_lst)
+{
+	t_ast	*new_token;
+	t_ast	*new_node;
+	char	buf[BUF_SIZE];
+
+	new_token = NULL;
+	ft_bzero(buf, BUF_SIZE);
+	while (1)
+	{
+		if (!is_empty(buf) && (!token || token->type == WHITESPACE
+				|| token->type == SEMICOLON || token->type == PIPE
+				|| token->type == REDIR || token->type == APPEND
+				|| token->type == INPUT))
 		{
-			create_new_arg(ptr, arg, buffer);
+			new_node = create_node(ft_strdup(buf), ARG);
+			ast_add(&new_token, new_node);
+			ft_bzero(buf, BUF_SIZE);
+		}
+		if (!token)
 			break ;
-		}
-		else if (*ptr && ((*ptr)->type == ESCAPE || (*ptr)->type == DOLLAR))
+		if (token->type == SEMICOLON || token->type == PIPE
+			|| token->type == REDIR || token->type == APPEND
+			|| token->type == INPUT)
 		{
-			*ptr = (*ptr)->right;
-			continue ;
-		}
-		else if (*ptr)
-			concat_buffer(ptr, env_lst, arg, buffer);
-	}
-}
-
-t_ast *interpreter(t_state *st, t_ast *token, t_env *env_lst)
-{
-	char *buffer[BUF_SIZE];
-	int i;
-	t_ast *new_node = NULL;
-	t_ast *new_token = NULL;
-
-	i = 0;
-	ft_bzero(buffer, BUF_SIZE);
-	while (token)
-	{
-		if (token->type == DBLQUOTE)
-		{
-			handle_dblquote(&token, st, env_lst, &buffer[i]);
-			new_node = create_node(buffer[i], ARG);
+			new_node = create_node(ft_strdup(token->value), token->type);
 			ast_add(&new_token, new_node);
-			i++;
 		}
-		if (token && token->type != WHITESPACE && token->type != ESCAPE)
-		{
-			buffer[i] = ft_strdup(token->value);
-			new_node = create_node(buffer[i], token->type);
-			ast_add(&new_token, new_node);
-			i++;
-		}
+		else if (token->type == DBLQUOTE || token->type == QUOTE)
+			handle_quotes(&token, buf, env_lst);
+		else if (token->type == VARIABLE || token->type == QUESTION)
+			handle_variables(buf, token, env_lst);
+		else if (token->type == ARG)
+			ft_strcat(buf, token->value);
 		if (token)
 			token = token->right;
 	}

@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   fds_handlers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 10:23:37 by josaykos          #+#    #+#             */
-/*   Updated: 2021/03/08 11:42:54 by jonny            ###   ########.fr       */
+/*   Created: 2021/03/09 11:08:26 by jonny             #+#    #+#             */
+/*   Updated: 2021/03/09 15:03:23 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/msh.h"
 
-char	*ft_strdup(const char *str)
+void	init_fds(t_state **st)
 {
-	int		i;
-	char	*dest;
+	(*st)->fdin = -1;
+	(*st)->fdout = -1;
+}
 
-	i = 0;
-	if (str == NULL)
-		return (NULL);
-	dest = malloc(sizeof(char) * ft_strlen(str) + 1);
-	if (!dest)
-		return (NULL);
-	while (str[i] != '\0')
-	{
-		dest[i] = str[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+void	ft_close(int fd)
+{
+	if (fd > 0)
+		close(fd);
+}
+
+void	reset_std(t_state *st)
+{
+	dup2(st->in, STDIN);
+	dup2(st->out, STDOUT);
+}
+
+void	close_fds(t_state *st)
+{
+	ft_close(st->fdin);
+	ft_close(st->fdout);
 }

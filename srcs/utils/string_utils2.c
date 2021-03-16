@@ -6,61 +6,48 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/17 11:15:05 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/12 11:39:01 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-int	check_dquotes(char *input)
+int	tab_size(char **array)
 {
 	int	i;
-	int	ret;
 
 	i = 0;
-	ret = 1;
-	while (input[i])
-	{
-		if (input[i] == '\"')
-			ret *= -1;
+	while (array[i])
 		i++;
+	return (i);
+}
+
+int	ft_isblank(int c)
+{
+	if (c >= 0)
+	{
+		if (c == ' ' || c == '\t')
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
+
+bool	is_empty(char *str)
+{
+	bool	ret;
+
+	ret = true;
+	while (*str)
+	{
+		if (ft_isblank(*str))
+			str++;
+		else
+		{
+			ret = false;
+			break ;
+		}
 	}
 	return (ret);
-}
-
-char	*dquotes_loop(char *str, int *i, char **stringp)
-{
-	*i += 1;
-	while (str[*i] && str[*i] != str[0])
-		*i += 1;
-	str[*i] = 0;
-	*stringp += (*i + 1);
-	return (str);
-}
-
-char	*ft_strsep2(char **stringp)
-{
-	int		i;
-	char	*tmp;
-
-	tmp = *stringp;
-	if (*stringp == NULL)
-		return (NULL);
-	i = 0;
-	while (tmp[i])
-	{
-		if ((tmp[i] == '\"' || tmp[i] == '\'') && i == 0)
-			return (dquotes_loop(tmp, &i, stringp));
-		else if (tmp[i] == ' ' || tmp[i] == '\t')
-		{
-			tmp[i] = '\0';
-			if (tmp[i] != '\"' && tmp[i] != '\'')
-				i++;
-			*stringp += i;
-			return (tmp);
-		}
-		i++;
-	}
-	*stringp = NULL;
-	return (tmp);
 }

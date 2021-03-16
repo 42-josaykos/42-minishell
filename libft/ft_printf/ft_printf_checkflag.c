@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_checkflag.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 21:35:24 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 16:29:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/13 10:16:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	check_p_flag(t_specs *specs, char *str, int len, int *ret)
 	{
 		while (specs->width > len + 2)
 		{
-			ft_putchar(' ', ret);
+			ft_putchar_ret(' ', ret);
 			specs->width--;
 		}
 		ft_putstr("0x", ret);

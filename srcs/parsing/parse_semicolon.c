@@ -6,35 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/25 10:34:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/09 10:42:52 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-
-static bool	check_semicolon(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		if (args[i][0] == ';')
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
-static int	tab_size(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
 
 static void	create_new_cmd(t_cmd **cmd_lst, char **tmp)
 {
@@ -56,54 +32,75 @@ static void	create_new_cmd(t_cmd **cmd_lst, char **tmp)
 	cmd_lst_add(cmd_lst, new_cmd);
 }
 
-static void	init_cmd_lst(t_cmd **cmd_lst, char **args)
+static void	init_cmd_lst(t_cmd **cmd_lst, t_ast *token)
 {
-	int		i;
 	int		j;
 	char	*tmp[BUF_SIZE];
 
-	i = 0;
 	j = 0;
 	ft_bzero(tmp, BUF_SIZE);
-	while (args[i])
+	while (token)
 	{
-		if (args[i][0] == ';')
+		if (token->type == SEMICOLON)
 		{
 			create_new_cmd(cmd_lst, tmp);
 			j = 0;
-			i++;
+			token = token->right;
 			continue ;
 		}
-		tmp[j] = args[i];
+		tmp[j] = token->value;
 		j++;
-		i++;
+		token = token->right;
 	}
 	create_new_cmd(cmd_lst, tmp);
 }
 
-int	parse_semicolon(t_cmd **cmd_lst)
+static bool	check_semicolon(t_ast *token)
 {
-	int		i;
-	char	*args[BUF_SIZE];
+	int	i;
 
 	i = 0;
-	ft_bzero(args, BUF_SIZE);
-	if (check_semicolon((*cmd_lst)->args))
+	while (token)
 	{
-		while ((*cmd_lst)->args[i])
-		{
-			args[i] = ft_strdup((*cmd_lst)->args[i]);
-			i++;
-		}
-		clear_previous_cmd(*cmd_lst, NULL);
-		init_cmd_lst(cmd_lst, args);
-		i = 0;
-		while (args[i])
-		{
-			free(args[i]);
-			i++;
-		}
-		return (1);
+		if (token->type == SEMICOLON)
+			return (true);
+		token = token->right;
 	}
-	return (0);
+	return (false);
+}
+
+void	init_cmd_type(t_cmd **cmd_lst, t_ast *token)
+{
+	int		i;
+	t_cmd	*ptr;
+
+	ptr = *cmd_lst;
+	while (ptr)
+	{
+		i = 0;
+		while (token)
+		{
+			if (token->type == SEMICOLON)
+			{
+				token = token->right;
+				break ;
+			}
+			ptr->type[i] = token->type;
+			i++;
+			token = token->right;
+		}
+		ptr = ptr->next;
+	}
+}
+
+bool	parse_cmds(t_ast *token, t_cmd **cmd_lst)
+{
+	int	ret;
+
+	ret = false;
+	if (check_semicolon(token))
+		ret = true;
+	init_cmd_lst(cmd_lst, token);
+	init_cmd_type(cmd_lst, token);
+	return (ret);
 }

@@ -6,24 +6,24 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:28:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/25 10:33:50 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/12 11:38:36 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-char	**free_2darray(char **tab)
+char	**free_2darray(char **array)
 {
 	int	i;
 
 	i = 0;
-	while (tab && tab[i])
+	while (array && array[i])
 	{
-		free((void *)tab[i]);
-		tab[i] = NULL;
+		free((void *)array[i]);
+		array[i] = NULL;
 		i++;
 	}
-	free(tab);
+	free(array);
 	return (NULL);
 }
 
@@ -53,8 +53,8 @@ void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st)
 
 	if (st)
 	{
-		st->has_semicolon = false;
-		st->has_pipe = false;
+		st->dblquote = 0;
+		st->quote = 0;
 	}
 	free_2darray(cmd_lst->args);
 	cmd_lst->args = NULL;

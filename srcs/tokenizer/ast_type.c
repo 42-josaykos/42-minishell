@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 14:22:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/04 15:11:19 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/16 10:52:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,26 @@
 
 void	set_type(t_ast *ptr, enum e_type type)
 {
-	if (ptr->left && ptr->left->type != ESCAPE)
+	if (!ptr->left || (ptr->left && ptr->left->type != ESCAPE))
 		ptr->type = type;
 }
 
 static void	set_redir_append(t_ast *ptr)
 {
-	if (ptr->left && ptr->left->type != ESCAPE && ptr->left->type != REDIR)
-		ptr->type = REDIR;
-	else if (ptr->left && ptr->left->type == REDIR)
-	{
-		ptr->left->type = APPEND;
+	if (!ft_strncmp(ptr->value, ">>", 3))
 		ptr->type = APPEND;
-	}
+	else if (!ptr->left || (ptr->left && ptr->left->type != ESCAPE
+			&& ptr->left->type != REDIR))
+		ptr->type = REDIR;
 }
 
 static void	set_escape(t_ast *ptr)
 {
-	if (ptr->right && (ptr->right->value[0] == '$' ||
-	ptr->right->value[0] == '\"' || ptr->right->value[0] == '\'' ||
-	ptr->right->value[0] == '>' || ptr->right->value[0] == '<' ||
-	ptr->right->value[0] == '\\'))
+	if (ptr->right && (ptr->right->value[0] == '$'
+			|| ptr->right->value[0] == '\"' || ptr->right->value[0] == '\''
+			|| ptr->right->value[0] == '>' || ptr->right->value[0] == '<'
+			|| ptr->right->value[0] == '\\' || ptr->right->value[0] == '?'))
 		set_type(ptr, ESCAPE);
-}
-
-static void	set_whitespace(t_ast *ptr)
-{
-	ptr->type = WHITESPACE;
 }
 
 static void	ast_check_type2(t_ast *ptr)
@@ -67,13 +60,18 @@ void	ast_check_type(t_ast **token)
 		if (ptr->value[0] == '\\')
 			set_escape(ptr);
 		else if (ptr->value[0] == ' ' || ptr->value[0] == '\t')
-			set_whitespace(ptr);
+			ptr->type = WHITESPACE;
 		else if (ptr->value[0] == '$')
-			set_type(ptr, DOLLAR);
+		{
+			if (ptr->right)
+				set_type(ptr, DOLLAR);
+		}
 		else if (ptr->value[0] == ';')
 			set_type(ptr, SEMICOLON);
 		else if (ptr->value[0] == '|')
 			set_type(ptr, PIPE);
+		else if (ptr->value[0] == '?')
+			set_type(ptr, QUESTION);
 		else
 			ast_check_type2(ptr);
 		ptr = ptr->right;

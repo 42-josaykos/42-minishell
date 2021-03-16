@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/05 10:30:02 by josaykos          #+#    #+#              #
-#    Updated: 2021/02/11 11:57:47 by jonny            ###   ########.fr        #
+#    Updated: 2021/03/13 10:20:51 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ SRCS		= ft_memset.c \
 			  ft_printf/ft_printf_nbr.c \
 			  ft_printf/ft_printf_print.c \
 			  ft_printf/ft_printf_str.c \
-				split_whitespace.c
+				split_whitespace.c \
+				ft_putchar.c \
 
 OBJS		= $(SRCS:.c=.o)
 

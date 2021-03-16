@@ -16,19 +16,33 @@ t_sig	g_sig;
 
 void	init_msh(t_state **st, t_env **env_lst, char **envp)
 {
+	int		lvl;
+	char	*tmp;
+
 	(*st)->in = dup(STDIN);
 	(*st)->out = dup(STDOUT);
+	lvl = 1;
+	tmp = NULL;
 	init_fds(st);
 	sig_init();
 	init_env(env_lst, envp);
+	tmp = get_env(*env_lst, "SHLVL");
+	if (tmp != NULL)
+	{
+		lvl = ft_atoi(tmp);
+		lvl++;
+	}
+	tmp = ft_itoa(lvl);
+	export_env(env_lst, "SHLVL", tmp);
+	free(tmp);
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
 }
 
-int	get_input(char *input)
+int	get_input(t_state *st, t_env *env_lst, char *input)
 {
 	char	*line;
 
-	line = ft_readline("minishell ❯ ");
+	line = ft_readline(st, env_lst, "minishell ❯ ");
 	if (line == NULL)
 		return (0);
 	ft_strlcpy(input, line, ft_strlen(line));
@@ -83,7 +97,7 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 	{
 		ft_bzero(input, BUF_SIZE);
 		catch_signal();
-		if (!get_input(input))
+		if (!get_input(st, env_lst, input))
 			ft_strlcpy(input, "exit", 5);
 		if (!is_empty(input))
 		{
@@ -111,7 +125,6 @@ int	main(int argc, char **argv, char **envp)
 	st = NULL;
 	if (argc < 2)
 	{
-		cmd_lst = ft_calloc(1, sizeof(t_cmd));
 		st = ft_calloc(1, sizeof(t_state));
 		init_msh(&st, &env_lst, envp);
 		main_loop(st, env_lst, cmd_lst);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 12:13:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 16:26:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/13 10:16:40 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	print_percent(t_specs *specs, int *ret)
 	else
 		padding = ' ';
 	if (specs->flag == '-')
-		ft_putchar('%', ret);
+		ft_putchar_ret('%', ret);
 	while (specs->width-- > 1)
-		ft_putchar(padding, ret);
+		ft_putchar_ret(padding, ret);
 	if (specs->flag != '-')
-		ft_putchar('%', ret);
+		ft_putchar_ret('%', ret);
 }
 
 /*
@@ -84,7 +84,7 @@ static int	parse_str(va_list params, const char *str, t_specs *specs, int *ret)
 	while (str[i] != '\0')
 	{
 		while (str[i] != '%' && str[i] != '\0')
-			ft_putchar(str[i++], ret);
+			ft_putchar_ret(str[i++], ret);
 		if (str[i] == '%')
 		{
 			i++;

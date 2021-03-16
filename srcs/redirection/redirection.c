@@ -1,58 +1,77 @@
-# include "../../includes/msh.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/09 11:08:39 by jonny             #+#    #+#             */
+/*   Updated: 2021/03/16 12:12:00 by jonny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	input(t_state *st, char **args);
-void	redir(t_state *st, char **args);
+#include "../../includes/msh.h"
 
-static bool	has_redirection(char **args)
+bool	has_redirection(t_cmd *cmd_lst)
 {
 	int	i;
 
 	i = 0;
-	while (args[i])
+	while (cmd_lst->type[i])
 	{
-		if (args[i][0] == '>' || args[i][0] == '<'
-			|| !ft_strncmp(args[i], ">>", 3))
+		if (cmd_lst->type[i] == REDIR || cmd_lst->type[i] == INPUT
+			|| cmd_lst->type[i] == APPEND)
 			return (true);
 		i++;
 	}
 	return (false);
 }
 
-void parse_redirection(t_state *st, char **args)
+void	get_redir(t_state *st, t_cmd *cmd_lst, char **buffer)
 {
-	char *buffer[BUF_SIZE];
-	int i = 0;
-	int pos = 0;
+	int		i;
+	char	**ptr;
 
-	if (has_redirection(args))
+	i = 0;
+	ptr = cmd_lst->args;
+	while (cmd_lst->type[i])
+	{
+		if (cmd_lst->type[i] == ARG)
+		{
+			*ptr = ft_strdup(buffer[i]);
+			ptr++;
+		}
+		if (cmd_lst->type[i] == REDIR || cmd_lst->type[i] == APPEND)
+		{
+			redir_append(st, &buffer[i], cmd_lst->type[i]);
+			i++;
+		}
+		if (cmd_lst->type[i] == INPUT)
+		{
+			input(st, &buffer[i]);
+			i++;
+		}
+		i++;
+	}
+}
+
+void	parse_redirection(t_state *st, t_cmd *cmd_lst)
+{
+	char	*buffer[BUF_SIZE];
+	int		i;
+
+	i = 0;
+	if (has_redirection(cmd_lst))
 	{
 		ft_bzero(buffer, BUF_SIZE);
-		while (args[i])
+		while (cmd_lst->args[i])
 		{
-			buffer[i] = ft_strdup(args[i]);
+			buffer[i] = ft_strdup(cmd_lst->args[i]);
+			free(cmd_lst->args[i]);
+			cmd_lst->args[i] = NULL;
 			i++;
 		}
-		st->redir = 1;
-		while (args[pos][0] != '>')
-			pos++;
-		redir(st, args + pos);
-		i = 0;
-		while (args[i])
-		{
-			free(args[i]);
-			args[i] = NULL;
-			i++;
-		}
-		i = 0;
-		while (buffer[i])
-		{
-			if (i != pos && i != pos + 1)
-			{
-				*args = ft_strdup(buffer[i]);
-				args++;
-			}
-			i++;
-		}
+		get_redir(st, cmd_lst, buffer);
 		i = 0;
 		while (buffer[i])
 		{
@@ -60,76 +79,4 @@ void parse_redirection(t_state *st, char **args)
 			i++;
 		}
 	}
-	return ;
-}
-
-/*
-** Redirect stdout. [cmd] (> [new_fd is output]). (> [new_fd is ouput]) [cmd].
-*/
-
-void	redir(t_state *st, char **args)
-{
-	if (*args[0] == '>')
-	{
-		args++;
-		st->fdout = open(*args, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-	}
-	else if (!ft_strncmp(*args, ">>", 3))
-	{
-		args++;
-		st->fdout = open(*args, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-	}
-	if (st->fdout == -1)
-	{
-		ft_putstr_fd("minishell: ", STDERR);
-		ft_putstr_fd(*args, STDERR);
-		ft_putendl_fd(": No such file or directory", STDERR);
-		g_sig.exit_status = 1;
-		return ;
-	}
-	dup2(st->fdout, STDOUT);
-	ft_close(st->fdout);
-}
-
-/*
-** arg as input `[cmd] < [input]`
-*/
-
-void	input(t_state *st, char **args)
-{
-	st->fdin = open(*args, O_RDONLY, S_IRWXU);
-	if (st->fdin == -1)
-	{
-		ft_putstr_fd("minishell: ", STDERR);
-		ft_putstr_fd(*args, STDERR);
-		ft_putendl_fd(": No such file or directory", STDERR);
-		g_sig.exit_status = 1;
-		return ;
-	}
-	dup2(st->fdin, STDIN);
-	ft_close(st->fdin);
-}
-
-void    init_fds(t_state **st)
-{
-    (*st)->fdin = -1;
-    (*st)->fdout = -1;
-}
-
-void	ft_close(int fd)
-{
-	if (fd > 0)
-		close(fd);
-}
-
-void	reset_std(t_state *st)
-{
-	dup2(st->in, STDIN);
-	dup2(st->out, STDOUT);
-}
-
-void	close_fds(t_state *st)
-{
-	ft_close(st->fdin);
-	ft_close(st->fdout);
 }

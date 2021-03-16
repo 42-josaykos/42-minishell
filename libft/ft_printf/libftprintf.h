@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 12:36:01 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 16:15:02 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/13 10:14:01 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			print_dectohexa(va_list params, t_specs *specs, int *ret);
 /*
 ** ft_printf_str.c
 */
-void			ft_putchar(char c, int *ret);
+void			ft_putchar_ret(char c, int *ret);
 void			ft_putstr(char *str, int *ret);
 void			str_whitespace(t_specs *specs, char *str, int len, int *ret);
 void			str_padding(t_specs *specs, char *str, int len, int *ret);

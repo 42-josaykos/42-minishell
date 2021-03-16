@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:32:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/15 11:18:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/10 10:36:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst)
 	}
 	if (check_filepath(ptr, cmd_lst))
 		return (true);
+	else
+		error_cmd(*cmd_lst->args);
 	return (false);
 }

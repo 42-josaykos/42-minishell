@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/04 15:02:29 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/16 11:12:02 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,46 @@ t_ast	*parse_args(char *input)
 	return (token);
 }
 
+int	has_syntax_error(t_ast *token)
+{
+	char	str[3];
+
+	ft_bzero(str, 3);
+	while (token)
+	{
+		if (token->type == SEMICOLON && (!token->left
+				|| (token->left && token->left->type != ARG)))
+			return (error_syntax(token->value));
+		if (token->type == PIPE && token->left && token->left->type != ARG)
+			return (error_syntax(token->value));
+		if (token->type == REDIR && token->left && token->left->type != ARG)
+			return (error_syntax(token->value));
+		if (token->type == APPEND && token->left && token->left->type != ARG)
+			return (error_syntax(token->value));
+		token = token->right;
+	}
+	return (0);
+}
+
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 {
 	t_ast	*tmp;
 	t_ast	*token;
-	// int		ret;
-	(void)cmd_lst;
 
-	if (!test_quotes(input))
-		return ;
 	tmp = parse_args(input);
 	if (tmp != NULL)
 	{
-		if (!ft_strncmp(tmp->value, ";", 2))
+		token = interpreter(tmp, env_lst);
+		free_ast(&tmp);
+		if (has_syntax_error(token))
 		{
-			ft_putstr_fd("msh: syntax error near unexpected token `;'", STDERR);
-			write(STDERR, "\n", 1);
-			free_ast(&tmp);
+			free_ast(&token);
 			return ;
 		}
-		token = interpreter(st, tmp, env_lst);
-		free_ast(&tmp);
+		parse_cmds(token, &cmd_lst);
 		free_ast(&token);
-		// ret = parse_semicolon(&cmd_lst);
-		// if (cmd_lst->args && *cmd_lst->args && !is_empty(*cmd_lst->args))
-		// 	cmd_handler(st, env_lst, cmd_lst);
-		// clear_previous_cmd(cmd_lst, NULL);
-		// if (ret)
-			// free(cmd_lst);
+		cmd_handler(st, env_lst, cmd_lst);
+		clear_previous_cmd(cmd_lst, NULL);
+		free(cmd_lst);
 	}
 }

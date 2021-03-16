@@ -4,4 +4,7 @@
 
 ## TODO:
 
-- Check control+D when input in command line is not empty
+- ctrl+\ when input buffer is not empty
+- quotes and dblquotes. Quotes inside dblquotes and vice-versa.
+- piped commands exit_codes + redir exit_codes
+- stdin redirection with `<` in piped commands
