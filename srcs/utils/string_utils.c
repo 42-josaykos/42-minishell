@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 10:58:26 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/16 18:59:54 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char	*ft_readline(t_state *st, t_env *env_lst, char *prompt)
 	ft_bzero(tmp, BUF_SIZE);
 	st->termcap = tputs(tgetstr("ku", NULL), 1, ft_putchar);
 	print_prompt(prompt, GREEN);
+	init_termcap(st, env_lst);
 	while (1)
 	{
 		ft_bzero(buf, BUF_SIZE);
@@ -100,7 +101,6 @@ char	*ft_readline(t_state *st, t_env *env_lst, char *prompt)
 			return (NULL);
 		else if (!ft_strncmp(buf, "\e[A", 3))
 		{
-			init_termcap(st, env_lst);
 			ft_putstr_fd("arrow up catched !\n", 2);
 			tcsetattr(STDIN_FILENO, TCSAFLUSH, &st->termios_backup);
 		}
