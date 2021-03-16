@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 12:15:19 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/16 16:52:10 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ void	print_cwd(void);
 void	*export_env(t_env **env_lst, char *key, char *value);
 int		exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 void	print_env_lst(char **envp);
+int		builtin_unset(char *str, t_env **envp);
 
 /*
 ** init_env_lst.c

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
+#    By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/03/16 11:46:24 by jonny            ###   ########.fr        #
+#    Updated: 2021/03/16 16:52:35 by alpascal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC_NAME	=	main.c \
 						builtins/export.c \
 						builtins/init_env_lst.c \
 						builtins/pwd.c \
+						builtins/unset.c\
 						execs/exec_builtin.c \
 						execs/exec_cmd.c \
 						execs/exec_piped_cmd.c \
