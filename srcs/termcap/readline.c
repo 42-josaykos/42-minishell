@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 12:33:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 13:13:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ int	read_key(void)
 			return ('\e');
 		if (read(STDIN_FILENO, &seq[1], 1) != 1)
 			return ('\e');
+		if (seq[0] == '[')
+		{
+			if (seq[1] == 'A')
+				return (ARROW_UP);
+			if (seq[1] == 'B')
+				return (ARROW_DOWN);
+		}
 	}
 	return (c);
 }
@@ -48,14 +55,19 @@ char	*ft_readlinev2(t_state *st, t_env *env_lst, char *prompt)
 	{
 		key = read_key();
 		c = (char)key;
-		ft_strlcat(buf, &c, BUF_SIZE);
+		if (ft_isprint(c) || c == '\n')
+		{
+			write(STDOUT_FILENO, &c, 1);
+			ft_strlcat(buf, &c, BUF_SIZE);
+		}
+		if (key == ARROW_UP)
+		{
+			write(STDOUT_FILENO, "get arrow up !", 14);
+			ft_bzero(buf, BUF_SIZE);
+		}
 		if (c == '\n')
 			break ;
-		if (key != '\e')
-			write(STDOUT_FILENO, &c, 1);
 	}
-	if (key == '\n')
-		write(STDOUT_FILENO, "\n\r", 2);
 	str = ft_calloc(ft_strlen(buf), sizeof(char) + 1);
 	ft_strlcpy(str, buf, BUF_SIZE);
 	return (str);
