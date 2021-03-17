@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:54:48 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 11:24:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 11:44:55 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	enable_raw_mode(t_state *st, t_env *env_lst)
 	ft_bzero(&st->termios_new, sizeof(struct termios));
 	tcgetattr(STDIN_FILENO, &st->termios_backup);
 	st->termios_new = st->termios_backup;
-	st->termios_new.c_lflag &= ~(ICANON);
+	st->termios_new.c_lflag &= ~(ICANON | ECHO);
 	st->termios_new.c_cc[VMIN] = 1;
 	st->termios_new.c_cc[VTIME] = 0;
 	st->raw_mode = true;
