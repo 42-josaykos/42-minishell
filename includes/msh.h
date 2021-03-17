@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 15:13:28 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 16:01:18 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+# define CTRL_C 3
+# define CTRL_D 4
+# define BACKSPACE 127
 
 enum e_builtin
 {

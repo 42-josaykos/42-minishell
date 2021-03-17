@@ -6,11 +6,12 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 15:31:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 16:58:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
+#include <curses.h>
 #include <stdio.h>
 #include <term.h>
 #include <unistd.h>
@@ -18,7 +19,7 @@
 int	read_key(void)
 {
 	char c;
-	char seq[3];
+	char seq[2];
 
 	while (read(STDIN_FILENO, &c, 1) != 1)
 	{
@@ -71,15 +72,24 @@ char	*ft_readlinev2(t_state *st, t_env *env_lst, char *prompt)
 			write(STDOUT_FILENO, "get arrow down !", 16);
 			ft_bzero(buf, BUF_SIZE);
 		}
-		if (key == 127)
+		if (key == CTRL_C)
 		{
-			st->termcap = tgetstr("dm", NULL);
-			tputs(st->termcap, 1, ft_putchar);
-			write(STDOUT_FILENO, &c, 1);
-			st->termcap = tgetstr("dc", NULL);
-			tputs(st->termcap, 1, ft_putchar);
-			st->termcap = tgetstr("ed", NULL);
-			tputs(st->termcap, 1, ft_putchar);
+			write(STDOUT_FILENO, "\n\r", 2);
+			print_prompt(prompt, GREEN);
+			ft_bzero(buf, BUF_SIZE);
+		}
+		if (key == CTRL_D)
+		{
+			if (buf[0] == '\0')
+			{
+				ft_strlcpy(buf, "exit\n", 6);
+				c = '\n';
+			}
+		}
+		if (key == BACKSPACE)
+		{
+			ft_putstr_fd("\b \b", STDOUT);
+			buf[ft_strlen(buf) - 1] = '\0';
 		}
 		if (c == '\n')
 			break ;

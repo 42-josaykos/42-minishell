@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:54:48 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 11:44:55 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 16:57:39 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** Enable terminal raw mode
-** TODO: term.c_lflag &= ~(ICANON | ECHO | ISIG);
+** TODO: term.c_lflag &= ~(ICANON | ECHO);
 */
 
 void	enable_raw_mode(t_state *st, t_env *env_lst)
