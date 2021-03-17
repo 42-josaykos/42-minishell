@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 12:05:33 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 15:13:28 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_state
 	int				out;
 	int				pipefd[2];
 	char			*term_type;
+	char			*termcap;
 	bool			raw_mode;
 	struct termios	termios_new;
 	struct termios	termios_backup;

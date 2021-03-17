@@ -6,12 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 13:13:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 15:31:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 #include <stdio.h>
+#include <term.h>
 #include <unistd.h>
 
 int	read_key(void)
@@ -64,6 +65,21 @@ char	*ft_readlinev2(t_state *st, t_env *env_lst, char *prompt)
 		{
 			write(STDOUT_FILENO, "get arrow up !", 14);
 			ft_bzero(buf, BUF_SIZE);
+		}
+		if (key == ARROW_DOWN)
+		{
+			write(STDOUT_FILENO, "get arrow down !", 16);
+			ft_bzero(buf, BUF_SIZE);
+		}
+		if (key == 127)
+		{
+			st->termcap = tgetstr("dm", NULL);
+			tputs(st->termcap, 1, ft_putchar);
+			write(STDOUT_FILENO, &c, 1);
+			st->termcap = tgetstr("dc", NULL);
+			tputs(st->termcap, 1, ft_putchar);
+			st->termcap = tgetstr("ed", NULL);
+			tputs(st->termcap, 1, ft_putchar);
 		}
 		if (c == '\n')
 			break ;
