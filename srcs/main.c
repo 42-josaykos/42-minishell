@@ -42,7 +42,8 @@ int	get_input(t_state *st, t_env *env_lst, char *input)
 {
 	char	*line;
 
-	line = ft_readline(st, env_lst, "minishell ❯ ");
+	// line = ft_readline(st, env_lst, "minishell ❯ ");
+	line = ft_readlinev2(st, env_lst, "minishell ❯ ");
 	if (line == NULL)
 		return (0);
 	ft_strlcpy(input, line, ft_strlen(line));

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 11:05:55 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 11:21:08 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ extern t_sig	g_sig;
 ** termcap
 */
 
+char	*ft_readlinev2(t_state *st, t_env *env_lst, char *prompt);
 void	enable_raw_mode(t_state *st, t_env *env_lst);
 void	disable_raw_mode(t_state *st);
 
