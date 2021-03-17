@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/03/16 11:46:24 by jonny            ###   ########.fr        #
+#    Updated: 2021/03/17 11:07:13 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC_NAME	=	main.c \
 						redirection/fds_redir.c \
 						redirection/redirection.c \
 						termcap/termcap.c \
+						termcap/readline.c \
 						tokenizer/tokenizer.c \
 						tokenizer/ast.c \
 						tokenizer/ast_type.c \

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:47:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/24 10:51:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 11:01:40 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int 	exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 		g_sig.exit_status = ft_atoi(cmd_lst->args[1]);
 	else
 		g_sig.exit_status = 0;
+	disable_raw_mode(status);
 	free_exit(status, env_lst, cmd_lst);
 	exit(g_sig.exit_status);
 	return (g_sig.exit_status);

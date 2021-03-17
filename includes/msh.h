@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 12:15:19 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 11:05:55 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,13 @@ typedef struct s_state
 {
 	char			**envp;
 	int				code;
-	int				dblquote;
-	int				quote;
 	int				fdin;
 	int				fdout;
 	int				in;
 	int				out;
 	int				pipefd[2];
 	char			*term_type;
-	char			termcap;
+	bool			raw_mode;
 	struct termios	termios_new;
 	struct termios	termios_backup;
 
@@ -118,7 +116,8 @@ extern t_sig	g_sig;
 ** termcap
 */
 
-void	init_termcap(t_state *st, t_env *env_lst);
+void	enable_raw_mode(t_state *st, t_env *env_lst);
+void	disable_raw_mode(t_state *st);
 
 /*
 ** redirection
@@ -197,6 +196,7 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 */
 
 char	*ft_readline(t_state *st, t_env *env_lst, char *prompt);
+void	print_prompt(char *prompt, char *color);
 char	*get_env(t_env *env_lst, char *key);
 pid_t	create_fork(pid_t *pid);
 void	env_lst_add(t_env **env_lst, t_env *new_env);
