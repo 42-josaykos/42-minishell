@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 11:21:08 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 12:05:33 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ enum e_type
 	DBLQUOTE,
 	CONCAT,
 	QUESTION
+};
+
+enum e_key {
+  ARROW_UP = 1000,
+  ARROW_DOWN
 };
 
 typedef struct s_ast
