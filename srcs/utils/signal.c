@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:26:25 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 16:56:28 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 17:48:09 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	sig_int(void)
 {
 	if (g_sig.pid == 0)
 	{
-		print_prompt("\nminishell ❯ ", GREEN);
+		print_prompt("^C\nminishell ❯ ", GREEN);
 		g_sig.exit_status = 1;
 	}
 	else
 	{
-		ft_putstr_fd("\n^C\n", STDERR);
+		ft_putstr_fd("^C\n", STDERR);
 		g_sig.exit_status = 130;
 	}
 	g_sig.sigint = 1;
@@ -39,7 +39,7 @@ void	sig_quit(void)
 {
 	if (g_sig.pid != 0)
 	{
-		ft_putstr_fd("\n^\\Quit\n", STDERR);
+		ft_putstr_fd("^\\Quit\n", STDERR);
 		g_sig.exit_status = 131;
 		g_sig.sigquit = 1;
 	}

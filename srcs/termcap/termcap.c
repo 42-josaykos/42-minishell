@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:54:48 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 16:57:39 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 17:42:22 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@
 ** TODO: term.c_lflag &= ~(ICANON | ECHO);
 */
 
-void	enable_raw_mode(t_state *st, t_env *env_lst)
+void	enable_raw_mode(t_state *st)
 {
-	export_env(&env_lst, "TERM", "xterm-256color");
-	st->term_type = get_env(env_lst, "TERM");
-	tgetent(NULL, st->term_type);
 	ft_bzero(&st->termios_new, sizeof(struct termios));
 	tcgetattr(STDIN_FILENO, &st->termios_backup);
 	st->termios_new = st->termios_backup;

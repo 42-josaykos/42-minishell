@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 16:01:18 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 17:47:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ enum e_type
 	QUESTION
 };
 
-enum e_key {
-  ARROW_UP = 1000,
-  ARROW_DOWN
+enum e_key
+{
+	ARROW_UP = 1000,
+	ARROW_DOWN
 };
 
 typedef struct s_ast
@@ -126,8 +127,8 @@ extern t_sig	g_sig;
 ** termcap
 */
 
-char	*ft_readlinev2(t_state *st, t_env *env_lst, char *prompt);
-void	enable_raw_mode(t_state *st, t_env *env_lst);
+char	*ft_readlinev2(char *prompt);
+void	enable_raw_mode(t_state *st);
 void	disable_raw_mode(t_state *st);
 
 /*

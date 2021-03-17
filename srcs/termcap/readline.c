@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 16:58:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/17 17:46:45 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 
 int	read_key(void)
 {
-	char c;
-	char seq[2];
+	char	c;
+	char	seq[2];
 
 	while (read(STDIN_FILENO, &c, 1) != 1)
-	{
 		;
-	}
 	if (c == '\e')
 	{
 		if (read(STDIN_FILENO, &seq[0], 1) != 1)
@@ -42,7 +40,7 @@ int	read_key(void)
 	return (c);
 }
 
-char	*ft_readlinev2(t_state *st, t_env *env_lst, char *prompt)
+char	*ft_readlinev2(char *prompt)
 {
 	char	*str;
 	char	c;
@@ -51,7 +49,6 @@ char	*ft_readlinev2(t_state *st, t_env *env_lst, char *prompt)
 
 	str = NULL;
 	print_prompt(prompt, GREEN);
-	enable_raw_mode(st, env_lst);
 	ft_bzero(buf, BUF_SIZE);
 	while (1)
 	{
