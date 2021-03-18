@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 09:58:12 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/18 11:19:44 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/18 11:44:26 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	free_hist(t_hist **history)
 	ptr = *history;
 	while (ptr)
 	{
-		tmp = ptr->next;
+		tmp = ptr->previous;
 		if (ptr->value)
 			free(ptr->value);
 		free(ptr);
