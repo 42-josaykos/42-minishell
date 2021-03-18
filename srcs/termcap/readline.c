@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 17:46:45 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/18 11:39:02 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ int	read_key(void)
 	return (c);
 }
 
-char	*ft_readlinev2(char *prompt)
+char	*ft_readlinev2(t_state *st, char *prompt)
 {
 	char	*str;
 	char	c;
 	char	buf[BUF_SIZE];
 	int		key;
+	int		len;
+	t_hist	*ptr = st->history;
 
 	str = NULL;
 	print_prompt(prompt, GREEN);
@@ -61,13 +63,35 @@ char	*ft_readlinev2(char *prompt)
 		}
 		if (key == ARROW_UP)
 		{
-			write(STDOUT_FILENO, "get arrow up !", 14);
-			ft_bzero(buf, BUF_SIZE);
+			if (ptr && ptr->previous)
+			{
+				ptr = ptr->previous;
+				len = ft_strlen(buf);
+				while (len > 0)
+				{
+					ft_putstr_fd("\b \b", STDOUT);
+					len--;
+				}
+				ft_bzero(buf, BUF_SIZE);
+				ft_strlcpy(buf, ptr->value, BUF_SIZE);
+				ft_putstr_fd(buf, STDOUT);
+			}
 		}
 		if (key == ARROW_DOWN)
 		{
-			write(STDOUT_FILENO, "get arrow down !", 16);
-			ft_bzero(buf, BUF_SIZE);
+			if (ptr && ptr->next)
+			{
+				ptr = ptr->next;
+				len = ft_strlen(buf);
+				while (len > 0)
+				{
+					ft_putstr_fd("\b \b", STDOUT);
+					len--;
+				}
+				ft_bzero(buf, BUF_SIZE);
+				ft_strlcpy(buf, ptr->value, BUF_SIZE);
+				ft_putstr_fd(buf, STDOUT);
+			}
 		}
 		if (key == CTRL_C)
 		{

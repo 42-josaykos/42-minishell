@@ -6,17 +6,20 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 09:58:12 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/18 10:33:19 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/18 11:19:44 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
+void	print_hist(t_hist *history)
+{
+	if (history && history->value)
+		ft_putstr_fd(history->value, STDOUT);
+}
+
 static void	hist_add(t_hist **history, t_hist *new_node)
 {
-	t_hist	*tmp;
-
-	tmp = *history;
 	if (!(*history))
 		*history = new_node;
 	else
@@ -25,7 +28,7 @@ static void	hist_add(t_hist **history, t_hist *new_node)
 			*history = (*history)->next;
 		(*history)->next = new_node;
 		new_node->previous = *history;
-		*history = tmp;
+		*history = (*history)->next;
 	}
 }
 

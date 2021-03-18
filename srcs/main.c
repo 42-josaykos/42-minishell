@@ -38,11 +38,11 @@ void	init_msh(t_state **st, t_env **env_lst, char **envp)
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
 }
 
-int	get_input(char *input)
+int	get_input(t_state *st, char *input)
 {
 	char	*line;
 
-	line = ft_readlinev2("minishell ❯ ");
+	line = ft_readlinev2(st, "minishell ❯ ");
 	if (line == NULL)
 		return (0);
 	ft_strlcpy(input, line, ft_strlen(line));
@@ -98,7 +98,7 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 	{
 		ft_bzero(input, BUF_SIZE);
 		catch_signal();
-		get_input(input);
+		get_input(st, input);
 		if (!is_empty(input))
 		{
 			hist_update(&st->history, input);

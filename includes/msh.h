@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/18 10:34:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/18 11:10:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	free_hist(t_hist **history);
 ** termios / termcap
 */
 
-char	*ft_readlinev2(char *prompt);
+char	*ft_readlinev2(t_state *st, char *prompt);
 void	enable_raw_mode(t_state *st);
 void	disable_raw_mode(t_state *st);
 
