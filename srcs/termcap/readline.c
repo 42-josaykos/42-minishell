@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/18 12:01:10 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/18 12:06:46 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,9 @@ char	*ft_readlinev2(t_state *st, char *prompt)
 		}
 		if (key == BACKSPACE)
 		{
-			ft_putstr_fd("\b \b", STDOUT);
+			len = ft_strlen(buf);
+			if (len && buf[len - 1])
+				ft_putstr_fd("\b \b", STDOUT);
 			buf[ft_strlen(buf) - 1] = '\0';
 		}
 		if (c == '\n')
