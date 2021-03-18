@@ -6,7 +6,7 @@
 /*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/04 11:50:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/01/04 11:59:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 		get_input(input);
 		if (!is_empty(input))
 		{
+			hist_update(&st->history, input);
 			env = concat_env(env_lst);
 			st->envp = ft_split(env, '\n');
 			free(env);

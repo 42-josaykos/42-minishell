@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 17:47:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/18 10:34:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # include <errno.h>
 # include "../libft/libft.h"
 # include "colors.h"
-# include <term.h>
-# include <curses.h>
 # include <termios.h>
 
 # define BUF_SIZE 4096
@@ -64,7 +62,6 @@ enum e_type
 	SEMICOLON,
 	QUOTE,
 	DBLQUOTE,
-	CONCAT,
 	QUESTION
 };
 
@@ -82,6 +79,13 @@ typedef struct s_ast
 	struct s_ast	*right;
 }				t_ast;
 
+typedef struct s_hist
+{
+	char			*value;
+	struct s_hist	*previous;
+	struct s_hist	*next;
+}				t_hist;
+
 typedef struct s_state
 {
 	char			**envp;
@@ -91,9 +95,8 @@ typedef struct s_state
 	int				in;
 	int				out;
 	int				pipefd[2];
-	char			*term_type;
-	char			*termcap;
 	bool			raw_mode;
+	t_hist			*history;
 	struct termios	termios_new;
 	struct termios	termios_backup;
 
@@ -124,7 +127,14 @@ typedef struct s_sig
 extern t_sig	g_sig;
 
 /*
-** termcap
+** history
+*/
+
+void	hist_update(t_hist **history, char *buffer);
+void	free_hist(t_hist **history);
+
+/*
+** termios / termcap
 */
 
 char	*ft_readlinev2(char *prompt);
