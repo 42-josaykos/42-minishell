@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpreter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 11:35:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:31:33 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 	}
 	while (*token && (*token)->type != type)
 	{
-		if ((*token)->type == VARIABLE || (*token)->type == QUESTION)
-			handle_variables(buf, *token, env_lst);
-		else if ((*token)->type != DOLLAR && (*token)->type != ESCAPE)
+		if (type == DBLQUOTE)
+		{
+			if ((*token)->type == VARIABLE || (*token)->type == QUESTION)
+				handle_variables(buf, *token, env_lst);
+			else if ((*token)->type != DOLLAR && (*token)->type != ESCAPE)
+				ft_strcat(buf, (*token)->value);
+		}
+		else
 			ft_strcat(buf, (*token)->value);
 		*token = (*token)->right;
 	}
