@@ -23,7 +23,7 @@ int	cd(char *arg, t_env *env_lst)
 	getcwd(tmp, BUF_SIZE);
 	ret = chdir(str);
 	errnum = errno;
-	export_env(&env_lst, "OLDPWD", tmp);
+	export_env(&env_lst, ft_strdup("OLDPWD"), ft_strdup(tmp));
 	if (ret == 0)
 		return (EXIT_SUCCESS);
 	error_cases(errnum, "cd", str);
