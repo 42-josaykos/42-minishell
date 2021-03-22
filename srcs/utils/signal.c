@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:26:25 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 17:48:09 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 15:31:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	sig_int(void)
 	if (g_sig.pid == 0)
 	{
 		print_prompt("^C\nminishell ❯ ", GREEN);
-		g_sig.exit_status = 1;
+		g_sig.exit_status = 130;
 	}
 	else
 	{
