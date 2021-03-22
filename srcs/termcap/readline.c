@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 15:46:56 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 16:02:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ char	*ft_readlinev2(t_state *st, char *prompt)
 		}
 		if (key == ARROW_UP)
 		{
-			if (st->history && st->history->previous)
+			if (st->history)
 			{
 				len = ft_strlen(g_sig.buf);
-				if (st->history && len)
+				if (st->history && st->history->previous && len)
 					st->history = st->history->previous;
 				while (len > 0)
 				{
