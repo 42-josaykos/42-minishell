@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 12:55:36 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:02:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 
 char	*ft_readline(t_state *st, t_env *env_lst, char *prompt);
 void	print_prompt(char *prompt, char *color);
+char	*concat_env(t_env *env_lst);
 char	*get_env(t_env *env_lst, char *key);
 pid_t	create_fork(pid_t *pid);
 void	env_lst_add(t_env **env_lst, t_env *new_env);

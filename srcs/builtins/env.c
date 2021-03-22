@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 14:07:50 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 11:59:55 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 13:58:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	print_env_lst(t_env *env_lst)
 {
-	char env[BUF_SIZE];
+	char	env[BUF_SIZE];
+
 	ft_bzero(env, BUF_SIZE);
 	while (env_lst)
 	{

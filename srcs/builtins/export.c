@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 13:03:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 13:56:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	*export_env(t_env **env_lst, char *key, char *value)
 
 void	print_export_variables(t_env *env_lst)
 {
-	char env[BUF_SIZE];
+	char	env[BUF_SIZE];
+
 	ft_bzero(env, BUF_SIZE);
 	while (env_lst)
 	{

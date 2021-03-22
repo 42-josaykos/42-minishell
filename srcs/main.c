@@ -54,43 +54,6 @@ int	get_input(t_state *st, char *input)
 }
 
 /*
-** Returns the env_lst in big single string. Each key=value is
-** separated by a '\n' in the string.
-*/
-
-char	*concat_env(t_env *env_lst)
-{
-	int		n;
-	t_env	*ptr;
-	char	*env;
-
-	n = 0;
-	ptr = env_lst;
-	while (ptr)
-	{
-		if (ptr->key && ptr->value)
-		{
-			n = n + ft_strlen(ptr->key) + ft_strlen(ptr->value) + 2;
-		}
-		ptr = ptr->next;
-	}
-	env = ft_calloc(n, sizeof(char));
-	while (env_lst)
-	{
-		if (env_lst->key && env_lst->value)
-		{
-			ft_strlcat(env, env_lst->key, BUF_SIZE);
-			ft_strlcat(env, "=", BUF_SIZE);
-			ft_strlcat(env, env_lst->value, BUF_SIZE);
-			if (env_lst->next)
-				ft_strcat(env, "\n");
-		}
-		env_lst = env_lst->next;
-	}
-	return (env);
-}
-
-/*
 ** Infinite loop that call get_input, a function printing a command prompt and
 ** waiting for an input.
 ** If input is not an empty, concatenate env_lst in a single string, env
