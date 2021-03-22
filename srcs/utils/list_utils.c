@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/21 22:25:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/16 17:14:59 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	env_lst_remove(t_env *env_lst, char *key)
 	{
 		if (!ft_strncmp(env_lst->key, key, ft_strlen(key) + 1))
 		{
-			printf("env %s %s\n", env_lst->key, env_lst->value);
 			previous_node->next = env_lst->next;
 			free(env_lst);
 			env_lst = previous_node;

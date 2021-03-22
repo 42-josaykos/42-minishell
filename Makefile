@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/03/18 09:58:44 by jonny            ###   ########.fr        #
+#    Updated: 2021/03/22 10:10:06 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC_NAME	=	main.c \
 						builtins/export.c \
 						builtins/init_env_lst.c \
 						builtins/pwd.c \
+						builtins/unset.c\
 						execs/exec_builtin.c \
 						execs/exec_cmd.c \
 						execs/exec_piped_cmd.c \
