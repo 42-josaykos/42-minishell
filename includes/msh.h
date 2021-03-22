@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 14:02:29 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:17:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void	*export_env(t_env **env_lst, char *key, char *value);
 int		exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 void	print_env_lst(t_env *env_lst);
 void	print_export_variables(t_env *env_lst);
-int		builtin_unset(char *str, t_env **envp);
+void	builtin_unset(char **variables, t_env *env_lst);
 
 /*
 ** init_env_lst.c

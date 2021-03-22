@@ -6,43 +6,20 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 10:13:30 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 10:13:54 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:20:09 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-int	unset_env(t_env **env_lst, char *key)
+void	builtin_unset(char **variables, t_env *env_lst)
 {
-	t_env	*tmp;
+	int	i;
 
-	tmp = *env_lst;
-	while (tmp)
+	i = 1;
+	while (variables[i])
 	{
-		if (ft_strncmp(tmp->key, key, ft_strlen(key) + 1))
-		{
-			env_lst_remove(*env_lst, key);
-			return (EXIT_SUCCESS);
-		}
-		tmp = (tmp)->next;
-	}
-	return (EXIT_SUCCESS);
-}
-
-int	builtin_unset(char *str, t_env **env_lst)
-{
-	int		i;
-	char	*env[2];
-
-	i = 0;
-	while (i < 2)
-	{
-		env[i] = ft_strsep(&str, "=");
-		if (env[i] == NULL)
-			break ;
-		if (strlen(env[i]) == 0)
-			i--;
+		env_lst_remove(env_lst, variables[i]);
 		i++;
 	}
-	return (unset_env(env_lst, env[0]));
 }
