@@ -19,6 +19,7 @@ void	init_msh(t_state **st, t_env **env_lst, char **envp)
 	int		lvl;
 	char	*tmp;
 	char	buf[BUF_SIZE];
+	char	*key;
 
 	(*st)->in = dup(STDIN);
 	(*st)->out = dup(STDOUT);
@@ -35,10 +36,8 @@ void	init_msh(t_state **st, t_env **env_lst, char **envp)
 		lvl++;
 	}
 	tmp = ft_itoa(lvl);
-	ft_strlcat(buf, "SHLVL=", BUF_SIZE);
-	ft_strlcat(buf, tmp, BUF_SIZE);
-	assign_env(buf, env_lst);
-	free(tmp);
+	key = ft_strdup("SHLVL");
+	export_env(env_lst, key, tmp);
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
 }
 

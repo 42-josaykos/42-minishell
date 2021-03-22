@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:28:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 12:36:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 12:55:18 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ char	**free_2darray(char **array)
 	return (NULL);
 }
 
-void	free_env_lst(t_env **env_lst)
+void	free_env_lst(t_env *env_lst)
 {
 	t_env	*ptr_lst;
 	t_env	*temp;
 
-	ptr_lst = *env_lst;
+	ptr_lst = env_lst;
 	while (ptr_lst)
 	{
 		if (ptr_lst->key)
@@ -43,7 +43,7 @@ void	free_env_lst(t_env **env_lst)
 		free(ptr_lst);
 		ptr_lst = temp;
 	}
-	*env_lst = NULL;
+	env_lst = NULL;
 }
 
 /*

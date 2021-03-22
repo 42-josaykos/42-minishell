@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 12:27:47 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 12:55:36 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ void	env_lst_remove(t_env *env_lst, char *key);
 void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
 int		cmd_lst_size(t_cmd *cmd_lst);
 void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st);
-void	free_env_lst(t_env **env_lst);
+void	free_env_lst(t_env *env_lst);
 char	**free_2darray(char **array);
 int		tab_size(char **array);
 char	*ft_strsep(char **stringp, const char *delim);

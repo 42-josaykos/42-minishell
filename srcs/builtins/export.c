@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 12:42:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 13:03:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	*export_env(t_env **env_lst, char *key, char *value)
 	{
 		if (!ft_strncmp(tmp->key, key, ft_strlen(key) + 1))
 		{
+			free(tmp->key);
+			free(tmp->value);
 			content_add(tmp, key, value);
 			return (tmp);
 		}

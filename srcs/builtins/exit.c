@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:47:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/18 10:31:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 12:55:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	free_exit(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 		free_2darray(status->envp);
 	free_hist(&status->history);
 	free(status);
-	free_env_lst(&env_lst);
+	free_env_lst(env_lst);
 	while (cmd_lst)
 	{
 		tmp = cmd_lst->next;

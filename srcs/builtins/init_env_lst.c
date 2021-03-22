@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:56:57 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 12:28:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 12:51:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,5 @@ void	init_env(t_env **env_lst, char **envp)
 		assign_env(envp[i], env_lst);
 		i++;
 	}
-	if (*env_lst == NULL)
-		export_env(env_lst, "export", "");
 	return ;
 }
