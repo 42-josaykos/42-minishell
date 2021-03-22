@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 16:37:00 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/03/22 10:14:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 		print_env_lst(status->envp);
 	else if (ret == UNSET)
 		builtin_unset(cmd_lst->args[1], &env_lst);
-		//ft_putstr_fd("execute unset builtin\n", 1);
 }
 
 int	is_builtin(char *cmd)

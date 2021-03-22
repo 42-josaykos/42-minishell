@@ -6,15 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/18 12:06:46 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 10:14:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-#include <curses.h>
-#include <stdio.h>
-#include <term.h>
-#include <unistd.h>
 
 int	read_key(void)
 {
@@ -47,7 +43,6 @@ char	*ft_readlinev2(t_state *st, char *prompt)
 	char	buf[BUF_SIZE];
 	int		key;
 	int		len;
-	// t_hist	*ptr = st->history;
 
 	str = NULL;
 	print_prompt(prompt, GREEN);
