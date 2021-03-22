@@ -6,7 +6,7 @@
 /*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 16:52:10 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:17:49 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # include <errno.h>
 # include "../libft/libft.h"
 # include "colors.h"
-# include <term.h>
-# include <curses.h>
 # include <termios.h>
 
 # define BUF_SIZE 4096
@@ -33,6 +31,10 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+# define CTRL_C 3
+# define CTRL_D 4
+# define BACKSPACE 127
 
 enum e_builtin
 {
@@ -60,8 +62,13 @@ enum e_type
 	SEMICOLON,
 	QUOTE,
 	DBLQUOTE,
-	CONCAT,
 	QUESTION
+};
+
+enum e_key
+{
+	ARROW_UP = 1000,
+	ARROW_DOWN
 };
 
 typedef struct s_ast
@@ -72,19 +79,24 @@ typedef struct s_ast
 	struct s_ast	*right;
 }				t_ast;
 
+typedef struct s_hist
+{
+	char			*value;
+	struct s_hist	*previous;
+	struct s_hist	*next;
+}				t_hist;
+
 typedef struct s_state
 {
 	char			**envp;
 	int				code;
-	int				dblquote;
-	int				quote;
 	int				fdin;
 	int				fdout;
 	int				in;
 	int				out;
 	int				pipefd[2];
-	char			*term_type;
-	char			termcap;
+	bool			raw_mode;
+	t_hist			*history;
 	struct termios	termios_new;
 	struct termios	termios_backup;
 
@@ -115,10 +127,19 @@ typedef struct s_sig
 extern t_sig	g_sig;
 
 /*
-** termcap
+** history
 */
 
-void	init_termcap(t_state *st, t_env *env_lst);
+void	hist_update(t_hist **history, char *buffer);
+void	free_hist(t_hist **history);
+
+/*
+** termios / termcap
+*/
+
+char	*ft_readlinev2(t_state *st, char *prompt);
+void	enable_raw_mode(t_state *st);
+void	disable_raw_mode(t_state *st);
 
 /*
 ** redirection
@@ -198,6 +219,7 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
 */
 
 char	*ft_readline(t_state *st, t_env *env_lst, char *prompt);
+void	print_prompt(char *prompt, char *color);
 char	*get_env(t_env *env_lst, char *key);
 pid_t	create_fork(pid_t *pid);
 void	env_lst_add(t_env **env_lst, t_env *new_env);

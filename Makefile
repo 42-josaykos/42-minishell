@@ -6,7 +6,7 @@
 #    By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/03/16 16:52:35 by alpascal         ###   ########.fr        #
+#    Updated: 2021/03/22 14:18:29 by alpascal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_NAME	=	main.c \
 						execs/exec_builtin.c \
 						execs/exec_cmd.c \
 						execs/exec_piped_cmd.c \
+						history/history.c \
 						parsing/interpreter.c \
 						parsing/parse_cmdline.c \
 						parsing/parse_path.c \
@@ -41,6 +42,7 @@ SRC_NAME	=	main.c \
 						redirection/fds_redir.c \
 						redirection/redirection.c \
 						termcap/termcap.c \
+						termcap/readline.c \
 						tokenizer/tokenizer.c \
 						tokenizer/ast.c \
 						tokenizer/ast_type.c \

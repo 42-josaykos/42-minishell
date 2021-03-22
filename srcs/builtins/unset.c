@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 15:38:36 by alpascal          #+#    #+#             */
-/*   Updated: 2021/03/16 16:54:41 by alpascal         ###   ########.fr       */
+/*   Created: 2021/03/22 10:13:30 by jonny             #+#    #+#             */
+/*   Updated: 2021/03/22 14:18:49 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ int	builtin_unset(char *str, t_env **env_lst)
 			i--;
 		i++;
 	}
-	return(unset_env(env_lst, env[0]));
+	return (unset_env(env_lst, env[0]));
 }
-	

@@ -5,6 +5,7 @@
 ## TODO:
 
 - ctrl+\ when input buffer is not empty
-- quotes and dblquotes. Quotes inside dblquotes and vice-versa.
 - piped commands exit_codes + redir exit_codes
-- stdin redirection with `<` in piped commands
+- `export something` without key=value pair should do nothing
+- error syntax when just pipe symbol
+- up arrow history when just one command
