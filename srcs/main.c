@@ -18,11 +18,13 @@ void	init_msh(t_state **st, t_env **env_lst, char **envp)
 {
 	int		lvl;
 	char	*tmp;
+	char	buf[BUF_SIZE];
 
 	(*st)->in = dup(STDIN);
 	(*st)->out = dup(STDOUT);
 	lvl = 1;
 	tmp = NULL;
+	ft_bzero(buf, BUF_SIZE);
 	init_fds(st);
 	sig_init();
 	init_env(env_lst, envp);
@@ -33,7 +35,9 @@ void	init_msh(t_state **st, t_env **env_lst, char **envp)
 		lvl++;
 	}
 	tmp = ft_itoa(lvl);
-	export_env(env_lst, "SHLVL", tmp);
+	ft_strlcat(buf, "SHLVL=", BUF_SIZE);
+	ft_strlcat(buf, tmp, BUF_SIZE);
+	assign_env(buf, env_lst);
 	free(tmp);
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
 }
@@ -65,17 +69,23 @@ char	*concat_env(t_env *env_lst)
 	ptr = env_lst;
 	while (ptr)
 	{
-		n = n + ft_strlen(ptr->key) + ft_strlen(ptr->value) + 2;
+		if (ptr->key && ptr->value)
+		{
+			n = n + ft_strlen(ptr->key) + ft_strlen(ptr->value) + 2;
+		}
 		ptr = ptr->next;
 	}
 	env = ft_calloc(n, sizeof(char));
 	while (env_lst)
 	{
-		ft_strcat(env, env_lst->key);
-		ft_strcat(env, "=");
-		ft_strcat(env, env_lst->value);
-		if (env_lst->next)
-			ft_strcat(env, "\n");
+		if (env_lst->key && env_lst->value)
+		{
+			ft_strlcat(env, env_lst->key, BUF_SIZE);
+			ft_strlcat(env, "=", BUF_SIZE);
+			ft_strlcat(env, env_lst->value, BUF_SIZE);
+			if (env_lst->next)
+				ft_strcat(env, "\n");
+		}
 		env_lst = env_lst->next;
 	}
 	return (env);

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:28:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 10:59:15 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 12:36:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	free_env_lst(t_env **env_lst)
 	ptr_lst = *env_lst;
 	while (ptr_lst)
 	{
+		if (ptr_lst->key)
+			free(ptr_lst->key);
+		if (ptr_lst->value)
+			free(ptr_lst->value);
 		temp = ptr_lst->next;
 		free(ptr_lst);
 		ptr_lst = temp;

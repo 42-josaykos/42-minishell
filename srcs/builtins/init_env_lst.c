@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:56:57 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 11:26:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 12:28:06 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,28 @@ void	assign_env(char *str, t_env **env_lst)
 {
 	int		i;
 	char	*env[2];
+	char *ptr = NULL;
 
 	i = 0;
+	env[0] = NULL;
+	env[1] = NULL;
 	if (!str)
 	{
-		ft_putstr_fd("no args ! print export variables\n", STDERR);
+		print_export_variables(*env_lst);
 		return ;
 	}
-	while (i < 2)
+	else if ((ptr = ft_strchr(str, '=')))
 	{
-		env[i] = ft_strsep(&str, "=");
-		if (env[i] == NULL)
-			break ;
-		if (strlen(env[i]) == 0)
-			i--;
-		i++;
+		*ptr = '\0';
+		ptr++;
+		env[0] = ft_strdup(str);
+		if (*ptr)
+			env[1] = ft_strdup(ptr);
+		else
+		 	env[1] = ft_strdup("");
 	}
+	else
+		env[0] = ft_strdup(str);
 	export_env(env_lst, env[0], env[1]);
 }
 

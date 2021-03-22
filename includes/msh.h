@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 10:10:10 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 12:27:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ typedef struct s_state
 
 typedef struct s_env
 {
-	char			key[BUF_SIZE];
-	char			value[BUF_SIZE];
+	char			*key;
+	char			*value;
 	struct s_env	*next;
 }	t_env;
 
@@ -196,7 +196,8 @@ int		builtin_echo(char **arg, t_env *env_lst, int fd);
 void	print_cwd(void);
 void	*export_env(t_env **env_lst, char *key, char *value);
 int		exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
-void	print_env_lst(char **envp);
+void	print_env_lst(t_env *env_lst);
+void	print_export_variables(t_env *env_lst);
 int		builtin_unset(char *str, t_env **envp);
 
 /*
