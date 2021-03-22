@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/02/05 13:03:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 11:25:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	*export_env(t_env **env_lst, char *key, char *value)
 	t_env	*tmp;
 
 	tmp = *env_lst;
-	if (!key)
-		key = "export";
 	if (!value)
 		value = "";
 	while (tmp)

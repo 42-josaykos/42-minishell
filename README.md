@@ -9,3 +9,5 @@
 - `export something` without key=value pair should do nothing
 - error syntax when just pipe symbol
 - up arrow history when just one command
+- unset without args
+- handle export without args + export whithout value
