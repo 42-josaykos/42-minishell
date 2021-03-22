@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 14:17:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 15:42:36 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_sig
 	int		sigquit;
 	int		exit_status;
 	pid_t	pid;
+	char	buf[BUF_SIZE];
 }				t_sig;
 
 extern t_sig	g_sig;

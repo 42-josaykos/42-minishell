@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 14:49:05 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/22 15:51:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 		if (type == DBLQUOTE)
 		{
 			if ((*token)->type == VARIABLE || (*token)->type == QUESTION)
-			handle_variables(buf, *token, env_lst);
+				handle_variables(buf, *token, env_lst);
 			else if ((*token)->type != DOLLAR && (*token)->type != ESCAPE)
 				ft_strcat(buf, (*token)->value);
 		}
