@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/23 16:17:39 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/23 17:09:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,15 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst, char *buf)
 		ast_add(new_tkn, new_node);
 	}
 	else if ((*tkn)->type == DBLQUOTE || (*tkn)->type == QUOTE)
+	{
 		handle_quotes(tkn, buf, env_lst);
+		if (!(*buf) && (!(*tkn)->right || ((*tkn)->right
+					&& (*tkn)->right->type != ARG)))
+		{
+			new_node = create_node(ft_strdup(""), ARG);
+			ast_add(new_tkn, new_node);
+		}
+	}
 	else if ((*tkn)->type == VARIABLE || (*tkn)->type == QUESTION)
 		handle_variables(buf, *tkn, env_lst);
 }
@@ -94,7 +102,7 @@ t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
 	ft_bzero(buf, BUF_SIZE);
 	while (1)
 	{
-		if ((!tkn || tkn->type == WHITESPACE || spc_tkn(tkn)))
+		if (*buf && (!tkn || tkn->type == WHITESPACE || spc_tkn(tkn)))
 		{
 			new_node = create_node(ft_strdup(buf), ARG);
 			ast_add(&new_tkn, new_node);
