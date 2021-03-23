@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/23 12:40:43 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/23 17:38:43 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ int	read_key(void)
 	return (c);
 }
 
+void	handle_keys(int key, t_state *st, char *prompt, char *c)
+{
+	if (key == ARROW_UP)
+		handle_arrow_up(&st->history);
+	if (key == ARROW_DOWN)
+		handle_arrow_down(&st->history);
+	if (key == CTRL_C)
+		handle_ctrl_c(prompt);
+	if (key == CTRL_D)
+		handle_ctrl_d(c);
+	if (key == BACKSPACE)
+		handle_backspace();
+}
+
 char	*ft_readlinev2(t_state *st, char *prompt)
 {
 	char	*str;
@@ -54,16 +68,7 @@ char	*ft_readlinev2(t_state *st, char *prompt)
 			write(STDOUT_FILENO, &c, 1);
 			ft_strlcat(g_sig.buf, &c, BUF_SIZE);
 		}
-		if (key == ARROW_UP)
-			handle_arrow_up(&st->history);
-		if (key == ARROW_DOWN)
-			handle_arrow_down(&st->history);
-		if (key == CTRL_C)
-			handle_ctrl_c(prompt);
-		if (key == CTRL_D)
-			handle_ctrl_d(&c);
-		if (key == BACKSPACE)
-			handle_backspace();
+		handle_keys(key, st, prompt, &c);
 		if (c == '\n')
 			break ;
 	}
