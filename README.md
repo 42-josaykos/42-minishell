@@ -11,3 +11,4 @@
 - up arrow history when just one command
 - unset without args
 - handle export without args + export whithout value
+- `echo test "" test`

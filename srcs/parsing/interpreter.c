@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/23 15:38:28 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/23 16:17:39 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
 	ft_bzero(buf, BUF_SIZE);
 	while (1)
 	{
-		if (!is_empty(buf) && (!tkn || tkn->type == WHITESPACE || spc_tkn(tkn)))
+		if ((!tkn || tkn->type == WHITESPACE || spc_tkn(tkn)))
 		{
 			new_node = create_node(ft_strdup(buf), ARG);
 			ast_add(&new_tkn, new_node);
