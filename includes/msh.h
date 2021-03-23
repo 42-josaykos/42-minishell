@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/23 11:48:36 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/23 12:40:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,11 @@ void	free_hist(t_hist **history);
 char	*ft_readlinev2(t_state *st, char *prompt);
 void	enable_raw_mode(t_state *st);
 void	disable_raw_mode(t_state *st);
+void	handle_ctrl_c(char *prompt);
+void	handle_ctrl_d(char *c);
+void	handle_arrow_up(t_hist **history);
+void	handle_arrow_down(t_hist **history);
+void	handle_backspace(void);
 
 /*
 ** redirection
