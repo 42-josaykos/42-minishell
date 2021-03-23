@@ -6,35 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 11:12:02 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/23 17:42:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-
-int	test_quotes(char *str)
-{
-	int	quotes;
-	int	dquotes;
-	int	i;
-
-	i = 0;
-	quotes = 0;
-	dquotes = 0;
-	while (str[i])
-	{
-		if (str[i] == '\"')
-			dquotes += 1;
-		if (str[i] == '\'')
-			quotes += 1;
-		i++;
-	}
-	if (dquotes % 2 || quotes % 2)
-		error_quotes();
-	else
-		return (1);
-	return (0);
-}
 
 t_ast	*parse_args(char *input)
 {
