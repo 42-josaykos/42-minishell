@@ -9,15 +9,6 @@
       "args": [],
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "clang build"
-    },
-    {
-      "name": "Tests",
-      "type": "lldb",
-      "request": "launch",
-      "program": "${workspaceFolder}/a.out",
-      "args": [],
-      "cwd": "${workspaceFolder}",
-      "preLaunchTask": "tests"
     }
   ]
 }

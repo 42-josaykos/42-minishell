@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/03/23 12:40:30 by jonny            ###   ########.fr        #
+#    Updated: 2021/03/23 17:31:21 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ all:	$(NAME)
 $(NAME): $(OBJ)
 	make -C libft/ 1>/dev/null
 	@echo "$(GREEN)$(LIBFT) done...$(END)"
-	$(CC) -Wall -Wextra -Werror $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME) -lncurses
+	$(CC) -Wall -Wextra -Werror $(OBJ) $(INCLUDES) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) binary is ready !$(END)"
 
 %.o: %.c

@@ -11,8 +11,7 @@
         "libft/libft.a",
         "-g",
         "-Iincludes",
-        "-Ilibft",
-        "-lncurses"
+        "-Ilibft"
       ],
       "group": {
         "kind": "build",
