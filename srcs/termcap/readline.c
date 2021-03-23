@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/23 12:30:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/23 12:33:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,27 @@ void	handle_backspace(void)
 	g_sig.buf[ft_strlen(g_sig.buf) - 1] = '\0';
 }
 
+void	handle_arrow_up(t_hist **history)
+{
+	int len;
+
+	len = 0;
+	if (*history)
+	{
+		len = ft_strlen(g_sig.buf);
+		if (*history && (*history)->previous && len)
+			*history = (*history)->previous;
+		while (len > 0)
+		{
+			ft_putstr_fd("\b \b", STDOUT);
+			len--;
+		}
+		ft_bzero(g_sig.buf, BUF_SIZE);
+		ft_strlcpy(g_sig.buf, (*history)->value, BUF_SIZE);
+		ft_putstr_fd(g_sig.buf, STDOUT);
+	}
+}
+
 char	*ft_readlinev2(t_state *st, char *prompt)
 {
 	char	*str;
@@ -82,22 +103,7 @@ char	*ft_readlinev2(t_state *st, char *prompt)
 			ft_strlcat(g_sig.buf, &c, BUF_SIZE);
 		}
 		if (key == ARROW_UP)
-		{
-			if (st->history)
-			{
-				len = ft_strlen(g_sig.buf);
-				if (st->history && st->history->previous && len)
-					st->history = st->history->previous;
-				while (len > 0)
-				{
-					ft_putstr_fd("\b \b", STDOUT);
-					len--;
-				}
-				ft_bzero(g_sig.buf, BUF_SIZE);
-				ft_strlcpy(g_sig.buf, st->history->value, BUF_SIZE);
-				ft_putstr_fd(g_sig.buf, STDOUT);
-			}
-		}
+			handle_arrow_up(&st->history);
 		if (key == ARROW_DOWN)
 		{
 			if (st->history && st->history->next)
