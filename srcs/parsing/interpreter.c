@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 15:51:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/23 12:10:01 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,42 +60,54 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 	}
 }
 
-t_ast	*interpreter(t_ast *token, t_env *env_lst)
+static bool	spc_tkn(t_ast *tkn)
 {
-	t_ast	*new_token;
+	if (tkn->type == SEMICOLON || tkn->type == PIPE
+		|| tkn->type == REDIR || tkn->type == APPEND
+		|| tkn->type == INPUT)
+		return (true);
+	return (false);
+}
+
+void	interpreter2(t_ast *tkn, t_ast **new_tkn, t_env *env_lst, char *buf)
+{
+	t_ast	*new_node;
+
+	if (spc_tkn(tkn))
+	{
+		new_node = create_node(ft_strdup(tkn->value), tkn->type);
+		ast_add(new_tkn, new_node);
+	}
+	else if (tkn->type == DBLQUOTE || tkn->type == QUOTE)
+		handle_quotes(&tkn, buf, env_lst);
+	else if (tkn->type == VARIABLE || tkn->type == QUESTION)
+		handle_variables(buf, tkn, env_lst);
+}
+
+t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
+{
+	t_ast	*new_tkn;
 	t_ast	*new_node;
 	char	buf[BUF_SIZE];
 
-	new_token = NULL;
+	new_tkn = NULL;
 	ft_bzero(buf, BUF_SIZE);
 	while (1)
 	{
-		if (!is_empty(buf) && (!token || token->type == WHITESPACE
-				|| token->type == SEMICOLON || token->type == PIPE
-				|| token->type == REDIR || token->type == APPEND
-				|| token->type == INPUT))
+		if (!is_empty(buf) && (!tkn || tkn->type == WHITESPACE || spc_tkn(tkn)))
 		{
 			new_node = create_node(ft_strdup(buf), ARG);
-			ast_add(&new_token, new_node);
+			ast_add(&new_tkn, new_node);
 			ft_bzero(buf, BUF_SIZE);
 		}
-		if (!token)
+		if (!tkn)
 			break ;
-		if (token->type == SEMICOLON || token->type == PIPE
-			|| token->type == REDIR || token->type == APPEND
-			|| token->type == INPUT)
-		{
-			new_node = create_node(ft_strdup(token->value), token->type);
-			ast_add(&new_token, new_node);
-		}
-		else if (token->type == DBLQUOTE || token->type == QUOTE)
-			handle_quotes(&token, buf, env_lst);
-		else if (token->type == VARIABLE || token->type == QUESTION)
-			handle_variables(buf, token, env_lst);
-		else if (token->type == ARG)
-			ft_strcat(buf, token->value);
-		if (token)
-			token = token->right;
+		if (tkn->type != ARG)
+			interpreter2(tkn, &new_tkn, env_lst, buf);
+		else
+			ft_strcat(buf, tkn->value);
+		if (tkn)
+			tkn = tkn->right;
 	}
-	return (new_token);
+	return (new_tkn);
 }
