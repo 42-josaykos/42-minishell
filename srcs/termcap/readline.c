@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 16:02:29 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/23 12:30:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,32 @@ int	read_key(void)
 		}
 	}
 	return (c);
+}
+
+void	handle_ctrl_c(char *prompt)
+{
+	write(STDOUT_FILENO, "\n\r", 2);
+	print_prompt(prompt, GREEN);
+	ft_bzero(g_sig.buf, BUF_SIZE);
+}
+
+void	handle_ctrl_d(char *c)
+{
+	if (g_sig.buf[0] == '\0')
+	{
+		ft_strlcpy(g_sig.buf, "exit\n", 6);
+		*c = '\n';
+	}
+}
+
+void	handle_backspace(void)
+{
+	int	len;
+
+	len = ft_strlen(g_sig.buf);
+	if (len && g_sig.buf[len - 1])
+		ft_putstr_fd("\b \b", STDOUT);
+	g_sig.buf[ft_strlen(g_sig.buf) - 1] = '\0';
 }
 
 char	*ft_readlinev2(t_state *st, char *prompt)
@@ -89,26 +115,11 @@ char	*ft_readlinev2(t_state *st, char *prompt)
 			}
 		}
 		if (key == CTRL_C)
-		{
-			write(STDOUT_FILENO, "\n\r", 2);
-			print_prompt(prompt, GREEN);
-			ft_bzero(g_sig.buf, BUF_SIZE);
-		}
+			handle_ctrl_c(prompt);
 		if (key == CTRL_D)
-		{
-			if (g_sig.buf[0] == '\0')
-			{
-				ft_strlcpy(g_sig.buf, "exit\n", 6);
-				c = '\n';
-			}
-		}
+			handle_ctrl_d(&c);
 		if (key == BACKSPACE)
-		{
-			len = ft_strlen(g_sig.buf);
-			if (len && g_sig.buf[len - 1])
-				ft_putstr_fd("\b \b", STDOUT);
-			g_sig.buf[ft_strlen(g_sig.buf) - 1] = '\0';
-		}
+			handle_backspace();
 		if (c == '\n')
 			break ;
 	}
