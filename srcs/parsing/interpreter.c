@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/23 12:10:01 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/23 15:38:28 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,19 @@ static bool	spc_tkn(t_ast *tkn)
 	return (false);
 }
 
-void	interpreter2(t_ast *tkn, t_ast **new_tkn, t_env *env_lst, char *buf)
+void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst, char *buf)
 {
 	t_ast	*new_node;
 
-	if (spc_tkn(tkn))
+	if (spc_tkn(*tkn))
 	{
-		new_node = create_node(ft_strdup(tkn->value), tkn->type);
+		new_node = create_node(ft_strdup((*tkn)->value), (*tkn)->type);
 		ast_add(new_tkn, new_node);
 	}
-	else if (tkn->type == DBLQUOTE || tkn->type == QUOTE)
-		handle_quotes(&tkn, buf, env_lst);
-	else if (tkn->type == VARIABLE || tkn->type == QUESTION)
-		handle_variables(buf, tkn, env_lst);
+	else if ((*tkn)->type == DBLQUOTE || (*tkn)->type == QUOTE)
+		handle_quotes(tkn, buf, env_lst);
+	else if ((*tkn)->type == VARIABLE || (*tkn)->type == QUESTION)
+		handle_variables(buf, *tkn, env_lst);
 }
 
 t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
@@ -103,7 +103,7 @@ t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
 		if (!tkn)
 			break ;
 		if (tkn->type != ARG)
-			interpreter2(tkn, &new_tkn, env_lst, buf);
+			interpreter2(&tkn, &new_tkn, env_lst, buf);
 		else
 			ft_strcat(buf, tkn->value);
 		if (tkn)
