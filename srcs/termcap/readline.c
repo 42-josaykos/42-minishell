@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/23 17:38:43 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/24 11:35:52 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	read_key(void)
 {
 	char	c;
 	char	seq[2];
+	char	seq2[3];
 
 	while (read(STDIN_FILENO, &c, 1) != 1)
 		;
@@ -31,6 +32,8 @@ int	read_key(void)
 				return (ARROW_UP);
 			if (seq[1] == 'B')
 				return (ARROW_DOWN);
+			else if (read(STDIN_FILENO, seq2, 3) != 1)
+				return ('\e');
 		}
 	}
 	return (c);
