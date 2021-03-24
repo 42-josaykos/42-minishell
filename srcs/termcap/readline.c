@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/24 11:35:52 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/24 12:43:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ int	read_key(void)
 		}
 	}
 	return (c);
+}
+
+void	clear_buf(void)
+{
+	int	len;
+
+	len = ft_strlen(g_sig.buf);
+	while (len > 0)
+	{
+		ft_putstr_fd("\b \b", STDOUT);
+		len--;
+	}
+	ft_bzero(g_sig.buf, BUF_SIZE);
 }
 
 void	handle_keys(int key, t_state *st, char *prompt, char *c)
