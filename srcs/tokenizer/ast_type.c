@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 14:22:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 10:52:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/25 15:22:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ static void	set_redir_append(t_ast *ptr)
 
 static void	set_escape(t_ast *ptr)
 {
-	if (ptr->right && (ptr->right->value[0] == '$'
-			|| ptr->right->value[0] == '\"' || ptr->right->value[0] == '\''
-			|| ptr->right->value[0] == '>' || ptr->right->value[0] == '<'
-			|| ptr->right->value[0] == '\\' || ptr->right->value[0] == '?'))
+	if ((ptr->right && (ptr->right->value[0] == '$'
+				|| ptr->right->value[0] == '\"' || ptr->right->value[0] == '\''
+				|| ptr->right->value[0] == '>' || ptr->right->value[0] == '<'
+				|| ptr->right->value[0] == '\\' || ptr->right->value[0] == '?'))
+		|| (ptr->left && ptr->left->type != ESCAPE))
 		set_type(ptr, ESCAPE);
 }
 
