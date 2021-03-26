@@ -9,3 +9,4 @@
 - error syntax when just pipe symbol
 - handle export without args + export whithout value
 - `echo '\'`
+- `echo "hello\newline"`
