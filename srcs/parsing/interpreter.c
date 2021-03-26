@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/26 17:49:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/26 18:25:07 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 {
 	enum e_type	type;
-	bool dollar_sign;
+	bool		dollar_sign;
 
 	dollar_sign = false;
 	if ((*token)->left && (*token)->left->type == DOLLAR)
