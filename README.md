@@ -8,3 +8,4 @@
 - `export something` without key=value pair should do nothing
 - error syntax when just pipe symbol
 - handle export without args + export whithout value
+- `echo '\'`

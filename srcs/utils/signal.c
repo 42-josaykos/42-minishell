@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:26:25 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 15:48:10 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/26 15:54:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	sig_init(void)
 void	sig_int(void)
 {
 	if (g_sig.pid == 0)
-		print_prompt("^C\nminishell ❯ ", GREEN);
+	{
+		ft_putstr_fd("^C", STDERR);
+		print_prompt("\nminishell ❯ ", GREEN);
+	}
 	else
 		ft_putstr_fd("^C\n", STDERR);
 	ft_bzero(g_sig.buf, BUF_SIZE);
