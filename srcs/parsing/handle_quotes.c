@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/26 18:24:54 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/26 18:43:46 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void 	handle_quotes2(t_ast **token, char *buf, bool dollar_sign)
 
 	ptr = NULL;
 	str = "\0";
-	if ((*token)->type == ESCAPE && (*token)->right && dollar_sign)
+	if ((*token)->value[0] == '\\' && (*token)->right && dollar_sign)
 	{
 		c = (*token)->right->value[0];
 		if (is_ansi_c_quoting(&str, c))

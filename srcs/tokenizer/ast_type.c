@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 14:22:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/25 15:22:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/26 18:41:41 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	set_escape(t_ast *ptr)
 				|| ptr->right->value[0] == '\"' || ptr->right->value[0] == '\''
 				|| ptr->right->value[0] == '>' || ptr->right->value[0] == '<'
 				|| ptr->right->value[0] == '\\' || ptr->right->value[0] == '?'))
-		|| (ptr->left && ptr->left->type != ESCAPE))
+		&& (ptr->left && ptr->left->type != ESCAPE))
 		set_type(ptr, ESCAPE);
 }
 
