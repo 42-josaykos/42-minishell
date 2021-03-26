@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/03/23 17:31:21 by jonny            ###   ########.fr        #
+#    Updated: 2021/03/26 17:44:38 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC_NAME	=	main.c \
 						execs/exec_cmd.c \
 						execs/exec_piped_cmd.c \
 						history/history.c \
+						parsing/handle_quotes.c \
 						parsing/interpreter.c \
 						parsing/parse_cmdline.c \
 						parsing/parse_path.c \
