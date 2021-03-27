@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/26 18:25:07 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/27 15:24:13 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 		tmp = get_env(env_lst, token->value);
 		if (tmp != NULL)
 			ft_strcat(buf, tmp);
+		else
+		{
+			ft_strcat(buf, "$");
+			ft_strcat(buf, token->value);
+		}
 	}
 	else if (token->type == QUESTION)
 	{
