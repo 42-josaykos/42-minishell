@@ -11,3 +11,4 @@
 - `echo '\'`
 - `echo "hello\newline"`
 - `export VARIABLE=value; echo VARIABLE`
+- `echo "a\\ \ b c\" \'$SHELL\'"`
