@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 13:09:22 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/27 15:53:37 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_env(t_env *env_lst, char *key)
 {
 	while (env_lst)
 	{
-		if (!ft_strncmp(env_lst->key, key, ft_strlen(key)))
+		if (!ft_strncmp(env_lst->key, key, ft_strlen(key) + 1))
 		{
 			return (env_lst->value);
 		}
