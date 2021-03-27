@@ -10,3 +10,4 @@
 - handle export without args + export whithout value
 - `echo '\'`
 - `echo "hello\newline"`
+- `export VARIABLE=value; echo VARIABLE`
