@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 13:09:24 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/28 15:05:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void	token_lst_remove(t_ast **token)
 	}
 }
 
-static void	create_new_cmd(t_cmd **cmd_lst, char **tmp, enum e_type *type)
+static void	create_new_cmd(t_cmd **cmd_lst, char **tmp, enum e_type *type, t_env *env_lst)
 {
 	t_cmd	*new_cmd;
 	int		k;
+	char	*var;
 
 	k = 0;
 	new_cmd = ft_calloc(1, sizeof(t_cmd));
@@ -38,7 +39,16 @@ static void	create_new_cmd(t_cmd **cmd_lst, char **tmp, enum e_type *type)
 	k = 0;
 	while (tmp[k] && type[k])
 	{
-		new_cmd->args[k] = ft_strdup(tmp[k]);
+		if (type[k] == VARIABLE)
+		{
+			var = get_env(env_lst, tmp[k]);
+			if (var)
+				new_cmd->args[k] = ft_strdup(var);
+			else
+				new_cmd->args[k] = ft_strdup("");
+		}
+		else
+			new_cmd->args[k] = ft_strdup(tmp[k]);
 		new_cmd->type[k] = type[k];
 		k++;
 	}
@@ -47,7 +57,7 @@ static void	create_new_cmd(t_cmd **cmd_lst, char **tmp, enum e_type *type)
 	*cmd_lst = new_cmd;
 }
 
-void	parse_cmds(t_ast **token, t_cmd **cmd_lst)
+void	parse_cmds(t_ast **token, t_cmd **cmd_lst, t_env *env_lst)
 {
 	int			j;
 	int			i;
@@ -64,7 +74,7 @@ void	parse_cmds(t_ast **token, t_cmd **cmd_lst)
 		j++;
 		token_lst_remove(token);
 	}
-	create_new_cmd(cmd_lst, tmp, type);
+	create_new_cmd(cmd_lst, tmp, type, env_lst);
 	i = 0;
 	while (tmp[i])
 	{

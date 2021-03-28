@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 11:16:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/28 15:03:09 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,10 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 {
 	char	*tmp;
 
+	(void)env_lst;
 	tmp = NULL;
 	if (token->type == VARIABLE)
-	{
-		tmp = get_env(env_lst, token->value);
-		if (tmp != NULL)
-			ft_strcat(buf, tmp);
-		else
-			ft_strcat(buf, "\0");
-	}
+			ft_strcat(buf, token->value);
 	else if (token->type == QUESTION)
 	{
 		if (token->left && token->left->type == DOLLAR)
@@ -95,8 +90,6 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst, char *buf)
 			ast_add(new_tkn, new_node);
 		}
 	}
-	else if ((*tkn)->type == VARIABLE || (*tkn)->type == QUESTION)
-		handle_variables(buf, *tkn, env_lst);
 }
 
 t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
@@ -117,8 +110,15 @@ t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
 		}
 		if (!tkn)
 			break ;
-		if (tkn->type != ARG)
+		if (tkn->type != ARG && tkn->type != VARIABLE && tkn->type != QUESTION)
 			interpreter2(&tkn, &new_tkn, env_lst, buf);
+		else if (tkn->type == VARIABLE || tkn->type == QUESTION)
+		{
+			handle_variables(buf, tkn, env_lst);
+			new_node = create_node(ft_strdup(buf), VARIABLE);
+			ast_add(&new_tkn, new_node);
+			ft_bzero(buf, BUF_SIZE);
+		}
 		else
 			ft_strcat(buf, tkn->value);
 		if (tkn)
