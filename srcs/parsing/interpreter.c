@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 15:03:09 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/28 15:21:22 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 	(void)env_lst;
 	tmp = NULL;
 	if (token->type == VARIABLE)
-			ft_strcat(buf, token->value);
+		ft_strcat(buf, token->value);
 	else if (token->type == QUESTION)
 	{
 		if (token->left && token->left->type == DOLLAR)
@@ -30,35 +30,6 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 		}
 		else
 			ft_strcat(buf, token->value);
-	}
-}
-
-void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
-{
-	enum e_type	type;
-	bool		dollar_sign;
-
-	dollar_sign = false;
-	if ((*token)->left && (*token)->left->type == DOLLAR)
-		dollar_sign = true;
-	if (*token)
-	{
-		type = (*token)->type;
-		*token = (*token)->right;
-	}
-	while (*token && (*token)->type != type)
-	{
-		if (type == DBLQUOTE)
-		{
-			if ((*token)->type == VARIABLE || (*token)->type == QUESTION)
-				handle_variables(buf, *token, env_lst);
-			else if ((*token)->type != DOLLAR
-				&& (dollar_sign || (*token)->type != ESCAPE))
-				ft_strcat(buf, (*token)->value);
-		}
-		else if (type == QUOTE)
-			handle_quotes2(token, buf, dollar_sign);
-		*token = (*token)->right;
 	}
 }
 
@@ -92,10 +63,18 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst, char *buf)
 	}
 }
 
+static void	add_new_node(char *buf, t_ast **new_tkn, enum e_type type)
+{
+	t_ast	*new_node;
+
+	new_node = create_node(ft_strdup(buf), type);
+	ast_add(new_tkn, new_node);
+	ft_bzero(buf, BUF_SIZE);
+}
+
 t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
 {
 	t_ast	*new_tkn;
-	t_ast	*new_node;
 	char	buf[BUF_SIZE];
 
 	new_tkn = NULL;
@@ -103,11 +82,7 @@ t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
 	while (1)
 	{
 		if (*buf && (!tkn || tkn->type == WHITESPACE || spc_tkn(tkn)))
-		{
-			new_node = create_node(ft_strdup(buf), ARG);
-			ast_add(&new_tkn, new_node);
-			ft_bzero(buf, BUF_SIZE);
-		}
+			add_new_node(buf, &new_tkn, ARG);
 		if (!tkn)
 			break ;
 		if (tkn->type != ARG && tkn->type != VARIABLE && tkn->type != QUESTION)
@@ -115,9 +90,7 @@ t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
 		else if (tkn->type == VARIABLE || tkn->type == QUESTION)
 		{
 			handle_variables(buf, tkn, env_lst);
-			new_node = create_node(ft_strdup(buf), VARIABLE);
-			ast_add(&new_tkn, new_node);
-			ft_bzero(buf, BUF_SIZE);
+			add_new_node(buf, &new_tkn, VARIABLE);
 		}
 		else
 			ft_strcat(buf, tkn->value);

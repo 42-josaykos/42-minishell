@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 14:52:16 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/28 15:20:37 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,8 @@ void	catch_signal(void);
 ** parsing
 */
 
-void	handle_quotes2(t_ast **token, char *buf, bool dollar_sign);
+void	handle_quotes(t_ast **token, char *buf, t_env *env_lst);
+void	handle_variables(char *buf, t_ast *token, t_env *env_lst);
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 t_ast	*parse_args(char *input);
 t_ast	*interpreter(t_ast *token, t_env *env_lst);

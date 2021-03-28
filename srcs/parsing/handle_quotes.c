@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/26 18:43:46 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/28 15:20:57 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	is_ansi_c_quoting(char **str, char c)
 	return (is_ansi_c_quoting2(str, c));
 }
 
-void 	handle_quotes2(t_ast **token, char *buf, bool dollar_sign)
+static void 	handle_quotes2(t_ast **token, char *buf, bool dollar_sign)
 {
 	char	*ptr;
 	char	*str;
@@ -77,4 +77,33 @@ void 	handle_quotes2(t_ast **token, char *buf, bool dollar_sign)
 	}
 	else
 		ft_strcat(buf, (*token)->value);
+}
+
+void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
+{
+	enum e_type	type;
+	bool		dollar_sign;
+
+	dollar_sign = false;
+	if ((*token)->left && (*token)->left->type == DOLLAR)
+		dollar_sign = true;
+	if (*token)
+	{
+		type = (*token)->type;
+		*token = (*token)->right;
+	}
+	while (*token && (*token)->type != type)
+	{
+		if (type == DBLQUOTE)
+		{
+			if ((*token)->type == VARIABLE || (*token)->type == QUESTION)
+				handle_variables(buf, *token, env_lst);
+			else if ((*token)->type != DOLLAR
+				&& (dollar_sign || (*token)->type != ESCAPE))
+				ft_strcat(buf, (*token)->value);
+		}
+		else if (type == QUOTE)
+			handle_quotes2(token, buf, dollar_sign);
+		*token = (*token)->right;
+	}
 }
