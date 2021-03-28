@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/26 18:25:23 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/28 12:21:28 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	handle_quotes2(t_ast **token, char *buf, bool dollar_sign);
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 t_ast	*parse_args(char *input);
 t_ast	*interpreter(t_ast *token, t_env *env_lst);
-bool	parse_cmds(t_ast *token, t_cmd **cmd_lst);
+void	parse_cmds(t_ast **token, t_cmd **cmd_lst);
 void	has_piped_cmd(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
 void	parse_pipe(int i, int j, t_cmd *cmd_Lst, t_cmd **piped);
 bool	check_pipe(char **str);
