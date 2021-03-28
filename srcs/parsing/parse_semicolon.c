@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 12:51:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/28 13:09:24 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	token_lst_remove(t_ast **token)
 	}
 }
 
-static void	create_new_cmd(t_cmd **cmd_lst, char **tmp, char *type)
+static void	create_new_cmd(t_cmd **cmd_lst, char **tmp, enum e_type *type)
 {
 	t_cmd	*new_cmd;
 	int		k;
@@ -49,10 +49,10 @@ static void	create_new_cmd(t_cmd **cmd_lst, char **tmp, char *type)
 
 void	parse_cmds(t_ast **token, t_cmd **cmd_lst)
 {
-	int		j;
-	int		i;
-	char	*tmp[BUF_SIZE];
-	char	type[BUF_SIZE];
+	int			j;
+	int			i;
+	char		*tmp[BUF_SIZE];
+	enum e_type	type[BUF_SIZE];
 
 	j = 0;
 	ft_bzero(tmp, BUF_SIZE);
