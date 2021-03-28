@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 15:05:50 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/28 15:23:26 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	token_lst_remove(t_ast **token)
 	}
 }
 
-static void	create_new_cmd(t_cmd **cmd_lst, char **tmp, enum e_type *type, t_env *env_lst)
+static void	create_new_cmd(t_cmd **cmd_lst, char **tmp,
+	enum e_type *type, t_env *env_lst)
 {
 	t_cmd	*new_cmd;
 	int		k;
 	char	*var;
 
-	k = 0;
 	new_cmd = ft_calloc(1, sizeof(t_cmd));
 	new_cmd->args = ft_calloc(tab_size(tmp) + 1, sizeof(char *));
 	k = 0;
