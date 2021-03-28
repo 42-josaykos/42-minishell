@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 12:36:05 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/28 12:39:32 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,5 @@ void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 			clear_previous_cmd(cmd_lst, NULL);
 			free(cmd_lst);
 		}
-		// free_ast(&token);
 	}
 }
