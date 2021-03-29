@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 15:23:26 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 11:11:49 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	token_lst_remove(t_ast **token)
 {
 	t_ast	*next_node;
 
-	if (token)
+	if (*token)
 	{
 		next_node = (*token)->right;
 		if (next_node)
@@ -28,27 +28,17 @@ void	token_lst_remove(t_ast **token)
 }
 
 static void	create_new_cmd(t_cmd **cmd_lst, char **tmp,
-	enum e_type *type, t_env *env_lst)
+	enum e_type *type)
 {
 	t_cmd	*new_cmd;
 	int		k;
-	char	*var;
 
 	new_cmd = ft_calloc(1, sizeof(t_cmd));
 	new_cmd->args = ft_calloc(tab_size(tmp) + 1, sizeof(char *));
 	k = 0;
 	while (tmp[k] && type[k])
 	{
-		if (type[k] == VARIABLE)
-		{
-			var = get_env(env_lst, tmp[k]);
-			if (var)
-				new_cmd->args[k] = ft_strdup(var);
-			else
-				new_cmd->args[k] = ft_strdup("");
-		}
-		else
-			new_cmd->args[k] = ft_strdup(tmp[k]);
+		new_cmd->args[k] = ft_strdup(tmp[k]);
 		new_cmd->type[k] = type[k];
 		k++;
 	}
@@ -57,7 +47,7 @@ static void	create_new_cmd(t_cmd **cmd_lst, char **tmp,
 	*cmd_lst = new_cmd;
 }
 
-void	parse_cmds(t_ast **token, t_cmd **cmd_lst, t_env *env_lst)
+void	parse_cmds(t_ast **token, t_cmd **cmd_lst)
 {
 	int			j;
 	int			i;
@@ -74,7 +64,7 @@ void	parse_cmds(t_ast **token, t_cmd **cmd_lst, t_env *env_lst)
 		j++;
 		token_lst_remove(token);
 	}
-	create_new_cmd(cmd_lst, tmp, type, env_lst);
+	create_new_cmd(cmd_lst, tmp, type);
 	i = 0;
 	while (tmp[i])
 	{

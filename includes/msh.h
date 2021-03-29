@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 15:20:37 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 11:03:46 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,9 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst);
 void	handle_variables(char *buf, t_ast *token, t_env *env_lst);
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
 t_ast	*parse_args(char *input);
-t_ast	*interpreter(t_ast *token, t_env *env_lst);
-void	parse_cmds(t_ast **token, t_cmd **cmd_lst, t_env *env_lst);
+t_ast	*interpreter(t_ast **token, t_env *env_lst);
+void	parse_cmds(t_ast **token, t_cmd **cmd_lst);
+void	token_lst_remove(t_ast **token);
 void	has_piped_cmd(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
 void	parse_pipe(int i, int j, t_cmd *cmd_Lst, t_cmd **piped);
 bool	check_pipe(char **str);

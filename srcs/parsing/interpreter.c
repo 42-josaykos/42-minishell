@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 15:21:22 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 11:14:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 	(void)env_lst;
 	tmp = NULL;
 	if (token->type == VARIABLE)
-		ft_strcat(buf, token->value);
+	{
+		tmp = get_env(env_lst, token->value);
+		if (tmp != NULL)
+			ft_strcat(buf, tmp);
+	}
 	else if (token->type == QUESTION)
 	{
 		if (token->left && token->left->type == DOLLAR)
@@ -72,7 +76,7 @@ static void	add_new_node(char *buf, t_ast **new_tkn, enum e_type type)
 	ft_bzero(buf, BUF_SIZE);
 }
 
-t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
+t_ast	*interpreter(t_ast **tkn, t_env *env_lst)
 {
 	t_ast	*new_tkn;
 	char	buf[BUF_SIZE];
@@ -81,21 +85,22 @@ t_ast	*interpreter(t_ast *tkn, t_env *env_lst)
 	ft_bzero(buf, BUF_SIZE);
 	while (1)
 	{
-		if (*buf && (!tkn || tkn->type == WHITESPACE || spc_tkn(tkn)))
+		if (*buf && (!(*tkn) || (*tkn)->type == WHITESPACE || spc_tkn(*tkn)))
 			add_new_node(buf, &new_tkn, ARG);
-		if (!tkn)
+		if (!(*tkn) || (*tkn && (*tkn)->type == SEMICOLON))
 			break ;
-		if (tkn->type != ARG && tkn->type != VARIABLE && tkn->type != QUESTION)
-			interpreter2(&tkn, &new_tkn, env_lst, buf);
-		else if (tkn->type == VARIABLE || tkn->type == QUESTION)
+		if ((*tkn)->type != ARG && (*tkn)->type != VARIABLE
+			&& (*tkn)->type != QUESTION)
+			interpreter2(tkn, &new_tkn, env_lst, buf);
+		else if ((*tkn)->type == VARIABLE || (*tkn)->type == QUESTION)
 		{
-			handle_variables(buf, tkn, env_lst);
+			handle_variables(buf, *tkn, env_lst);
 			add_new_node(buf, &new_tkn, VARIABLE);
 		}
 		else
-			ft_strcat(buf, tkn->value);
-		if (tkn)
-			tkn = tkn->right;
+			ft_strcat(buf, (*tkn)->value);
+		token_lst_remove(tkn);
 	}
+	token_lst_remove(tkn);
 	return (new_tkn);
 }
