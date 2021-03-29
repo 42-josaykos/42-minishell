@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 11:03:46 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 12:01:55 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ enum e_type
 	WHITESPACE,
 	ESCAPE,
 	DOLLAR,
-	VARIABLE,
+	VAR,
 	REDIR,
 	APPEND,
 	INPUT,
@@ -62,7 +62,7 @@ enum e_type
 	SEMICOLON,
 	QUOTE,
 	DBLQUOTE,
-	QUESTION
+	QUEST
 };
 
 enum e_key
@@ -122,6 +122,7 @@ typedef struct s_sig
 	int		sigquit;
 	int		exit_status;
 	pid_t	pid;
+	bool	dollar_quote;
 	char	buf[BUF_SIZE];
 }				t_sig;
 

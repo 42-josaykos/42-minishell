@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 11:27:23 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 12:09:25 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	is_ansi_c_quoting(char **str, char c)
 	return (is_ansi_c_quoting2(str, c));
 }
 
-static void 	handle_quotes2(t_ast **token, char *buf, bool dollar_sign)
+static void 	handle_quotes2(t_ast **token, char *buf)
 {
 	char	*ptr;
 	char	*str;
@@ -62,13 +62,13 @@ static void 	handle_quotes2(t_ast **token, char *buf, bool dollar_sign)
 
 	ptr = NULL;
 	str = "\0";
-	if ((*token)->value[0] == '\\' && (*token)->right && dollar_sign)
+	if ((*token)->value[0] == '\\' && (*token)->right && g_sig.dollar_quote)
 	{
 		c = (*token)->right->value[0];
 		if (is_ansi_c_quoting(&str, c))
 		{
 			ft_strcat(buf, str);
-			*token = (*token)->right;
+			token_lst_remove(token);
 			ptr = &(*token)->value[1];
 			ft_strcat(buf, ptr);
 		}
@@ -82,11 +82,7 @@ static void 	handle_quotes2(t_ast **token, char *buf, bool dollar_sign)
 void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 {
 	enum e_type	type;
-	bool		dollar_sign;
 
-	dollar_sign = false;
-	if ((*token)->left && (*token)->left->type == DOLLAR)
-		dollar_sign = true;
 	if (*token)
 	{
 		type = (*token)->type;
@@ -96,14 +92,14 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 	{
 		if (type == DBLQUOTE)
 		{
-			if ((*token)->type == VARIABLE || (*token)->type == QUESTION)
+			if ((*token)->type == VAR || (*token)->type == QUEST)
 				handle_variables(buf, *token, env_lst);
 			else if ((*token)->type != DOLLAR
-				&& (dollar_sign || (*token)->type != ESCAPE))
+				&& (g_sig.dollar_quote || (*token)->type != ESCAPE))
 				ft_strcat(buf, (*token)->value);
 		}
 		else if (type == QUOTE)
-			handle_quotes2(token, buf, dollar_sign);
+			handle_quotes2(token, buf);
 		token_lst_remove(token);
 	}
 }

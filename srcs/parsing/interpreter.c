@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 11:14:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 12:14:51 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 
 	(void)env_lst;
 	tmp = NULL;
-	if (token->type == VARIABLE)
+	if (token->type == VAR)
 	{
 		tmp = get_env(env_lst, token->value);
 		if (tmp != NULL)
 			ft_strcat(buf, tmp);
 	}
-	else if (token->type == QUESTION)
+	else if (token->type == QUEST)
 	{
 		if (token->left && token->left->type == DOLLAR)
 		{
@@ -58,6 +58,7 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst, char *buf)
 	else if ((*tkn)->type == DBLQUOTE || (*tkn)->type == QUOTE)
 	{
 		handle_quotes(tkn, buf, env_lst);
+		g_sig.dollar_quote = false;
 		if (!(*buf) && (!(*tkn)->right || ((*tkn)->right
 					&& (*tkn)->right->type != ARG)))
 		{
@@ -89,13 +90,14 @@ t_ast	*interpreter(t_ast **tkn, t_env *env_lst)
 			add_new_node(buf, &new_tkn, ARG);
 		if (!(*tkn) || (*tkn && (*tkn)->type == SEMICOLON))
 			break ;
-		if ((*tkn)->type != ARG && (*tkn)->type != VARIABLE
-			&& (*tkn)->type != QUESTION)
+		if ((*tkn)->type == DOLLAR)
+			g_sig.dollar_quote = true;
+		if ((*tkn)->type != ARG && (*tkn)->type != VAR && (*tkn)->type != QUEST)
 			interpreter2(tkn, &new_tkn, env_lst, buf);
-		else if ((*tkn)->type == VARIABLE || (*tkn)->type == QUESTION)
+		else if ((*tkn)->type == VAR || (*tkn)->type == QUEST)
 		{
 			handle_variables(buf, *tkn, env_lst);
-			add_new_node(buf, &new_tkn, VARIABLE);
+			add_new_node(buf, &new_tkn, VAR);
 		}
 		else
 			ft_strcat(buf, (*tkn)->value);
