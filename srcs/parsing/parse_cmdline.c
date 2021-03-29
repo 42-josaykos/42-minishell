@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 11:21:27 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 13:58:54 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	while (tmp)
 	{
 		token = interpreter(&tmp, env_lst);
+		token_lst_remove(&tmp);
 		if (has_syntax_error(token))
 		{
 			free_ast(&token);

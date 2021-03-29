@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 12:19:20 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 13:58:39 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ t_ast	*interpreter(t_ast **tkn, t_env *env_lst)
 		if ((*tkn)->type != ARG && (*tkn)->type != VAR && (*tkn)->type != QUEST)
 			interpreter2(tkn, &new_tkn, env_lst, buf);
 		else if ((*tkn)->type == VAR || (*tkn)->type == QUEST)
+		{
 			handle_variables(buf, *tkn, env_lst);
+			add_new_node(buf, &new_tkn, VAR);
+		}
 		else
 			ft_strcat(buf, (*tkn)->value);
-		if ((*tkn)->type == VAR || (*tkn)->type == QUEST)
-			add_new_node(buf, &new_tkn, VAR);
 		token_lst_remove(tkn);
 	}
-	token_lst_remove(tkn);
 	return (new_tkn);
 }

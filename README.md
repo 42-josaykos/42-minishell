@@ -12,3 +12,4 @@
 - `echo "hello\newline"`
 - `export VARIABLE=value; echo VARIABLE`
 - `echo "a\\ \ b c\" \'$SHELL\'"`
+- fix has_syntax_error function

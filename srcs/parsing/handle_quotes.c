@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 12:09:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 13:57:37 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void 	handle_quotes2(t_ast **token, char *buf)
 		else
 			ft_strcat(buf, (*token)->value);
 	}
-	else
+	else if ((*token)->value[0] != '\'')
 		ft_strcat(buf, (*token)->value);
 }
 
@@ -94,6 +94,9 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 		{
 			if ((*token)->type == VAR || (*token)->type == QUEST)
 				handle_variables(buf, *token, env_lst);
+			else if ((*token)->type == ESCAPE && (*token)->right
+				&& (*token)->right->type == '\'')
+				ft_strcat(buf, (*token)->value);
 			else if ((*token)->type != DOLLAR
 				&& (g_sig.dollar_quote || (*token)->type != ESCAPE))
 				ft_strcat(buf, (*token)->value);
