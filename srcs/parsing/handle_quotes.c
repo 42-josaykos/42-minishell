@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/28 15:20:57 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 11:27:23 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 	if (*token)
 	{
 		type = (*token)->type;
-		*token = (*token)->right;
+		token_lst_remove(token);
 	}
 	while (*token && (*token)->type != type)
 	{
@@ -104,6 +104,6 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 		}
 		else if (type == QUOTE)
 			handle_quotes2(token, buf, dollar_sign);
-		*token = (*token)->right;
+		token_lst_remove(token);
 	}
 }
