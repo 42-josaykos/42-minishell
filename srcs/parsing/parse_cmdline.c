@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 13:58:54 by jonny            ###   ########.fr       */
+/*   Updated: 2021/03/29 14:50:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,51 @@ t_ast	*parse_args(char *input)
 	return (token);
 }
 
-int	has_syntax_error(t_ast *token)
+static int	test_syntax_error(enum e_type *types)
 {
-	char	str[3];
+	int	i;
 
-	ft_bzero(str, 3);
-	while (token)
+	i = 0;
+	while (types[i] != VOID)
 	{
-		if (token->type == SEMICOLON && (!token->left
-				|| (token->left && token->left->type != ARG)))
-			return (error_syntax(token->value));
-		if (token->type == PIPE && token->left && token->left->type != ARG)
-			return (error_syntax(token->value));
-		if (token->type == REDIR && token->left && token->left->type != ARG)
-			return (error_syntax(token->value));
-		if (token->type == APPEND && token->left && token->left->type != ARG)
-			return (error_syntax(token->value));
-		token = token->right;
+		if (types[i] == SEMICOLON && (i == 0
+				|| (i != 0 && types[i - 1] != ARG)))
+			return (error_syntax(";"));
+		else if (types[i] == PIPE && (i == 0
+				|| (i != 0 && types[i - 1] != ARG)))
+			return (error_syntax("|"));
+		else if (types[i] == PIPE && !types[i + 1] && types[i + 1] != ARG)
+			return (error_syntax("|"));
+		else if (types[i] == REDIR && i != 0 && types[i - 1] != ARG)
+			return (error_syntax(">"));
+		else if (types[i] == APPEND && i != 0 && types[i - 1] != ARG)
+			return (error_syntax(">>"));
+		i++;
 	}
 	return (0);
+}
+
+int	has_syntax_error(t_ast *token)
+{
+	char		str[3];
+	enum e_type	types[BUF_SIZE];
+	int			i;
+	t_ast		*ptr;
+
+	ft_bzero(str, 3);
+	ft_bzero(types, BUF_SIZE);
+	i = 0;
+	ptr = token;
+	while (ptr)
+	{
+		if (ptr->type != WHITESPACE)
+		{
+			types[i] = ptr->type;
+			i++;
+		}
+		ptr = ptr->right;
+	}
+	return (test_syntax_error(types));
 }
 
 void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
@@ -67,16 +93,15 @@ void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
 	t_ast	*token;
 
 	tmp = parse_args(input);
+	if (has_syntax_error(tmp))
+	{
+		free_ast(&tmp);
+		return ;
+	}
 	while (tmp)
 	{
 		token = interpreter(&tmp, env_lst);
 		token_lst_remove(&tmp);
-		if (has_syntax_error(token))
-		{
-			free_ast(&token);
-			free_ast(&tmp);
-			return ;
-		}
 		parse_cmds(&token, &cmd_lst);
 		cmd_handler(st, env_lst, cmd_lst);
 		clear_previous_cmd(cmd_lst, NULL);
