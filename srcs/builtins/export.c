@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/04/02 11:27:06 by jonny            ###   ########.fr       */
+/*   Updated: 2021/04/02 11:51:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,37 +50,10 @@ void	*export_env(t_env **env_lst, char *key, char *value)
 	return (new_env);
 }
 
-void	alpha_sort(char **strs, int len)
-{
-	int i;
-	int j;
-	char tmp[BUF_SIZE];
-
-	i = 0;
-	ft_bzero(tmp, BUF_SIZE);
-	while (i < len)
-	{
-		j = i + 1;
-		while (j < len)
-		{
-			if (ft_strncmp(strs[i], strs[j], BUF_SIZE) > 0)
-			{
-				ft_strlcpy(tmp, strs[i], ft_strlen(strs[i]) + 1);
-				free(strs[i]);
-				strs[i] = ft_strdup(strs[j]);
-				free(strs[j]);
-				strs[j] = ft_strdup(tmp);
-				ft_bzero(tmp, BUF_SIZE);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
 void	print_export_variables2(char **strs)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (strs[i])
 	{
@@ -89,37 +62,32 @@ void	print_export_variables2(char **strs)
 		i++;
 	}
 	free_2darray(strs);
+}
 
+static void	concat_key_value(char *buf, t_env *env_lst)
+{
+	ft_strlcat(buf, "=", BUF_SIZE);
+	ft_strlcat(buf, "\"", BUF_SIZE);
+	ft_strlcat(buf, env_lst->value, BUF_SIZE);
+	ft_strlcat(buf, "\"", BUF_SIZE);
 }
 
 void	print_export_variables(t_env *env_lst)
 {
 	char	**strs;
 	char	buf[BUF_SIZE];
-	t_env	*ptr;
-	int len;
-	int i;
+	int		len;
+	int		i;
 
 	ft_bzero(buf, BUF_SIZE);
-	ptr = env_lst;
-	len = 0;
-	while (ptr)
-	{
-		len++;
-		ptr = ptr->next;
-	}
+	len = env_lst_size(env_lst);
 	strs = ft_calloc(len + 1, sizeof(char *));
 	i = 0;
 	while (env_lst)
 	{
 		ft_strlcat(buf, env_lst->key, BUF_SIZE);
 		if (env_lst->value)
-		{
-			ft_strlcat(buf, "=", BUF_SIZE);
-			ft_strlcat(buf, "\"", BUF_SIZE);
-			ft_strlcat(buf, env_lst->value, BUF_SIZE);
-			ft_strlcat(buf, "\"", BUF_SIZE);
-		}
+			concat_key_value(buf, env_lst);
 		strs[i] = ft_strdup(buf);
 		i++;
 		ft_bzero(buf, BUF_SIZE);

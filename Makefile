@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/03/26 17:44:38 by jonny            ###   ########.fr        #
+#    Updated: 2021/04/02 11:43:21 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC_NAME	=	main.c \
 						builtins/exit.c \
 						builtins/export.c \
 						builtins/init_env_lst.c \
+						builtins/sort_env_lst.c \
 						builtins/pwd.c \
 						builtins/unset.c\
 						execs/exec_builtin.c \
