@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:56:57 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 13:58:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/04/22 11:13:41 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,45 @@
 /*
 ** Create a new env (key=value) in the env list.
 */
+
+char	*set_value(char *ptr)
+{
+	int		len;
+	char	*value;
+
+	len = 0;
+	value = NULL;
+	(ptr)++;
+	if (*ptr == '\"' || *ptr == '\'')
+		ptr++;
+	len = ft_strlen(ptr);
+	if (ptr[len - 1] == '\"' || ptr[len - 1] == '\'')
+		ptr[len - 1] = '\0';
+	if (*ptr)
+		value = ft_strdup(ptr);
+	else
+		value = ft_strdup("");
+	return (value);
+}
+
+char	*set_var(char *ptr)
+{
+	char	*var;
+	int		i;
+
+	i = 0;
+	while (ptr[i])
+	{
+		if (ptr[i] == '=')
+		{
+			ptr[i] = '\0';
+			break ;
+		}
+		i++;
+	}
+	var = ft_strdup(ptr);
+	return (var);
+}
 
 void	assign_env(char *str, t_env **env_lst)
 {
@@ -32,13 +71,8 @@ void	assign_env(char *str, t_env **env_lst)
 	ptr = ft_strchr(str, '=');
 	if (ptr)
 	{
-		*ptr = '\0';
-		ptr++;
-		env[0] = ft_strdup(str);
-		if (*ptr)
-			env[1] = ft_strdup(ptr);
-		else
-			env[1] = ft_strdup("");
+		env[0] = set_var(str);
+		env[1] = set_value(ptr);
 	}
 	else
 		env[0] = ft_strdup(str);

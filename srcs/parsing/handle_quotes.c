@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 14:05:22 by jonny            ###   ########.fr       */
+/*   Updated: 2021/04/22 11:35:22 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,31 @@ static void 	handle_quotes2(t_ast **token, char *buf)
 		ft_strcat(buf, (*token)->value);
 }
 
+void	handle_first_quote(t_ast **token, char *buf, enum e_type *type)
+{
+	int	len;
+
+	len = ft_strlen(buf);
+	if (*token)
+	{
+		*type = (*token)->type;
+		if (buf[len - 1] == '=')
+		{
+			ft_strcat(buf, (*token)->value);
+			token_lst_remove(token);
+		}
+		else
+			token_lst_remove(token);
+	}
+}
+
 void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 {
 	enum e_type	type;
 
-	if (*token)
-	{
-		type = (*token)->type;
-		token_lst_remove(token);
-	}
-	while (*token && (*token)->type != type)
+	type = QUOTE;
+	handle_first_quote(token, buf, &type);
+	while (*token)
 	{
 		if (type == DBLQUOTE)
 		{
@@ -103,6 +118,8 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 		}
 		else if (type == QUOTE)
 			handle_quotes2(token, buf);
+		if ((*token)->type == type)
+			break ;
 		token_lst_remove(token);
 	}
 }

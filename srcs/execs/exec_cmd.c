@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/10 10:46:39 by jonny            ###   ########.fr       */
+/*   Updated: 2021/04/22 10:22:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 	sig_init();
 	while (cmd_lst && *cmd_lst->args && g_sig.sigint == 0)
 	{
-		if (check_pipe(cmd_lst->args))
+		if (check_pipe(cmd_lst))
 			has_piped_cmd(st, env_lst, cmd_lst);
 		else
 		{

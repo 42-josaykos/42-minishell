@@ -6,27 +6,21 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 11:09:09 by jonny            ###   ########.fr       */
+/*   Updated: 2021/04/22 10:23:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-bool	check_pipe(char **str)
+bool	check_pipe(t_cmd *cmd_lst)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (str[i])
+	while (cmd_lst->type[i] != VOID)
 	{
-		j = 0;
-		while (str[i][j])
-		{
-			if (str[i][j] == '|')
-				return (true);
-			j++;
-		}
+		if (cmd_lst->type[i] == PIPE)
+			return (true);
 		i++;
 	}
 	return (false);
