@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/04/22 11:35:22 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/03 17:41:02 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void 	handle_quotes2(t_ast **token, char *buf)
 		ft_strcat(buf, (*token)->value);
 }
 
-void	handle_first_quote(t_ast **token, char *buf, enum e_type *type)
+int	handle_first_quote(t_ast **token, char *buf, enum e_type *type)
 {
 	int	len;
 
@@ -91,10 +91,12 @@ void	handle_first_quote(t_ast **token, char *buf, enum e_type *type)
 		{
 			ft_strcat(buf, (*token)->value);
 			token_lst_remove(token);
+			return (1);
 		}
 		else
 			token_lst_remove(token);
 	}
+	return (0);
 }
 
 void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
@@ -113,7 +115,7 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 				&& (*token)->right->value[0] == '\'')
 				ft_strcat(buf, (*token)->value);
 			else if ((*token)->type != DOLLAR
-				&& (g_sig.dollar_quote || (*token)->type != ESCAPE))
+				&& (g_sig.dollar_quote || (*token)->type != ESCAPE) && (*token)->type != DBLQUOTE)
 				ft_strcat(buf, (*token)->value);
 		}
 		else if (type == QUOTE)
