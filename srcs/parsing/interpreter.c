@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 13:58:39 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/03 18:40:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 	}
 	else if (token->type == QUEST)
 	{
-		if (token->left && token->left->type == DOLLAR)
+		if (g_sig.dollar_quote)
 		{
 			tmp = ft_itoa(g_sig.exit_status);
 			ft_strcat(buf, tmp);
@@ -35,6 +35,7 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 		else
 			ft_strcat(buf, token->value);
 	}
+	g_sig.dollar_quote = false;
 }
 
 static bool	spc_tkn(t_ast *tkn)
