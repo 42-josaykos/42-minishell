@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 14:50:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:05:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static int	test_syntax_error(enum e_type *types)
 				|| (i != 0 && types[i - 1] != ARG)))
 			return (error_syntax(";"));
 		else if (types[i] == PIPE && (i == 0
-				|| (i != 0 && types[i - 1] != ARG)))
+				|| (i != 0 && types[i - 1] != ARG && types[i - 1] != DBLQUOTE
+				&& types[i - 1] != QUOTE && types[i - 1] != QUEST)))
 			return (error_syntax("|"));
 		else if (types[i] == PIPE && !types[i + 1] && types[i + 1] != ARG)
 			return (error_syntax("|"));
