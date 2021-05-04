@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:04:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/04/02 11:51:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:50:16 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	content_add(t_env *node, char *key, char *value)
 ** Create a new env variable (key=value) and add it to the env list.
 */
 
-void	*export_env(t_env **env_lst, char *key, char *value)
+void		*export_env(t_env **env_lst, char *key, char *value)
 {
 	t_env	*new_env;
 	t_env	*tmp;
@@ -50,7 +50,7 @@ void	*export_env(t_env **env_lst, char *key, char *value)
 	return (new_env);
 }
 
-void	print_export_variables2(char **strs)
+void		print_export_variables2(char **strs)
 {
 	int	i;
 
@@ -72,7 +72,7 @@ static void	concat_key_value(char *buf, t_env *env_lst)
 	ft_strlcat(buf, "\"", BUF_SIZE);
 }
 
-void	print_export_variables(t_env *env_lst)
+void		print_export_variables(t_env *env_lst)
 {
 	char	**strs;
 	char	buf[BUF_SIZE];

@@ -6,14 +6,14 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:09:01 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/09 11:09:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:03:19 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
 /*
-** Add new token node at the end of the token list 
+** Add new token node at the end of the token list
 */
 
 void	ast_add(t_ast **token, t_ast *new_node)

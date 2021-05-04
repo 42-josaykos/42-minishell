@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 11:41:13 by jonny             #+#    #+#             */
-/*   Updated: 2021/04/02 11:51:37 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:50:33 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	alpha_sort(char **strs, int len)
 	}
 }
 
-int	env_lst_size(t_env *env_lst)
+int		env_lst_size(t_env *env_lst)
 {
 	int	len;
 

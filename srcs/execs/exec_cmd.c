@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/04/22 10:22:29 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:52:23 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	exec_cmd(t_state *st, char **args)
 {
-	if (create_fork(&g_sig.pid) < 0 )
+	if (create_fork(&g_sig.pid) < 0)
 		exit(EXIT_FAILURE);
 	if (g_sig.pid == 0)
 	{
@@ -49,7 +49,7 @@ static void	default_exec(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *cmd)
 		exec_cmd(st, cmd_lst->args);
 }
 
-void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
+void		cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
 	char			*cmd;
 

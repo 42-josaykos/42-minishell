@@ -6,13 +6,14 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 11:09:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:54:41 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../../includes/msh.h"
+#include "../../includes/msh.h"
 
-void	exec_last_process(t_state *st, t_env *env_lst, int in, t_cmd *cmd_lst)
+void		exec_last_process(t_state *st, t_env *env_lst, int in,
+																t_cmd *cmd_lst)
 {
 	int	ret;
 
@@ -47,7 +48,7 @@ static int	create_process(t_state *st, t_env *env_lst, int in, t_cmd *cmd_lst)
 	pid_t	pid;
 
 	pid = 0;
-	if (create_fork(&pid) < 0 )
+	if (create_fork(&pid) < 0)
 		exit(-1);
 	if (pid == 0)
 	{
@@ -71,11 +72,11 @@ static int	create_process(t_state *st, t_env *env_lst, int in, t_cmd *cmd_lst)
 	return (pid);
 }
 
-static void	fork_pipes (t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
+static void	fork_pipes(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 {
 	int		in;
 
-	if (create_fork(&g_sig.pid) < 0 )
+	if (create_fork(&g_sig.pid) < 0)
 		exit(EXIT_FAILURE);
 	if (g_sig.pid == 0)
 	{
@@ -97,7 +98,7 @@ static void	fork_pipes (t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 		g_sig.exit_status = WEXITSTATUS(st->code);
 }
 
-void 	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
+void		has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	t_cmd	*piped_cmd;
 	int		len;

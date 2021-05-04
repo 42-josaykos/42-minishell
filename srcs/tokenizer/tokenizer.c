@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:09:10 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 10:48:35 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:04:19 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ static bool	is_special_tkn(char c)
 	return (false);
 }
 
-bool	is_append_tkn(char *input, int pos)
+bool		is_append_tkn(char *input, int pos)
 {
 	if (input[pos] == '>' && input[pos + 1] == '>')
 		return (true);
 	return (false);
 }
 
-char	*get_special_tkn(char *input, int *pos)
+char		*get_special_tkn(char *input, int *pos)
 {
 	char	*token;
 
@@ -53,7 +53,7 @@ char	*get_special_tkn(char *input, int *pos)
 	return (token);
 }
 
-char	*get_next_token(char *input, int *pos)
+char		*get_next_token(char *input, int *pos)
 {
 	int		start;
 	char	*token;

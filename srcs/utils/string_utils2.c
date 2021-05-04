@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 14:04:37 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:09:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-int	tab_size(char **array)
+int			tab_size(char **array)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int	tab_size(char **array)
 	return (i);
 }
 
-int	ft_isblank(int c)
+int			ft_isblank(int c)
 {
 	if (c >= 0)
 	{
@@ -34,7 +34,7 @@ int	ft_isblank(int c)
 	return (0);
 }
 
-bool	is_empty(char *str)
+bool		is_empty(char *str)
 {
 	bool	ret;
 
@@ -66,7 +66,7 @@ static void	concat_env2(t_env *env_lst, char *env)
 		ft_strcat(env, "\n");
 }
 
-char	*concat_env(t_env *env_lst)
+char		*concat_env(t_env *env_lst)
 {
 	int		n;
 	t_env	*ptr;

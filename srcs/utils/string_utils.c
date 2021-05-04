@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/17 11:06:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:08:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** $ man strsep
 */
 
-char 	*ft_strsep(char **stringp, const char *delim)
+char	*ft_strsep(char **stringp, const char *delim)
 {
 	int		i;
 	int		j;
@@ -46,7 +46,7 @@ char 	*ft_strsep(char **stringp, const char *delim)
 	return (tmp);
 }
 
-int	ft_readline2(char *tmp, char **str)
+int		ft_readline2(char *tmp, char **str)
 {
 	int		len;
 

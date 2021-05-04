@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/03 18:40:10 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:58:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
+void		handle_variables(char *buf, t_ast *token, t_env *env_lst)
 {
 	char	*tmp;
 
@@ -47,7 +47,8 @@ static bool	spc_tkn(t_ast *tkn)
 	return (false);
 }
 
-void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst, char *buf)
+void		interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst,
+																char *buf)
 {
 	t_ast	*new_node;
 
@@ -78,7 +79,7 @@ static void	add_new_node(char *buf, t_ast **new_tkn, enum e_type type)
 	ft_bzero(buf, BUF_SIZE);
 }
 
-t_ast	*interpreter(t_ast **tkn, t_env *env_lst)
+t_ast		*interpreter(t_ast **tkn, t_env *env_lst)
 {
 	t_ast	*new_tkn;
 	char	buf[BUF_SIZE];

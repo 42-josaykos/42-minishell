@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/04/22 10:22:45 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:43:44 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define CTRL_D 4
 # define BACKSPACE 127
 
-enum e_builtin
+enum			e_builtin
 {
 	EXIT = 1,
 	EXPORT,
@@ -47,7 +47,7 @@ enum e_builtin
 	UNSET
 };
 
-enum e_type
+enum			e_type
 {
 	VOID,
 	ARG,
@@ -65,13 +65,13 @@ enum e_type
 	QUEST
 };
 
-enum e_key
+enum			e_key
 {
 	ARROW_UP = 1000,
 	ARROW_DOWN
 };
 
-typedef struct s_ast
+typedef	struct	s_ast
 {
 	enum e_type		type;
 	char			*value;
@@ -79,14 +79,14 @@ typedef struct s_ast
 	struct s_ast	*right;
 }				t_ast;
 
-typedef struct s_hist
+typedef struct	s_hist
 {
 	char			*value;
 	struct s_hist	*previous;
 	struct s_hist	*next;
 }				t_hist;
 
-typedef struct s_state
+typedef struct	s_state
 {
 	char			**envp;
 	int				code;
@@ -102,21 +102,21 @@ typedef struct s_state
 
 }				t_state;
 
-typedef struct s_env
+typedef struct	s_env
 {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
-}	t_env;
+}				t_env;
 
-typedef struct s_cmd
+typedef struct	s_cmd
 {
 	enum e_type		type[BUF_SIZE];
 	char			**args;
 	struct s_cmd	*next;
-}	t_cmd;
+}				t_cmd;
 
-typedef struct s_sig
+typedef struct	s_sig
 {
 	int		sigint;
 	int		sigquit;
@@ -132,131 +132,133 @@ extern t_sig	g_sig;
 ** history
 */
 
-void	hist_update(t_hist **history, char *buffer);
-void	free_hist(t_hist **history);
+void			hist_update(t_hist **history, char *buffer);
+void			free_hist(t_hist **history);
 
 /*
 ** termios / termcap
 */
 
-char	*ft_readlinev2(t_state *st, char *prompt);
-void	clear_buf(void);
-void	enable_raw_mode(t_state *st);
-void	disable_raw_mode(t_state *st);
-void	handle_ctrl_c(char *prompt);
-void	handle_ctrl_d(char *c);
-void	handle_arrow_up(t_hist **history);
-void	handle_arrow_down(t_hist **history);
-void	handle_backspace(void);
+char			*ft_readlinev2(t_state *st, char *prompt);
+void			clear_buf(void);
+void			enable_raw_mode(t_state *st);
+void			disable_raw_mode(t_state *st);
+void			handle_ctrl_c(char *prompt);
+void			handle_ctrl_d(char *c);
+void			handle_arrow_up(t_hist **history);
+void			handle_arrow_down(t_hist **history);
+void			handle_backspace(void);
 
 /*
 ** redirection
 */
 
-void	parse_redirection(t_state *st, t_cmd *cmd_lst);
-void	redir_append(t_state *st, char **args, enum e_type type);
-void	input(t_state *st, char **args);
-void	init_fds(t_state **st);
-void	reset_std(t_state *st);
-void	close_fds(t_state *st);
-void	ft_close(int fd);
+void			parse_redirection(t_state *st, t_cmd *cmd_lst);
+void			redir_append(t_state *st, char **args, enum e_type type);
+void			input(t_state *st, char **args);
+void			init_fds(t_state **st);
+void			reset_std(t_state *st);
+void			close_fds(t_state *st);
+void			ft_close(int fd);
 
 /*
 ** signal
 */
 
-void	sig_init(void);
-void	handle_signal(int signal);
-void	catch_signal(void);
+void			sig_init(void);
+void			handle_signal(int signal);
+void			catch_signal(void);
 
 /*
 ** parsing
 */
 
-void	handle_quotes(t_ast **token, char *buf, t_env *env_lst);
-void	handle_variables(char *buf, t_ast *token, t_env *env_lst);
-void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input);
-t_ast	*parse_args(char *input);
-t_ast	*interpreter(t_ast **token, t_env *env_lst);
-void	parse_cmds(t_ast **token, t_cmd **cmd_lst);
-void	token_lst_remove(t_ast **token);
-void	has_piped_cmd(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
-void	parse_pipe(int i, int j, t_cmd *cmd_Lst, t_cmd **piped);
-bool	check_pipe(t_cmd *cmd_lst);
-int		parse_semicolon(t_cmd **cmd_lst);
-int		file_exists(char *filename);
-bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
+void			handle_quotes(t_ast **token, char *buf, t_env *env_lst);
+void			handle_variables(char *buf, t_ast *token, t_env *env_lst);
+void			parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst,
+				char *input);
+t_ast			*parse_args(char *input);
+t_ast			*interpreter(t_ast **token, t_env *env_lst);
+void			parse_cmds(t_ast **token, t_cmd **cmd_lst);
+void			token_lst_remove(t_ast **token);
+void			has_piped_cmd(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
+void			parse_pipe(int i, int j, t_cmd *cmd_lst, t_cmd **piped);
+bool			check_pipe(t_cmd *cmd_lst);
+int				parse_semicolon(t_cmd **cmd_lst);
+int				file_exists(char *filename);
+bool			filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
 
 /*
 ** tokenizer
 */
 
-char	*get_next_token(char *input, int *pos);
-void	ast_init(t_ast **token, char **buffer);
-t_ast	*create_node(char *buffer, enum e_type type);
-void	ast_add(t_ast **token, t_ast *new_node);
-void	ast_check_type(t_ast **token);
-void	free_ast(t_ast **token);
+char			*get_next_token(char *input, int *pos);
+void			ast_init(t_ast **token, char **buffer);
+t_ast			*create_node(char *buffer, enum e_type type);
+void			ast_add(t_ast **token, t_ast *new_node);
+void			ast_check_type(t_ast **token);
+void			free_ast(t_ast **token);
 
 /*
 ** builtins
 */
 
-int		cd(char *arg, t_env *env_lst);
-int		builtin_echo(char **arg, t_env *env_lst, int fd);
-void	print_cwd(void);
-void	*export_env(t_env **env_lst, char *key, char *value);
-int		exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
-void	print_env_lst(t_env *env_lst);
-void	print_export_variables(t_env *env_lst);
-void	alpha_sort(char **strs, int len);
-int		env_lst_size(t_env *env_lst);
-void	builtin_unset(char **variables, t_env *env_lst);
+int				cd(char *arg, t_env *env_lst);
+int				builtin_echo(char **arg, t_env *env_lst, int fd);
+void			print_cwd(void);
+void			*export_env(t_env **env_lst, char *key, char *value);
+int				exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
+void			print_env_lst(t_env *env_lst);
+void			print_export_variables(t_env *env_lst);
+void			alpha_sort(char **strs, int len);
+int				env_lst_size(t_env *env_lst);
+void			builtin_unset(char **variables, t_env *env_lst);
 
 /*
 ** init_env_lst.c
 */
 
-void	init_env(t_env **env_lst, char **envp);
-void	assign_env(char *str, t_env **env_lst);
+void			init_env(t_env **env_lst, char **envp);
+void			assign_env(char *str, t_env **env_lst);
 
 /*
 ** execs
 */
 
-void	cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
-int		is_builtin(char *cmd);
-void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst);
+void			cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
+int				is_builtin(char *cmd);
+void			exec_builtin(int ret, t_state *status, t_env *env_lst,
+				t_cmd *cmd_lst);
 
 /*
 ** utils
 */
 
-char	*ft_readline(t_state *st, t_env *env_lst, char *prompt);
-void	print_prompt(char *prompt, char *color);
-char	*concat_env(t_env *env_lst);
-char	*get_env(t_env *env_lst, char *key);
-pid_t	create_fork(pid_t *pid);
-void	env_lst_add(t_env **env_lst, t_env *new_env);
-void	env_lst_remove(t_env *env_lst, char *key);
-void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
-int		cmd_lst_size(t_cmd *cmd_lst);
-void	clear_previous_cmd(t_cmd *cmd_lst, t_state *st);
-void	free_env_lst(t_env *env_lst);
-char	**free_2darray(char **array);
-int		tab_size(char **array);
-char	*ft_strsep(char **stringp, const char *delim);
-bool	is_empty(char *str);
-int		ft_isblank(int c);
+char			*ft_readline(t_state *st, t_env *env_lst, char *prompt);
+void			print_prompt(char *prompt, char *color);
+char			*concat_env(t_env *env_lst);
+char			*get_env(t_env *env_lst, char *key);
+pid_t			create_fork(pid_t *pid);
+void			env_lst_add(t_env **env_lst, t_env *new_env);
+void			env_lst_remove(t_env *env_lst, char *key);
+void			cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd);
+int				cmd_lst_size(t_cmd *cmd_lst);
+void			clear_previous_cmd(t_cmd *cmd_lst, t_state *st);
+void			free_env_lst(t_env *env_lst);
+char			**free_2darray(char **array);
+int				tab_size(char **array);
+char			*ft_strsep(char **stringp, const char *delim);
+bool			is_empty(char *str);
+int				ft_isblank(int c);
 
 /*
 ** error.c
 */
 
-void	error_cases(int errnum, char *cmd, char *arg);
-void	error_quotes(void);
-void	error_cmd(char *cmd);
-int		error_syntax(char *cmd);
-void	error_fd(char *arg);
+void			error_cases(int errnum, char *cmd, char *arg);
+void			error_quotes(void);
+void			error_cmd(char *cmd);
+int				error_syntax(char *cmd);
+void			error_fd(char *arg);
 
 #endif

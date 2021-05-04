@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/29 11:11:49 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:01:45 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-void	token_lst_remove(t_ast **token)
+void		token_lst_remove(t_ast **token)
 {
 	t_ast	*next_node;
 
@@ -47,7 +47,7 @@ static void	create_new_cmd(t_cmd **cmd_lst, char **tmp,
 	*cmd_lst = new_cmd;
 }
 
-void	parse_cmds(t_ast **token, t_cmd **cmd_lst)
+void		parse_cmds(t_ast **token, t_cmd **cmd_lst)
 {
 	int			j;
 	int			i;

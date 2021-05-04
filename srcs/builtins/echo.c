@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 12:21:19 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/03 18:17:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:48:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ int	builtin_echo(char **arg, t_env *env_lst, int fd)
 		i++;
 	}
 	if (!isn)
-		write (STDOUT, "\n", 1);
+		write(STDOUT, "\n", 1);
 	return (0);
 }

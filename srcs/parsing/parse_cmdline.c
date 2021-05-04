@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 16:05:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:59:35 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-t_ast	*parse_args(char *input)
+t_ast		*parse_args(char *input)
 {
 	t_ast	*token;
 	char	*buffer[BUF_SIZE];
@@ -65,7 +65,7 @@ static int	test_syntax_error(enum e_type *types)
 	return (0);
 }
 
-int	has_syntax_error(t_ast *token)
+int			has_syntax_error(t_ast *token)
 {
 	char		str[3];
 	enum e_type	types[BUF_SIZE];
@@ -88,7 +88,8 @@ int	has_syntax_error(t_ast *token)
 	return (test_syntax_error(types));
 }
 
-void	parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *input)
+void		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst,
+															char *input)
 {
 	t_ast	*tmp;
 	t_ast	*token;

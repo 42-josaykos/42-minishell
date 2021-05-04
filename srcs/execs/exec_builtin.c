@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/22 14:17:22 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:51:22 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exec_builtin(int ret, t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 		builtin_unset(cmd_lst->args, env_lst);
 }
 
-int	is_builtin(char *cmd)
+int		is_builtin(char *cmd)
 {
 	if (!cmd)
 		return (0);

@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/04/22 10:23:56 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:00:55 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-bool	check_pipe(t_cmd *cmd_lst)
+bool		check_pipe(t_cmd *cmd_lst)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ bool	check_pipe(t_cmd *cmd_lst)
 }
 
 static void	init_piped_cmd(enum e_type *types, t_cmd **piped_cmd, char *buffer)
-{			
+{
 	t_cmd	*new_cmd;
 	int		i;
 
@@ -44,19 +44,19 @@ static void	init_piped_cmd(enum e_type *types, t_cmd **piped_cmd, char *buffer)
 	cmd_lst_add(piped_cmd, new_cmd);
 }
 
-void	reset_buf(char *buffer, enum e_type *types)
+void		reset_buf(char *buffer, enum e_type *types)
 {
 	ft_bzero(buffer, BUF_SIZE);
 	ft_bzero(types, BUF_SIZE);
 }
 
-void	concat_buf(char *buffer, char *str)
+void		concat_buf(char *buffer, char *str)
 {
 	ft_strcat(buffer, str);
 	ft_strcat(buffer, " ");
 }
 
-void	parse_pipe(int i, int j, t_cmd *cmd_lst, t_cmd **piped_cmd)
+void		parse_pipe(int i, int j, t_cmd *cmd_lst, t_cmd **piped_cmd)
 {
 	char		buffer[BUF_SIZE];
 	enum e_type	types[BUF_SIZE];

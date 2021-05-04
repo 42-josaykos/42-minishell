@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 11:51:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/04 11:59:10 by jonny            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/msh.h"
 
 t_sig	g_sig;
@@ -41,7 +29,7 @@ void	init_msh(t_state **st, t_env **env_lst, char **envp)
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
 }
 
-int	get_input(t_state *st, char *input)
+int		get_input(t_state *st, char *input)
 {
 	char	*line;
 
@@ -52,13 +40,6 @@ int	get_input(t_state *st, char *input)
 	free(line);
 	return (1);
 }
-
-/*
-** Infinite loop that call get_input, a function printing a command prompt and
-** waiting for an input.
-** If input is not an empty, concatenate env_lst in a single string, env
-** then split in an array of strings, envp.
-*/
 
 void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 {
@@ -86,7 +67,7 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
+int		main(int argc, char **argv, char **envp)
 {
 	t_env	*env_lst;
 	t_cmd	*cmd_lst;
