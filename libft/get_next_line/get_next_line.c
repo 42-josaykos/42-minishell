@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <jonny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:30:06 by jonny             #+#    #+#             */
-/*   Updated: 2021/01/05 17:14:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 10:48:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*join_buffer(char **line, char **s1, char *s2)
 **  that means we reach the last line and call check_lastline
 */
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	static char	*s[FOPEN_MAX];
 	static int	ret = 0;

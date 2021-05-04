@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 12:36:01 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/13 10:14:01 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 10:46:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-typedef struct s_specs
+typedef struct	s_specs
 {
-	char	type;
-	char	flag;
-	int		width;
-	int		precision;
+	char		type;
+	char		flag;
+	int			width;
+	int			precision;
 }				t_specs;
 
 /*

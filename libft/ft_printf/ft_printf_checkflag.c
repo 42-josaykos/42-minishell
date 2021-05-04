@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 21:35:24 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/13 10:16:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/04 10:45:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	nbr_flag_zero(t_specs *specs, char *str, int len, int *ret)
 ** print zeros or whitespaces before the number.
 */
 
-void	check_nbr_flag(t_specs *specs, char *str, int *ret)
+void		check_nbr_flag(t_specs *specs, char *str, int *ret)
 {
 	int	len;
 
@@ -79,7 +79,7 @@ void	check_nbr_flag(t_specs *specs, char *str, int *ret)
 ** necessary whitespaces, then "0x" followed by the number.
 */
 
-void	check_p_flag(t_specs *specs, char *str, int len, int *ret)
+void		check_p_flag(t_specs *specs, char *str, int len, int *ret)
 {
 	if (specs->flag == '-')
 	{
