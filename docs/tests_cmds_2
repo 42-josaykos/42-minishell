@@ -1,0 +1,9 @@
+- echo "" "" ""
+- cd -, et quand HOME et OLPWD unset
+- echo """$HOME"""$HOME
+- echo ';'
+- echo '|'
+- cat < Mafile > 1 > 2 > 3, ne pas créer de fichier
+- cd | echo
+- export a=a ; echo $a $a $a ; ls
+- unset premier var d'env, segfault
