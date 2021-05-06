@@ -1,0 +1,10 @@
+ctrl D sur /bin/cat
+echo -nnnnn
+exit avec int négatif
+gestion de tokens entre quotes ;|
+pb d'exit value de ls ??
+echo "" "" "" | cat -e -> espaces
+protection unset
+unset home into cd -> errorcode 1
+redir s'arrête à l'erreur et créée pas après une erreur
+cd | echo -> commande introuvable ???
