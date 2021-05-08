@@ -14,3 +14,7 @@
 - `echo "a\\ \ b c\" \'$SHELL\'"`
 - fix has_syntax_error function
 - `export TEST="ls -l | cat -e"`
+
+- handle SIGINT and SIGTERM in parse_cmdline(). Test: `pwd; find /; date`
+- disable raw_mode when parsing
+- improve signal handler printing characters + g_sig.sigint flag is missing
