@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 16:59:35 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/10 10:57:49 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst,
 		free_ast(&tmp);
 		return ;
 	}
-	while (tmp)
+	while (tmp && !g_sig.sigint)
 	{
 		token = interpreter(&tmp, env_lst);
 		token_lst_remove(&tmp);
