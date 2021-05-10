@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 16:43:44 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/10 11:34:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ void			print_env_lst(t_env *env_lst);
 void			print_export_variables(t_env *env_lst);
 void			alpha_sort(char **strs, int len);
 int				env_lst_size(t_env *env_lst);
-void			builtin_unset(char **variables, t_env *env_lst);
+void			builtin_unset(char **variables, t_env **env_lst);
 
 /*
 ** init_env_lst.c
