@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/06 14:53:16 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/10 10:48:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	exec_cmd(t_state *st, char **args)
 		exit(EXIT_FAILURE);
 	if (g_sig.pid == 0)
 	{
-		disable_raw_mode(st);
 		execve(*args, args, st->envp);
 		if (g_sig.sigint || g_sig.sigquit)
 			exit(g_sig.exit_status);
@@ -29,7 +28,6 @@ static void	exec_cmd(t_state *st, char **args)
 		waitpid(g_sig.pid, &st->code, 0);
 	if (st->code > 255)
 		g_sig.exit_status = WEXITSTATUS(st->code);
-	enable_raw_mode(st);
 }
 
 static void	reset_fds(t_state *st)

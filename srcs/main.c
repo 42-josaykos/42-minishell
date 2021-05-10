@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 17:10:46 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 17:11:37 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/10 10:48:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 	char	input[BUF_SIZE];
 	char	*env;
 
-	enable_raw_mode(st);
 	while (1)
 	{
+		enable_raw_mode(st);
 		ft_bzero(input, BUF_SIZE);
 		catch_signal();
 		get_input(st, input);
@@ -70,6 +70,7 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 			env = concat_env(env_lst);
 			st->envp = ft_split(env, '\n');
 			free(env);
+			disable_raw_mode(st);
 			parse_cmdline(st, env_lst, cmd_lst, input);
 			free_2darray(st->envp);
 			g_sig.sigint = 0;
