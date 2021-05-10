@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmdline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 11:52:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/10 16:59:35 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,17 @@ t_ast		*parse_args(char *input)
 	return (token);
 }
 
+int			is_invalid_type(enum e_type *types, int i)
+{
+	if (types[i] == INPUT && i == 0)
+		return (0);
+	else if (i == 0 || (i != 0 && (types[i - 1] == REDIR
+			|| types[i - 1] == APPEND || types[i - 1] == INPUT
+			|| types[i - 1] == PIPE || types[i - 1] == SEMICOLON)))
+		return (1);
+	return (0);
+}
+
 static int	test_syntax_error(enum e_type *types)
 {
 	int	i;
@@ -47,19 +58,23 @@ static int	test_syntax_error(enum e_type *types)
 	i = 0;
 	while (types[i] != VOID)
 	{
-		if (types[i] == SEMICOLON && (i == 0
-				|| (i != 0 && types[i - 1] != ARG)))
+		if (types[i] == SEMICOLON && is_invalid_type(types, i))
 			return (error_syntax(";"));
-		else if (types[i] == PIPE && (i == 0
-				|| (i != 0 && types[i - 1] != ARG && types[i - 1] != DBLQUOTE
-				&& types[i - 1] != QUOTE && types[i - 1] != QUEST)))
+		else if (types[i] == PIPE && is_invalid_type(types, i))
 			return (error_syntax("|"));
-		else if (types[i] == PIPE && !types[i + 1] && types[i + 1] != ARG)
-			return (error_syntax("|"));
-		else if (types[i] == REDIR && i != 0 && types[i - 1] != ARG)
+		else if (types[i] == REDIR && is_invalid_type(types, i))
 			return (error_syntax(">"));
-		else if (types[i] == APPEND && i != 0 && types[i - 1] != ARG)
+		else if (types[i] == APPEND && is_invalid_type(types, i))
 			return (error_syntax(">>"));
+		else if (types[i] == INPUT && is_invalid_type(types, i))
+			return (error_syntax("<"));
+		// 	return (error_syntax("|"));
+		// else if (types[i] == PIPE && !types[i + 1] && types[i + 1] != ARG)
+		// 	return (error_syntax("|"));
+		// else if (types[i] == REDIR && i != 0 && types[i - 1] != ARG)
+		// 	return (error_syntax(">"));
+		// else if (types[i] == APPEND && i != 0 && types[i - 1] != ARG)
+		// 	return (error_syntax(">>"));
 		i++;
 	}
 	return (0);
