@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 10:48:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/10 11:59:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void	reset_fds(t_state *st)
 	init_fds(&st);
 }
 
-static void	default_exec(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *cmd)
+static void	default_exec(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
+																	char *cmd)
 {
 	enum e_builtin	ret;
 
@@ -45,11 +46,11 @@ static void	default_exec(t_state *st, t_env *env_lst, t_cmd *cmd_lst, char *cmd)
 	ret = is_builtin(*cmd_lst->args);
 	if (ret)
 		exec_builtin(ret, st, env_lst, cmd_lst);
-	else if (*cmd_lst->args && filepath_exists(env_lst, cmd_lst))
+	else if (*cmd_lst->args && filepath_exists(*env_lst, cmd_lst))
 		exec_cmd(st, cmd_lst->args);
 }
 
-void		cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
+void		cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst)
 {
 	char			*cmd;
 
@@ -57,7 +58,7 @@ void		cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 	while (cmd_lst && *cmd_lst->args && g_sig.sigint == 0)
 	{
 		if (check_pipe(cmd_lst))
-			has_piped_cmd(st, env_lst, cmd_lst);
+			has_piped_cmd(st, *env_lst, cmd_lst);
 		else
 		{
 			parse_redirection(st, cmd_lst);

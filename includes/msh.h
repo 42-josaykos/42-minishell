@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 11:34:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/10 11:52:33 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void			catch_signal(void);
 
 void			handle_quotes(t_ast **token, char *buf, t_env *env_lst);
 void			handle_variables(char *buf, t_ast *token, t_env *env_lst);
-void			parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst,
+void			parse_cmdline(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
 				char *input);
 t_ast			*parse_args(char *input);
 t_ast			*interpreter(t_ast **token, t_env *env_lst);
@@ -225,9 +225,9 @@ void			assign_env(char *str, t_env **env_lst);
 ** execs
 */
 
-void			cmd_handler(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
+void			cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst);
 int				is_builtin(char *cmd);
-void			exec_builtin(int ret, t_state *status, t_env *env_lst,
+void			exec_builtin(int ret, t_state *status, t_env **env_lst,
 				t_cmd *cmd_lst);
 
 /*

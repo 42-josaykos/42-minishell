@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 10:57:49 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/10 11:52:48 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int			has_syntax_error(t_ast *token)
 	return (test_syntax_error(types));
 }
 
-void		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst,
+void		parse_cmdline(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
 															char *input)
 {
 	t_ast	*tmp;
@@ -102,7 +102,7 @@ void		parse_cmdline(t_state *st, t_env *env_lst, t_cmd *cmd_lst,
 	}
 	while (tmp && !g_sig.sigint)
 	{
-		token = interpreter(&tmp, env_lst);
+		token = interpreter(&tmp, *env_lst);
 		token_lst_remove(&tmp);
 		parse_cmds(&token, &cmd_lst);
 		cmd_handler(st, env_lst, cmd_lst);
