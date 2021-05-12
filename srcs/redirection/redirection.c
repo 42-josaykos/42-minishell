@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:08:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 12:12:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/12 11:53:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	get_redir(t_state *st, t_cmd *cmd_lst, char **buffer)
 		}
 		if (cmd_lst->type[i] == INPUT)
 		{
-			input(st, &buffer[i]);
+			if (input(st, &buffer[i]))
+				return ;
 			i++;
 		}
 		i++;

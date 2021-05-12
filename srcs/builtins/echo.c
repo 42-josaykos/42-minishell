@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 12:21:19 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 17:44:45 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:55:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	parse_nl_param(char **arg, int i)
 {
 	int j;
 
-	while(arg[i] && arg[i][0] == '-')
+	while (arg[i] && arg[i][0] == '-')
 	{
 		j = 1;
 		while (arg[i][j])

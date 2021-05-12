@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 11:45:10 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/16 12:15:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/12 11:52:57 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	redir_append(t_state *st, char **args, enum e_type type)
 ** arg as input `[cmd] < [input]`
 */
 
-void	input(t_state *st, char **args)
+int	input(t_state *st, char **args)
 {
 	args++;
 	st->fdin = open(*args, O_RDONLY, S_IRWXU);
@@ -55,8 +55,9 @@ void	input(t_state *st, char **args)
 		ft_putstr_fd(*args, STDERR);
 		ft_putendl_fd(": No such file or directory", STDERR);
 		g_sig.exit_status = 1;
-		return ;
+		return (1);
 	}
 	dup2(st->fdin, STDIN);
 	ft_close(st->fdin);
+	return (0);
 }

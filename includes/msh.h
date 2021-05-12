@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 11:52:33 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/12 11:53:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void			handle_backspace(void);
 
 void			parse_redirection(t_state *st, t_cmd *cmd_lst);
 void			redir_append(t_state *st, char **args, enum e_type type);
-void			input(t_state *st, char **args);
+int				input(t_state *st, char **args);
 void			init_fds(t_state **st);
 void			reset_std(t_state *st);
 void			close_fds(t_state *st);
