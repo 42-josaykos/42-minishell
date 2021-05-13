@@ -1,10 +1,12 @@
-ctrl D sur /bin/cat
-echo -nnnnn
-exit avec int négatif
-gestion de tokens entre quotes ;|
-pb d'exit value de ls ??
+exit avec int négatif (easy) // ok
+gestion de tokens entre quotes ;| + fix redir en debut de commande
 echo "" "" "" | cat -e -> espaces
-protection unset
-unset home into cd -> errorcode 1
-redir s'arrête à l'erreur et créée pas après une erreur
-cd | echo -> commande introuvable ???
+unset HOME into cd -> errorcode 1
+
+#####
+ctrl D sur /bin/cat // ok
+echo -nnnnn // ok
+pb d'exit value de ls ?? // ok
+protection unset // ok
+redir s'arrête à l'erreur et créée pas après une erreur // ok
+cd | echo -> commande introuvable ??? // ok

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:47:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 16:49:41 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/13 18:19:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static bool	ft_isnum(char *str)
 {
+	if (*str == '-')
+		str++;
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
