@@ -1,6 +1,6 @@
 - cd -, et quand HOME et OLPWD unset
 - echo """$HOME"""$HOME
-- echo ';' ; echo '|' + redir en debut de commande
+- echo ';' ; echo '|' + redir en debut de commande // ok
 
 #####
 - echo "" "" "" // ok

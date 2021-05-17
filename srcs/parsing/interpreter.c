@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 16:58:15 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:31:09 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst,
 		handle_quotes(tkn, buf, env_lst);
 		g_sig.dollar_quote = false;
 		if (!(*buf) && (!(*tkn)->right || ((*tkn)->right
-					&& (*tkn)->right->type != ARG)))
+					&& (*tkn)->right->type != ARG && (*tkn)->right->type != DBLQUOTE)))
 		{
 			new_node = create_node(ft_strdup(""), ARG);
 			ast_add(new_tkn, new_node);

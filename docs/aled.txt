@@ -1,6 +1,6 @@
 exit avec int négatif (easy) // ok
-gestion de tokens entre quotes ;| + fix redir en debut de commande
-echo "" "" "" | cat -e -> espaces
+gestion de tokens entre quotes ;| + fix redir en debut de commande // ok
+echo "" "" "" | cat -e -> espaces // ok
 unset HOME into cd -> errorcode 1
 
 #####

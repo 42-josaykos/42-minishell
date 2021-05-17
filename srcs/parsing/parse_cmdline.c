@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmdline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 16:59:35 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/05/17 12:15:02 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,13 @@ static int	test_syntax_error(enum e_type *types)
 			return (error_syntax(";"));
 		else if (types[i] == PIPE && is_invalid_type(types, i))
 			return (error_syntax("|"));
-		else if (types[i] == REDIR && is_invalid_type(types, i))
+		else if (types[i] == REDIR && types[i + 1] != ARG
+				&& is_invalid_type(types, i))
 			return (error_syntax(">"));
-		else if (types[i] == APPEND && is_invalid_type(types, i))
+		else if (types[i] == APPEND && types[i + 1] != ARG && is_invalid_type(types, i))
 			return (error_syntax(">>"));
 		else if (types[i] == INPUT && is_invalid_type(types, i))
 			return (error_syntax("<"));
-		// 	return (error_syntax("|"));
-		// else if (types[i] == PIPE && !types[i + 1] && types[i + 1] != ARG)
-		// 	return (error_syntax("|"));
-		// else if (types[i] == REDIR && i != 0 && types[i - 1] != ARG)
-		// 	return (error_syntax(">"));
-		// else if (types[i] == APPEND && i != 0 && types[i - 1] != ARG)
-		// 	return (error_syntax(">>"));
 		i++;
 	}
 	return (0);
