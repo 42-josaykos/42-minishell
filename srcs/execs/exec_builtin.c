@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 16:58:29 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 17:35:20 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec_builtin(int ret, t_state *status, t_env **env_lst, t_cmd *cmd_lst)
 		assign_env(cmd_lst->args[1], env_lst);
 	else if (ret == CD)
 	{
-		if (cmd_lst->args[2])
+		if (cmd_lst->args[1] && cmd_lst->args[2])
 		{
 			g_sig.exit_status = 1;
 			ft_putendl_fd("msh: cd: too many arguments", STDERR);
