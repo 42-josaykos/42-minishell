@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 09:58:12 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 16:55:19 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:40:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-void		print_hist(t_hist *history)
+void	print_hist(t_hist *history)
 {
 	if (history && history->value)
 		ft_putstr_fd(history->value, STDOUT);
@@ -32,7 +32,7 @@ static void	hist_add(t_hist **history, t_hist *new_node)
 	}
 }
 
-void		hist_update(t_hist **history, char *buffer)
+void	hist_update(t_hist **history, char *buffer)
 {
 	t_hist	*new_node;
 
@@ -42,7 +42,7 @@ void		hist_update(t_hist **history, char *buffer)
 	hist_add(history, new_node);
 }
 
-void		free_hist(t_hist **history)
+void	free_hist(t_hist **history)
 {
 	t_hist	*ptr;
 	t_hist	*tmp;

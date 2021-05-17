@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 11:59:15 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:39:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	default_exec(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
 		exec_cmd(st, cmd_lst->args);
 }
 
-void		cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst)
+void	cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst)
 {
 	char			*cmd;
 

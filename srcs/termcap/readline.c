@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:58 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 17:02:32 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:43:57 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-int		read_key(void)
+int	read_key(void)
 {
 	char	c;
 	char	seq[2];

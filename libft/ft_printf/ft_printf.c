@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 12:13:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 10:44:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:48:26 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	is_type(char c)
 ** or after the sign
 */
 
-void		print_percent(t_specs *specs, int *ret)
+void	print_percent(t_specs *specs, int *ret)
 {
 	char	padding;
 
@@ -103,7 +103,7 @@ static int	parse_str(va_list params, const char *str, t_specs *specs, int *ret)
 ** formatted string
 */
 
-int			ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
 	int		ret;
 	va_list	params;

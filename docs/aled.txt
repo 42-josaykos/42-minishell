@@ -1,9 +1,9 @@
-exit avec int négatif (easy) // ok
-gestion de tokens entre quotes ;| + fix redir en debut de commande // ok
-echo "" "" "" | cat -e -> espaces // ok
 unset HOME into cd -> errorcode 1
 
 #####
+exit avec int négatif (easy) // ok
+gestion de tokens entre quotes ;| + fix redir en debut de commande // ok
+echo "" "" "" | cat -e -> espaces // ok
 ctrl D sur /bin/cat // ok
 echo -nnnnn // ok
 pb d'exit value de ls ?? // ok

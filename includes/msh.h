@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/14 11:28:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:37:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ enum			e_key
 	ARROW_DOWN
 };
 
-typedef	struct	s_ast
+typedef struct s_ast
 {
 	enum e_type		type;
 	char			*value;
@@ -79,14 +79,14 @@ typedef	struct	s_ast
 	struct s_ast	*right;
 }				t_ast;
 
-typedef struct	s_hist
+typedef struct s_hist
 {
 	char			*value;
 	struct s_hist	*previous;
 	struct s_hist	*next;
 }				t_hist;
 
-typedef struct	s_state
+typedef struct s_state
 {
 	char			**envp;
 	int				code;
@@ -102,21 +102,21 @@ typedef struct	s_state
 
 }				t_state;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
 }				t_env;
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	enum e_type		type[BUF_SIZE];
 	char			**args;
 	struct s_cmd	*next;
 }				t_cmd;
 
-typedef struct	s_sig
+typedef struct s_sig
 {
 	int		sigint;
 	int		sigquit;
@@ -176,7 +176,7 @@ void			catch_signal(void);
 void			handle_quotes(t_ast **token, char *buf, t_env *env_lst);
 void			handle_variables(char *buf, t_ast *token, t_env *env_lst);
 void			parse_cmdline(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
-				char *input);
+					char *input);
 t_ast			*parse_args(char *input);
 t_ast			*interpreter(t_ast **token, t_env *env_lst);
 void			parse_cmds(t_ast **token, t_cmd **cmd_lst);
@@ -228,7 +228,7 @@ void			assign_env(char *str, t_env **env_lst);
 void			cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst);
 int				is_builtin(char *cmd);
 void			exec_builtin(int ret, t_state *status, t_env **env_lst,
-				t_cmd *cmd_lst);
+					t_cmd *cmd_lst);
 
 /*
 ** utils

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:47:07 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 10:47:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:46:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char	**ft_splitstr(char const *s, char **tab, char c, int wc)
 	return (tab);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**tab;
 	int		wc;

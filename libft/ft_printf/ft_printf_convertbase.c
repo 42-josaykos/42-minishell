@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:42:37 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 10:45:57 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:48:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*print_zero_base(void)
 	return (str);
 }
 
-char		*itoa_base(long int nb, int base, char *tab)
+char	*itoa_base(long int nb, int base, char *tab)
 {
 	char		*str;
 	int			len;
@@ -65,7 +65,7 @@ char		*itoa_base(long int nb, int base, char *tab)
 	return (str);
 }
 
-int			mini_atoi(const char *str, int *i)
+int	mini_atoi(const char *str, int *i)
 {
 	unsigned int	nb;
 

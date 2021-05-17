@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 12:27:39 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:43:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** https://www.gnu.org/software/bash/manual/bash.html#ANSI_002dC-Quoting
 */
 
-bool			is_ansi_c_quoting2(char **str, char c)
+bool	is_ansi_c_quoting2(char **str, char c)
 {
 	if (c == 'r')
 		*str = "\r";
@@ -37,7 +37,7 @@ bool			is_ansi_c_quoting2(char **str, char c)
 	return (true);
 }
 
-bool			is_ansi_c_quoting(char **str, char c)
+bool	is_ansi_c_quoting(char **str, char c)
 {
 	if (c == 'a')
 		*str = "\a";
@@ -54,7 +54,7 @@ bool			is_ansi_c_quoting(char **str, char c)
 	return (is_ansi_c_quoting2(str, c));
 }
 
-static void		handle_quotes2(t_ast **token, char *buf)
+static void	handle_quotes2(t_ast **token, char *buf)
 {
 	char	*ptr;
 	char	*str;
@@ -79,7 +79,7 @@ static void		handle_quotes2(t_ast **token, char *buf)
 		ft_strcat(buf, (*token)->value);
 }
 
-int				handle_first_quote(t_ast **token, char *buf,
+int	handle_first_quote(t_ast **token, char *buf,
 														enum e_type *type)
 {
 	int	len;
@@ -100,7 +100,7 @@ int				handle_first_quote(t_ast **token, char *buf,
 	return (0);
 }
 
-void			handle_quotes(t_ast **token, char *buf, t_env *env_lst)
+void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 {
 	enum e_type	type;
 

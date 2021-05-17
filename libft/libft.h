@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:56:14 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 10:51:49 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:47:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "get_next_line/get_next_line.h"
 # include "ft_printf/libftprintf.h"
 
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -73,7 +73,7 @@ void				ft_lstdelone(t_list *lst, void (*del)(void*));
 void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*del)(void*));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void*),
-					void (*del)(void*));
+						void (*del)(void*));
 char				**split_whitespace(char const *s);
 int					ft_putchar(int c);
 

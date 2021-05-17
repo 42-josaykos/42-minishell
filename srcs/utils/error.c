@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:24:33 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 17:05:18 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:44:58 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	error_cmd(char *cmd)
 	ft_putstr_fd(" : command not found\n", STDERR);
 }
 
-int		error_syntax(char *cmd)
+int	error_syntax(char *cmd)
 {
 	g_sig.exit_status = 2;
 	ft_putstr_fd("msh: error syntax near unexpected token ", STDERR);

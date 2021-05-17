@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:53:09 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 17:06:02 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:45:40 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	cmd_lst_add(t_cmd **cmd_lst, t_cmd *new_cmd)
 	}
 }
 
-int		cmd_lst_size(t_cmd *cmd_lst)
+int	cmd_lst_size(t_cmd *cmd_lst)
 {
 	int		count;
 	t_cmd	*tmp;

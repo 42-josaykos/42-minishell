@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 17:44:04 by josaykos          #+#    #+#             */
-/*   Updated: 2021/05/04 10:43:45 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:47:32 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_list	*ft_list_init(t_list *lst, t_list *new_list, void *(*f)(void*))
 	return (new_list);
 }
 
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*))
 {
 	t_list	*new_list;
 

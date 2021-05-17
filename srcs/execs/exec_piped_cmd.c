@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/14 11:28:57 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:39:25 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-void		exec_last_process(t_state *st, t_env *env_lst, int in,
+void	exec_last_process(t_state *st, t_env *env_lst, int in,
 																t_cmd *cmd_lst)
 {
 	int	ret;
@@ -98,7 +98,7 @@ static void	fork_pipes(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 		g_sig.exit_status = WEXITSTATUS(st->code);
 }
 
-void		has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
+void	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	t_cmd	*piped_cmd;
 	int		len;

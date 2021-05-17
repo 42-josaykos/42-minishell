@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 12:07:07 by josaykos          #+#    #+#             */
-/*   Updated: 2021/05/04 10:48:24 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:50:55 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	del(char **str)
 	}
 }
 
-int		init_gnl(char **s, int fd, char **line)
+int	init_gnl(char **s, int fd, char **line)
 {
 	if (*s == 0)
 		*s = ft_strdup("");

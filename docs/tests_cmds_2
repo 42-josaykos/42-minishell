@@ -1,8 +1,8 @@
 - cd -, et quand HOME et OLPWD unset
-- echo """$HOME"""$HOME
-- echo ';' ; echo '|' + redir en debut de commande // ok
 
 #####
+- echo """$HOME"""$HOME // ok
+- echo ';' ; echo '|' + redir en debut de commande // ok
 - echo "" "" "" // ok
 - cat < Mafile > 1 > 2 > 3, ne pas créer de fichier // ok
 - cd | echo // ok

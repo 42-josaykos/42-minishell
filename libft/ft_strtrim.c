@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 14:11:53 by josaykos          #+#    #+#             */
-/*   Updated: 2021/05/04 10:47:46 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:46:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_inset(char ch, char const *charset)
 	return (0);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*copy;
 	char	*final_str;

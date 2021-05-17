@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 17:10:46 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 11:52:23 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:40:36 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_msh(t_state **st, t_env **env_lst, char **envp)
 	ft_printf("Welcome to minishell !\nCtrl-D or \"exit\" to quit.\n");
 }
 
-int		get_input(t_state *st, char *input)
+int	get_input(t_state *st, char *input)
 {
 	char	*line;
 
@@ -80,7 +80,7 @@ void	main_loop(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 	}
 }
 
-int		main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_env	*env_lst;
 	t_cmd	*cmd_lst;

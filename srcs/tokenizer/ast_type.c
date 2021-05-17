@@ -6,13 +6,13 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 14:22:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/04 17:03:49 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:44:39 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-void		set_type(t_ast *ptr, enum e_type type)
+void	set_type(t_ast *ptr, enum e_type type)
 {
 	if (!ptr->left || (ptr->left && ptr->left->type != ESCAPE))
 		ptr->type = type;
@@ -51,7 +51,7 @@ static void	ast_check_type2(t_ast *ptr)
 		ptr->type = VAR;
 }
 
-void		ast_check_type(t_ast **token)
+void	ast_check_type(t_ast **token)
 {
 	t_ast	*ptr;
 

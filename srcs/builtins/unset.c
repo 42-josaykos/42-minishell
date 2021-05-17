@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 10:13:30 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 11:58:46 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:38:22 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	builtin_unset(char **variables, t_env **env_lst)
 	while (variables[i])
 	{
 		if (!ft_strncmp((*env_lst)->key, variables[i],
-										ft_strlen(variables[i]) + 1))
+				ft_strlen(variables[i]) + 1))
 		{
 			tmp = (*env_lst)->next;
 			if ((*env_lst)->key)
