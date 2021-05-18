@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:26:25 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/10 10:57:15 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/18 19:13:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	sig_int(void)
 		ft_putstr_fd("\n", STDERR);
 	ft_bzero(g_sig.buf, BUF_SIZE);
 	g_sig.exit_status = 130;
-	g_sig.sigint = 1;
 }
 
 void	sig_quit(void)
