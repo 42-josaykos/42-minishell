@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/19 13:45:07 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/19 14:34:54 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,19 +107,25 @@ static void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 	(void)cmd_lst;
 	int fd[2];
 	pid_t childpid1;
+	pid_t childpid2;
 
 	pipe(fd);
 	childpid1 = fork();
-	if (childpid1 == -1)
-	{
-		perror("fork");
-		exit(1);
-	}
 	if (childpid1 == 0)
 	{
-		execlp("cat", "cat", NULL);
+		childpid2 = fork();
+		if (childpid2 == 0)
+		{
+			execlp("ls", "ls", NULL);
+		}
+		else
+		{
+			waitpid(childpid2, &st->code, 0);
+			execlp("cat", "cat", NULL);
+		}
 	}
-	wait(NULL);
+	else
+		waitpid(childpid1, &st->code, 0);
 }
 
 void	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
