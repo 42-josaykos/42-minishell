@@ -3,3 +3,14 @@ $> echo "hello     my friend   !"; ls -l | grep lib; whoami  (check whitespaces 
 $> ls > sortie.txt | echo yes | grep s
 $> ls -l | grep libft | wc -l < Makefile (check stdin of the last command)
 $> ls -l  |grep libft |Rev (check return value 127)
+
+###
+minor mistakes:
+- minishell ❯ minishell ❯ sdnlnsadlnasl (CTRL+D)
+- multiple line error
+- env not in the same order
+- multiple export at the same time
+- parse should strim all spaces...
+- ... and do not trigger a segfault..... (test = export arg3     =           alex)
+- cat | cat
+-

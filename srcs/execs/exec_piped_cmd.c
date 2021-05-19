@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 12:39:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/19 12:53:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	create_process(t_state *st, t_env *env_lst, int in, t_cmd *cmd_lst)
 	return (pid);
 }
 
-static void	fork_pipes(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
+void	fork_pipes(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 {
 	int		in;
 
@@ -98,6 +98,15 @@ static void	fork_pipes(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 		g_sig.exit_status = WEXITSTATUS(st->code);
 }
 
+
+static void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
+{
+	(void)st;
+	(void)env_lst;
+	(void)n;
+	(void)cmd_lst;
+}
+
 void	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 {
 	t_cmd	*piped_cmd;
@@ -111,7 +120,8 @@ void	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 	j = 0;
 	parse_pipe(cmd_lst, &piped_cmd);
 	len = cmd_lst_size(piped_cmd);
-	fork_pipes(status, env_lst, len, piped_cmd);
+	// fork_pipes(status, env_lst, len, piped_cmd);
+	fork_pipes2(status, env_lst, len, piped_cmd);
 	clear_previous_cmd(piped_cmd, status);
 	free(piped_cmd);
 }
