@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/20 13:52:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/20 15:58:27 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,36 +99,40 @@ void	fork_pipes(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 }
 
 
-static void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
+void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 {
 	(void)st;
 	(void)env_lst;
 	(void)n;
 	(void)cmd_lst;
-	int fd[2];
-	pid_t childpid1 = -1;
-	pid_t childpid2 = -1;
+	int pipefd[2];
+	pid_t childpid = -1;
 	// char *cat[] = {"/usr/bin/cat", NULL};
 	// char *ls[] = {"/usr/bin/ls", NULL};
 
-	pipe(fd);
-	childpid1 = fork();
-	if (childpid1 == 0)
+	pipe(pipefd);
+	childpid = fork();
+	if (childpid == 0)
 	{
-		childpid2 = fork();
-		if (childpid2 == 0)
-		{
-			if (filepath_exists(env_lst, cmd_lst->next))
-				execve(*cmd_lst->next->args, cmd_lst->next->args, st->envp);
-			exit (0);
-		}
-		waitpid(childpid2, &st->code, 0);
+		close(pipefd[0]); // close unused read end
+		dup2(pipefd[1], STDOUT); // output go to pipe
 		if (filepath_exists(env_lst, cmd_lst))
 			execve(*cmd_lst->args, cmd_lst->args, st->envp);
 		exit (0);
 	}
-	
-	waitpid(childpid1, &st->code, 0);
+	childpid = fork();
+	if (childpid == 0)
+	{
+		close(pipefd[1]); // close unused write end
+		dup2(pipefd[0], STDIN); // get input from pipe
+		if (filepath_exists(env_lst, cmd_lst->next))
+			execve(*cmd_lst->next->args, cmd_lst->next->args, st->envp);
+		exit (0);
+	}
+	close(pipefd[0]); // close pipes so EOF can work
+	close(pipefd[1]); // The second child will not receive EOF to trigger it to terminate while at least one other process (the parent) has the write end open
+	waitpid(-1, &st->code, 0);
+	waitpid(-1, &st->code, 0);
 }
 
 void	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
