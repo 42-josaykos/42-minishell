@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/19 14:34:54 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/20 13:52:03 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,10 @@ static void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 	(void)n;
 	(void)cmd_lst;
 	int fd[2];
-	pid_t childpid1;
-	pid_t childpid2;
+	pid_t childpid1 = -1;
+	pid_t childpid2 = -1;
+	// char *cat[] = {"/usr/bin/cat", NULL};
+	// char *ls[] = {"/usr/bin/ls", NULL};
 
 	pipe(fd);
 	childpid1 = fork();
@@ -116,16 +118,17 @@ static void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 		childpid2 = fork();
 		if (childpid2 == 0)
 		{
-			execlp("ls", "ls", NULL);
+			if (filepath_exists(env_lst, cmd_lst->next))
+				execve(*cmd_lst->next->args, cmd_lst->next->args, st->envp);
+			exit (0);
 		}
-		else
-		{
-			waitpid(childpid2, &st->code, 0);
-			execlp("cat", "cat", NULL);
-		}
+		waitpid(childpid2, &st->code, 0);
+		if (filepath_exists(env_lst, cmd_lst))
+			execve(*cmd_lst->args, cmd_lst->args, st->envp);
+		exit (0);
 	}
-	else
-		waitpid(childpid1, &st->code, 0);
+	
+	waitpid(childpid1, &st->code, 0);
 }
 
 void	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
