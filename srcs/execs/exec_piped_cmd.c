@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 11:52:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/24 12:57:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,21 +101,17 @@ void	fork_pipes(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 
 void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 {
-	(void)st;
-	(void)env_lst;
-	(void)n;
-	(void)cmd_lst;
-	int pipefd[2];
-	int pipefd2[2];
+	int pipefd[BUF_SIZE][2];
 	pid_t childpid = -1;
+	int i = 0;
 
-	pipe(pipefd);
-	pipe(pipefd2);
+	while (i < n - 1)
+		pipe(pipefd[i++]);
 	childpid = fork();
 	if (childpid == 0)
 	{
-		close(pipefd[0]); // close unused read end
-		dup2(pipefd[1], STDOUT); // output go to pipe
+		close(pipefd[0][0]); // close unused read end
+		dup2(pipefd[0][1], STDOUT); // output go to pipe
 		if (filepath_exists(env_lst, cmd_lst))
 			execve(*cmd_lst->args, cmd_lst->args, st->envp);
 		exit (0);
@@ -123,28 +119,28 @@ void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 	childpid = fork();
 	if (childpid == 0)
 	{
-		close(pipefd[1]); // close unused write end
-		dup2(pipefd[0], STDIN); // get input from pipe
-		close(pipefd2[0]); // close unused read end
-		dup2(pipefd2[1], STDOUT); // output go to pipe
+		close(pipefd[0][1]); // close unused write end
+		dup2(pipefd[0][0], STDIN); // get input from pipe
+		close(pipefd[1][0]); // close unused read end
+		dup2(pipefd[1][1], STDOUT); // output go to pipe
 		if (filepath_exists(env_lst, cmd_lst->next))
 			execve(*cmd_lst->next->args, cmd_lst->next->args, st->envp);
 		exit (0);
 	}
-	close(pipefd[0]); /* close pipes so EOF can work */
-	close(pipefd[1]); /* The second child will not receive EOF to trigger it to terminate 
+	close(pipefd[0][0]); /* close pipes so EOF can work */
+	close(pipefd[0][1]); /* The second child will not receive EOF to trigger it to terminate 
 						while at least one other process (the parent) has the write end open */
 	childpid = fork();
 	if (childpid == 0)
 	{
-		close(pipefd2[1]); // close unused write end
-		dup2(pipefd2[0], STDIN); // get input from pipe
+		close(pipefd[1][1]); // close unused write end
+		dup2(pipefd[1][0], STDIN); // get input from pipe
 		if (filepath_exists(env_lst, cmd_lst->next->next))
 			execve(*cmd_lst->next->next->args, cmd_lst->next->next->args, st->envp);
 		exit (0);
 	}
-	close(pipefd2[0]);
-	close(pipefd2[1]);
+	close(pipefd[1][0]);
+	close(pipefd[1][1]);
 	while (n > 0)
 	{
 		waitpid(-1, &st->code, 0);
