@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env_lst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:56:57 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/19 17:38:52 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:39:02 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	assign_env(char *str, t_env **env_lst)
 	char	*env[2];
 	char	*ptr;
 
-	if (str[0] == '=' ||!strchr(str, '='))
+	if (str[0] == '=' || !strchr(str, '='))
 		return ;
 	env[0] = NULL;
 	env[1] = NULL;

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/19 17:24:07 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:40:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
 
-void	cd_args()
+void	cd_args(void)
 {
-			g_sig.exit_status = 1;
-			ft_putendl_fd("msh: cd: too many arguments", STDERR);	
+	g_sig.exit_status = 1;
+	ft_putendl_fd("msh: cd: too many arguments", STDERR);
 }
 
 void	exec_builtin(int ret, t_state *status, t_env **env_lst, t_cmd *cmd_lst)
@@ -31,11 +31,7 @@ void	exec_builtin(int ret, t_state *status, t_env **env_lst, t_cmd *cmd_lst)
 	else if (ret == CD)
 	{
 		if (cmd_lst->args[1] && cmd_lst->args[2])
-		// {
-		// 	g_sig.exit_status = 1;
-		// 	ft_putendl_fd("msh: cd: too many arguments", STDERR);
 			return (cd_args());
-		// }
 		cd(cmd_lst->args[1], *env_lst);
 	}
 	else if (ret == PWD)
