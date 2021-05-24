@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/20 15:58:27 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/24 11:52:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,11 @@ void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 	(void)n;
 	(void)cmd_lst;
 	int pipefd[2];
+	int pipefd2[2];
 	pid_t childpid = -1;
-	// char *cat[] = {"/usr/bin/cat", NULL};
-	// char *ls[] = {"/usr/bin/ls", NULL};
 
 	pipe(pipefd);
+	pipe(pipefd2);
 	childpid = fork();
 	if (childpid == 0)
 	{
@@ -125,14 +125,31 @@ void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 	{
 		close(pipefd[1]); // close unused write end
 		dup2(pipefd[0], STDIN); // get input from pipe
+		close(pipefd2[0]); // close unused read end
+		dup2(pipefd2[1], STDOUT); // output go to pipe
 		if (filepath_exists(env_lst, cmd_lst->next))
 			execve(*cmd_lst->next->args, cmd_lst->next->args, st->envp);
 		exit (0);
 	}
-	close(pipefd[0]); // close pipes so EOF can work
-	close(pipefd[1]); // The second child will not receive EOF to trigger it to terminate while at least one other process (the parent) has the write end open
-	waitpid(-1, &st->code, 0);
-	waitpid(-1, &st->code, 0);
+	close(pipefd[0]); /* close pipes so EOF can work */
+	close(pipefd[1]); /* The second child will not receive EOF to trigger it to terminate 
+						while at least one other process (the parent) has the write end open */
+	childpid = fork();
+	if (childpid == 0)
+	{
+		close(pipefd2[1]); // close unused write end
+		dup2(pipefd2[0], STDIN); // get input from pipe
+		if (filepath_exists(env_lst, cmd_lst->next->next))
+			execve(*cmd_lst->next->next->args, cmd_lst->next->next->args, st->envp);
+		exit (0);
+	}
+	close(pipefd2[0]);
+	close(pipefd2[1]);
+	while (n > 0)
+	{
+		waitpid(-1, &st->code, 0);
+		n--;
+	}
 }
 
 void	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
