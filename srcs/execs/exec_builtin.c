@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 15:40:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/24 17:27:35 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,23 @@ void	cd_args(void)
 	ft_putendl_fd("msh: cd: too many arguments", STDERR);
 }
 
-void	exec_builtin(int ret, t_state *status, t_env **env_lst, t_cmd *cmd_lst)
+void	exec_export(t_cmd *cmd_lst, t_env **env_lst)
 {
 	int	i;
 
 	i = 1;
+	if (!cmd_lst->args[i])
+		print_export_variables(*env_lst);
+	while (cmd_lst->args[i])
+		assign_env(cmd_lst->args[i++], env_lst);
+}
+
+void	exec_builtin(int ret, t_state *status, t_env **env_lst, t_cmd *cmd_lst)
+{
 	if (ret == EXIT)
 		exit_msh(status, *env_lst, cmd_lst);
 	else if (ret == EXPORT)
-		while (cmd_lst->args[i])
-			assign_env(cmd_lst->args[i++], env_lst);
+		exec_export(cmd_lst, env_lst);
 	else if (ret == CD)
 	{
 		if (cmd_lst->args[1] && cmd_lst->args[2])
