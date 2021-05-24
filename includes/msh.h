@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 12:37:14 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/24 15:59:05 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ t_ast			*interpreter(t_ast **token, t_env *env_lst);
 void			parse_cmds(t_ast **token, t_cmd **cmd_lst);
 void			token_lst_remove(t_ast **token);
 void			has_piped_cmd(t_state *st, t_env *env_lst, t_cmd *cmd_lst);
-void			parse_pipe(t_cmd *cmd_lst, t_cmd **piped);
 bool			check_pipe(t_cmd *cmd_lst);
 int				parse_semicolon(t_cmd **cmd_lst);
 int				file_exists(char *filename);
@@ -229,6 +228,7 @@ void			cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst);
 int				is_builtin(char *cmd);
 void			exec_builtin(int ret, t_state *status, t_env **env_lst,
 					t_cmd *cmd_lst);
+void			fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst);
 
 /*
 ** utils
