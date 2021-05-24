@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 13:48:24 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/24 13:52:11 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	exec_process(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 
 	parse_redirection(st, cmd_lst);
 	ret = is_builtin(cmd_lst->args[0]);
-	if (ret && ret != EXPORT)
+	if (ret)
 		exec_builtin(ret, st, &env_lst, cmd_lst);
 	else if (filepath_exists(env_lst, cmd_lst))
 		execve(*cmd_lst->args, cmd_lst->args, st->envp);
