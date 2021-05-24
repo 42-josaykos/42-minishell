@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 15:59:05 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/24 16:30:32 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_sig
 {
 	int		sigint;
 	int		sigquit;
+	int		pipe;
 	int		exit_status;
 	pid_t	pid;
 	bool	dollar_quote;

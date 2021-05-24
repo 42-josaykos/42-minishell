@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 15:57:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/24 16:31:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	has_piped_cmd(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 	len = 0;
 	i = 0;
 	j = 0;
+	g_sig.pipe = 1;
 	parse_pipe(cmd_lst, &piped_cmd);
 	len = cmd_lst_size(piped_cmd);
 	fork_pipes2(status, env_lst, len, piped_cmd);
