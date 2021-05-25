@@ -21,3 +21,8 @@
 - `./file_that_is_not_an_executable`
 - `echo bonjour >>> test`
 - unset exit codes `unset "" test`
+
+25/05:
+
+- executable with absolut and relative path: `cd srcs/` and `../minishell`
+- handle error 126 when not an executable: `./srcs`
