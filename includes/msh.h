@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 16:30:32 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/25 13:04:49 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <sys/types.h>
+# include <dirent.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <errno.h>
