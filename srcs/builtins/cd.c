@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 16:48:24 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 16:58:15 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/25 12:36:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ int	error_env(char *arg)
 	return (1);
 }
 
-int	cd(char *arg, t_env *env_lst)
+char	*cd_set_path(char *arg, t_env *env_lst)
 {
-	int		errnum;
-	int		ret;
 	char	*str;
-	char	tmp[BUF_SIZE];
 
 	str = arg;
 	if (!arg || !ft_strncmp(arg, "~", 2))
@@ -49,10 +46,23 @@ int	cd(char *arg, t_env *env_lst)
 		if (str)
 			ft_putendl_fd(str, STDOUT);
 	}
-	if (str == NULL || !ft_strlen(str))
+	return (str);
+}
+
+int	cd(char *arg, t_env *env_lst)
+{
+	int		errnum;
+	int		ret;
+	char	*str;
+	char	tmp[BUF_SIZE];
+
+	ret = 0;
+	str = cd_set_path(arg, env_lst);
+	if (str == NULL)
 		return (error_env(arg));
 	getcwd(tmp, BUF_SIZE);
-	ret = chdir(str);
+	if (str[0] != '\0')
+		ret = chdir(str);
 	errnum = errno;
 	if (!ret)
 		export_env(&env_lst, ft_strdup("OLDPWD"), ft_strdup(tmp));
