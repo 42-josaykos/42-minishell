@@ -18,3 +18,6 @@
 - handle SIGINT and SIGTERM in parse_cmdline(). Test: `pwd; find /; date`
 - disable raw_mode when parsing
 - improve signal handler printing characters + g_sig.sigint flag is missing
+- `./file_that_is_not_an_executable`
+- `echo bonjour >>> test`
+- unset exit codes `unset "" test`
