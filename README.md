@@ -42,8 +42,8 @@ HELLO=bonjour
 - error message `export $VAR=value` if VAR doesn't exist in env
 - `export "" test=a`
 - `export test="ab[whitespaces]cd[whitespaces]ef"` --> `echo $test` --> test="ab cd ef"
-- `.` --> exit code 2
-- `..` --> exit code 127
+- ~~`.` --> exit code 2~~
+- ~~`..` --> exit code 127~~
 - `echo "bip | bip ; coyotte > < \" "`
 - `echo $USER$var\$USER$USER\$USERtest$USER`
 - ~~`cat Makefile | grep pr | head -n 5 | cd file_not_exit` --> exit code in pipes~~

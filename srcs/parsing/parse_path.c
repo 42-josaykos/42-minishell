@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:32:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/10 10:36:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/26 13:00:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,8 @@
 
 bool	is_exec_path(char *str)
 {
-	if (*str == '/')
-	{
-		if (file_exists(str))
-			return (true);
-	}
-	else if (str[0] == '.' && str[1] == '/')
-	{
-		if (file_exists(str))
-			return (true);
-	}
+	if (file_exists(str))
+		return (true);
 	return (false);
 }
 
