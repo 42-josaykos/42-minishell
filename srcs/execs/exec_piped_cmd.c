@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 16:08:25 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/26 12:24:50 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	exec_piped_cmd(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 
 	parse_redirection(st, cmd_lst);
 	ret = is_builtin(cmd_lst->args[0]);
+	if (ret == EXIT)
+		return ;
 	if (ret)
 		exec_builtin(ret, st, &env_lst, cmd_lst);
 	else if (filepath_exists(env_lst, cmd_lst))

@@ -47,5 +47,5 @@ HELLO=bonjour
 - `echo "bip | bip ; coyotte > < \" "`
 - `echo $USER$var\$USER$USER\$USERtest$USER`
 - `cat Makefile | grep pr | head -n 5 | cd file_not_exit` --> exit code in pipes
-- `ls | exit`
-- `pwd ; sleep 10 ; date` --> exit code
+- ~~`ls | exit`~~
+- ~~`pwd ; sleep 10 ; date` --> exit code~~
