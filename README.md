@@ -23,7 +23,7 @@
 25/05:
 
 - `echo bonjour >>> test`
-- executable with absolut and relative path: `cd srcs/` and `../minishell` --> parsing/parse_path.c/is_exec_path()
+- ~~executable with absolut and relative path: `cd srcs/` and `../minishell` --> parsing/parse_path.c/is_exec_path()~~
 - handle error 126 when not an executable: `./srcs` utils/error.c
 - handle cd with nultiples env args: `cd $HOME/42cursus` --> parsing/interpreter.c/handle_variables()
 - `export $VAR=value`

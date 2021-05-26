@@ -6,16 +6,29 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:32:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 13:00:38 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/26 13:37:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
+#include <fcntl.h>
 
 bool	is_exec_path(char *str)
 {
+	struct stat filestat;
+
 	if (file_exists(str))
+	{
+		stat(str, &filestat);
+		if (S_ISDIR(filestat.st_mode))
+			return (false);
+		else if ((filestat.st_mode & S_IXUSR) != S_IXUSR)
+		{
+			ft_putstr_fd("permission denied\n", STDERR);
+			return (false);
+		}
 		return (true);
+	}
 	return (false);
 }
 
