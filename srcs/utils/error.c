@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:24:33 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 12:44:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/26 12:48:28 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	error_cases(int errnum, char *cmd, char *arg)
 {
-	g_sig.exit_status = 1;
+	if (*cmd == '.')
+		g_sig.exit_status = 2;
+	else
+		g_sig.exit_status = 1;
 	ft_putstr_fd("msh: ", STDERR);
 	ft_putstr_fd(cmd, STDERR);
 	ft_putstr_fd(": ", STDERR);

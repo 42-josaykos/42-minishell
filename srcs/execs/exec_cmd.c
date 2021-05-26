@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 16:32:10 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/26 12:49:27 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,12 @@ static void	default_exec(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
 {
 	enum e_builtin	ret;
 
-	(void)cmd;
 	ret = is_builtin(*cmd_lst->args);
-	if (ret)
+	if (!ft_strncmp(*cmd_lst->args, "..", 3))
+		error_cmd(*cmd_lst->args);
+	else if (!ft_strncmp(*cmd_lst->args, ".", 2))
+		error_cases(EINVAL, cmd, *cmd_lst->args);
+	else if (ret)
 		exec_builtin(ret, st, env_lst, cmd_lst);
 	else if (*cmd_lst->args && filepath_exists(*env_lst, cmd_lst))
 		exec_cmd(st, cmd_lst->args);
