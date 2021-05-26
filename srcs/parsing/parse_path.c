@@ -6,33 +6,29 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:32:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 13:37:56 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/26 13:59:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-#include <fcntl.h>
 
-bool	is_exec_path(char *str)
+int	is_exec_path(char *str)
 {
-	struct stat filestat;
+	struct stat	filestat;
 
 	if (file_exists(str))
 	{
 		stat(str, &filestat);
 		if (S_ISDIR(filestat.st_mode))
-			return (false);
+			return (2);
 		else if ((filestat.st_mode & S_IXUSR) != S_IXUSR)
-		{
-			ft_putstr_fd("permission denied\n", STDERR);
-			return (false);
-		}
-		return (true);
+			return (3);
+		return (1);
 	}
-	return (false);
+	return (0);
 }
 
-bool	check_filepath(char *ptr, t_cmd *cmd_lst)
+int	check_filepath(char *ptr, t_cmd *cmd_lst)
 {
 	char	filepath[BUF_SIZE];
 	char	*tmp;
@@ -40,7 +36,7 @@ bool	check_filepath(char *ptr, t_cmd *cmd_lst)
 
 	len = 0;
 	if (is_exec_path(*cmd_lst->args))
-		return (true);
+		return (is_exec_path(*cmd_lst->args));
 	while (ptr)
 	{
 		tmp = ft_strsep(&ptr, ":");
@@ -54,16 +50,27 @@ bool	check_filepath(char *ptr, t_cmd *cmd_lst)
 			if (*cmd_lst->args)
 				free(*cmd_lst->args);
 			*cmd_lst->args = ft_strdup(filepath);
-			return (true);
+			return (1);
 		}
 	}
-	return (false);
+	return (0);
+}
+
+void	error_num(int errnum, char *cmd, int exit_code)
+{
+	g_sig.exit_status = exit_code;
+	ft_putstr_fd("msh: ", STDERR);
+	ft_putstr_fd(cmd, STDERR);
+	ft_putstr_fd(": ", STDERR);
+	ft_putstr_fd(strerror(errnum), STDERR);
+	ft_putstr_fd("\n", STDERR);
 }
 
 bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*ptr;
 	char	copy[BUF_SIZE];
+	int		ret;
 
 	ptr = NULL;
 	while (env_lst)
@@ -76,8 +83,13 @@ bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst)
 		}
 		env_lst = env_lst->next;
 	}
-	if (check_filepath(ptr, cmd_lst))
+	ret = check_filepath(ptr, cmd_lst);
+	if (ret == 1)
 		return (true);
+	else if (ret == 2)
+		error_num(EISDIR, *cmd_lst->args, 126);
+	else if (ret == 3)
+		error_num(EACCES, *cmd_lst->args, 126);
 	else
 		error_cmd(*cmd_lst->args);
 	return (false);
