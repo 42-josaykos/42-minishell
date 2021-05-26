@@ -4,10 +4,10 @@
 
 ## TODO:
 
-- piped commands exit_codes + redir exit_codes
-- `export something` without key=value pair should do nothing
-- error syntax when just pipe symbol
-- handle export without args + export whithout value
+- ~~piped commands exit_codes + redir exit_codes~~
+- ~~`export something` without key=value pair should do nothing~~
+- ~~error syntax when just pipe symbol~~
+- ~~handle export without args + export whithout value~~
 - `echo '\'`
 - `echo "hello\newline"`
 - `export VARIABLE=value; echo VARIABLE`
@@ -16,8 +16,8 @@
 - `export TEST="ls -l | cat -e"`
 
 - handle SIGINT and SIGTERM in parse_cmdline(). Test: `pwd; find /; date`
-- disable raw_mode when parsing
-- improve signal handler printing characters + g_sig.sigint flag is missing
+- ~~disable raw_mode when parsing~~
+- ~~improve signal handler printing characters + g_sig.sigint flag is missing~~
 - unset exit codes `unset "" test`
 
 25/05:
@@ -46,6 +46,6 @@ HELLO=bonjour
 - `..` --> exit code 127
 - `echo "bip | bip ; coyotte > < \" "`
 - `echo $USER$var\$USER$USER\$USERtest$USER`
-- `cat Makefile | grep pr | head -n 5 | cd file_not_exit` --> exit code in pipes
+- ~~`cat Makefile | grep pr | head -n 5 | cd file_not_exit` --> exit code in pipes~~
 - ~~`ls | exit`~~
 - ~~`pwd ; sleep 10 ; date` --> exit code~~

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 12:24:50 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/26 12:31:11 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	fork_pipes2(t_state *st, t_env *env_lst, int n, t_cmd *cmd_lst)
 			exec_piped_cmd(st, env_lst, cmd_lst);
 			if (g_sig.sigint || g_sig.sigquit)
 				exit(g_sig.exit_status);
-			exit (0);
+			exit (g_sig.exit_status);
 		}
 		close_pipes(i, pipefd);
 		cmd_lst = cmd_lst->next;
