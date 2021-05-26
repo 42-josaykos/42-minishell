@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:32:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/03/10 10:36:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/25 17:22:39 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	is_exec_path(char *str)
 		if (file_exists(str))
 			return (true);
 	}
-	else if (str[0] == '.' && str[1] == '/')
+	else if (str[0] == '.' && (str[1] == '/'
+			|| (str[1] == '.' && str[2] == '/')))
 	{
 		if (file_exists(str))
 			return (true);

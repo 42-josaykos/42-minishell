@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmdline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 12:17:57 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/26 17:07:56 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	test_syntax_error(enum e_type *types)
 	i = 0;
 	while (types[i] != VOID)
 	{
+		if (types[i] == DBLQUOTE || types[i] == QUOTE)
+			i += quotes_skip(types, i);
 		if (types[i] == SEMICOLON && is_invalid_type(types, i))
 			return (error_syntax(";"));
 		else if (types[i] == PIPE && is_invalid_type(types, i))
