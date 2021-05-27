@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 12:49:27 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/27 12:47:10 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst)
 		else
 		{
 			parse_redirection(st, cmd_lst);
-			if (g_sig.exit_status != 1)
+			if (cmd_lst && *cmd_lst->args && g_sig.exit_status != 1)
 			{
 				cmd = *cmd_lst->args;
 				default_exec(st, env_lst, cmd_lst, cmd);
