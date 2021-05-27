@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:32:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 13:59:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/27 12:37:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*ptr;
 	char	copy[BUF_SIZE];
-	int		ret;
+	int		ret;	
 
 	ptr = NULL;
 	while (env_lst)

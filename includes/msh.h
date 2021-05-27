@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
+/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/25 13:04:49 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/26 17:09:37 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ int				tab_size(char **array);
 char			*ft_strsep(char **stringp, const char *delim);
 bool			is_empty(char *str);
 int				ft_isblank(int c);
+int				quotes_skip(enum e_type *types, int i);
 
 /*
 ** error.c

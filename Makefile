@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
+#    By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/04/02 11:43:21 by jonny            ###   ########.fr        #
+#    Updated: 2021/05/26 17:07:03 by alpascal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRC_NAME	=	main.c \
 						utils/error.c \
 						utils/file_status.c \
 						utils/signal.c \
+						utils/parsing_utils.c \
 
 OBJ 			= $(SRC:.c=.o)
 SRCS_PATH = srcs
