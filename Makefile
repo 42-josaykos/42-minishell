@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+         #
+#    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/05/26 17:07:03 by alpascal         ###   ########.fr        #
+#    Updated: 2021/05/28 11:18:26 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_NAME	=	main.c \
 						execs/exec_piped_cmd.c \
 						history/history.c \
 						parsing/handle_quotes.c \
+						parsing/handle_variables.c \
 						parsing/interpreter.c \
 						parsing/parse_cmdline.c \
 						parsing/parse_path.c \

@@ -6,37 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 12:43:08 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/28 11:36:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-
-void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
-{
-	char	*tmp;
-
-	(void)env_lst;
-	tmp = NULL;
-	if (token->type == VAR)
-	{
-		tmp = get_env(env_lst, token->value);
-		if (tmp != NULL)
-			ft_strcat(buf, tmp);
-	}
-	else if (token->type == QUEST)
-	{
-		if (g_sig.dollar_quote)
-		{
-			tmp = ft_itoa(g_sig.exit_status);
-			ft_strcat(buf, tmp);
-			free(tmp);
-		}
-		else
-			ft_strcat(buf, token->value);
-	}
-	g_sig.dollar_quote = false;
-}
 
 static bool	spc_tkn(t_ast *tkn)
 {
