@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/28 11:37:52 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/28 12:19:04 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,17 @@ void	expand_var(char *buf, char *tmp, t_env *env_lst)
 {
 	char	*ptr;
 	char	*value;
-	int		i;
 
-	value = NULL;
-	while (tmp)
+	ptr = ft_strsep(&tmp, "/");
+	value = get_env(env_lst, ptr);
+	if (value)
 	{
-		i = 0;
-		ptr = ft_strsep(&tmp, "/");
-		value = get_env(env_lst, ptr);
-		if (value)
-		{
-			ft_strcat(buf, value);
-			if (tmp)
-				ft_strcat(buf, "/");
-		}
-		else
-			ft_strcat(buf, ptr);
+		ft_strcat(buf, value);
+	}
+	if (tmp)
+	{
+		ft_strcat(buf, "/");
+		ft_strcat(buf, tmp);
 	}
 }
 
