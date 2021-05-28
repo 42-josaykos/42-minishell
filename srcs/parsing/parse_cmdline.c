@@ -6,7 +6,7 @@
 /*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 17:07:56 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/05/28 17:17:39 by alpascal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ t_ast	*parse_args(char *input)
 
 int	is_invalid_type(enum e_type *types, int i)
 {
-	if (types[i] == INPUT && i == 0)
-		return (0);
-	else if (i == 0 || (i != 0 && (types[i - 1] == REDIR
-				|| types[i - 1] == APPEND || types[i - 1] == INPUT
-				|| types[i - 1] == PIPE || types[i - 1] == SEMICOLON)))
+	if (i == 0 && (!types[i + 1] || (types[i] == PIPE
+				|| types[i] == SEMICOLON)))
+		return (1);
+	else if (((types[i + 1] == REDIR
+				|| types[i + 1] == APPEND || types[i + 1] == INPUT
+				|| types[i + 1] == PIPE || types[i + 1] == SEMICOLON)))
 		return (1);
 	return (0);
 }
@@ -64,11 +65,9 @@ static int	test_syntax_error(enum e_type *types)
 			return (error_syntax(";"));
 		else if (types[i] == PIPE && is_invalid_type(types, i))
 			return (error_syntax("|"));
-		else if (types[i] == REDIR && types[i + 1] != ARG
-			&& is_invalid_type(types, i))
+		else if (types[i] == REDIR && is_invalid_type(types, i))
 			return (error_syntax(">"));
-		else if (types[i] == APPEND && types[i + 1] != ARG
-			&& is_invalid_type(types, i))
+		else if (types[i] == APPEND && is_invalid_type(types, i))
 			return (error_syntax(">>"));
 		else if (types[i] == INPUT && is_invalid_type(types, i))
 			return (error_syntax("<"));
