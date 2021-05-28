@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 17:09:37 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/05/28 12:22:03 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void			handle_variables(char *buf, t_ast *token, t_env *env_lst);
 void			parse_cmdline(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
 					char *input);
 t_ast			*parse_args(char *input);
-t_ast			*interpreter(t_ast **token, t_env *env_lst);
+t_ast			*interpreter(t_ast **token, t_env *env_lst, char *buf);
 void			parse_cmds(t_ast **token, t_cmd **cmd_lst);
 void			token_lst_remove(t_ast **token);
 void			has_piped_cmd(t_state *st, t_env *env_lst, t_cmd *cmd_lst);

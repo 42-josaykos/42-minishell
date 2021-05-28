@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/28 12:19:26 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/28 12:21:44 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ static void	add_new_node(char *buf, t_ast **new_tkn, enum e_type type)
 	ft_bzero(buf, BUF_SIZE);
 }
 
-t_ast	*interpreter(t_ast **tkn, t_env *env_lst)
+t_ast	*interpreter(t_ast **tkn, t_env *env_lst, char *buf)
 {
 	t_ast	*new_tkn;
-	char	buf[BUF_SIZE];
 
 	new_tkn = NULL;
-	ft_bzero(buf, BUF_SIZE);
 	while (1)
 	{
 		if (*buf && (!(*tkn) || (*tkn)->type == WHITESPACE || spc_tkn(*tkn)))

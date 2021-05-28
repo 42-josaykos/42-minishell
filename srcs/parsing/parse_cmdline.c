@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmdline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 17:07:56 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/05/28 12:21:54 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ void	parse_cmdline(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
 {
 	t_ast	*tmp;
 	t_ast	*token;
+	char	buf[BUF_SIZE];
 
+	ft_bzero(buf, BUF_SIZE);
 	tmp = parse_args(input);
 	if (has_syntax_error(tmp))
 	{
@@ -114,7 +116,7 @@ void	parse_cmdline(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
 	}
 	while (tmp && !g_sig.sigint)
 	{
-		token = interpreter(&tmp, *env_lst);
+		token = interpreter(&tmp, *env_lst, buf);
 		token_lst_remove(&tmp);
 		parse_cmds(&token, &cmd_lst);
 		cmd_handler(st, env_lst, cmd_lst);

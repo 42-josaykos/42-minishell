@@ -21,9 +21,11 @@
 25/05:
 
 - unset exit codes `unset "" test`
+- `export "" test=a`
 - fix has_syntax_error function
 - `echo bonjour >>> test`
-- handle cd with multiples env args: `cd $HOME/42cursus` --> parsing/interpreter.c/handle_variables()
+- `export test="ab[whitespaces]cd[whitespaces]ef"` --> `echo $test` --> test="ab cd ef"
+- error message `export $VAR=value` if VAR doesn't exist in env
 - `export $VAR=value`
 
 ```bash
@@ -37,10 +39,8 @@ bonjour=test
 HELLO=bonjour
 ```
 
-- error message `export $VAR=value` if VAR doesn't exist in env
-- `export "" test=a`
-- `export test="ab[whitespaces]cd[whitespaces]ef"` --> `echo $test` --> test="ab cd ef"
-- `echo $USER$var\$USER$USER\$USERtest$USER`
+- ~~handle cd with multiples env args: `cd $HOME/42cursus` --> parsing/interpreter.c/handle_variables()~~
+- ~~`echo $USER$var\$USER$USER\$USERtest$USER`~~
 - ~~executable with absolut and relative path: `cd srcs/` and `../minishell` --> parsing/parse_path.c/is_exec_path()~~
 - ~~handle error 126 when not an executable: `./srcs` utils/error.c~~
 - ~~`.` --> exit code 2~~
