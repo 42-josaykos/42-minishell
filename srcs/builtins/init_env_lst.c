@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:56:57 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 15:39:02 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/29 14:31:33 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ char	*set_value(char *ptr)
 	if (*ptr == '\"' || *ptr == '\'')
 		ptr++;
 	len = ft_strlen(ptr);
-	if (ptr[len - 1] == '\"' || ptr[len - 1] == '\'')
-		ptr[len - 1] = '\0';
 	if (*ptr)
 		value = ft_strdup(ptr);
 	else
