@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/28 18:11:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/29 11:56:05 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,41 @@ void	expand_var(char *buf, char *tmp, t_env *env_lst)
 		ft_strcat(buf, tmp);
 }
 
-void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
+int	have_whitespaces(char *buf)
+{
+	int	i;
+
+	i = 0;
+	while (buf[i])
+	{
+		if (ft_isblank(buf[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	expand_new_args(char *buf, t_ast *new_tkn)
+{
+	int		i;
+	char	**ptr;
+
+	ptr = split_whitespace(buf);
+	i = 0;
+	while (i < tab_size(ptr) - 1)
+	{
+		ft_bzero(buf, BUF_SIZE);
+		ft_strlcpy(buf, ptr[i], ft_strlen(ptr[i]) + 1);
+		add_new_node(buf, &new_tkn, VAR);
+		i++;
+	}
+	ft_bzero(buf, BUF_SIZE);
+	ft_strlcpy(buf, ptr[i], ft_strlen(ptr[i]) + 1);
+	free_2darray(ptr);
+}
+
+void	handle_variables(char *buf, t_ast *token, t_env *env_lst,
+		t_ast *new_tkn)
 {
 	char	tmp[BUF_SIZE];
 	char	*nbr;
@@ -68,6 +102,8 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst)
 	{
 		ft_strlcpy(tmp, token->value, ft_strlen(token->value) + 1);
 		expand_var(buf, tmp, env_lst);
+		if (new_tkn && have_whitespaces(buf))
+			expand_new_args(buf, new_tkn);
 	}
 	else if (token->type == QUEST)
 	{

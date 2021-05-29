@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/28 12:22:03 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/29 11:55:24 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,8 @@ void			catch_signal(void);
 */
 
 void			handle_quotes(t_ast **token, char *buf, t_env *env_lst);
-void			handle_variables(char *buf, t_ast *token, t_env *env_lst);
+void			handle_variables(char *buf, t_ast *token, t_env *env_lst,
+					t_ast *new_tkn);
 void			parse_cmdline(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
 					char *input);
 t_ast			*parse_args(char *input);
@@ -188,6 +189,7 @@ bool			check_pipe(t_cmd *cmd_lst);
 int				parse_semicolon(t_cmd **cmd_lst);
 int				file_exists(char *filename);
 bool			filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
+void			add_new_node(char *buf, t_ast **new_tkn, enum e_type type);
 
 /*
 ** tokenizer
