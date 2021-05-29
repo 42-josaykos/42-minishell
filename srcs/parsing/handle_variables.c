@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/29 12:26:18 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/29 12:39:31 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	have_whitespaces(char *buf)
 	return (0);
 }
 
-void	expand_new_args(char *buf, t_ast *new_tkn)
+void	expand_new_args(char *buf, t_ast **new_tkn)
 {
 	int		i;
 	char	**ptr;
@@ -83,7 +83,7 @@ void	expand_new_args(char *buf, t_ast *new_tkn)
 	{
 		ft_bzero(buf, BUF_SIZE);
 		ft_strlcpy(buf, ptr[i], ft_strlen(ptr[i]) + 1);
-		add_new_node(buf, &new_tkn, VAR);
+		add_new_node(buf, new_tkn, VAR);
 		i++;
 	}
 	ft_bzero(buf, BUF_SIZE);
@@ -92,7 +92,7 @@ void	expand_new_args(char *buf, t_ast *new_tkn)
 }
 
 void	handle_variables(char *buf, t_ast *token, t_env *env_lst,
-		t_ast *new_tkn)
+		t_ast **new_tkn)
 {
 	char	tmp[BUF_SIZE];
 	char	*nbr;
