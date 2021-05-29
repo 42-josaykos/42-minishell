@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:56:57 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/29 14:31:33 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/29 15:20:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,21 @@ char	*set_var(char *ptr)
 	return (var);
 }
 
-void	assign_env(char *str, t_env **env_lst)
+void	assign_env(char *str, enum e_type type, t_env **env_lst)
 {
 	char	*env[2];
 	char	*ptr;
 
-	if (str[0] == '=' || !strchr(str, '='))
+	if (str[0] == '=' || (!strchr(str, '=') && type != VAR)
+		|| (str[0] == '\0' && type == ARG))
+	{
+		ft_putendl_fd("msh: not a valid identifier", STDERR);
+		g_sig.exit_status = 1;
 		return ;
+	}
 	env[0] = NULL;
 	env[1] = NULL;
 	ptr = NULL;
-	if (!str)
-	{
-		print_export_variables(*env_lst);
-		return ;
-	}
 	ptr = ft_strchr(str, '=');
 	if (ptr)
 	{
@@ -86,7 +86,7 @@ void	init_env(t_env **env_lst, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		assign_env(envp[i], env_lst);
+		assign_env(envp[i], ARG, env_lst);
 		i++;
 	}
 	return ;

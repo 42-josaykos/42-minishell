@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/29 12:40:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/29 15:13:08 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ void			builtin_unset(char **variables, t_env **env_lst);
 */
 
 void			init_env(t_env **env_lst, char **envp);
-void			assign_env(char *str, t_env **env_lst);
+void			assign_env(char *str, enum e_type type, t_env **env_lst);
 
 /*
 ** execs
