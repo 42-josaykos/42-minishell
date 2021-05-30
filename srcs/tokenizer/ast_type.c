@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 14:22:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/30 15:09:19 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/30 15:18:24 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static void	set_escape(t_ast *ptr)
 				|| ptr->right->value[0] == '\"' || ptr->right->value[0] == '\''
 				|| ptr->right->value[0] == '>' || ptr->right->value[0] == '<'
 				|| ptr->right->value[0] == '\\' || ptr->right->value[0] == '?'
-				|| ptr->right->value[0] == ';' || ptr->right->value[0] == '|'))
+				|| ptr->right->value[0] == ';' || ptr->right->value[0] == '|'
+				|| ptr->right->value[0] == ' '))
 		&& (ptr->left && ptr->left->type != ESCAPE))
 		set_type(ptr, ESCAPE);
 }
@@ -62,7 +63,7 @@ void	ast_check_type(t_ast **token)
 		if (ptr->value[0] == '\\')
 			set_escape(ptr);
 		else if (ptr->value[0] == ' ' || ptr->value[0] == '\t')
-			ptr->type = WHITESPACE;
+			set_type(ptr, WHITESPACE);
 		else if (ptr->value[0] == '$')
 		{
 			if (ptr->right)
