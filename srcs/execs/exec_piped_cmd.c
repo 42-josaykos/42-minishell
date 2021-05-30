@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 06:09:53 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 12:31:11 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/30 15:04:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void	exec_piped_cmd(t_state *st, t_env *env_lst, t_cmd *cmd_lst)
 		return ;
 	if (ret)
 		exec_builtin(ret, st, &env_lst, cmd_lst);
+	else if (!ft_strlen(*cmd_lst->args))
+		error_cmd(*cmd_lst->args);
 	else if (filepath_exists(env_lst, cmd_lst))
 		execve(*cmd_lst->args, cmd_lst->args, st->envp);
 }
