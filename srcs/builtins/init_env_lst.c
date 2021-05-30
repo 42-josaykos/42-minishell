@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:56:57 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/29 15:20:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/30 16:49:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void	assign_env(char *str, enum e_type type, t_env **env_lst)
 	char	*env[2];
 	char	*ptr;
 
-	if (str[0] == '=' || (!strchr(str, '=') && type != VAR)
-		|| (str[0] == '\0' && type == ARG))
+	if (str[0] == '=' || (str[0] == '\0' && type == ARG))
 	{
 		ft_putendl_fd("msh: not a valid identifier", STDERR);
 		g_sig.exit_status = 1;
