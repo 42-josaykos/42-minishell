@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:38:26 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/29 15:38:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/30 15:25:38 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	exec_builtin(int ret, t_state *status, t_env **env_lst, t_cmd *cmd_lst)
 	else if (ret == PWD)
 		print_cwd();
 	else if (ret == PRINT)
-		builtin_echo(cmd_lst->args, *env_lst, 0);
+		builtin_echo(cmd_lst->args, cmd_lst);
 	else if (ret == ENV)
 		print_env_lst(*env_lst);
 	else if (ret == UNSET)

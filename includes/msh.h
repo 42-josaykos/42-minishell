@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/29 15:13:08 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/30 15:24:39 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void			free_ast(t_ast **token);
 */
 
 int				cd(char *arg, t_env *env_lst);
-int				builtin_echo(char **arg, t_env *env_lst, int fd);
+int				builtin_echo(char **arg, t_cmd *cmd_lst);
 void			print_cwd(void);
 void			*export_env(t_env **env_lst, char *key, char *value);
 int				exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst);
