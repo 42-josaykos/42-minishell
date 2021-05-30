@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/27 12:47:10 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/30 15:01:47 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	default_exec(t_state *st, t_env **env_lst, t_cmd *cmd_lst,
 		error_cases(EINVAL, cmd, *cmd_lst->args);
 	else if (ret)
 		exec_builtin(ret, st, env_lst, cmd_lst);
+	else if (!ft_strlen(*cmd_lst->args))
+		error_cmd(*cmd_lst->args);
 	else if (*cmd_lst->args && filepath_exists(*env_lst, cmd_lst))
 		exec_cmd(st, cmd_lst->args);
 }
