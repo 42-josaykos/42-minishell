@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 12:21:19 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/30 15:46:57 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/30 16:41:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	builtin_echo(char **arg, t_cmd *cmd_lst)
 		if (*arg[i] != '\0')
 			ft_putstr_fd(arg[i], STDOUT);
 		if (arg[i + 1] && ((arg[i][0] == '\0' && cmd_lst->type[i] != VAR)
-			|| (arg[i][0] != '\0' && cmd_lst->type[i] == VAR)))
+			|| (arg[i][0] != '\0' && cmd_lst->type[i] == VAR)
+			|| cmd_lst->type[i] != VAR))
 			write(STDOUT, " ", 1);
 		i++;
 	}

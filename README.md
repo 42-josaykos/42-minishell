@@ -20,25 +20,13 @@
 
 25/05:
 
-- unset exit codes `unset "" test`
-- `export "" test=a`
-- fix has_syntax_error function
-- `echo bonjour >>> test`
-- `export test="ab[whitespaces]cd[whitespaces]ef"` --> `echo $test` --> test="ab cd ef"
-- error message `export $VAR=value` if VAR doesn't exist in env
-- `export $VAR=value`
-
-```bash
-bash-5.1$ env | grep HELLO
-HELLO=bonjour
-bash-5.1$ export $HELLO=test
-bash-5.1$ env | grep HELLO
-HELLO=bonjour
-bash-5.1$ env | grep bonjour
-bonjour=test
-HELLO=bonjour
-```
-
+- ~~exit codes `unset "" test`~~
+- ~~`export "" test=a`~~
+- ~~fix has_syntax_error function~~
+- ~~`echo bonjour >>> test`~~
+- ~~`export test="ab[whitespaces]cd[whitespaces]ef"` --> `echo $test` --> test="ab cd ef"~~
+- ~~error message `export $VAR=value` if VAR doesn't exist in env~~
+- ~~`export $VAR=value`~~
 - ~~handle cd with multiples env args: `cd $HOME/42cursus` --> parsing/interpreter.c/handle_variables()~~
 - ~~`echo $USER$var\$USER$USER\$USERtest$USER`~~
 - ~~executable with absolut and relative path: `cd srcs/` and `../minishell` --> parsing/parse_path.c/is_exec_path()~~
@@ -49,3 +37,12 @@ HELLO=bonjour
 - ~~`cat Makefile | grep pr | head -n 5 | cd file_not_exit` --> exit code in pipes~~
 - ~~`ls | exit`~~
 - ~~`pwd ; sleep 10 ; date` --> exit code~~
+
+Final tests ok 30/05:
+
+- ~`""`~
+- ~`echo bonjour \; ls` ---> escape character~
+- ~`echo bonjour > test\ 1` ---> escape character~
+- ~`echo $var bonjour` ---> whitespace~
+- `export test=" foo bar " ; echo ""$test"" | cat -e`
+- ~`export test="file1 file2" ; >"$test"` ---> error syntax~
