@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:22:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/30 16:28:48 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/31 17:22:33 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	is_invalid_type(enum e_type *types, int i)
 {
 	if (i == 0 && (!types[i + 1] || (types[i] == PIPE
 				|| types[i] == SEMICOLON)))
+		return (1);
+	else if (types[i] == SEMICOLON && (types[i + 1] == PIPE))
 		return (1);
 	else if (types[i] == SEMICOLON && (types[i + 1] != SEMICOLON))
 		return (0);
