@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/29 12:39:31 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/31 17:03:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	expand_new_args(char *buf, t_ast **new_tkn)
 		i++;
 	}
 	ft_bzero(buf, BUF_SIZE);
-	ft_strlcpy(buf, ptr[i], ft_strlen(ptr[i]) + 1);
+	if (ptr[i])
+		ft_strlcpy(buf, ptr[i], ft_strlen(ptr[i]) + 1);
 	free_2darray(ptr);
 }
 
