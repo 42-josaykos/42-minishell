@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/31 21:39:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/31 23:30:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_ast	*interpreter(t_ast **tkn, t_env *env_lst, char *buf)
 			handle_variables(buf, tkn, env_lst, &new_tkn);
 			if (((*tkn)->right && (*tkn)->right->type == WHITESPACE)
 				|| !(*tkn)->right)
-				add_new_node(buf, &new_tkn, VAR);
+				add_new_node(buf, &new_tkn, ARG);
 		}
 		else
 			ft_strcat(buf, (*tkn)->value);
