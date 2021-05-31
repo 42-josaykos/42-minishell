@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 16:48:24 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/31 17:36:11 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/31 17:39:13 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	change_directory(t_env *env_lst, char *str)
 	char	tmp[BUF_SIZE];
 
 	ret = 0;
+	ft_bzero(tmp, BUF_SIZE);
 	if (str[0] != '\0')
 	{
 		if (file_exists(str))
