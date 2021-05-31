@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 12:26:51 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/29 12:31:54 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/31 21:40:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	handle_variables_quotes(char *buf, t_ast *token, t_env *env_lst)
 	if (token->type == VAR)
 	{
 		ft_strlcpy(tmp, token->value, ft_strlen(token->value) + 1);
-		expand_var(buf, tmp, env_lst);
+		expand_var(buf, tmp, env_lst, &token);
 	}
 	else if (token->type == QUEST)
 	{

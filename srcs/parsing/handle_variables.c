@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/31 17:03:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/31 22:15:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ char	*ft_strsep_var(char **stringp, const char *delim)
 	return (tmp);
 }
 
-void	expand_var(char *buf, char *tmp, t_env *env_lst)
+void	expand_var(char *buf, char *tmp, t_env *env_lst, t_ast **token)
 {
 	char	*ptr;
 	char	*value;
+	t_ast	*vars;
+	(void)token;
 
 	ptr = NULL;
 	ptr = ft_strsep_var(&tmp, "/=");
@@ -52,7 +54,16 @@ void	expand_var(char *buf, char *tmp, t_env *env_lst)
 		free(ptr);
 	if (value)
 	{
-		ft_strcat(buf, value);
+		vars = parse_args(value);
+		while (vars->right)
+			vars = vars->right;
+		token_lst_remove(token);
+		vars->right = *token;
+		(*token)->left = vars;
+		while ((*token)->left)
+			*token = (*token)->left;
+
+		
 	}
 	if (tmp)
 		ft_strcat(buf, tmp);
@@ -92,21 +103,21 @@ void	expand_new_args(char *buf, t_ast **new_tkn)
 	free_2darray(ptr);
 }
 
-void	handle_variables(char *buf, t_ast *token, t_env *env_lst,
+void	handle_variables(char *buf, t_ast **token, t_env *env_lst,
 		t_ast **new_tkn)
 {
 	char	tmp[BUF_SIZE];
 	char	*nbr;
 
 	ft_bzero(tmp, BUF_SIZE);
-	if (token->type == VAR)
+	if ((*token)->type == VAR)
 	{
-		ft_strlcpy(tmp, token->value, ft_strlen(token->value) + 1);
-		expand_var(buf, tmp, env_lst);
+		ft_strlcpy(tmp, (*token)->value, ft_strlen((*token)->value) + 1);
+		expand_var(buf, tmp, env_lst, token);
 		if (have_whitespaces(buf))
 			expand_new_args(buf, new_tkn);
 	}
-	else if (token->type == QUEST)
+	else if ((*token)->type == QUEST)
 	{
 		if (g_sig.dollar_quote)
 		{
@@ -115,7 +126,7 @@ void	handle_variables(char *buf, t_ast *token, t_env *env_lst,
 			free(nbr);
 		}
 		else
-			ft_strcat(buf, token->value);
+			ft_strcat(buf, (*token)->value);
 	}
 	g_sig.dollar_quote = false;
 }
