@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/31 22:15:53 by jonny            ###   ########.fr       */
+/*   Updated: 2021/05/31 23:03:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,6 @@ char	*ft_strsep_var(char **stringp, const char *delim)
 	return (tmp);
 }
 
-void	expand_var(char *buf, char *tmp, t_env *env_lst, t_ast **token)
-{
-	char	*ptr;
-	char	*value;
-	t_ast	*vars;
-	(void)token;
-
-	ptr = NULL;
-	ptr = ft_strsep_var(&tmp, "/=");
-	value = get_env(env_lst, ptr);
-	if (ptr)
-		free(ptr);
-	if (value)
-	{
-		vars = parse_args(value);
-		while (vars->right)
-			vars = vars->right;
-		token_lst_remove(token);
-		vars->right = *token;
-		(*token)->left = vars;
-		while ((*token)->left)
-			*token = (*token)->left;
-
-		
-	}
-	if (tmp)
-		ft_strcat(buf, tmp);
-}
-
 int	have_whitespaces(char *buf)
 {
 	int	i;
@@ -83,24 +54,45 @@ int	have_whitespaces(char *buf)
 	return (0);
 }
 
-void	expand_new_args(char *buf, t_ast **new_tkn)
+void	expand_var(char *buf, char *tmp, t_env *env_lst, t_ast **token)
 {
-	int		i;
-	char	**ptr;
+	char	*ptr;
+	char	*value;
+	t_ast	*vars;
 
-	ptr = split_whitespace(buf);
-	i = 0;
-	while (i < tab_size(ptr) - 1)
+	ptr = NULL;
+	ptr = ft_strsep_var(&tmp, "/=");
+	value = get_env(env_lst, ptr);
+	if (ptr)
+		free(ptr);
+	if (value)
 	{
-		ft_bzero(buf, BUF_SIZE);
-		ft_strlcpy(buf, ptr[i], ft_strlen(ptr[i]) + 1);
-		add_new_node(buf, new_tkn, VAR);
-		i++;
+		if (have_whitespaces(value))
+		{
+			vars = parse_args(value);
+			if (!(*token)->right)
+			{
+				token_lst_remove(token);
+				(*token) = vars;
+				return ;
+			}
+			while (vars->right)
+				vars = vars->right;
+			token_lst_remove(token);
+			vars->right = *token;
+			(*token)->left = vars;
+			while ((*token)->left)
+				*token = (*token)->left;
+		}
+		else
+		{
+			free((*token)->value);
+			(*token)->value = ft_strdup(value);
+			(*token)->type = ARG;
+		}
 	}
-	ft_bzero(buf, BUF_SIZE);
-	if (ptr[i])
-		ft_strlcpy(buf, ptr[i], ft_strlen(ptr[i]) + 1);
-	free_2darray(ptr);
+	if (tmp)
+		ft_strcat(buf, tmp);
 }
 
 void	handle_variables(char *buf, t_ast **token, t_env *env_lst,
@@ -109,13 +101,12 @@ void	handle_variables(char *buf, t_ast **token, t_env *env_lst,
 	char	tmp[BUF_SIZE];
 	char	*nbr;
 
+	(void)new_tkn;
 	ft_bzero(tmp, BUF_SIZE);
 	if ((*token)->type == VAR)
 	{
 		ft_strlcpy(tmp, (*token)->value, ft_strlen((*token)->value) + 1);
 		expand_var(buf, tmp, env_lst, token);
-		if (have_whitespaces(buf))
-			expand_new_args(buf, new_tkn);
 	}
 	else if ((*token)->type == QUEST)
 	{
