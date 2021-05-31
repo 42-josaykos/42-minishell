@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alpascal <alpascal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 16:48:24 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/26 17:05:23 by alpascal         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:36:11 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-#include <dirent.h>
 
 /*
 ** Move to targeted directory
@@ -108,6 +107,7 @@ int	cd(char *arg, t_env *env_lst)
 
 	ret = 0;
 	str = cd_set_path(arg, env_lst);
+	ft_bzero(tmp, BUF_SIZE);
 	if (str == NULL)
 		return (error_env(arg));
 	getcwd(tmp, BUF_SIZE);
