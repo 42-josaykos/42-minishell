@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 13:02:43 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 12:45:46 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 15:19:55 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,6 @@ char	*ft_strsep(char **stringp, const char *delim)
 	return (tmp);
 }
 
-int	ft_readline2(char *tmp, char **str)
-{
-	int		len;
-
-	len = ft_strlen(tmp);
-	if (tmp[0] != 0 && tmp[len - 1] == '\n')
-	{
-		*str = ft_calloc(len + 1, sizeof(char));
-		ft_strlcpy(*str, tmp, len + 1);
-		return (1);
-	}
-	return (0);
-}
-
 void	check_buffer_overflow(char *buf, char *tmp)
 {
 	if (buf[BUF_SIZE - 1] != 0)
@@ -78,31 +64,16 @@ void	print_prompt(char *prompt, char *color)
 	ft_putstr_fd(RESET, STDERR);
 }
 
-char	*ft_readline(t_state *st, t_env *env_lst, char *prompt)
+int	have_whitespaces(char *buf)
 {
-	char	*str;
-	char	buf[BUF_SIZE];
-	char	tmp[BUF_SIZE];
-	int		ret;
+	int	i;
 
-	(void)st;
-	(void)env_lst;
-	ret = 0;
-	str = NULL;
-	ft_bzero(tmp, BUF_SIZE);
-	print_prompt(prompt, GREEN);
-	while (1)
+	i = 0;
+	while (buf[i])
 	{
-		ft_bzero(buf, BUF_SIZE);
-		ret = read(0, buf, BUF_SIZE);
-		if (ret == 0 && !ft_strlen(tmp))
-			return (NULL);
-		else
-		{
-			check_buffer_overflow(buf, tmp);
-			if (ft_readline2(tmp, &str))
-				break ;
-		}
+		if (ft_isblank(buf[i]))
+			return (1);
+		i++;
 	}
-	return (str);
+	return (0);
 }

@@ -6,25 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:08:29 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 13:09:51 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 15:22:18 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-
-int	have_whitespaces(char *buf)
-{
-	int	i;
-
-	i = 0;
-	while (buf[i])
-	{
-		if (ft_isblank(buf[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 char	*ft_strsep_var(char **stringp, const char *delim)
 {
@@ -54,11 +40,25 @@ char	*ft_strsep_var(char **stringp, const char *delim)
 	return (tmp);
 }
 
+void	set_arg_types(t_ast **vars)
+{
+	t_ast	*ptr;
+
+	ptr = *vars;
+	while (ptr)
+	{
+		if (ptr->type != WHITESPACE)
+			ptr->type = ARG;
+		ptr = ptr->right;
+	}
+}
+
 int	expand_var2(t_ast **token, char *value)
 {
 	t_ast	*vars;
 
 	vars = parse_args(value);
+	set_arg_types(&vars);
 	if (!(*token)->right)
 	{
 		token_lst_remove(token);
@@ -75,11 +75,27 @@ int	expand_var2(t_ast **token, char *value)
 	return (0);
 }
 
+void	expand_var3(char *buf, char *tmp, t_ast **token, char *value)
+{
+	free((*token)->value);
+	if (tmp)
+	{
+		ft_strlcat(buf, value, ft_strlen(value) + 1);
+		ft_strcat(buf, tmp);
+		(*token)->value = ft_strdup(buf);
+	}
+	else
+		(*token)->value = ft_strdup(value);
+	(*token)->type = ARG;
+}
+
 void	expand_var(char *tmp, t_env *env_lst, t_ast **token)
 {
 	char	*ptr;
 	char	*value;
+	char	buf[BUF_SIZE];
 
+	ft_bzero(buf, BUF_SIZE);
 	ptr = ft_strsep_var(&tmp, "/=");
 	value = get_env(env_lst, ptr);
 	if (ptr)
@@ -89,10 +105,6 @@ void	expand_var(char *tmp, t_env *env_lst, t_ast **token)
 		if (have_whitespaces(value))
 			expand_var2(token, value);
 		else
-		{
-			free((*token)->value);
-			(*token)->value = ft_strdup(value);
-			(*token)->type = ARG;
-		}
+			expand_var3(buf, tmp, token, value);
 	}
 }
