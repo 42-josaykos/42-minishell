@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 12:38:13 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 12:48:17 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst,
 	}
 	else if ((*tkn)->type == DBLQUOTE || (*tkn)->type == QUOTE)
 	{
+		g_sig.dollar_quote = true;
 		handle_quotes(tkn, buf, env_lst);
-		g_sig.dollar_quote = false;
 		if ((*tkn)->right && (*tkn)->right->type == DOLLAR)
 		{
 			token_lst_remove(tkn);
