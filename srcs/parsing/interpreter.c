@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 12:48:17 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 13:19:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst,
 	}
 	else if ((*tkn)->type == DBLQUOTE || (*tkn)->type == QUOTE)
 	{
-		g_sig.dollar_quote = true;
 		handle_quotes(tkn, buf, env_lst);
 		if ((*tkn)->right && (*tkn)->right->type == DOLLAR)
 		{
 			token_lst_remove(tkn);
 			token_lst_remove(tkn);
-			handle_variables(buf, tkn, env_lst, new_tkn);
+			handle_variables(buf, tkn, env_lst);
 			if (*tkn && (*tkn)->type == WHITESPACE && !(*buf))
 			{
 				new_node = create_node(ft_strdup(""), ARG);
@@ -82,7 +81,7 @@ t_ast	*interpreter(t_ast **tkn, t_env *env_lst, char *buf)
 			interpreter2(tkn, &new_tkn, env_lst, buf);
 		else if ((*tkn)->type == VAR || (*tkn)->type == QUEST)
 		{
-			handle_variables(buf, tkn, env_lst, &new_tkn);
+			handle_variables(buf, tkn, env_lst);
 			if (((*tkn)->right && (*tkn)->right->type == WHITESPACE && *buf)
 				|| !(*tkn)->right)
 				add_new_node(buf, &new_tkn, ARG);

@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 12:54:39 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 13:34:30 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,10 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 	handle_first_quote(token, buf, &type);
 	while (*token)
 	{
+		if ((*token)->type == DOLLAR)
+			g_sig.dollar_quote = true;
 		if (type == DBLQUOTE)
-		{
-			if ((*token)->type == VAR || (*token)->type == QUEST)
-				handle_variables_quotes(buf, token, env_lst);
-			else if ((*token)->type == ESCAPE && (*token)->right
-				&& (*token)->right->value[0] == '\'')
-				ft_strcat(buf, (*token)->value);
-			else if ((*token)->type != DOLLAR
-				&& (g_sig.dollar_quote || (*token)->type != ESCAPE)
-				&& (*token)->type != DBLQUOTE)
-				ft_strcat(buf, (*token)->value);
-		}
+			handle_dbl_quotes(token, buf, env_lst);
 		else if (type == QUOTE)
 			handle_quotes2(token, buf);
 		if ((*token)->type == type)
