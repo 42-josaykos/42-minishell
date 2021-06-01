@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 10:11:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 11:52:34 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	expand_var(char *buf, char *tmp, t_env *env_lst, t_ast **token)
 	char	*ptr;
 	char	*value;
 	t_ast	*vars;
+	(void)buf;
 
 	ptr = NULL;
 	ptr = ft_strsep_var(&tmp, "/=");
@@ -91,12 +92,6 @@ void	expand_var(char *buf, char *tmp, t_env *env_lst, t_ast **token)
 			(*token)->type = ARG;
 		}
 	}
-	if (value)
-	{
-		if (have_whitespaces(value))
-			return ;
-		ft_strcat(buf, (*token)->value);
-	}
 }
 
 void	handle_variables(char *buf, t_ast **token, t_env *env_lst,
@@ -111,6 +106,12 @@ void	handle_variables(char *buf, t_ast **token, t_env *env_lst,
 	{
 		ft_strlcpy(tmp, (*token)->value, ft_strlen((*token)->value) + 1);
 		expand_var(buf, tmp, env_lst, token);
+		if ((*token)->value)
+		{
+			if (have_whitespaces((*token)->value))
+				return ;
+			ft_strcat(buf, (*token)->value);
+		}
 	}
 	else if ((*token)->type == QUEST)
 	{
