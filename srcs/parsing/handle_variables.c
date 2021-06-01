@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 12:34:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 12:59:29 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,24 @@ void	expand_var(char *buf, char *tmp, t_env *env_lst, t_ast **token)
 	}
 }
 
+void	expand_exit_code(char *buf, t_ast **token)
+{
+	char	*nbr;
+
+	if (g_sig.dollar_quote)
+	{
+		nbr = ft_itoa(g_sig.exit_status);
+		ft_strcat(buf, nbr);
+		free(nbr);
+	}
+	else
+		ft_strcat(buf, (*token)->value);
+}
+
 void	handle_variables(char *buf, t_ast **token, t_env *env_lst,
 		t_ast **new_tkn)
 {
 	char	tmp[BUF_SIZE];
-	char	*nbr;
 
 	(void)new_tkn;
 	ft_bzero(tmp, BUF_SIZE);
@@ -115,15 +128,5 @@ void	handle_variables(char *buf, t_ast **token, t_env *env_lst,
 		}
 	}
 	else if ((*token)->type == QUEST)
-	{
-		if (g_sig.dollar_quote)
-		{
-			nbr = ft_itoa(g_sig.exit_status);
-			ft_strcat(buf, nbr);
-			free(nbr);
-		}
-		else
-			ft_strcat(buf, (*token)->value);
-	}
-	g_sig.dollar_quote = false;
+		expand_exit_code(buf, token);
 }

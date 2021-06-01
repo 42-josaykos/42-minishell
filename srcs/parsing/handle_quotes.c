@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/31 22:25:21 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 12:54:39 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,5 @@ void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 			break ;
 		token_lst_remove(token);
 	}
+	g_sig.dollar_quote = false;
 }
