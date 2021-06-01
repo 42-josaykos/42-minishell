@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 12:22:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 12:34:21 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void	handle_variables(char *buf, t_ast **token, t_env *env_lst,
 		{
 			if (have_whitespaces((*token)->value))
 				return ;
-			ft_strcat(buf, (*token)->value);
+			if ((*token) && (*token)->type != VAR)
+				ft_strcat(buf, (*token)->value);
 		}
 	}
 	else if ((*token)->type == QUEST)

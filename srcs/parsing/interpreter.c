@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 12:20:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 12:38:13 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst,
 			token_lst_remove(tkn);
 			token_lst_remove(tkn);
 			handle_variables(buf, tkn, env_lst, new_tkn);
-			if (*tkn && (*tkn)->type == WHITESPACE)
+			if (*tkn && (*tkn)->type == WHITESPACE && !(*buf))
 			{
 				new_node = create_node(ft_strdup(""), ARG);
 				ast_add(new_tkn, new_node);
