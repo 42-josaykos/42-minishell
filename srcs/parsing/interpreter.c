@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 13:19:53 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 15:46:57 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ static bool	spc_tkn(t_ast *tkn)
 		|| tkn->type == INPUT)
 		return (true);
 	return (false);
+}
+
+void	add_empty_node(t_ast **new_tkn)
+{
+	t_ast	*new_node;
+
+	new_node = create_node(ft_strdup(""), ARG);
+	ast_add(new_tkn, new_node);
 }
 
 void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst,
@@ -40,18 +48,12 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst,
 			token_lst_remove(tkn);
 			handle_variables(buf, tkn, env_lst);
 			if (*tkn && (*tkn)->type == WHITESPACE && !(*buf))
-			{
-				new_node = create_node(ft_strdup(""), ARG);
-				ast_add(new_tkn, new_node);
-			}
+				add_empty_node(new_tkn);
 		}
 		if (!(*buf) && (!(*tkn)->right || ((*tkn)->right
 					&& (*tkn)->right->type != ARG
 					&& (*tkn)->right->type != DBLQUOTE)))
-		{
-			new_node = create_node(ft_strdup(""), ARG);
-			ast_add(new_tkn, new_node);
-		}
+			add_empty_node(new_tkn);
 	}
 }
 
@@ -84,7 +86,7 @@ t_ast	*interpreter(t_ast **tkn, t_env *env_lst, char *buf)
 			handle_variables(buf, tkn, env_lst);
 			if (((*tkn)->right && (*tkn)->right->type == WHITESPACE && *buf)
 				|| !(*tkn)->right)
-				add_new_node(buf, &new_tkn, ARG);
+				add_new_node(buf, &new_tkn, VAR);
 		}
 		else
 			ft_strcat(buf, (*tkn)->value);
