@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 13:34:14 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 17:32:42 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,12 +175,13 @@ void			catch_signal(void);
 ** parsing
 */
 
+void			add_empty_node(t_ast **new_tkn);
 void			handle_dbl_quotes(t_ast **token, char *buf, t_env *env_lst);
 int				have_whitespaces(char *buf);
 void			expand_exit_code(char *buf, t_ast **token);
 void			expand_var(char *tmp, t_env *env_lst, t_ast **token);
 void			handle_quotes(t_ast **token, char *buf, t_env *env_lst);
-void			handle_variables(char *buf, t_ast **token, t_env *env_lst);
+int				handle_variables(char *buf, t_ast **token, t_env *env_lst);
 void			handle_variables_quotes(char *buf, t_ast **token,
 					t_env *env_lst);
 void			parse_cmdline(t_state *st, t_env **env_lst, t_cmd *cmd_lst,

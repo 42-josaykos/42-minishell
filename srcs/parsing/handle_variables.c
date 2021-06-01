@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 13:10:58 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 17:27:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	expand_exit_code(char *buf, t_ast **token)
 		ft_strcat(buf, (*token)->value);
 }
 
-void	handle_variables(char *buf, t_ast **token, t_env *env_lst)
+int	handle_variables(char *buf, t_ast **token, t_env *env_lst)
 {
 	char	tmp[BUF_SIZE];
 
@@ -38,11 +38,12 @@ void	handle_variables(char *buf, t_ast **token, t_env *env_lst)
 		if ((*token)->value)
 		{
 			if (have_whitespaces((*token)->value))
-				return ;
+				return (1);
 			if ((*token) && (*token)->type != VAR)
 				ft_strcat(buf, (*token)->value);
 		}
 	}
 	else if ((*token)->type == QUEST)
 		expand_exit_code(buf, token);
+	return (0);
 }
