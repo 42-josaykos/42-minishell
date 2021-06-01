@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/31 23:23:02 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 10:11:00 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ void	expand_var(char *buf, char *tmp, t_env *env_lst, t_ast **token)
 		}
 	}
 	if (value)
+	{
+		if (have_whitespaces(value))
+			return ;
 		ft_strcat(buf, (*token)->value);
+	}
 }
 
 void	handle_variables(char *buf, t_ast **token, t_env *env_lst,

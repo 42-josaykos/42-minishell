@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:32:40 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/24 16:31:00 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 09:56:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	parse_pipe(t_cmd *cmd_lst, t_cmd **piped_cmd)
 
 	i = 0;
 	index = 0;
+	new_cmd = NULL;
 	while (1)
 	{
 		if (cmd_lst->type[i] == PIPE || cmd_lst->type[i] == VOID)
