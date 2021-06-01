@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 11:17:39 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 11:52:34 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/01 12:22:59 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	expand_var(char *buf, char *tmp, t_env *env_lst, t_ast **token)
 	char	*ptr;
 	char	*value;
 	t_ast	*vars;
-	(void)buf;
 
+	(void)buf;
 	ptr = NULL;
 	ptr = ft_strsep_var(&tmp, "/=");
 	value = get_env(env_lst, ptr);
