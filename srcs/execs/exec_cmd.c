@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/30 15:01:47 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/02 17:23:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,11 @@ void	cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst)
 {
 	char			*cmd;
 
-	sig_init();
+	// sig_init();
+	g_sig.sigint = 0;
+	g_sig.sigquit = 0;
+	g_sig.pipe = 0;
+	g_sig.pid = 0;
 	while (cmd_lst && *cmd_lst->args && g_sig.sigint == 0)
 	{
 		if (check_pipe(cmd_lst))
@@ -70,7 +74,7 @@ void	cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst)
 		else
 		{
 			parse_redirection(st, cmd_lst);
-			if (cmd_lst && *cmd_lst->args && g_sig.exit_status != 1)
+			if (cmd_lst && *cmd_lst->args && (g_sig.exit_status != 1 || !ft_strncmp(*cmd_lst->args, "exit", 5)))
 			{
 				cmd = *cmd_lst->args;
 				default_exec(st, env_lst, cmd_lst, cmd);
