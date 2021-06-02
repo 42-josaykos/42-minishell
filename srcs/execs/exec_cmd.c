@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 12:21:20 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/02 17:38:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/02 18:19:53 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	cmd_handler(t_state *st, t_env **env_lst, t_cmd *cmd_lst)
 			parse_redirection(st, cmd_lst);
 			if (cmd_lst && *cmd_lst->args && g_sig.exit_status != 1)
 				cmd_handler2(cmd_lst, st, env_lst);
-			else if (!ft_strncmp(*cmd_lst->args, "exit", 5))
+			else if (cmd_lst && *cmd_lst->args
+				&& !ft_strncmp(*cmd_lst->args, "exit", 5))
 				cmd_handler2(cmd_lst, st, env_lst);
 		}
 		cmd_lst = cmd_lst->next;
