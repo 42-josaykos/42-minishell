@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:07:31 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 17:35:35 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/02 10:47:35 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst,
 	else if ((*tkn)->type == DBLQUOTE || (*tkn)->type == QUOTE)
 	{
 		handle_quotes(tkn, buf, env_lst);
-		if ((*tkn)->right && (*tkn)->right->type == DOLLAR)
+		if (*tkn && (*tkn)->right && (*tkn)->right->type == DOLLAR)
 		{
 			token_lst_remove(tkn);
 			token_lst_remove(tkn);
@@ -42,7 +42,7 @@ void	interpreter2(t_ast **tkn, t_ast **new_tkn, t_env *env_lst,
 			if (*tkn && (*tkn)->type == WHITESPACE && !(*buf))
 				add_empty_node(new_tkn);
 		}
-		if (!(*buf) && (!(*tkn)->right || ((*tkn)->right
+		if (!(*buf) && *tkn && (!(*tkn)->right || ((*tkn)->right
 					&& (*tkn)->right->type != ARG
 					&& (*tkn)->right->type != DBLQUOTE)))
 			add_empty_node(new_tkn);
