@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:26:25 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/02 17:34:59 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/02 17:41:07 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	sig_init(char *cmd)
 	g_sig.sigquit = 0;
 	g_sig.pipe = 0;
 	g_sig.pid = 0;
-	if (ft_strncmp(cmd, "exit", 5))
+	if (!cmd || ft_strncmp(cmd, "exit", 5))
 		g_sig.exit_status = 0;
 }
 

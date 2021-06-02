@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 17:10:46 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 12:40:36 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/02 17:40:27 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_msh(t_state **st, t_env **env_lst, char **envp)
 	tmp = NULL;
 	ft_bzero(buf, BUF_SIZE);
 	init_fds(st);
-	sig_init();
+	sig_init(NULL);
 	init_env(env_lst, envp);
 	tmp = get_env(*env_lst, "SHLVL");
 	if (tmp != NULL)
