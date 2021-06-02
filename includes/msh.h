@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 17:32:42 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/02 17:39:12 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void			ft_close(int fd);
 ** signal
 */
 
-void			sig_init(void);
+void			sig_init(char *cmd);
 void			handle_signal(int signal);
 void			catch_signal(void);
 
