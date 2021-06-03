@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/05/17 12:42:08 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/03 11:18:15 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ void	parse_cmds(t_ast **token, t_cmd **cmd_lst)
 	}
 	create_new_cmd(cmd_lst, tmp, type);
 	i = 0;
-	while (tmp[i])
+	while (i < BUF_SIZE && tmp[i])
 	{
-		free(tmp[i]);
 		tmp[i] = NULL;
 		i++;
 	}
