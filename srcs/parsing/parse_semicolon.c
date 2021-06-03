@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 11:56:34 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/03 11:18:15 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/03 16:35:14 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ static void	create_new_cmd(t_cmd **cmd_lst, char **tmp,
 	*cmd_lst = new_cmd;
 }
 
+void	init_tmp(char **tmp)
+{
+	int	i;
+
+	i = 0;
+	while (i < BUF_SIZE)
+		tmp[i++] = NULL;
+}
+
 void	parse_cmds(t_ast **token, t_cmd **cmd_lst)
 {
 	int			j;
@@ -55,7 +64,7 @@ void	parse_cmds(t_ast **token, t_cmd **cmd_lst)
 	enum e_type	type[BUF_SIZE];
 
 	j = 0;
-	ft_bzero(tmp, BUF_SIZE);
+	init_tmp(tmp);
 	ft_bzero(type, BUF_SIZE);
 	while (*token && (*token)->type != SEMICOLON)
 	{
@@ -66,8 +75,9 @@ void	parse_cmds(t_ast **token, t_cmd **cmd_lst)
 	}
 	create_new_cmd(cmd_lst, tmp, type);
 	i = 0;
-	while (i < BUF_SIZE && tmp[i])
+	while (tmp[i])
 	{
+		free(tmp[i]);
 		tmp[i] = NULL;
 		i++;
 	}
