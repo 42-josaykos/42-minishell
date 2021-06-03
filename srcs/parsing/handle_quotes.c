@@ -6,53 +6,11 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:38:04 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/01 13:34:30 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/03 11:58:36 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/msh.h"
-
-/*
-** https://www.gnu.org/software/bash/manual/bash.html#ANSI_002dC-Quoting
-*/
-
-bool	is_ansi_c_quoting2(char **str, char c)
-{
-	if (c == 'r')
-		*str = "\r";
-	else if (c == 't')
-		*str = "\t";
-	else if (c == 'v')
-		*str = "\v";
-	else if (c == '\\')
-		*str = "\\";
-	else if (c == '\'')
-		*str = "\'";
-	else if (c == '\"')
-		*str = "\"";
-	else if (c == '\?')
-		*str = "\?";
-	if (!ft_strlen(*str))
-		return (false);
-	return (true);
-}
-
-bool	is_ansi_c_quoting(char **str, char c)
-{
-	if (c == 'a')
-		*str = "\a";
-	else if (c == 'b')
-		*str = "\b";
-	else if (c == 'e')
-		*str = "\e";
-	else if (c == 'E')
-		*str = "\E";
-	else if (c == 'f')
-		*str = "\f";
-	else if (c == 'n')
-		*str = "\n";
-	return (is_ansi_c_quoting2(str, c));
-}
 
 static void	handle_quotes2(t_ast **token, char *buf)
 {
@@ -100,12 +58,31 @@ int	handle_first_quote(t_ast **token, char *buf,
 	return (0);
 }
 
+void	change_type(t_ast **token)
+{
+	t_ast	*ptr;
+
+	ptr = *token;
+	while (ptr)
+	{
+		if (!ft_strncmp(ptr->value, "\'", 2))
+		{
+			ptr->type = QUOTE;
+			break ;
+		}
+		ptr->type = ARG;
+		ptr = ptr->right;
+	}
+}
+
 void	handle_quotes(t_ast **token, char *buf, t_env *env_lst)
 {
 	enum e_type	type;
 
 	type = QUOTE;
 	handle_first_quote(token, buf, &type);
+	if (type == QUOTE)
+		change_type(token);
 	while (*token)
 	{
 		if ((*token)->type == DOLLAR)

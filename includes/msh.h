@@ -6,7 +6,7 @@
 /*   By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:42:59 by jonny             #+#    #+#             */
-/*   Updated: 2021/06/02 17:39:12 by jonny            ###   ########.fr       */
+/*   Updated: 2021/06/03 11:57:56 by jonny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ int				parse_semicolon(t_cmd **cmd_lst);
 int				file_exists(char *filename);
 bool			filepath_exists(t_env *env_lst, t_cmd *cmd_lst);
 void			add_new_node(char *buf, t_ast **new_tkn, enum e_type type);
+bool			is_ansi_c_quoting(char **str, char c);
 
 /*
 ** tokenizer

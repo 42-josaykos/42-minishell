@@ -6,7 +6,7 @@
 #    By: jonny <josaykos@student.42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 11:38:29 by jonny             #+#    #+#              #
-#    Updated: 2021/06/01 17:33:10 by jonny            ###   ########.fr        #
+#    Updated: 2021/06/03 11:58:54 by jonny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC_NAME	=	main.c \
 						parsing/parse_path.c \
 						parsing/parse_pipe.c \
 						parsing/parse_semicolon.c \
+						parsing/ansi_c_quoting.c \
 						redirection/fds_handlers.c \
 						redirection/fds_redir.c \
 						redirection/redirection.c \
